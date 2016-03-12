@@ -1,15 +1,16 @@
 #include <iostream>
 #include <armadillo>
 
-using namespace std;
-using namespace arma;
 
 int main()
 {
+    using namespace std;
+    using namespace arma;
+
     cout << "Hello World!" << endl;
 
-    vec a = { 1 , 2 };
-    cout << a << endl;
+    mat a = { {1,0} , {0,1} };
+    cout << inv(a) << endl;
 
     return 0;
 }
