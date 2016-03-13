@@ -1,7 +1,6 @@
 #include <iostream>
 #include <armadillo>
 
-
 int main()
 {
     using namespace std;
