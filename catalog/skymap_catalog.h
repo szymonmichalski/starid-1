@@ -1,0 +1,4 @@
+#ifndef SKYMAP_CATALOG_H
+#define SKYMAP_CATALOG_H
+
+#endif // SKYMAP_CATALOG_H
