@@ -1,5 +1,3 @@
-#include <memory>
-
 #include "catalog/skymap_catalog.h"
 
 int main()
