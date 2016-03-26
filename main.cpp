@@ -1,10 +1,10 @@
-#include "catalog/skymap_catalog.h"
+#include "catalog.h"
 
 int main()
 {
 
-    SkymapCatalog catalog;
-    catalog.ReadCatalog();
+    Catalog catalog;
+    catalog.ReadCatalogFile();
 
     return 0;
 }

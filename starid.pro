@@ -4,8 +4,8 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    skymap_catalog.cpp
+    catalog.cpp
 
 HEADERS += \
-    skymap_catalog.h \
-    definitions.h
+    definitions.h \
+    catalog.h
