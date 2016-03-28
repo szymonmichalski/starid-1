@@ -7,5 +7,6 @@ SOURCES += main.cpp \
     catalog.cpp
 
 HEADERS += \
-    definitions.h \
-    catalog.h
+    catalog.h \
+    indexfinder.h \
+    def.h

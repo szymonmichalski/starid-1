@@ -1,24 +1,26 @@
 #include <iostream>
 #include <fstream>
-#include <assert.h>
+#include <cassert>
 
 #include "catalog.h"
-#include "definitions.h"
 
-int Catalog::ReadCatalogFile()
+Catalog::Catalog(const std::string& catalog_file, double years_from_j2000, double max_mv)
 {
-    std::chrono::time_point<std::chrono::system_clock> current_time {std::chrono::system_clock::now()};
-    std::time_t catalog_time {std::chrono::system_clock::to_time_t(current_time)};
-    years_from_j2000_ = (catalog_time - double(kUnixTimeToJ2000Offset)) / 31557600.0; // julian years
-
-    std::ifstream catfile ("../SKYMAP_SKY2000_V5R4.txt");
-    int good_lines {0};
-    int bad_lines {0};
+    std::ifstream catfile (catalog_file);
+    int good_stars {0};
+    int dim_stars {0};
+    int error_stars {0};
     if (catfile.is_open()) {
         std::string line;
         while (std::getline(catfile, line)) {
             try {
                 Star star;
+                try {star.mv1 = std::stof(line.substr(232,6));} catch(...){}
+                if (star.mv1 > max_mv) {
+                    ++dim_stars;
+                    continue;
+                }
+
                 star.iau_identifier = line.substr(0,27);
                 try {star.star_name = line.substr(98,10);} catch(...){}
                 try {star.variablestar_name = line.substr(108,10);} catch(...){}
@@ -30,7 +32,6 @@ int Catalog::ReadCatalogFile()
                 try {star.wds_number = std::stoi(line.substr(67,6));} catch(...){}
                 try {star.ppm_number = std::stoi(line.substr(83,7));} catch(...){}
                 try {star.blended_position = std::stoi(line.substr(146,1));} catch(...){}
-                try {star.mv1 = std::stof(line.substr(232,6));} catch(...){}
                 double rah = std::stof(line.substr(118,2));
                 double ram = std::stof(line.substr(120,2));
                 double ras = std::stof(line.substr(122,7));
@@ -44,22 +45,27 @@ int Catalog::ReadCatalogFile()
                 star.ra_degrees = 15.0 * (rah + ram/60.0 + ras/3600.0);
                 star.dec_degrees = decd + decm/60.0 + decs/3600.0;
                 if (line.substr(129,1).compare("-")) star.dec_degrees = -1.0 * star.dec_degrees;
-                star.ra_degrees += (years_from_j2000_ * pmra_arcsec_per_year) / 3600.0;
-                star.dec_degrees += (years_from_j2000_ * pmdec_arcsec_per_year) / 3600.0;
-                assert(star.ra_degrees >= 0.0 && star.ra_degrees <= 360.0);
-                assert(star.dec_degrees >= -90.0 && star.dec_degrees <= 90.0);
+                star.ra_degrees += (years_from_j2000 * pmra_arcsec_per_year) / 3600.0;
+                star.dec_degrees += (years_from_j2000 * pmdec_arcsec_per_year) / 3600.0;
+                assert (star.ra_degrees >= 0.0 && star.ra_degrees <= 360.0);
+                assert (star.dec_degrees >= -90.0 && star.dec_degrees <= 90.0);
+                star.ra = star.ra_degrees*pi/180.0;
+                star.dec = star.dec_degrees*pi/180.0;
+                Def::UnitVector unit_vector(star.ra, star.dec);
+                star.x = unit_vector.x;
+                star.y = unit_vector.y;
+                star.z = unit_vector.z;
 
                 stars_.push_back(star);
-                ++good_lines;
-//                std::cout << star.iau_identifier << ", " << star.skymap_number << ", " << star.mv1 << "\n";
+                ++good_stars;
             } catch (...) {
-                ++bad_lines;
+                ++error_stars;
             }
         }
         catfile.close();
-        std::cout << "good lines " << good_lines << " bad lines " << bad_lines << "\n";
+        std::cout << "good stars " << good_stars << " dim stars " << dim_stars << " error_stars " << error_stars << "\n";
+    } else {
+        std::cout << "catalog file not found" << "\n";
     }
-    else std::cout << "catalog file not found" << "\n";
-    return 0;
 }
 
