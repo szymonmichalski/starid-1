@@ -4,9 +4,10 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    catalog.cpp
+    catalog.cpp \
+    indexfinder.cpp
 
 HEADERS += \
     catalog.h \
     indexfinder.h \
-    def.h
+    util.h

@@ -3,14 +3,19 @@
 
 #include <vector>
 
-class IndexFinder
-{
+namespace indexfinder {
+
+// doubles are physical values to be sorted then searched
+// ints are indexes refering back to the original symbol table
+class IndexFinder {
 public:
+    bool sortDoubles(std::vector<std::pair<double,int>>& pairs);
+    std::vector<int> findIndexes(double low, double hi);
 
-    // doubles are the physical values to be sorted and searched
-    // indexes refer back to the original symbol table
-    IndexFinder(std::vector<std::pair<double,int>>& doubles_with_indexes);
-
+private:
+    std::vector<std::pair<double,int>> pairs_;
 };
+
+}
 #endif
 

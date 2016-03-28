@@ -1,10 +1,12 @@
 #ifndef CATALOG_H
 #define CATALOG_H
 
+#include "util.h"
+#include "indexfinder.h"
 #include <string>
 #include <vector>
 
-#include "def.h"
+namespace catalog {
 
 struct Star {
     std::string iau_identifier {""};
@@ -28,14 +30,22 @@ struct Star {
     double z {0.0};
 };
 
-class Catalog
-{
+class Catalog {
 public:
     Catalog(const std::string& catalog_file, double years_from_j2000=0.0, double max_mv=7.2);
+    std::vector<int> StarsNearPoint(const double ra, const double dec, const double radius);
+    void printStar(int);
 
 private:
     std::vector<Star> stars_;
-
+    indexfinder::IndexFinder xfinder_;
+    indexfinder::IndexFinder yfinder_;
+    indexfinder::IndexFinder zfinder_;
+    std::vector<std::pair<double,int>> xpairs_;
+    std::vector<std::pair<double,int>> ypairs_;
+    std::vector<std::pair<double,int>> zpairs_;
 };
+
+}
 
 #endif
