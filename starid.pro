@@ -11,3 +11,6 @@ HEADERS += \
     catalog.h \
     indexfinder.h \
     util.h
+
+DISTFILES += \
+    LICENSE.txt
