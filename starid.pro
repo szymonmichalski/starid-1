@@ -13,4 +13,5 @@ HEADERS += \
     util.h
 
 DISTFILES += \
-    LICENSE.txt
+    LICENSE.txt \
+    README.md
