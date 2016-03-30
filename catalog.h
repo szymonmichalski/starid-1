@@ -34,7 +34,7 @@ class Catalog {
 public:
     Catalog(const std::string& catalog_file, double years_from_j2000=0.0, double max_mv=7.2);
     std::vector<int> StarsNearPoint(const double ra, const double dec, const double radius);
-    void printStar(int);
+    void PrintStar(int);
 
 private:
     std::vector<Star> stars_;
@@ -44,6 +44,8 @@ private:
     std::vector<std::pair<double,int>> xpairs_;
     std::vector<std::pair<double,int>> ypairs_;
     std::vector<std::pair<double,int>> zpairs_;
+
+    std::vector<int> StarsInRing(double p, double radius, indexfinder::IndexFinder& finder);
 };
 
 }

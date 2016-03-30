@@ -17,7 +17,7 @@ int main()
     std::vector<int> indexes = catalog.StarsNearPoint(util::kRaCass, util::kDecCass, radius);
 
     for (auto ndx : indexes) {
-        catalog.printStar(ndx);
+        catalog.PrintStar(ndx);
     }
 
     return 0;

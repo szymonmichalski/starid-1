@@ -40,11 +40,11 @@ catalog::Catalog::Catalog(const std::string& catalog_file, double years_from_j20
                 double decs = std::stof(line.substr(134,6));
                 double pmra_arcsec_per_year = 15.0 * std::stof(line.substr(149,8));
                 double pmdec_arcsec_per_year = std::stof(line.substr(158,7));
-                if (line.substr(157,1).compare("-")) pmdec_arcsec_per_year = -1.0 * pmdec_arcsec_per_year;
+                if (line.substr(157,1) == "-") pmdec_arcsec_per_year = -1.0 * pmdec_arcsec_per_year;
 
                 star.ra_degrees = 15.0 * (rah + ram/60.0 + ras/3600.0);
                 star.dec_degrees = decd + decm/60.0 + decs/3600.0;
-                if (line.substr(129,1).compare("+")) star.dec_degrees = -1.0 * star.dec_degrees;
+                if (line.substr(129,1) == "-") star.dec_degrees = -1.0 * star.dec_degrees;
                 star.ra_degrees += (years_from_j2000 * pmra_arcsec_per_year) / 3600.0;
                 star.dec_degrees += (years_from_j2000 * pmdec_arcsec_per_year) / 3600.0;
                 assert (star.ra_degrees >= 0.0 && star.ra_degrees <= 360.0);
@@ -91,65 +91,35 @@ catalog::Catalog::Catalog(const std::string& catalog_file, double years_from_j20
 
 std::vector<int> catalog::Catalog::StarsNearPoint(const double ra, const double dec, const double radius) {
     util::UnitVector unit_vector(ra, dec);
-
-    double xmin, xmax;
-    double x {unit_vector.x};
-    if (x >= cos(radius)) {
-        xmin = x*cos(radius) - sqrt(1-(x*x))*sin(radius);
-        xmax = 1.0;
-    } else if (x <= -cos(radius)) {
-        xmin = -1.0;
-        xmax = x*cos(radius) + sqrt(1-(x*x))*sin(radius);
-    } else {
-        xmin = x*cos(radius) - sqrt(1-(x*x))*sin(radius);
-        xmax = x*cos(radius) + sqrt(1-(x*x))*sin(radius);
-    }
-    assert (xmin >= -1.0 && xmax <= 1.0);
-    std::vector<int> xring = xfinder_.findIndexes(xmin, xmax);
-    std::sort(xring.begin(),xring.end());
-
-    double ymin, ymax;
-    double y {unit_vector.y};
-    if (y >= cos(radius)) {
-        ymin = y*cos(radius) - sqrt(1-(y*y))*sin(radius);
-        ymax = 1.0;
-    } else if (y <= -cos(radius)) {
-        ymin = -1.0;
-        ymax = y*cos(radius) + sqrt(1-(y*y))*sin(radius);
-    } else {
-        ymin = y*cos(radius) - sqrt(1-(y*y))*sin(radius);
-        ymax = y*cos(radius) + sqrt(1-(y*y))*sin(radius);
-    }
-    assert (ymin >= -1.0 && ymax <= 1.0);
-    std::vector<int> yring = yfinder_.findIndexes(ymin, ymax);
-    std::sort(yring.begin(),yring.end());
-
-    double zmin, zmax;
-    double z {unit_vector.z};
-    if (z >= cos(radius)) {
-        zmin = z*cos(radius) - sqrt(1-(z*z))*sin(radius);
-        zmax = 1.0;
-    } else if (z <= -cos(radius)) {
-        zmin = -1.0;
-        zmax = z*cos(radius) + sqrt(1-(z*z))*sin(radius);
-    } else {
-        zmin = z*cos(radius) - sqrt(1-(z*z))*sin(radius);
-        zmax = z*cos(radius) + sqrt(1-(z*z))*sin(radius);
-    }
-    assert (zmin >= -1.0 && zmax <= 1.0);
-    std::vector<int> zring = zfinder_.findIndexes(zmin, zmax);
-    std::sort(zring.begin(),zring.end());
-
+    std::vector<int> xring = StarsInRing(unit_vector.x, radius, xfinder_);
+    std::vector<int> yring = StarsInRing(unit_vector.y, radius, yfinder_);
+    std::vector<int> zring = StarsInRing(unit_vector.z, radius, zfinder_);
     std::vector<int> xy;
-    std::set_intersection(xring.begin(),xring.end(),yring.begin(),yring.end(),
-                          std::back_inserter(xy));
+    std::set_intersection(xring.begin(), xring.end(), yring.begin(), yring.end(), std::back_inserter(xy));
     std::vector<int> xyz;
-    std::set_intersection(xy.begin(),xy.end(),zring.begin(),zring.end(),
-                          std::back_inserter(xyz));
+    std::set_intersection(xy.begin(), xy.end(), zring.begin(), zring.end(), std::back_inserter(xyz));
 
     return xyz;
 }
 
-void catalog::Catalog::printStar(int ndx) {
+std::vector<int> catalog::Catalog::StarsInRing(double p, double radius, indexfinder::IndexFinder& finder) {
+    double pmin, pmax;
+    if (p >= cos(radius)) {
+        pmin = p*cos(radius) - sqrt(1-(p*p))*sin(radius);
+        pmax = 1.0;
+    } else if (p <= -cos(radius)) {
+        pmin = -1.0;
+        pmax = p*cos(radius) + sqrt(1-(p*p))*sin(radius);
+    } else {
+        pmin = p*cos(radius) - sqrt(1-(p*p))*sin(radius);
+        pmax = p*cos(radius) + sqrt(1-(p*p))*sin(radius);
+    }
+    assert (pmin >= -1.0 && pmax <= 1.0);
+    std::vector<int> ring = finder.findIndexes(pmin, pmax);
+    std::sort(ring.begin(),ring.end());
+    return ring;
+}
+
+void catalog::Catalog::PrintStar(int ndx) {
     std::cout << ndx << " " << stars_[ndx].star_name << "\n";
 }
