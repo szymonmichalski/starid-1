@@ -7,7 +7,7 @@
 catalog::Catalog::Catalog(const std::string& catalog_file, double years_from_j2000, double max_mv)
 {
     std::ifstream catfile (catalog_file);
-    int good_stars {0};
+    int ndx {0};
     int dim_stars {0};
     int error_stars {0};
     if (catfile.is_open()) {
@@ -55,34 +55,23 @@ catalog::Catalog::Catalog(const std::string& catalog_file, double years_from_j20
                 star.x = unit_vector.x;
                 star.y = unit_vector.y;
                 star.z = unit_vector.z;
+                std::pair<double,int> xpair {star.x, ndx};
+                std::pair<double,int> ypair {star.y, ndx};
+                std::pair<double,int> zpair {star.z, ndx};
 
+                xpairs_.push_back(xpair);
+                ypairs_.push_back(ypair);
+                zpairs_.push_back(zpair);
                 stars_.push_back(star);
-                ++good_stars;
+                ++ndx;
             } catch (...) {
                 ++error_stars;
             }
         }
         catfile.close();
-        std::cout << "good stars " << good_stars << " dim stars " << dim_stars << " error_stars " << error_stars << "\n";
+        std::cout << "stars " << ndx << " dim stars " << dim_stars << " error_stars " << error_stars << "\n";
     } else {
         std::cout << "catalog file not found" << "\n";
-    }
-
-    int ndx = 0;
-    for (catalog::Star star : stars_) {
-        std::pair<double,int> xpair;
-        xpair.first = star.x;
-        xpair.second = ndx;
-        xpairs_.push_back(xpair);
-        std::pair<double,int> ypair;
-        ypair.first = star.y;
-        ypair.second = ndx;
-        ypairs_.push_back(ypair);
-        std::pair<double,int> zpair;
-        zpair.first = star.z;
-        zpair.second = ndx;
-        zpairs_.push_back(zpair);
-        ++ndx;
     }
     xfinder_.sortDoubles(xpairs_);
     yfinder_.sortDoubles(ypairs_);
