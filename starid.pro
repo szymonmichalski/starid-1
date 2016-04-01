@@ -5,12 +5,14 @@ CONFIG -= qt
 
 SOURCES += main.cpp \
     catalog.cpp \
-    indexfinder.cpp
+    indexfinder.cpp \
+    starpairs.cpp
 
 HEADERS += \
     catalog.h \
     indexfinder.h \
-    util.h
+    util.h \
+    starpairs.h
 
 DISTFILES += \
     LICENSE.txt \

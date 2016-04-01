@@ -14,15 +14,10 @@ namespace util {
 
 
     struct UnitVector {
-        double x;
-        double y;
-        double z;
-        UnitVector() {
-            x = 0.0;
-            y = 0.0;
-            z = 0.0;
-        }
-        UnitVector(double ra=0.0, double dec=0.0) {
+        double x {0.0};
+        double y {0.0};
+        double z {0.0};
+        void radec(double ra=0.0, double dec=0.0) {
             x = (cos(ra)*cos(dec));
             y = (sin(ra)*cos(dec));
             z = (sin(dec));
@@ -35,7 +30,7 @@ namespace util {
             assert (z >= -1.0 && z <= 1.0);
             assert ((sqrt(x*x + y*y + z*z) - 1.0) < 1e-10);
         }
-        UnitVector(int n=3, double x=0.0, double y=0.0, double z=0.0) {
+        void xyz(double x=0.0, double y=0.0, double z=0.0) {
             double norm = sqrt(x*x + y*y + z*z);
             x = x/norm;
             y = y/norm;

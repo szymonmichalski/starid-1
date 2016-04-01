@@ -20,7 +20,6 @@ catalog::Catalog::Catalog(const std::string& catalog_file, double years_from_j20
                     ++dim_stars;
                     continue;
                 }
-
                 star.iau_identifier = line.substr(0,27);
                 try {star.star_name = line.substr(98,10);} catch(...){}
                 try {star.variablestar_name = line.substr(108,10);} catch(...){}
@@ -40,25 +39,20 @@ catalog::Catalog::Catalog(const std::string& catalog_file, double years_from_j20
                 double decs = std::stof(line.substr(134,6));
                 double pmra_arcsec_per_year = 15.0 * std::stof(line.substr(149,8));
                 double pmdec_arcsec_per_year = std::stof(line.substr(158,7));
-                if (line.substr(157,1) == "-") pmdec_arcsec_per_year = -1.0 * pmdec_arcsec_per_year;
-
+                double decsign = 1.0;
+                double pmdecsign = 1.0;
+                if (line.substr(129,1) == "-") decsign = -1.0;
+                if (line.substr(157,1) == "-") pmdecsign = -1.0;
                 star.ra_degrees = 15.0 * (rah + ram/60.0 + ras/3600.0);
-                star.dec_degrees = decd + decm/60.0 + decs/3600.0;
-                if (line.substr(129,1) == "-") star.dec_degrees = -1.0 * star.dec_degrees;
+                star.dec_degrees = decsign * (decd + decm/60.0 + decs/3600.0);
                 star.ra_degrees += (years_from_j2000 * pmra_arcsec_per_year) / 3600.0;
-                star.dec_degrees += (years_from_j2000 * pmdec_arcsec_per_year) / 3600.0;
+                star.dec_degrees += (years_from_j2000 * pmdecsign * pmdec_arcsec_per_year) / 3600.0;
                 assert (star.ra_degrees >= 0.0 && star.ra_degrees <= 360.0);
                 assert (star.dec_degrees >= -90.0 && star.dec_degrees <= 90.0);
-                star.ra = star.ra_degrees*util::pi/180.0;
-                star.dec = star.dec_degrees*util::pi/180.0;
-                util::UnitVector unit_vector(star.ra, star.dec);
-                star.x = unit_vector.x;
-                star.y = unit_vector.y;
-                star.z = unit_vector.z;
-                std::pair<double,int> xpair {star.x, ndx};
-                std::pair<double,int> ypair {star.y, ndx};
-                std::pair<double,int> zpair {star.z, ndx};
-
+                star.uvec.radec(star.ra_degrees*util::pi/180.0, star.dec_degrees*util::pi/180.0);
+                std::pair<double,int> xpair {star.uvec.x, ndx};
+                std::pair<double,int> ypair {star.uvec.y, ndx};
+                std::pair<double,int> zpair {star.uvec.z, ndx};
                 xpairs_.push_back(xpair);
                 ypairs_.push_back(ypair);
                 zpairs_.push_back(zpair);
@@ -79,15 +73,15 @@ catalog::Catalog::Catalog(const std::string& catalog_file, double years_from_j20
 }
 
 std::vector<int> catalog::Catalog::StarsNearPoint(const double ra, const double dec, const double radius) {
-    util::UnitVector unit_vector(ra, dec);
-    std::vector<int> xring = StarsInRing(unit_vector.x, radius, xfinder_);
-    std::vector<int> yring = StarsInRing(unit_vector.y, radius, yfinder_);
-    std::vector<int> zring = StarsInRing(unit_vector.z, radius, zfinder_);
+    util::UnitVector uvec;
+    uvec.radec(ra, dec);
+    std::vector<int> xring = StarsInRing(uvec.x, radius, xfinder_);
+    std::vector<int> yring = StarsInRing(uvec.y, radius, yfinder_);
+    std::vector<int> zring = StarsInRing(uvec.z, radius, zfinder_);
     std::vector<int> xy;
     std::set_intersection(xring.begin(), xring.end(), yring.begin(), yring.end(), std::back_inserter(xy));
     std::vector<int> xyz;
     std::set_intersection(xy.begin(), xy.end(), zring.begin(), zring.end(), std::back_inserter(xyz));
-
     return xyz;
 }
 
