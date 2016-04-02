@@ -1,19 +1,19 @@
 #include "indexfinder.h"
 #include <algorithm>
 
-bool indexfinder::IndexFinder::sortDoubles(std::vector<std::pair<double,int>>& pairs) {
-    pairs_ = pairs;
-    std::sort(pairs_.begin(),pairs_.end());
+bool indexfinder::IndexFinder::sortDoubles(std::vector<std::pair<double,int>>& tablein) {
+    table = tablein;
+    std::sort(table.begin(), table.end());
     return true;
 }
 
 std::vector<int> indexfinder::IndexFinder::findIndexes(double low, double hi) {
-    auto itlow = std::lower_bound(pairs_.begin(), pairs_.end(), std::make_pair(low, 0));
-    auto ithi = std::upper_bound(pairs_.begin(), pairs_.end(), std::make_pair(hi, 0));
-    std::vector<int> indexes;
+    auto itlow = std::lower_bound(table.begin(), table.end(), std::make_pair(low, 0));
+    auto ithi = std::upper_bound(table.begin(), table.end(), std::make_pair(hi, 0));
+    std::vector<int> ndxs;
     for (auto it = itlow; it <= ithi; ++it) {
-        auto pair = *it;
-        indexes.push_back(pair.second);
+        auto tablerow = *it;
+        ndxs.push_back(tablerow.second);
     }
-    return indexes;
+    return ndxs;
 }

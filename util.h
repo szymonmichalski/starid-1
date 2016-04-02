@@ -12,7 +12,6 @@ namespace util {
     constexpr double kRaCass = 0.0*pi/180.0;
     constexpr double kDecCass = 60.0*pi/180.0;
 
-
     struct UnitVector {
         double x {0.0};
         double y {0.0};
@@ -30,7 +29,7 @@ namespace util {
             assert (z >= -1.0 && z <= 1.0);
             assert ((sqrt(x*x + y*y + z*z) - 1.0) < 1e-10);
         }
-        void xyz(double x=0.0, double y=0.0, double z=0.0) {
+        void Xyz(double x=0.0, double y=0.0, double z=0.0) {
             double norm = sqrt(x*x + y*y + z*z);
             x = x/norm;
             y = y/norm;
@@ -39,6 +38,10 @@ namespace util {
             assert (y >= -1.0 && y <= 1.0);
             assert (z >= -1.0 && z <= 1.0);
             assert ((sqrt(x*x + y*y + z*z) - 1.0) < 1e-10);
+        }
+        double Angle(UnitVector uvec2) {
+            double angle = acos(x*uvec2.x + y*uvec2.y + z*uvec2.z);
+            return angle;
         }
     };
 

@@ -2,24 +2,24 @@
 
 starpairs::Star::Star(int catndxin, catalog::Catalog& cat, double radius) {
     catndx = catndxin;
-    neighbors = cat.StarsNearPoint(cat.stars_[catndx].uvec, radius);
+    neighbors = cat.StarsNearPoint(cat.stars[catndx].uvec, radius);
 }
 
 starpairs::StarPairs::StarPairs(catalog::Catalog& cat, double radius) {
     int starpairsndx = 0;
-    for (int catndx = 0; catndx < cat.stars_.size(); ++catndx) {
+    for (uint catndx = 0; catndx < cat.stars.size(); ++catndx) {
         starpairs::Star star(catndx, cat, radius);
-        for (int i = 0; i < star.neighbors.size(); ++i) {
+        for (uint i = 0; i < star.neighbors.size(); ++i) {
             if (star.catndx == star.neighbors[i]) continue;
             int catndx1 = star.catndx;
             int catndx2 = star.neighbors[i];
             std::string key = starpairs::StarPairs::StarPairKey(catndx1, catndx2);
-            auto search = starpairs_map_.find(key);
-            if (search != starpairs_map_.end()) continue;
-            starpairs_map_.insert({key, starpairsndx});
-            double angle = 0.0;
+            auto search = starpairs_map.find(key);
+            if (search != starpairs_map.end()) continue;
+            starpairs_map.insert({key, starpairsndx});
+            double angle = cat.stars[catndx1].uvec.Angle(cat.stars[catndx2].uvec);
             std::tuple<double, int, int> starpair {angle, catndx1, catndx2};
-            starpairs_.push_back(starpair);
+            starpairs.push_back(starpair);
             ++starpairsndx;
         }
     }

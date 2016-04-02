@@ -54,10 +54,10 @@ catalog::Catalog::Catalog(const std::string& catalog_file, double years_from_j20
                 std::pair<double,int> xpair {star.uvec.x, ndx};
                 std::pair<double,int> ypair {star.uvec.y, ndx};
                 std::pair<double,int> zpair {star.uvec.z, ndx};
-                xpairs_.push_back(xpair);
-                ypairs_.push_back(ypair);
-                zpairs_.push_back(zpair);
-                stars_.push_back(star);
+                xpairs.push_back(xpair);
+                ypairs.push_back(ypair);
+                zpairs.push_back(zpair);
+                stars.push_back(star);
                 ++ndx;
             } catch (...) {
                 ++error_stars;
@@ -68,15 +68,15 @@ catalog::Catalog::Catalog(const std::string& catalog_file, double years_from_j20
     } else {
         std::cout << "catalog file not found" << "\n";
     }
-    xfinder_.sortDoubles(xpairs_);
-    yfinder_.sortDoubles(ypairs_);
-    zfinder_.sortDoubles(zpairs_);
+    xfinder.sortDoubles(xpairs);
+    yfinder.sortDoubles(ypairs);
+    zfinder.sortDoubles(zpairs);
 }
 
 std::vector<int> catalog::Catalog::StarsNearPoint(util::UnitVector& uvec, const double radius) {
-    std::vector<int> xring = StarsInRing(uvec.x, radius, xfinder_);
-    std::vector<int> yring = StarsInRing(uvec.y, radius, yfinder_);
-    std::vector<int> zring = StarsInRing(uvec.z, radius, zfinder_);
+    std::vector<int> xring = StarsInRing(uvec.x, radius, xfinder);
+    std::vector<int> yring = StarsInRing(uvec.y, radius, yfinder);
+    std::vector<int> zring = StarsInRing(uvec.z, radius, zfinder);
     std::vector<int> xy;
     std::set_intersection(xring.begin(), xring.end(), yring.begin(), yring.end(), std::back_inserter(xy));
     std::vector<int> xyz;
@@ -103,5 +103,5 @@ std::vector<int> catalog::Catalog::StarsInRing(double p, double radius, indexfin
 }
 
 void catalog::Catalog::PrintStar(int ndx) {
-    std::cout << ndx << " " << stars_[ndx].star_name << "\n";
+    std::cout << ndx << " " << stars[ndx].star_name << "\n";
 }

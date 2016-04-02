@@ -17,8 +17,8 @@ class StarPairs {
 public:
     StarPairs(catalog::Catalog& cat, double radius);
 private:
-    std::vector<std::tuple<double, int, int>> starpairs_; // angle, catndx1, catndx2
-    std::unordered_map<std::string, int> starpairs_map_; // starpairkey, starpairsndx
+    std::vector<std::tuple<double, int, int>> starpairs; // angle, catndx1, catndx2
+    std::unordered_map<std::string, int> starpairs_map; // starpairkey, starpairsndx
     std::string StarPairKey(int& catndx1, int& catndx2); // hash key
 };
 
