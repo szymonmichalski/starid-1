@@ -54,9 +54,9 @@ catalog::Catalog::Catalog(const std::string& catalog_file, double years_from_j20
                 std::pair<double,int> xpair {star.uvec.x, ndx};
                 std::pair<double,int> ypair {star.uvec.y, ndx};
                 std::pair<double,int> zpair {star.uvec.z, ndx};
-                xpairs.push_back(xpair);
-                ypairs.push_back(ypair);
-                zpairs.push_back(zpair);
+                xtable.push_back(xpair);
+                ytable.push_back(ypair);
+                ztable.push_back(zpair);
                 stars.push_back(star);
                 ++ndx;
             } catch (...) {
@@ -68,9 +68,9 @@ catalog::Catalog::Catalog(const std::string& catalog_file, double years_from_j20
     } else {
         std::cout << "catalog file not found" << "\n";
     }
-    xfinder.sortDoubles(xpairs);
-    yfinder.sortDoubles(ypairs);
-    zfinder.sortDoubles(zpairs);
+    xfinder.SetTable(xtable);
+    yfinder.SetTable(ytable);
+    zfinder.SetTable(ztable);
 }
 
 std::vector<int> catalog::Catalog::StarsNearPoint(util::UnitVector& uvec, const double radius) {
@@ -97,11 +97,8 @@ std::vector<int> catalog::Catalog::StarsInRing(double p, double radius, indexfin
         pmax = p*cos(radius) + sqrt(1-(p*p))*sin(radius);
     }
     assert (pmin >= -1.0 && pmax <= 1.0);
-    std::vector<int> ring = finder.findIndexes(pmin, pmax);
+    std::vector<int> ring = finder.FindIndexes(pmin, pmax);
     std::sort(ring.begin(),ring.end());
     return ring;
 }
 
-void catalog::Catalog::PrintStar(int ndx) {
-    std::cout << ndx << " " << stars[ndx].star_name << "\n";
-}

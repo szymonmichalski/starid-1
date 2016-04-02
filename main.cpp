@@ -1,5 +1,6 @@
 #include <chrono>
 #include <string>
+#include <iostream>
 
 #include "util.h"
 #include "catalog.h"
@@ -16,11 +17,13 @@ int main()
     catalog::Catalog catalog(catalog_file, years_from_j2000, max_mv);
     starpairs::StarPairs pairs(catalog, radius);
 
+    util::UnitVector uvec(util::kRaCass, util::kDecCass);
+    std::vector<int> catndxs = catalog.StarsNearPoint(uvec, radius);
+    std::cout << "stars near cass " << catndxs.size() << "\n";
+//    for (auto catndx : catndxs) std::cout << catndx << " " << catalog.stars[catndx].star_name << "\n";
+
+
     return 0;
 }
 
-//    util::UnitVector uvec(util::kRaCass, util::kDecCass);
-//    std::vector<int> catndxs = catalog.StarsNearPoint(uvec, radius);
-//    for (auto catndx : catndxs) {
-//        catalog.PrintStar(catndx);
-//    }
+

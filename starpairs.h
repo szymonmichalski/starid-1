@@ -4,6 +4,7 @@
 #include "util.h"
 #include "catalog.h"
 #include <unordered_map>
+#include "indexfinder.h"
 
 namespace starpairs {
 
@@ -20,6 +21,8 @@ private:
     std::vector<std::tuple<double, int, int>> starpairs; // angle, catndx1, catndx2
     std::unordered_map<std::string, int> starpairs_map; // starpairkey, starpairsndx
     std::string StarPairKey(int& catndx1, int& catndx2); // hash key
+    std::vector<std::pair<double, int>> atable; // angle, starpairs ndx
+    indexfinder::IndexFinder afinder;
 };
 
 }

@@ -31,14 +31,13 @@ public:
     Catalog(const std::string& catalog_file, double years_from_j2000=0.0, double max_mv=7.2);
     std::vector<catalog::Star> stars;
     std::vector<int> StarsNearPoint(util::UnitVector& uvec, const double radius);
-    void PrintStar(int);
 private:
     indexfinder::IndexFinder xfinder;
     indexfinder::IndexFinder yfinder;
     indexfinder::IndexFinder zfinder;
-    std::vector<std::pair<double,int>> xpairs;
-    std::vector<std::pair<double,int>> ypairs;
-    std::vector<std::pair<double,int>> zpairs;
+    std::vector<std::pair<double,int>> xtable;
+    std::vector<std::pair<double,int>> ytable;
+    std::vector<std::pair<double,int>> ztable;
     std::vector<int> StarsInRing(double p, double radius, indexfinder::IndexFinder& finder);
 };
 
