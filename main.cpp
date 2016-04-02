@@ -3,6 +3,7 @@
 
 #include "util.h"
 #include "catalog.h"
+#include "starpairs.h"
 
 int main()
 {
@@ -13,12 +14,14 @@ int main()
 
     catalog::Catalog catalog(catalog_file, years_from_j2000, max_mv);
     double radius {4.0*util::pi/180.0};
-//    std::vector<int> indexes = catalog.StarsNearPoint(util::kRaOrion, util::kDecOrion, radius);
-    std::vector<int> indexes = catalog.StarsNearPoint(util::kRaCass, util::kDecCass, radius);
 
-    for (auto ndx : indexes) {
-        catalog.PrintStar(ndx);
+    util::UnitVector uvec(util::kRaCass, util::kDecCass);
+    std::vector<int> catndxs = catalog.StarsNearPoint(uvec, radius);
+    for (auto catndx : catndxs) {
+        catalog.PrintStar(catndx);
     }
+
+    starpairs::StarPairs pairs(catalog, radius);
 
     return 0;
 }

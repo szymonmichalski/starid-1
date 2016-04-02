@@ -17,7 +17,7 @@ namespace util {
         double x {0.0};
         double y {0.0};
         double z {0.0};
-        void radec(double ra=0.0, double dec=0.0) {
+        UnitVector(double ra=0.0, double dec=0.0) {
             x = (cos(ra)*cos(dec));
             y = (sin(ra)*cos(dec));
             z = (sin(dec));

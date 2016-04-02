@@ -29,10 +29,10 @@ struct Star {
 class Catalog {
 public:
     Catalog(const std::string& catalog_file, double years_from_j2000=0.0, double max_mv=7.2);
-    std::vector<int> StarsNearPoint(const double ra, const double dec, const double radius);
+    std::vector<catalog::Star> stars_;
+    std::vector<int> StarsNearPoint(util::UnitVector& uvec, const double radius);
     void PrintStar(int);
 private:
-    std::vector<Star> stars_;
     indexfinder::IndexFinder xfinder_;
     indexfinder::IndexFinder yfinder_;
     indexfinder::IndexFinder zfinder_;

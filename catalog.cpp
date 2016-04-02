@@ -49,7 +49,8 @@ catalog::Catalog::Catalog(const std::string& catalog_file, double years_from_j20
                 star.dec_degrees += (years_from_j2000 * pmdecsign * pmdec_arcsec_per_year) / 3600.0;
                 assert (star.ra_degrees >= 0.0 && star.ra_degrees <= 360.0);
                 assert (star.dec_degrees >= -90.0 && star.dec_degrees <= 90.0);
-                star.uvec.radec(star.ra_degrees*util::pi/180.0, star.dec_degrees*util::pi/180.0);
+                util::UnitVector uvec(star.ra_degrees*util::pi/180.0, star.dec_degrees*util::pi/180.0);
+                star.uvec = uvec;
                 std::pair<double,int> xpair {star.uvec.x, ndx};
                 std::pair<double,int> ypair {star.uvec.y, ndx};
                 std::pair<double,int> zpair {star.uvec.z, ndx};
@@ -72,9 +73,7 @@ catalog::Catalog::Catalog(const std::string& catalog_file, double years_from_j20
     zfinder_.sortDoubles(zpairs_);
 }
 
-std::vector<int> catalog::Catalog::StarsNearPoint(const double ra, const double dec, const double radius) {
-    util::UnitVector uvec;
-    uvec.radec(ra, dec);
+std::vector<int> catalog::Catalog::StarsNearPoint(util::UnitVector& uvec, const double radius) {
     std::vector<int> xring = StarsInRing(uvec.x, radius, xfinder_);
     std::vector<int> yring = StarsInRing(uvec.y, radius, yfinder_);
     std::vector<int> zring = StarsInRing(uvec.z, radius, zfinder_);

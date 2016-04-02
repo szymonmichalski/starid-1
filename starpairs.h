@@ -3,21 +3,23 @@
 
 #include "util.h"
 #include "catalog.h"
+#include <unordered_map>
 
 namespace starpairs {
 
-class Star {
-public:
-    Star(int catndx, catalog::Catalog& cat);
-private:
-    int catndx_;
-    util::UnitVector uvec_;
+struct Star {
+    Star(int catndxin, catalog::Catalog& cat, double radius);
+    int catndx;
+    std::vector<int> neighbors; // catndxs
 };
 
 class StarPairs {
 public:
-    StarPairs();
+    StarPairs(catalog::Catalog& cat, double radius);
 private:
+    std::vector<std::tuple<double, int, int>> starpairs_; // angle, catndx1, catndx2
+    std::unordered_map<std::string, int> starpairs_map_; // starpairkey, starpairsndx
+    std::string StarPairKey(int& catndx1, int& catndx2); // hash key
 };
 
 }

@@ -2,6 +2,7 @@
 #define INDEXFINDER_H
 
 #include <vector>
+#include <string>
 
 namespace indexfinder {
 
