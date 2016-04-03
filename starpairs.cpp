@@ -18,8 +18,9 @@ starpairs::StarPairs::StarPairs(catalog::Catalog& cat, double radius) {
             std::string key = starpairs::StarPairs::StarPairKey(catndx1, catndx2);
             auto search = starpairs_map.find(key);
             if (search != starpairs_map.end()) continue;
-            starpairs_map.insert({key, starpairsndx});
             double angle = cat.stars[catndx1].uvec.Angle(cat.stars[catndx2].uvec);
+            if (std::fabs(angle) > radius) continue;
+            starpairs_map.insert({key, starpairsndx});
             std::tuple<double, int, int> starpair {angle, catndx1, catndx2};
             starpairs.push_back(starpair);
             std::pair<double,int> apair {angle, starpairsndx};
