@@ -6,13 +6,15 @@ CONFIG -= qt
 SOURCES += main.cpp \
     catalog.cpp \
     indexfinder.cpp \
-    starpairs.cpp
+    starpairs.cpp \
+    util.cpp
 
 HEADERS += \
     catalog.h \
     indexfinder.h \
     util.h \
-    starpairs.h
+    starpairs.h \
+    sensor.h
 
 DISTFILES += \
     LICENSE.txt \

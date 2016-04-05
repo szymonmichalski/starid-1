@@ -16,33 +16,16 @@ namespace util {
         double x {0.0};
         double y {0.0};
         double z {0.0};
-        UnitVector(double ra=0.0, double dec=0.0) {
-            x = (cos(ra)*cos(dec));
-            y = (sin(ra)*cos(dec));
-            z = (sin(dec));
-            double norm = sqrt(x*x + y*y + z*z);
-            x = x/norm;
-            y = y/norm;
-            z = z/norm;
-            assert (x >= -1.0 && x <= 1.0);
-            assert (y >= -1.0 && y <= 1.0);
-            assert (z >= -1.0 && z <= 1.0);
-            assert ((sqrt(x*x + y*y + z*z) - 1.0) < 1e-10);
-        }
-        void Xyz(double x=0.0, double y=0.0, double z=0.0) {
-            double norm = sqrt(x*x + y*y + z*z);
-            x = x/norm;
-            y = y/norm;
-            z = z/norm;
-            assert (x >= -1.0 && x <= 1.0);
-            assert (y >= -1.0 && y <= 1.0);
-            assert (z >= -1.0 && z <= 1.0);
-            assert ((sqrt(x*x + y*y + z*z) - 1.0) < 1e-10);
-        }
-        double Angle(UnitVector uvec2) {
-            double angle = acos(x*uvec2.x + y*uvec2.y + z*uvec2.z);
-            return angle;
-        }
+        UnitVector(double ra=0.0, double dec=0.0);
+        void Xyz(double x=0.0, double y=0.0, double z=0.0);
+        double Angle(UnitVector uvec2);
+    };
+
+    struct Quaternion {
+        double q1 {1.0};
+        double q2 {0.0};
+        double q3 {0.0};
+        double q4 {0.0};
     };
 
 }
