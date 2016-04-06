@@ -11,7 +11,6 @@ public:
 private:
     util::UnitVector pointing;
     double yaw {0.0};
-    util::Quaternion attitude;
 };
 
 }

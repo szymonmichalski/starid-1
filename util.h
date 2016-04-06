@@ -3,30 +3,43 @@
 
 #include <cmath>
 #include <cassert>
+#include <armadillo>
+using namespace arma;
 
 namespace util {
-    constexpr double pi = 3.141592653589793238463;
-    constexpr double kUnixTimeToJ2000Offset = 946684800.0;
-    constexpr double kRaOrion = 75.0*pi/180.0;
-    constexpr double kDecOrion = 0.0*pi/180.0;
-    constexpr double kRaCass = 0.0*pi/180.0;
-    constexpr double kDecCass = 60.0*pi/180.0;
+
+    constexpr double pi = datum::pi;
+    constexpr double UnixTimeToJ2000Offset = 946684800.0;
+    constexpr double RaOrion = 75.0*pi/180.0;
+    constexpr double DecOrion = 0.0*pi/180.0;
+    constexpr double RaCass = 0.0*pi/180.0;
+    constexpr double DecCass = 60.0*pi/180.0;
 
     struct UnitVector {
+        UnitVector(double ra=0.0, double dec=0.0);
+        vec v { 1.0, 0.0, 0.0 };
+        void Xyz(double x=1.0, double y=0.0, double z=0.0);
+        double Angle(UnitVector uvec2);
         double x {0.0};
         double y {0.0};
         double z {0.0};
-        UnitVector(double ra=0.0, double dec=0.0);
-        void Xyz(double x=0.0, double y=0.0, double z=0.0);
-        double Angle(UnitVector uvec2);
     };
-
+    struct RotationMatrix {
+        RotationMatrix(UnitVector &uvec, double yaw=0.0); // yaw radians
+        mat m { mat(3,3,fill::eye) };
+    };
     struct Quaternion {
-        double q1 {1.0};
-        double q2 {0.0};
-        double q3 {0.0};
-        double q4 {0.0};
+        Quaternion(UnitVector &uvec, double yaw=0.0); // yaw radians
+        vec q { 0.0, 0.0, 0.0, 1.0 };
     };
 
+    vec qmult(vec &q1, vec &q2);
+    vec qconj(vec &q);
+    vec r2q(vec &r);
+    vec q2r(vec &q);
+    vec qdif2r(vec &q1, vec &q2);
+    mat q2m(vec &q);
+    vec m2q(mat &m);
+    double sgn(double x);
 }
 #endif
