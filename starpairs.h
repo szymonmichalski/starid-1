@@ -5,6 +5,8 @@
 #include "catalog.h"
 #include <unordered_map>
 #include "indexfinder.h"
+#include <armadillo>
+using namespace arma;
 
 namespace starpairs {
 

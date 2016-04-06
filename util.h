@@ -18,11 +18,7 @@ namespace util {
     struct UnitVector {
         UnitVector(double ra=0.0, double dec=0.0);
         vec v { 1.0, 0.0, 0.0 };
-        void Xyz(double x=1.0, double y=0.0, double z=0.0);
-        double Angle(UnitVector uvec2);
-        double x {0.0};
-        double y {0.0};
-        double z {0.0};
+        double x, y, z;
     };
     struct RotationMatrix {
         RotationMatrix(UnitVector &uvec, double yaw=0.0); // yaw radians
