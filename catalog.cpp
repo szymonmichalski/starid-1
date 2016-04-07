@@ -51,9 +51,9 @@ catalog::Catalog::Catalog(const std::string& catalog_file, double years_from_j20
                 assert (star.dec_degrees >= -90.0 && star.dec_degrees <= 90.0);
                 util::UnitVector uvec(star.ra_degrees*util::pi/180.0, star.dec_degrees*util::pi/180.0);
                 star.uvec = uvec;
-                std::pair<double,int> xpair {star.uvec.x, ndx};
-                std::pair<double,int> ypair {star.uvec.y, ndx};
-                std::pair<double,int> zpair {star.uvec.z, ndx};
+                std::pair<double,int> xpair {star.uvec.x(), ndx};
+                std::pair<double,int> ypair {star.uvec.y(), ndx};
+                std::pair<double,int> zpair {star.uvec.z(), ndx};
                 xtable.push_back(xpair);
                 ytable.push_back(ypair);
                 ztable.push_back(zpair);
@@ -74,9 +74,9 @@ catalog::Catalog::Catalog(const std::string& catalog_file, double years_from_j20
 }
 
 std::vector<int> catalog::Catalog::StarsNearPoint(util::UnitVector& uvec, const double radius) {
-    std::vector<int> xring = StarsInRing(uvec.x, radius, xfinder);
-    std::vector<int> yring = StarsInRing(uvec.y, radius, yfinder);
-    std::vector<int> zring = StarsInRing(uvec.z, radius, zfinder);
+    std::vector<int> xring = StarsInRing(uvec.x(), radius, xfinder);
+    std::vector<int> yring = StarsInRing(uvec.y(), radius, yfinder);
+    std::vector<int> zring = StarsInRing(uvec.z(), radius, zfinder);
     std::vector<int> xy;
     std::set_intersection(xring.begin(), xring.end(), yring.begin(), yring.end(), std::back_inserter(xy));
     std::vector<int> xyz;

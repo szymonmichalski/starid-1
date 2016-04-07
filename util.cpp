@@ -5,10 +5,10 @@ util::UnitVector::UnitVector(double ra, double dec) {
     v = { cos(ra)*cos(dec), sin(ra)*cos(dec), sin(dec) };
     v = normalise(v);
     assert(norm(v) - 1.0 < 1e-10);
-    x = v(0);
-    y = v(1);
-    z = v(2);
 }
+double util::UnitVector::UnitVector::x() {return v(0);}
+double util::UnitVector::UnitVector::y() {return v(1);}
+double util::UnitVector::UnitVector::z() {return v(2);}
 
 util::RotationMatrix::RotationMatrix(UnitVector &v, double yaw) {
     vec bz { v.v(0), v.v(1), v.v(2) };

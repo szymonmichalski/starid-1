@@ -18,12 +18,16 @@ namespace util {
     struct UnitVector {
         UnitVector(double ra=0.0, double dec=0.0);
         vec v { 1.0, 0.0, 0.0 };
-        double x, y, z;
+        double x();
+        double y();
+        double z();
     };
+
     struct RotationMatrix {
         RotationMatrix(UnitVector &uvec, double yaw=0.0); // yaw radians
         mat m { mat(3,3,fill::eye) };
     };
+
     struct Quaternion {
         Quaternion(UnitVector &uvec, double yaw=0.0); // yaw radians
         vec q { 0.0, 0.0, 0.0, 1.0 };
