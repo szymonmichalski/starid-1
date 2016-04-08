@@ -30,7 +30,7 @@ class Catalog {
 public:
     Catalog(const std::string& catalog_file, double years_from_j2000=0.0, double max_mv=7.2);
     std::vector<catalog::Star> stars;
-    std::vector<int> StarsNearPoint(util::UnitVector& uvec, const double radius);
+    std::vector<int> StarsNearPoint(util::UnitVector& uv, const double radius);
 private:
     indexfinder::IndexFinder xfinder;
     indexfinder::IndexFinder yfinder;

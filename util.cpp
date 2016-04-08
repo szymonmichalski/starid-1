@@ -2,30 +2,30 @@
 using namespace arma;
 
 util::UnitVector::UnitVector(double ra, double dec) {
-    v = { cos(ra)*cos(dec), sin(ra)*cos(dec), sin(dec) };
-    v = normalise(v);
-    assert(norm(v) - 1.0 < 1e-10);
+    uv = { cos(ra)*cos(dec), sin(ra)*cos(dec), sin(dec) };
+    uv = normalise(uv);
+    assert(norm(uv) - 1.0 < 1e-10);
 }
-double util::UnitVector::UnitVector::x() {return v(0);}
-double util::UnitVector::UnitVector::y() {return v(1);}
-double util::UnitVector::UnitVector::z() {return v(2);}
+double util::UnitVector::UnitVector::x() {return uv(0);}
+double util::UnitVector::UnitVector::y() {return uv(1);}
+double util::UnitVector::UnitVector::z() {return uv(2);}
 
-util::RotationMatrix::RotationMatrix(UnitVector &v, double yaw) {
-    vec bz { v.v(0), v.v(1), v.v(2) };
+util::RotationMatrix::RotationMatrix(UnitVector &uvec, double yaw) {
+    vec bz { uvec.uv(0), uvec.uv(1), uvec.uv(2) };
     vec iz { 0.0, 0.0, 1.0 };
     vec b1x { cross(bz,iz) };
     vec b1y { cross(bz,b1x) };
     vec bx { cos(yaw)*b1x + sin(yaw)*b1y };
     vec by { sin(yaw)*b1x + cos(yaw)*b1y };
-    m.col(1) = bx;
-    m.col(2) = by;
-    m.col(3) = bz;
-    assert (norm(m) - 1.0 <= 1e-10);
+    rm.col(1) = bx;
+    rm.col(2) = by;
+    rm.col(3) = bz;
+    assert (norm(rm) - 1.0 <= 1e-10);
 }
 
 util::Quaternion::Quaternion(UnitVector &uvec, double yaw) {
-    RotationMatrix m(uvec, yaw);
-    q = m2q(m.m);
+    RotationMatrix rm(uvec, yaw);
+    q = rm2q(rm.rm);
     assert (norm(q) - 1.0 <= 1e-10);
 }
 
@@ -46,19 +46,19 @@ vec util::qconj(vec &q) {
     return q2;
 }
 
-vec util::r2q(vec &r) {
-    vec q { r(0)/2, r(1)/2, r(2)/2, 1 };
+vec util::rv2q(vec &rv) {
+    vec q { rv(0)/2, rv(1)/2, rv(2)/2, 1 };
     q = normalise(q);
     if (q(3) < 0.0) q = -q;
     return q;
 }
 
-vec util::q2r(vec &q) {
-    vec r { 2*q(0), 2*q(1), 2*q(2) };
-    return r;
+vec util::q2rv(vec &q) {
+    vec rv { 2*q(0), 2*q(1), 2*q(2) };
+    return rv;
 }
 
-vec util::qdif2r(vec &q1, vec &q2a) {
+vec util::qdif2rv(vec &q1, vec &q2a) {
     vec q2 { -q2a(0), -q2a(1), -q2a(2), q2a(3) };
     vec q3 {
             q1(0)*q2(3) + q1(1)*q2(2) + -q1(2)*q2(1) + q1(3)*q2(0),
@@ -68,30 +68,30 @@ vec util::qdif2r(vec &q1, vec &q2a) {
     };
     q3 = normalise(q3);
     if ( q3(3) < 0 ) { q3 = -q3; }
-    vec r { 2.0*q3(0), 2.0*q3(1), 2.0*q3(2) };
-    return r;
+    vec rv { 2.0*q3(0), 2.0*q3(1), 2.0*q3(2) };
+    return rv;
 }
 
-mat util::q2m(vec &q) {
-    mat m(3,3);
-    m(0,0) =  q(0)*q(0) - q(1)*q(1) - q(2)*q(2) + q(3)*q(3);
-    m(0,1) = 2.0*( q(0)*q(1) + q(2)*q(3) );
-    m(0,2) = 2.0*( q(0)*q(2) - q(1)*q(3) );
-    m(1,0) = 2.0*( q(0)*q(1) - q(2)*q(3) );
-    m(1,1) = -q(0)*q(0) + q(1)*q(1) - q(2)*q(2) + q(3)*q(3);
-    m(1,2) = 2.0*( q(1)*q(2) + q(0)*q(3) );
-    m(2,0) = 2.0*( q(0)*q(2) + q(1)*q(3) );
-    m(2,1) = 2.0*( q(1)*q(2) - q(0)*q(3) );
-    m(2,2) = -q(0)*q(0) - q(1)*q(1) + q(2)*q(2) + q(3)*q(3);
-    return m;
+mat util::q2rm(vec &q) {
+    mat rm(3,3);
+    rm(0,0) =  q(0)*q(0) - q(1)*q(1) - q(2)*q(2) + q(3)*q(3);
+    rm(0,1) = 2.0*( q(0)*q(1) + q(2)*q(3) );
+    rm(0,2) = 2.0*( q(0)*q(2) - q(1)*q(3) );
+    rm(1,0) = 2.0*( q(0)*q(1) - q(2)*q(3) );
+    rm(1,1) = -q(0)*q(0) + q(1)*q(1) - q(2)*q(2) + q(3)*q(3);
+    rm(1,2) = 2.0*( q(1)*q(2) + q(0)*q(3) );
+    rm(2,0) = 2.0*( q(0)*q(2) + q(1)*q(3) );
+    rm(2,1) = 2.0*( q(1)*q(2) - q(0)*q(3) );
+    rm(2,2) = -q(0)*q(0) - q(1)*q(1) + q(2)*q(2) + q(3)*q(3);
+    return rm;
 }
 
-vec util::m2q(mat &m) {
+vec util::rm2q(mat &rm) {
     vec q { 0.0, 0.0, 0.0, 1.0 };
-    q(0) = 0.5 * sqrt(1.0 + m(0,0) - m(1,1) - m(2,2)) * sgn( m(1,2)-m(2,1) );
-    q(1) = 0.5 * sqrt(1.0 - m(0,0) + m(1,1) - m(2,2)) * sgn( m(2,0)-m(0,2) );
-    q(2) = 0.5 * sqrt(1.0 - m(0,0) - m(1,1) + m(2,2)) * sgn( m(0,1)-m(1,0) );
-    q(3) = 0.5 * sqrt(1.0 + m(0,0) + m(1,1) + m(2,2));
+    q(0) = 0.5 * sqrt(1.0 + rm(0,0) - rm(1,1) - rm(2,2)) * sgn( rm(1,2)-rm(2,1) );
+    q(1) = 0.5 * sqrt(1.0 - rm(0,0) + rm(1,1) - rm(2,2)) * sgn( rm(2,0)-rm(0,2) );
+    q(2) = 0.5 * sqrt(1.0 - rm(0,0) - rm(1,1) + rm(2,2)) * sgn( rm(0,1)-rm(1,0) );
+    q(3) = 0.5 * sqrt(1.0 + rm(0,0) + rm(1,1) + rm(2,2));
     q = normalise(q);
     if (q(3) < 0.0) q = -q;
     return q;
