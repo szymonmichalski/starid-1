@@ -7,7 +7,8 @@ SOURCES += main.cpp \
     catalog.cpp \
     indexfinder.cpp \
     starpairs.cpp \
-    util.cpp
+    util.cpp \
+    sensor.cpp
 
 HEADERS += \
     catalog.h \

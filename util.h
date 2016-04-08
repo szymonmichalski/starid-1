@@ -34,7 +34,8 @@ namespace util {
 
     struct Quaternion {
         vec q { 0.0, 0.0, 0.0, 1.0 };
-        Quaternion(UnitVector &uvec, double yaw=0.0); // yaw radians
+        Quaternion() {};
+        Quaternion(UnitVector &uvec, double yaw); // yaw radians
     };
 
     vec qmult(vec &q1, vec &q2);

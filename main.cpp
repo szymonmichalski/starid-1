@@ -5,6 +5,7 @@
 #include "util.h"
 #include "catalog.h"
 #include "starpairs.h"
+#include "sensor.h"
 
 int main()
 {
@@ -17,8 +18,11 @@ int main()
     catalog::Catalog catalog(catalog_file, years_from_j2000, max_mv);
     starpairs::StarPairs pairs(catalog, radius);
 
-    util::UnitVector uvec(util::RaCass, util::DecCass);
-    std::vector<int> catndxs = catalog.StarsNearPoint(uvec, radius);
+    util::UnitVector pointing;
+    sensor::Sensor sensor(pointing, 0.0);
+
+    util::UnitVector uv(util::RaCass, util::DecCass);
+    std::vector<int> catndxs = catalog.StarsNearPoint(uv, radius);
     std::cout << "stars near cass " << catndxs.size() << "\n";
 //    for (auto catndx : catndxs) std::cout << catndx << " " << catalog.stars[catndx].star_name << "\n";
 

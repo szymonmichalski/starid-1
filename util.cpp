@@ -17,16 +17,14 @@ util::RotationMatrix::RotationMatrix(UnitVector &uvec, double yaw) {
     vec b1y { cross(bz,b1x) };
     vec bx { cos(yaw)*b1x + sin(yaw)*b1y };
     vec by { sin(yaw)*b1x + cos(yaw)*b1y };
-    rm.col(1) = bx;
-    rm.col(2) = by;
-    rm.col(3) = bz;
-    assert (norm(rm) - 1.0 <= 1e-10);
+    rm.col(0) = bx;
+    rm.col(1) = by;
+    rm.col(2) = bz;
 }
 
 util::Quaternion::Quaternion(UnitVector &uvec, double yaw) {
     RotationMatrix rm(uvec, yaw);
     q = rm2q(rm.rm);
-    assert (norm(q) - 1.0 <= 1e-10);
 }
 
 vec util::qmult(vec &q1, vec &q2) {
