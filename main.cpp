@@ -19,14 +19,13 @@ int main()
     starpairs::StarPairs pairs(catalog, fovradius);
 
     util::UnitVector pointing(util::RaCass, util::DecCass);
-    double yaw {45.0*util::pi/180.0};
-    sensor::Sensor sensor(pointing, yaw, fovradius);
-    sensor::Obs obs = sensor.GetObs();
-
     std::vector<int> catndxs = catalog.StarsNearPoint(pointing, fovradius);
     std::cout << "stars near cass " << catndxs.size() << "\n";
 //    for (auto catndx : catndxs) std::cout << catndx << " " << catalog.stars[catndx].star_name << "\n";
 
+    double yaw {45.0*util::pi/180.0};
+    sensor::Sensor sensor(pointing, yaw, fovradius);
+    sensor::Obs obs = sensor.GetObs(catalog);
 
     return 0;
 }
