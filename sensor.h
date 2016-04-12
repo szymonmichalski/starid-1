@@ -17,13 +17,14 @@ struct Obs {
 
 class Sensor {
 public:
-    Sensor(util::UnitVector &pointingin, double yawin, double fovradiusin);
-    sensor::Obs GetObs(catalog::Catalog &cat);
+    Sensor(util::UnitVector& pointingin, double yawin, double fovradiusin);
+    sensor::Obs GetObs(catalog::Catalog& cat);
 private:
-    util::UnitVector pointing;
-    double yaw;
-    util::Quaternion attitude;
     double fovradius {4.0*util::pi/180.0};
+    double yaw;
+    util::UnitVector pointing;
+    util::Quaternion attitude;
+    util::Quaternion q;
 };
 
 }

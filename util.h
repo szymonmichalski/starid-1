@@ -29,22 +29,24 @@ namespace util {
 
     struct RotationMatrix {
         mat rm { mat(3,3,fill::eye) };
+        RotationMatrix() {};
         RotationMatrix(UnitVector &uvec, double yaw=0.0); // yaw radians
     };
 
     struct Quaternion {
+        util::RotationMatrix rm;
         vec q { 0.0, 0.0, 0.0, 1.0 };
         Quaternion() {};
         Quaternion(UnitVector &uvec, double yaw); // yaw radians
     };
 
-    vec qmult(vec &q1, vec &q2);
-    vec qconj(vec &q);
-    vec rv2q(vec &rv);
-    vec q2rv(vec &q);
-    vec qdif2rv(vec &q1, vec &q2);
-    mat q2rm(vec &q);
-    vec rm2q(mat &rm);
+    vec qmult(vec& q1, vec& q2);
+    vec qconj(vec& q);
+    vec rv2q(vec& rv);
+    vec q2rv(vec& q);
+    vec qdif2rv(vec& q1, vec& q2);
+    mat q2rm(vec& q);
+    vec rm2q(mat& rm);
     double sgn(double x);
 }
 #endif

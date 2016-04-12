@@ -1,15 +1,16 @@
 #include "sensor.h"
 #include "catalog.h"
 
-sensor::Sensor::Sensor(util::UnitVector &pointingin, double yawin, double fovradiusin) {
-    pointing = pointingin;
-    yaw = yawin;
-    fovradius = fovradiusin;
-    util::Quaternion q(pointing, yaw);
-    attitude = q;
+sensor::Sensor::Sensor(util::UnitVector& pointingin, double yawin, double fovradiusin)
+    : pointing(pointingin),
+      yaw(yawin),
+      fovradius(fovradiusin),
+      q(pointingin, yawin)
+{
 }
 
-sensor::Obs sensor::Sensor::GetObs(catalog::Catalog &cat) {
+sensor::Obs sensor::Sensor::GetObs(catalog::Catalog& cat)
+{
     sensor::Obs obs;
     obs.pointing = pointing;
     obs.yaw = yaw;
