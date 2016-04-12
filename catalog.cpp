@@ -4,6 +4,26 @@
 #include <cassert>
 #include <algorithm>
 
+catalog::Star::Star()
+    : iau_identifier(""),
+      star_name(""),
+      variablestar_name(""),
+      skymap_number(0),
+      hd_number(0),
+      sao_number(0),
+      dm_number(0),
+      hr_number(0),
+      wds_number(0),
+      ppm_number(0),
+      blended_position(false),
+      mv1(100.0),
+      ra_degrees(0.0),
+      dec_degrees(0.0),
+      uvec(0.0, 0.0)
+{
+
+}
+
 catalog::Catalog::Catalog(const std::string& catalog_file, double years_from_j2000, double max_mv)
 {
     std::ifstream catfile (catalog_file);

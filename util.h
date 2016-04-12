@@ -16,27 +16,29 @@ namespace util {
     constexpr double DecCass = 60.0*pi/180.0;
 
     struct UnitVector {
-        vec uv { 1.0, 0.0, 0.0 };
-        UnitVector(double ra=0.0, double dec=0.0);
+        vec uv;
+        UnitVector();
+        UnitVector(double ra, double dec);
         double x();
         double y();
         double z();
     };
 
     struct RotationVector {
-        vec rv { 0.0, 0.0, 0.0 };
+        vec rv;
+        RotationVector();
     };
 
     struct RotationMatrix {
-        mat rm { mat(3,3,fill::eye) };
-        RotationMatrix() {};
-        RotationMatrix(UnitVector &uvec, double yaw=0.0); // yaw radians
+        mat rm;
+        RotationMatrix();
+        RotationMatrix(UnitVector& uvec, double yaw); // yaw radians
     };
 
     struct Quaternion {
         util::RotationMatrix rm;
-        vec q { 0.0, 0.0, 0.0, 1.0 };
-        Quaternion() {};
+        vec q;
+        Quaternion();
         Quaternion(UnitVector &uvec, double yaw); // yaw radians
     };
 

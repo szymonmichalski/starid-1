@@ -1,7 +1,10 @@
 #include "util.h"
 using namespace arma;
 
-util::UnitVector::UnitVector(double ra, double dec) {
+util::UnitVector::UnitVector() {};
+util::UnitVector::UnitVector(double ra=0.0, double dec=0.0)
+    : uv({ 1.0, 0.0, 0.0 })
+{
     uv = { cos(ra)*cos(dec), sin(ra)*cos(dec), sin(dec) };
     uv = normalise(uv);
     assert(norm(uv) - 1.0 < 1e-10);
@@ -10,7 +13,16 @@ double util::UnitVector::UnitVector::x() {return uv(0);}
 double util::UnitVector::UnitVector::y() {return uv(1);}
 double util::UnitVector::UnitVector::z() {return uv(2);}
 
-util::RotationMatrix::RotationMatrix(UnitVector& uvec, double yaw) {
+util::RotationVector::RotationVector()
+    : rv({ 0.0, 0.0, 0.0 })
+{
+
+}
+
+util::RotationMatrix::RotationMatrix() {};
+util::RotationMatrix::RotationMatrix(UnitVector& uvec, double yaw=0.0)
+    : rm({ mat(3,3,fill::eye) })
+{
     vec bz { uvec.uv(0), uvec.uv(1), uvec.uv(2) };
     vec iz { 0.0, 0.0, 1.0 };
     vec b1x { cross(bz,iz) };
@@ -22,7 +34,11 @@ util::RotationMatrix::RotationMatrix(UnitVector& uvec, double yaw) {
     rm.col(2) = bz;
 }
 
-util::Quaternion::Quaternion(UnitVector& uvec, double yaw) : rm(uvec, yaw) {
+util::Quaternion::Quaternion() {};
+util::Quaternion::Quaternion(UnitVector& uvec, double yaw)
+    : rm(uvec, yaw),
+      q({ 0.0, 0.0, 0.0, 1.0 })
+{
     q = rm2q(rm.rm);
 }
 
