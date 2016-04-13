@@ -1,0 +1,54 @@
+#ifndef BASE_H
+#define BASE_H
+
+#include <cmath>
+#include <cassert>
+#include <armadillo>
+using namespace arma;
+
+namespace base {
+
+constexpr double pi = datum::pi;
+constexpr double UnixTimeToJ2000Offset = 946684800.0;
+constexpr double RaOrion = 75.0*pi/180.0;
+constexpr double DecOrion = 0.0*pi/180.0;
+constexpr double RaCass = 0.0*pi/180.0;
+constexpr double DecCass = 60.0*pi/180.0;
+
+struct UnitVector {
+    vec uv;
+    UnitVector();
+    UnitVector(double ra, double dec);
+    double x();
+    double y();
+    double z();
+};
+
+struct RotationVector {
+    vec rv;
+    RotationVector();
+};
+
+struct RotationMatrix {
+    mat rm;
+    RotationMatrix();
+    RotationMatrix(UnitVector& uvec, double yaw);
+};
+
+struct Quaternion {
+    base::RotationMatrix rm;
+    vec q;
+    Quaternion();
+    Quaternion(UnitVector &uvec, double yaw);
+};
+
+vec qmult(vec& q1, vec& q2);
+vec qconj(vec& q);
+vec rv2q(vec& rv);
+vec q2rv(vec& q);
+vec qdif2rv(vec& q1, vec& q2);
+mat q2rm(vec& q);
+vec rm2q(mat& rm);
+double sgn(double x);
+}
+#endif

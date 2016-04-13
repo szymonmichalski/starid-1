@@ -1,7 +1,8 @@
 #include "sensor.h"
 #include "catalog.h"
 
-sensor::Sensor::Sensor(util::UnitVector& pointingin, double yawin, double fovradiusin)
+sensor::Sensor::Sensor() {};
+sensor::Sensor::Sensor(base::UnitVector& pointingin, double yawin, double fovradiusin=4.0*base::pi/180.0)
     : pointing(pointingin),
       yaw(yawin),
       fovradius(fovradiusin),
@@ -22,7 +23,7 @@ sensor::Obs sensor::Sensor::GetObs(catalog::Catalog& cat)
     obs.mag.set_size(ndxs.size());
     for (uint i = 0; i < ndxs.size(); ++i) {
         obs.ndxs(i) = ndxs[i];
-        obs.uv.row(0) = cat.stars[i].uvec.uv.t();
+        obs.uv.row(i) = cat.stars[i].uvec.uv.t();
         obs.mag(i) = cat.stars[i].mv1;
     }
 

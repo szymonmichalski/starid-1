@@ -1,7 +1,7 @@
 #ifndef CATALOG_H
 #define CATALOG_H
 
-#include "util.h"
+#include "base.h"
 #include "indexfinder.h"
 #include <string>
 #include <vector>
@@ -23,15 +23,15 @@ struct Star {
     double mv1;
     double ra_degrees;
     double dec_degrees;
-    util::UnitVector uvec;
+    base::UnitVector uvec;
     Star();
 };
 
 class Catalog {
 public:
-    Catalog(const std::string& catalog_file, double years_from_j2000=0.0, double max_mv=7.2);
+    Catalog(const std::string& catalog_file, double j2koffset, double mv);
     std::vector<catalog::Star> stars;
-    std::vector<int> StarsNearPoint(util::UnitVector& uv, const double radius);
+    std::vector<int> StarsNearPoint(base::UnitVector& uv, const double radius);
 private:
     indexfinder::IndexFinder xfinder;
     indexfinder::IndexFinder yfinder;

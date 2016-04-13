@@ -1,7 +1,7 @@
 #ifndef STARPAIRS_H
 #define STARPAIRS_H
 
-#include "util.h"
+#include "base.h"
 #include "catalog.h"
 #include <unordered_map>
 #include "indexfinder.h"
@@ -18,6 +18,7 @@ struct Star {
 
 class StarPairs {
 public:
+    StarPairs();
     StarPairs(catalog::Catalog& cat, double radius);
 private:
     std::vector<std::tuple<double, int, int>> starpairs; // angle, catndx1, catndx2

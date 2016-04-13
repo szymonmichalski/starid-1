@@ -24,7 +24,7 @@ catalog::Star::Star()
 
 }
 
-catalog::Catalog::Catalog(const std::string& catalog_file, double years_from_j2000, double max_mv)
+catalog::Catalog::Catalog(const std::string& catalog_file, double j2koffset=0.0, double mv=7.2)
 {
     std::ifstream catfile (catalog_file);
     int ndx {0};
@@ -36,7 +36,7 @@ catalog::Catalog::Catalog(const std::string& catalog_file, double years_from_j20
             try {
                 Star star;
                 try {star.mv1 = std::stof(line.substr(232,6));} catch(...){}
-                if (star.mv1 > max_mv) {
+                if (star.mv1 > mv) {
                     ++dim_stars;
                     continue;
                 }
@@ -65,11 +65,11 @@ catalog::Catalog::Catalog(const std::string& catalog_file, double years_from_j20
                 if (line.substr(157,1) == "-") pmdecsign = -1.0;
                 star.ra_degrees = 15.0 * (rah + ram/60.0 + ras/3600.0);
                 star.dec_degrees = decsign * (decd + decm/60.0 + decs/3600.0);
-                star.ra_degrees += (years_from_j2000 * pmra_arcsec_per_year) / 3600.0;
-                star.dec_degrees += (years_from_j2000 * pmdecsign * pmdec_arcsec_per_year) / 3600.0;
+                star.ra_degrees += (j2koffset * pmra_arcsec_per_year) / 3600.0;
+                star.dec_degrees += (j2koffset * pmdecsign * pmdec_arcsec_per_year) / 3600.0;
                 assert (star.ra_degrees >= 0.0 && star.ra_degrees <= 360.0);
                 assert (star.dec_degrees >= -90.0 && star.dec_degrees <= 90.0);
-                util::UnitVector uvec(star.ra_degrees*util::pi/180.0, star.dec_degrees*util::pi/180.0);
+                base::UnitVector uvec(star.ra_degrees*base::pi/180.0, star.dec_degrees*base::pi/180.0);
                 star.uvec = uvec;
                 std::pair<double,int> xpair {star.uvec.x(), ndx};
                 std::pair<double,int> ypair {star.uvec.y(), ndx};
@@ -93,7 +93,7 @@ catalog::Catalog::Catalog(const std::string& catalog_file, double years_from_j20
     zfinder.SetTable(ztable);
 }
 
-std::vector<int> catalog::Catalog::StarsNearPoint(util::UnitVector& uvec, const double radius) {
+std::vector<int> catalog::Catalog::StarsNearPoint(base::UnitVector& uvec, const double radius) {
     std::vector<int> xring = StarsInRing(uvec.x(), radius, xfinder);
     std::vector<int> yring = StarsInRing(uvec.y(), radius, yfinder);
     std::vector<int> zring = StarsInRing(uvec.z(), radius, zfinder);

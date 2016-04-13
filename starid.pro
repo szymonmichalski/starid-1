@@ -7,15 +7,15 @@ SOURCES += main.cpp \
     catalog.cpp \
     indexfinder.cpp \
     starpairs.cpp \
-    util.cpp \
-    sensor.cpp
+    sensor.cpp \
+    base.cpp
 
 HEADERS += \
     catalog.h \
     indexfinder.h \
-    util.h \
     starpairs.h \
-    sensor.h
+    sensor.h \
+    base.h
 
 DISTFILES += \
     LICENSE.txt \

@@ -2,12 +2,15 @@
 #include <algorithm>
 #include <iostream>
 
-starpairs::Star::Star(int catndxin, catalog::Catalog& cat, double radius) {
+starpairs::Star::Star(int catndxin, catalog::Catalog& cat, double radius)
+{
     catndx = catndxin;
     neighbors = cat.StarsNearPoint(cat.stars[catndx].uvec, radius);
 }
 
-starpairs::StarPairs::StarPairs(catalog::Catalog& cat, double radius) {
+starpairs::StarPairs::StarPairs() {};
+starpairs::StarPairs::StarPairs(catalog::Catalog& cat, double radius)
+{
     int starpairsndx = 0;
     for (uint catndx = 0; catndx < cat.stars.size(); ++catndx) {
         starpairs::Star star(catndx, cat, radius);
@@ -31,8 +34,8 @@ starpairs::StarPairs::StarPairs(catalog::Catalog& cat, double radius) {
     afinder.SetTable(atable);
     std::sort(atable.begin(), atable.end());
     int sz = atable.size();
-    std::cout << "atable size " << sz << " med " << atable[sz/2].first*180.0/util::pi
-                 << " max " << atable[sz-1].first*180.0/util::pi << "\n";
+    std::cout << "atable size " << sz << " med " << atable[sz/2].first*180.0/base::pi
+                 << " max " << atable[sz-1].first*180.0/base::pi << "\n";
 }
 
 std::string starpairs::StarPairs::StarPairKey(int& catndx1, int& catndx2) {
