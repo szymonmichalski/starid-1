@@ -32,6 +32,7 @@ base::RotationMatrix::RotationMatrix(UnitVector& uvec, double yaw=0.0)
     rm.col(0) = bx;
     rm.col(1) = by;
     rm.col(2) = bz;
+//    assert(det(rm) - 1.0 < 1e-10);
 }
 
 base::Quaternion::Quaternion() {};
@@ -40,6 +41,8 @@ base::Quaternion::Quaternion(UnitVector& uvec, double yaw)
       q({ 0.0, 0.0, 0.0, 1.0 })
 {
     q = rm2q(rm.rm);
+    q = normalise(q);
+//    assert(norm(q) - 1.0 < 1e-6);
 }
 
 vec base::qmult(vec& q1, vec& q2) {

@@ -10,22 +10,22 @@ struct Obs {
     base::UnitVector pointing;
     double yaw;
     base::Quaternion attitude;
-    Col<int> ndxs;
-    mat uv;
-    vec mag;
+    std::vector<int> ndxs;
+    std::vector<double> mag;
+    mat uv; // n x 3, xyz
+    mat tpc; // n x 2, tangent plane coordinates
 };
 
 class Sensor {
 public:
     Sensor();
-    Sensor(base::UnitVector& pointingin, double yawin, double fovradiusin);
+    Sensor(base::UnitVector& pointing, double yaw, double fovradius);
     sensor::Obs GetObs(catalog::Catalog& cat);
 private:
     double fovradius;
     double yaw;
     base::UnitVector pointing;
     base::Quaternion attitude;
-    base::Quaternion q;
 };
 
 }

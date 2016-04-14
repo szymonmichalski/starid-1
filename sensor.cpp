@@ -1,12 +1,11 @@
 #include "sensor.h"
-#include "catalog.h"
 
 sensor::Sensor::Sensor() {};
-sensor::Sensor::Sensor(base::UnitVector& pointingin, double yawin, double fovradiusin=4.0*base::pi/180.0)
-    : pointing(pointingin),
-      yaw(yawin),
-      fovradius(fovradiusin),
-      q(pointingin, yawin)
+sensor::Sensor::Sensor(base::UnitVector& pointing, double yaw, double fovradius=4.0*base::pi/180.0)
+    : pointing(pointing),
+      yaw(yaw),
+      fovradius(fovradius),
+      attitude(pointing, yaw)
 {
 }
 
@@ -18,14 +17,16 @@ sensor::Obs sensor::Sensor::GetObs(catalog::Catalog& cat)
     obs.attitude = attitude;
 
     std::vector<int> ndxs = cat.StarsNearPoint(pointing, fovradius);
-    obs.ndxs.set_size(ndxs.size());
     obs.uv.set_size(ndxs.size(),3);
-    obs.mag.set_size(ndxs.size());
+    obs.tpc.set_size(ndxs.size(),2);
     for (uint i = 0; i < ndxs.size(); ++i) {
-        obs.ndxs(i) = ndxs[i];
-        obs.uv.row(i) = cat.stars[i].uvec.uv.t();
-        obs.mag(i) = cat.stars[i].mv1;
+        obs.ndxs.push_back(ndxs[i]);
+        obs.mag.push_back(cat.stars[i].mv1);
+        obs.uv.row(i) = trans(cat.stars[i].uvec.uv);
     }
+    obs.uv = trans(base::q2rm(obs.attitude.q) * trans(obs.uv));
+    obs.tpc.col(0) = obs.uv.col(0) / obs.uv.col(2);
+    obs.tpc.col(0) = obs.uv.col(1) / obs.uv.col(2);
 
     return obs;
 }
