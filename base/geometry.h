@@ -9,7 +9,6 @@ using namespace arma;
 namespace geometry {
 
 constexpr double pi = datum::pi;
-constexpr double UnixTimeToJ2000Offset = 946684800.0;
 constexpr double RaOrion = 75.0*pi/180.0;
 constexpr double DecOrion = 0.0*pi/180.0;
 constexpr double RaCass = 0.0*pi/180.0;

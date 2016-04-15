@@ -8,10 +8,12 @@ using namespace arma;
 #include "starpairs.h"
 #include "sensor.h"
 
+constexpr double UnixTimeToJ2000Offset = 946684800.0;
+
 int main()
 {
     std::chrono::time_point<std::chrono::system_clock> tcurrent {std::chrono::system_clock::now()};
-    double years_from_j2000 {(double(std::chrono::system_clock::to_time_t(tcurrent)) - geometry::UnixTimeToJ2000Offset) / 31557600.0}; // julian years
+    double years_from_j2000 {(double(std::chrono::system_clock::to_time_t(tcurrent)) - UnixTimeToJ2000Offset) / 31557600.0}; // julian years
     double max_mv {6.5};
     std::string catalog_file {"../../SKYMAP_SKY2000_V5R4.txt"};
     double fovradius {4.0*geometry::pi/180.0};
