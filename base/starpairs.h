@@ -1,7 +1,7 @@
 #ifndef STARPAIRS_H
 #define STARPAIRS_H
 
-#include "base.h"
+#include "geometry.h"
 #include "catalog.h"
 #include <unordered_map>
 #include "indexfinder.h"

@@ -1,7 +1,7 @@
 #ifndef CATALOG_H
 #define CATALOG_H
 
-#include "base.h"
+#include "geometry.h"
 #include "indexfinder.h"
 #include <string>
 #include <vector>
@@ -23,7 +23,7 @@ struct Star {
     double mv1;
     double ra_degrees;
     double dec_degrees;
-    base::UnitVector uvec;
+    geometry::UnitVector uvec;
     Star();
 };
 
@@ -31,7 +31,7 @@ class Catalog {
 public:
     Catalog(const std::string& catalog_file, double j2koffset, double mv);
     std::vector<catalog::Star> stars;
-    std::vector<int> StarsNearPoint(base::UnitVector& uv, const double radius);
+    std::vector<int> StarsNearPoint(geometry::UnitVector& uv, const double radius);
 private:
     indexfinder::IndexFinder xfinder;
     indexfinder::IndexFinder yfinder;

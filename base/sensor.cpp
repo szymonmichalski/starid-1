@@ -1,7 +1,7 @@
 #include "sensor.h"
 
 sensor::Sensor::Sensor() {};
-sensor::Sensor::Sensor(base::UnitVector& pointing, double yaw, double fovradius=4.0*base::pi/180.0)
+sensor::Sensor::Sensor(geometry::UnitVector& pointing, double yaw, double fovradius=4.0*geometry::pi/180.0)
     : pointing(pointing),
       yaw(yaw),
       fovradius(fovradius),
@@ -24,7 +24,7 @@ sensor::Obs sensor::Sensor::GetObs(catalog::Catalog& cat)
         obs.mag.push_back(cat.stars[i].mv1);
         obs.uv.row(i) = trans(cat.stars[i].uvec.uv);
     }
-    obs.uv = trans(base::q2rm(obs.attitude.q) * trans(obs.uv));
+    obs.uv = trans(geometry::q2rm(obs.attitude.q) * trans(obs.uv));
     obs.tpc.col(0) = obs.uv.col(0) / obs.uv.col(2);
     obs.tpc.col(0) = obs.uv.col(1) / obs.uv.col(2);
 

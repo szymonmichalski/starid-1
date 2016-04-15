@@ -1,15 +1,15 @@
 #ifndef SENSOR_H
 #define SENSOR_H
 
-#include "base.h"
+#include "geometry.h"
 #include "catalog.h"
 
 namespace sensor {
 
 struct Obs {
-    base::UnitVector pointing;
+    geometry::UnitVector pointing;
     double yaw;
-    base::Quaternion attitude;
+    geometry::Quaternion attitude;
     std::vector<int> ndxs;
     std::vector<double> mag;
     mat uv; // n x 3, xyz
@@ -19,13 +19,13 @@ struct Obs {
 class Sensor {
 public:
     Sensor();
-    Sensor(base::UnitVector& pointing, double yaw, double fovradius);
+    Sensor(geometry::UnitVector& pointing, double yaw, double fovradius);
     sensor::Obs GetObs(catalog::Catalog& cat);
-    base::Quaternion attitude;
+    geometry::Quaternion attitude;
 private:
     double fovradius;
     double yaw;
-    base::UnitVector pointing;
+    geometry::UnitVector pointing;
 };
 
 }

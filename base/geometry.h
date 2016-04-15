@@ -1,12 +1,12 @@
-#ifndef BASE_H
-#define BASE_H
+#ifndef GEOMETRY_H
+#define GEOMETRY_H
 
 #include <cmath>
 #include <cassert>
 #include <armadillo>
 using namespace arma;
 
-namespace base {
+namespace geometry {
 
 constexpr double pi = datum::pi;
 constexpr double UnixTimeToJ2000Offset = 946684800.0;
