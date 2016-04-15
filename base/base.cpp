@@ -1,5 +1,4 @@
 #include "base.h"
-using namespace arma;
 
 base::UnitVector::UnitVector() {
     uv.set_size(3);
