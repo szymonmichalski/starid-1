@@ -9,7 +9,6 @@ namespace sensor {
 struct Obs {
     geometry::UnitVector pointing;
     double yaw;
-    geometry::Quaternion attitude;
     std::vector<int> ndxs;
     std::vector<double> mag;
     mat uv; // n x 3, xyz
@@ -21,11 +20,10 @@ public:
     Sensor();
     Sensor(geometry::UnitVector& pointing, double yaw, double fovradius);
     sensor::Obs GetObs(catalog::Catalog& cat);
-    geometry::Quaternion attitude;
-private:
     double fovradius;
     double yaw;
     geometry::UnitVector pointing;
+private:
 };
 
 }

@@ -12,7 +12,7 @@ geometry::UnitVector::UnitVector(double ra=0.0, double dec=0.0)
     uv(0) = cos(ra)*cos(dec);
     uv(1) = sin(ra)*cos(dec);
     uv(2) = sin(dec);
-//    uv = normalise(uv);
+    uv = normalise(uv);
     assert(norm(uv) - 1.0 < 1e-10);
 }
 double geometry::UnitVector::UnitVector::x() {return uv(0);}
@@ -41,7 +41,7 @@ geometry::RotationMatrix::RotationMatrix(UnitVector& uv, double yaw=0.0)
     rm.col(0) = bx;
     rm.col(1) = by;
     rm.col(2) = bz;
-//    assert(det(rm) - 1.0 < 1e-10);
+    assert(det(rm) - 1.0 < 1e-10);
 }
 
 geometry::Quaternion::Quaternion() {
@@ -53,19 +53,18 @@ geometry::Quaternion::Quaternion() {
 }
 geometry::Quaternion::Quaternion(UnitVector& uv, double yaw)
 {
+    q.set_size(4);
     RotationMatrix rm(uv, yaw);
     q = rm2q(rm.rm);
-    std::cout << rm.rm << "\n";
-    std::cout << q << "\n";
-
-//    q = normalise(q);
-//    assert(norm(q) - 1.0 < 1e-6);
+    q = normalise(q);
+    assert(norm(q) - 1.0 < 1e-6);
 }
 geometry::Quaternion::Quaternion(RotationMatrix& rm)
 {
+    q.set_size(4);
     q = rm2q(rm.rm);
-//    q = normalise(q);
-//    assert(norm(q) - 1.0 < 1e-6);
+    q = normalise(q);
+    assert(norm(q) - 1.0 < 1e-6);
 }
 
 vec geometry::qmult(vec& q1, vec& q2) {
@@ -75,7 +74,7 @@ vec geometry::qmult(vec& q1, vec& q2) {
                 q1(0)*q2(1) + -q1(1)*q2(0) + q1(2)*q2(3) + q1(3)*q2(2),
                 -q1(0)*q2(0) + -q1(1)*q2(1) + -q1(2)*q2(2) + q1(3)*q2(3)
     };
-//    q3 = normalise(q3);
+    q3 = normalise(q3);
     if (q3(3) < 0.0) q3 = -q3;
     return q3;
 }
@@ -87,7 +86,7 @@ vec geometry::qconj(vec& q) {
 
 vec geometry::rv2q(vec& rv) {
     vec q { rv(0)/2, rv(1)/2, rv(2)/2, 1 };
-//    q = normalise(q);
+    q = normalise(q);
     if (q(3) < 0.0) q = -q;
     return q;
 }
@@ -105,7 +104,7 @@ vec geometry::qdif2rv(vec& q1, vec& q2a) {
                 q1(0)*q2(1) + -q1(1)*q2(0) + q1(2)*q2(3) + q1(3)*q2(2),
                 -q1(0)*q2(0) + -q1(1)*q2(1) + -q1(2)*q2(2) + q1(3)*q2(3)
     };
-//    q3 = normalise(q3);
+    q3 = normalise(q3);
     if ( q3(3) < 0 ) { q3 = -q3; }
     vec rv { 2.0*q3(0), 2.0*q3(1), 2.0*q3(2) };
     return rv;
@@ -131,7 +130,7 @@ vec geometry::rm2q(mat& rm) {
     q(1) = 0.5 * sqrt(1.0 - rm(0,0) + rm(1,1) - rm(2,2)) * sgn( rm(2,0)-rm(0,2) );
     q(2) = 0.5 * sqrt(1.0 - rm(0,0) - rm(1,1) + rm(2,2)) * sgn( rm(0,1)-rm(1,0) );
     q(3) = 0.5 * sqrt(1.0 + rm(0,0) + rm(1,1) + rm(2,2));
-//    q = normalise(q);
+    q = normalise(q);
     if (q(3) < 0.0) q = -q;
     return q;
 }

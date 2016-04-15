@@ -69,7 +69,7 @@ catalog::Catalog::Catalog(const std::string& catalog_file, double j2koffset=0.0,
                 star.dec_degrees += (j2koffset * pmdecsign * pmdec_arcsec_per_year) / 3600.0;
                 assert (star.ra_degrees >= 0.0 && star.ra_degrees <= 360.0);
                 assert (star.dec_degrees >= -90.0 && star.dec_degrees <= 90.0);
-                geometry::UnitVector uvec(star.ra_degrees*geometry::pi/180.0, star.dec_degrees*geometry::pi/180.0);
+                geometry::UnitVector uvec(star.ra_degrees*datum::pi/180.0, star.dec_degrees*datum::pi/180.0);
                 star.uvec = uvec;
                 std::pair<double,int> xpair {star.uvec.x(), ndx};
                 std::pair<double,int> ypair {star.uvec.y(), ndx};

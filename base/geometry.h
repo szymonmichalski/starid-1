@@ -8,12 +8,6 @@ using namespace arma;
 
 namespace geometry {
 
-constexpr double pi = datum::pi;
-constexpr double RaOrion = 75.0*pi/180.0;
-constexpr double DecOrion = 0.0*pi/180.0;
-constexpr double RaCass = 0.0*pi/180.0;
-constexpr double DecCass = 60.0*pi/180.0;
-
 struct UnitVector {
     vec uv;
     UnitVector();
