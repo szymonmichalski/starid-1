@@ -19,7 +19,7 @@ catalog::Star::Star()
       mv1(100.0),
       ra_degrees(0.0),
       dec_degrees(0.0),
-      uvec(0.0, 0.0)
+      uv()
 {
 
 }
@@ -69,11 +69,19 @@ catalog::Catalog::Catalog(const std::string& catalog_file, double j2koffset=0.0,
                 star.dec_degrees += (j2koffset * pmdecsign * pmdec_arcsec_per_year) / 3600.0;
                 assert (star.ra_degrees >= 0.0 && star.ra_degrees <= 360.0);
                 assert (star.dec_degrees >= -90.0 && star.dec_degrees <= 90.0);
-                geometry::UnitVector uvec(star.ra_degrees*datum::pi/180.0, star.dec_degrees*datum::pi/180.0);
-                star.uvec = uvec;
-                std::pair<double,int> xpair {star.uvec.x(), ndx};
-                std::pair<double,int> ypair {star.uvec.y(), ndx};
-                std::pair<double,int> zpair {star.uvec.z(), ndx};
+
+                double ra = star.ra_degrees * datum::pi / 180.0;
+                double dec = star.dec_degrees * datum::pi / 180.0;
+                star.uv.set_size(3);
+                star.uv(0) = cos(ra)*cos(dec);
+                star.uv(1) = sin(ra)*cos(dec);
+                star.uv(2) = sin(dec);
+                star.uv = normalise(star.uv);
+                assert(norm(star.uv) - 1.0 < 1e-10);
+
+                std::pair<double,int> xpair {star.uv(0), ndx};
+                std::pair<double,int> ypair {star.uv(1), ndx};
+                std::pair<double,int> zpair {star.uv(2), ndx};
                 xtable.push_back(xpair);
                 ytable.push_back(ypair);
                 ztable.push_back(zpair);
@@ -93,10 +101,10 @@ catalog::Catalog::Catalog(const std::string& catalog_file, double j2koffset=0.0,
     zfinder.SetTable(ztable);
 }
 
-std::vector<int> catalog::Catalog::StarsNearPoint(geometry::UnitVector& uvec, const double radius) {
-    std::vector<int> xring = StarsInRing(uvec.x(), radius, xfinder);
-    std::vector<int> yring = StarsInRing(uvec.y(), radius, yfinder);
-    std::vector<int> zring = StarsInRing(uvec.z(), radius, zfinder);
+std::vector<int> catalog::Catalog::StarsNearPoint(vec& uv, const double radius) {
+    std::vector<int> xring = StarsInRing(uv(0), radius, xfinder);
+    std::vector<int> yring = StarsInRing(uv(1), radius, yfinder);
+    std::vector<int> zring = StarsInRing(uv(2), radius, zfinder);
     std::vector<int> xy;
     std::set_intersection(xring.begin(), xring.end(), yring.begin(), yring.end(), std::back_inserter(xy));
     std::vector<int> xyz;

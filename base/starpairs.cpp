@@ -5,7 +5,7 @@
 starpairs::Star::Star(int catndxin, catalog::Catalog& cat, double radius)
 {
     catndx = catndxin;
-    neighbors = cat.StarsNearPoint(cat.stars[catndx].uvec, radius);
+    neighbors = cat.StarsNearPoint(cat.stars[catndx].uv, radius);
 }
 
 starpairs::StarPairs::StarPairs() {};
@@ -21,7 +21,7 @@ starpairs::StarPairs::StarPairs(catalog::Catalog& cat, double radius)
             std::string key = starpairs::StarPairs::StarPairKey(catndx1, catndx2);
             auto search = starpairs_map.find(key);
             if (search != starpairs_map.end()) continue;
-            double angle = acos( arma::dot( cat.stars[catndx1].uvec.uv , cat.stars[catndx2].uvec.uv ) );
+            double angle = acos( arma::dot( cat.stars[catndx1].uv , cat.stars[catndx2].uv ) );
             if (std::fabs(angle) > radius) continue;
             starpairs_map.insert({key, starpairsndx});
             std::tuple<double, int, int> starpair {angle, catndx1, catndx2};

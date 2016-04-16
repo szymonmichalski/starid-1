@@ -8,31 +8,13 @@ using namespace arma;
 
 namespace geometry {
 
-struct UnitVector {
+struct Pointing {
+    Pointing();
+    Pointing(double ra, double dec, double yaw);
     vec uv;
-    UnitVector();
-    UnitVector(double ra, double dec);
-    double x();
-    double y();
-    double z();
-};
-
-struct RotationVector {
-    vec rv;
-    RotationVector();
-};
-
-struct RotationMatrix {
-    mat rm;
-    RotationMatrix();
-    RotationMatrix(UnitVector& uv, double yaw);
-};
-
-struct Quaternion {
-    vec q;
-    Quaternion();
-    Quaternion(UnitVector& uvec, double yaw);
-    Quaternion(RotationMatrix& rm);
+    double yaw;
+    mat RotationMatrix();
+    vec Quaternion();
 };
 
 vec qmult(vec& q1, vec& q2);

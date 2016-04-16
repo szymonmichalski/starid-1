@@ -7,8 +7,9 @@
 namespace sensor {
 
 struct Obs {
-    geometry::UnitVector pointing;
-    double yaw;
+    Obs();
+    double fovradius;
+    geometry::Pointing pointing;
     std::vector<int> ndxs;
     std::vector<double> mag;
     mat uv; // n x 3, xyz
@@ -17,12 +18,10 @@ struct Obs {
 
 class Sensor {
 public:
-    Sensor();
-    Sensor(geometry::UnitVector& pointing, double yaw, double fovradius);
+    Sensor(geometry::Pointing& pointing, double fovradius);
     sensor::Obs GetObs(catalog::Catalog& cat);
     double fovradius;
-    double yaw;
-    geometry::UnitVector pointing;
+    geometry::Pointing pointing;
 private:
 };
 
