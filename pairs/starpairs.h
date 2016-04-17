@@ -3,8 +3,8 @@
 
 #include "geometry.h"
 #include "catalog.h"
-#include <unordered_map>
 #include "indexfinder.h"
+#include <unordered_map>
 #include <armadillo>
 using namespace arma;
 

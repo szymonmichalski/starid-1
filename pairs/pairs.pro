@@ -3,25 +3,20 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 
-TARGET = gtest
+TARGET = pairs
 
 SOURCES += \
-    gtest.cpp \
-    gtest_geometry.cpp
+    starpairs.cpp \
+    pairs.cpp
 
 HEADERS += \
+    starpairs.h
 
 INCLUDEPATH += ../base
 LIBS += ../base/geometry.o
-
-INCLUDEPATH += ../../googletest/include
-LIBS += ../../googletest/libgtest.a
-LIBS += -pthread
+LIBS += ../base/catalog.o
+LIBS += ../base/indexfinder.o
+LIBS += ../base/sensor.o
 
 INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so
-
-
-
-
-

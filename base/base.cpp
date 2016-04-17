@@ -4,14 +4,13 @@
 #include <armadillo>
 #include "geometry.h"
 #include "catalog.h"
-#include "starpairs.h"
 #include "sensor.h"
 
-constexpr double UnixTimeToJ2000Offset = 946684800.0;
-constexpr double RaOrion = 75.0*datum::pi/180.0;
-constexpr double DecOrion = 0.0*datum::pi/180.0;
-constexpr double RaCass = 0.0*datum::pi/180.0;
-constexpr double DecCass = 60.0*datum::pi/180.0;
+double UnixTimeToJ2000Offset = 946684800.0;
+double RaOrion = 75.0*datum::pi/180.0;
+double DecOrion = 0.0*datum::pi/180.0;
+double RaCass = 0.0*datum::pi/180.0;
+double DecCass = 60.0*datum::pi/180.0;
 
 int main()
 {

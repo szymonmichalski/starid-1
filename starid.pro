@@ -2,7 +2,8 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     base \
-    gtest
+    gtest \
+    pairs
 
 gtest.depends = base
 

@@ -18,10 +18,10 @@ struct Obs {
 
 class Sensor {
 public:
+    geometry::Pointing pointing;
+    double fovradius;
     Sensor(geometry::Pointing& pointing, double fovradius);
     sensor::Obs GetObs(catalog::Catalog& cat);
-    double fovradius;
-    geometry::Pointing pointing;
 private:
 };
 
