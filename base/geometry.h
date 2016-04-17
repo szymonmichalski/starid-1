@@ -6,7 +6,7 @@
 #include <armadillo>
 using namespace arma;
 
-namespace geometry {
+namespace base {
 
 struct Pointing {
     Pointing();

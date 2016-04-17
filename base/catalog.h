@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-namespace catalog {
+namespace base {
 
 struct Star {
     std::string iau_identifier;
@@ -30,16 +30,16 @@ struct Star {
 class Catalog {
 public:
     Catalog(const std::string& catalog_file, double j2koffset, double mv);
-    std::vector<catalog::Star> stars;
+    std::vector<base::Star> stars;
     std::vector<int> StarsNearPoint(vec& uv, const double radius);
 private:
-    indexfinder::IndexFinder xfinder;
-    indexfinder::IndexFinder yfinder;
-    indexfinder::IndexFinder zfinder;
+    base::IndexFinder xfinder;
+    base::IndexFinder yfinder;
+    base::IndexFinder zfinder;
     std::vector<std::pair<double,int>> xtable;
     std::vector<std::pair<double,int>> ytable;
     std::vector<std::pair<double,int>> ztable;
-    std::vector<int> StarsInRing(double p, double radius, indexfinder::IndexFinder& finder);
+    std::vector<int> StarsInRing(double p, double radius, base::IndexFinder& finder);
 };
 
 }

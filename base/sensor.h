@@ -4,12 +4,12 @@
 #include "geometry.h"
 #include "catalog.h"
 
-namespace sensor {
+namespace base {
 
 struct Obs {
     Obs();
     double fovradius;
-    geometry::Pointing pointing;
+    base::Pointing pointing;
     std::vector<int> ndxs;
     std::vector<double> mag;
     mat uv; // n x 3, xyz
@@ -18,10 +18,10 @@ struct Obs {
 
 class Sensor {
 public:
-    geometry::Pointing pointing;
+    base::Pointing pointing;
     double fovradius;
-    Sensor(geometry::Pointing& pointing, double fovradius);
-    sensor::Obs GetObs(catalog::Catalog& cat);
+    Sensor(base::Pointing& pointing, double fovradius);
+    base::Obs GetObs(base::Catalog& cat);
 private:
 };
 

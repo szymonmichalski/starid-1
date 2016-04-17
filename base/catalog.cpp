@@ -4,7 +4,7 @@
 #include <cassert>
 #include <algorithm>
 
-catalog::Star::Star()
+base::Star::Star()
     : iau_identifier(""),
       star_name(""),
       variablestar_name(""),
@@ -24,7 +24,7 @@ catalog::Star::Star()
 
 }
 
-catalog::Catalog::Catalog(const std::string& catalog_file, double j2koffset=0.0, double mv=7.2)
+base::Catalog::Catalog(const std::string& catalog_file, double j2koffset=0.0, double mv=7.2)
 {
     std::ifstream catfile (catalog_file);
     int ndx {0};
@@ -101,7 +101,7 @@ catalog::Catalog::Catalog(const std::string& catalog_file, double j2koffset=0.0,
     zfinder.SetTable(ztable);
 }
 
-std::vector<int> catalog::Catalog::StarsNearPoint(vec& uv, const double radius) {
+std::vector<int> base::Catalog::StarsNearPoint(vec& uv, const double radius) {
     std::vector<int> xring = StarsInRing(uv(0), radius, xfinder);
     std::vector<int> yring = StarsInRing(uv(1), radius, yfinder);
     std::vector<int> zring = StarsInRing(uv(2), radius, zfinder);
@@ -112,7 +112,7 @@ std::vector<int> catalog::Catalog::StarsNearPoint(vec& uv, const double radius) 
     return xyz;
 }
 
-std::vector<int> catalog::Catalog::StarsInRing(double p, double radius, indexfinder::IndexFinder& finder) {
+std::vector<int> base::Catalog::StarsInRing(double p, double radius, base::IndexFinder& finder) {
     double pmin, pmax;
     if (p >= cos(radius)) {
         pmin = p*cos(radius) - sqrt(1-(p*p))*sin(radius);

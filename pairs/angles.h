@@ -1,5 +1,5 @@
-#ifndef STARPAIRS_H
-#define STARPAIRS_H
+#ifndef ANGLES_H
+#define ANGLES_H
 
 #include "geometry.h"
 #include "catalog.h"
@@ -8,24 +8,24 @@
 #include <armadillo>
 using namespace arma;
 
-namespace starpairs {
+namespace pairs {
 
 struct Star {
-    Star(int catndxin, catalog::Catalog& cat, double radius);
+    Star(int catndxin, base::Catalog& cat, double radius);
     int catndx;
     std::vector<int> neighbors; // catndxs
 };
 
-class StarPairs {
+class Angles {
 public:
-    StarPairs();
-    StarPairs(catalog::Catalog& cat, double radius);
+    Angles();
+    Angles(base::Catalog& cat, double radius);
 private:
     std::vector<std::tuple<double, int, int>> starpairs; // angle, catndx1, catndx2
     std::unordered_map<std::string, int> starpairs_map; // starpairkey, starpairsndx
-    std::string StarPairKey(int& catndx1, int& catndx2); // hash key
+    std::string AnglesKey(int& catndx1, int& catndx2); // hash key
     std::vector<std::pair<double, int>> atable; // angle, starpairs ndx
-    indexfinder::IndexFinder afinder;
+    base::IndexFinder afinder;
 };
 
 }

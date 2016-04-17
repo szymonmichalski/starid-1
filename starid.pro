@@ -3,7 +3,9 @@ TEMPLATE = subdirs
 SUBDIRS += \
     base \
     gtest \
-    pairs
+    pairs \
+    patterns \
+    neuralnets
 
 gtest.depends = base
 

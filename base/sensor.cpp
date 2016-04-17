@@ -1,17 +1,17 @@
 #include "sensor.h"
 
-sensor::Obs::Obs() {
+base::Obs::Obs() {
 }
 
-sensor::Sensor::Sensor(geometry::Pointing& pointing0, double fovradius0=4.0*datum::pi/180.0)
+base::Sensor::Sensor(base::Pointing& pointing0, double fovradius0=4.0*datum::pi/180.0)
     : pointing(pointing0),
       fovradius(fovradius0)
 {
 }
 
-sensor::Obs sensor::Sensor::GetObs(catalog::Catalog& cat)
+base::Obs base::Sensor::GetObs(base::Catalog& cat)
 {
-    sensor::Obs obs;
+    base::Obs obs;
     obs.fovradius = fovradius;
     obs.pointing = pointing;
 

@@ -6,11 +6,11 @@ CONFIG -= qt
 TARGET = pairs
 
 SOURCES += \
-    starpairs.cpp \
-    pairs.cpp
+    pairs.cpp \
+    angles.cpp
 
 HEADERS += \
-    starpairs.h
+    angles.h
 
 INCLUDEPATH += ../base
 LIBS += ../base/geometry.o

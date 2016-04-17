@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-namespace indexfinder {
+namespace base {
 
 // doubles are physical values to be sorted then searched
 // ints are indexes refering back to the original symbol table

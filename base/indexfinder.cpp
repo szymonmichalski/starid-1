@@ -1,13 +1,13 @@
 #include "indexfinder.h"
 #include <algorithm>
 
-bool indexfinder::IndexFinder::SetTable(std::vector<std::pair<double,int>>& tablein) {
+bool base::IndexFinder::SetTable(std::vector<std::pair<double,int>>& tablein) {
     table = tablein;
     std::sort(table.begin(), table.end());
     return true;
 }
 
-std::vector<int> indexfinder::IndexFinder::FindIndexes(double low, double hi) {
+std::vector<int> base::IndexFinder::FindIndexes(double low, double hi) {
     auto itlow = std::lower_bound(table.begin(), table.end(), std::make_pair(low, 0));
     auto ithi = std::upper_bound(table.begin(), table.end(), std::make_pair(hi, 0));
     std::vector<int> ndxs;

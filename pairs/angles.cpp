@@ -1,24 +1,24 @@
-#include "starpairs.h"
+#include "angles.h"
 #include <algorithm>
 #include <iostream>
 
-starpairs::Star::Star(int catndxin, catalog::Catalog& cat, double radius)
+pairs::Star::Star(int catndxin, base::Catalog& cat, double radius)
 {
     catndx = catndxin;
     neighbors = cat.StarsNearPoint(cat.stars[catndx].uv, radius);
 }
 
-starpairs::StarPairs::StarPairs() {};
-starpairs::StarPairs::StarPairs(catalog::Catalog& cat, double radius)
+pairs::Angles::Angles() {};
+pairs::Angles::Angles(base::Catalog& cat, double radius)
 {
     int starpairsndx = 0;
     for (uint catndx = 0; catndx < cat.stars.size(); ++catndx) {
-        starpairs::Star star(catndx, cat, radius);
+        pairs::Star star(catndx, cat, radius);
         for (uint i = 0; i < star.neighbors.size(); ++i) {
             if (star.catndx == star.neighbors[i]) continue;
             int catndx1 = star.catndx;
             int catndx2 = star.neighbors[i];
-            std::string key = starpairs::StarPairs::StarPairKey(catndx1, catndx2);
+            std::string key = pairs::Angles::AnglesKey(catndx1, catndx2);
             auto search = starpairs_map.find(key);
             if (search != starpairs_map.end()) continue;
             double angle = acos( arma::dot( cat.stars[catndx1].uv , cat.stars[catndx2].uv ) );
@@ -38,7 +38,7 @@ starpairs::StarPairs::StarPairs(catalog::Catalog& cat, double radius)
                  << " max " << atable[sz-1].first*180.0/datum::pi << "\n";
 }
 
-std::string starpairs::StarPairs::StarPairKey(int& catndx1, int& catndx2) {
+std::string pairs::Angles::AnglesKey(int& catndx1, int& catndx2) {
     if (catndx1 > catndx2) {
         int tmp = catndx1;
         catndx1 = catndx2;
