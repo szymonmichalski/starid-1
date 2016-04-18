@@ -7,7 +7,7 @@ SUBDIRS += \
     patterns \
     neuralnets
 
-gtest.depends = base
+gtest.depends = base pairs patterns neuralnets
 
 OTHER_FILES += \
     README.md \
