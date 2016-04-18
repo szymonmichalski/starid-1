@@ -20,3 +20,5 @@ HEADERS += \
 
 INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so
+
+
