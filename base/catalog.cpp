@@ -92,7 +92,7 @@ base::Catalog::Catalog(const std::string& catalog_file, double j2koffset=0.0, do
             }
         }
         catfile.close();
-        std::cout << "stars " << ndx << " dim stars " << dim_stars << " error_stars " << error_stars << "\n";
+//        std::cout << "stars " << ndx << " dim stars " << dim_stars << " error_stars " << error_stars << "\n";
     } else {
         std::cout << "catalog file not found" << "\n";
     }

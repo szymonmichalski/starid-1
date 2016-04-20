@@ -1,7 +1,8 @@
 #include "gtest/gtest.h"
 #include "geometry.h"
 
-TEST(Geometry, Basic) {
+TEST(Geometry, Basic)
+{
     double ra = 0.0*datum::pi/180.0; // cass
     double dec = 60.0*datum::pi/180.0; // cass
 
