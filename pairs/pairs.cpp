@@ -3,8 +3,6 @@
 #include "sensor.h"
 
 #include <chrono>
-#include <iostream>
-#include <string>
 #include <armadillo>
 
 double UnixTimeToJ2000Offset = 946684800.0;
@@ -26,8 +24,6 @@ int main()
     base::Pointing pointing(RaCass, DecCass, yaw);
     base::Sensor sensor(pointing, fovradius);
     base::Obs obs = sensor.GetObs(catalog);
-    std::cout << obs.uv << "\n";
-    std::cout << obs.tpc << "\n";
 
     return 0;
 }
