@@ -4,5 +4,11 @@
 int main(int argc, char **argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+
+    ::testing::GTEST_FLAG(filter) = "geometry.basic"
+                                    ":geometry.rotation"
+                                    ":base.basic";
+    RUN_ALL_TESTS();
+
+    return 0;
 }

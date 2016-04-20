@@ -13,7 +13,7 @@ double DecOrion = 0.0*datum::pi/180.0;
 double RaCass = 0.0*datum::pi/180.0;
 double DecCass = 60.0*datum::pi/180.0;
 
-TEST(Main, Basic)
+TEST(base, basic)
 {
     std::chrono::time_point<std::chrono::system_clock> tcurrent {std::chrono::system_clock::now()};
     double years_from_j2000 {(double(std::chrono::system_clock::to_time_t(tcurrent)) - UnixTimeToJ2000Offset) / 31557600.0}; // julian years
