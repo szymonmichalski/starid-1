@@ -3,12 +3,12 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 
-TARGET = gtest
+TARGET = unittests
 
 SOURCES += \
-    gtest.cpp \
     base_geometry.cpp \
-    base_sensor.cpp
+    base_sensor.cpp \
+    unittests.cpp
 
 HEADERS += \
 

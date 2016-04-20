@@ -2,7 +2,7 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     base \
-    gtest \
+    unittests \
     pairs \
     patterns \
     neuralnets
