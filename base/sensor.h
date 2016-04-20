@@ -12,8 +12,8 @@ struct Obs {
     base::Pointing pointing;
     std::vector<int> ndxs;
     std::vector<double> mag;
-    mat uv; // n x 3, xyz
-    mat tpc; // n x 2, tangent plane coordinates
+    arma::mat uv; // n x 3, xyz
+    arma::mat tpc; // n x 2, tangent plane coordinates
 };
 
 class Sensor {

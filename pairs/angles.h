@@ -4,9 +4,8 @@
 #include "geometry.h"
 #include "catalog.h"
 #include "indexfinder.h"
+
 #include <unordered_map>
-#include <armadillo>
-using namespace arma;
 
 namespace pairs {
 

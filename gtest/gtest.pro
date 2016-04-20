@@ -7,8 +7,8 @@ TARGET = gtest
 
 SOURCES += \
     gtest.cpp \
-    gtest_geometry.cpp \
-    gtest_base.cpp
+    base_geometry.cpp \
+    base_sensor.cpp
 
 HEADERS += \
 

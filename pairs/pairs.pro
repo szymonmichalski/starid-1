@@ -7,10 +7,12 @@ TARGET = pairs
 
 SOURCES += \
     pairs.cpp \
-    angles.cpp
+    angles.cpp \
+    triangle_sequence.cpp
 
 HEADERS += \
-    angles.h
+    angles.h \
+    triangle_sequence.h
 
 INCLUDEPATH += ../base
 LIBS += ../base/geometry.o

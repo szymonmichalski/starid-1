@@ -3,7 +3,7 @@
 base::Obs::Obs() {
 }
 
-base::Sensor::Sensor(base::Pointing& pointing0, double fovradius0=4.0*datum::pi/180.0)
+base::Sensor::Sensor(base::Pointing& pointing0, double fovradius0=4.0*arma::datum::pi/180.0)
     : pointing(pointing0),
       fovradius(fovradius0)
 {

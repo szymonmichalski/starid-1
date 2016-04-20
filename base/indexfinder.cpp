@@ -1,4 +1,5 @@
 #include "indexfinder.h"
+
 #include <algorithm>
 
 bool base::IndexFinder::SetTable(std::vector<std::pair<double,int>>& tablein) {

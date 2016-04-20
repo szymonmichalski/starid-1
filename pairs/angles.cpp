@@ -1,6 +1,4 @@
 #include "angles.h"
-#include <algorithm>
-#include <iostream>
 
 pairs::Star::Star(int catndxin, base::Catalog& cat, double radius)
 {
@@ -34,8 +32,9 @@ pairs::Angles::Angles(base::Catalog& cat, double radius)
     afinder.SetTable(atable);
     std::sort(atable.begin(), atable.end());
     int sz = atable.size();
-    std::cout << "atable size " << sz << " med " << atable[sz/2].first*180.0/datum::pi
-                 << " max " << atable[sz-1].first*180.0/datum::pi << "\n";
+    std::cout << "atable size " << sz
+              << " med " << atable[sz/2].first * 180.0 / arma::datum::pi
+              << " max " << atable[sz-1].first * 180.0 / arma::datum::pi << "\n";
 }
 
 std::string pairs::Angles::AnglesKey(int& catndx1, int& catndx2) {

@@ -1,9 +1,9 @@
 #ifndef CATALOG_H
 #define CATALOG_H
 
-#include "geometry.h"
 #include "indexfinder.h"
-#include <string>
+
+#include <armadillo>
 #include <vector>
 
 namespace base {
@@ -23,7 +23,7 @@ struct Star {
     double mv1;
     double ra_degrees;
     double dec_degrees;
-    vec uv;
+    arma::vec uv;
     Star();
 };
 
@@ -31,7 +31,7 @@ class Catalog {
 public:
     Catalog(const std::string& catalog_file, double j2koffset, double mv);
     std::vector<base::Star> stars;
-    std::vector<int> StarsNearPoint(vec& uv, const double radius);
+    std::vector<int> StarsNearPoint(arma::vec& uv, const double radius);
 private:
     base::IndexFinder xfinder;
     base::IndexFinder yfinder;

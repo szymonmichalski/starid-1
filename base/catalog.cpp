@@ -1,4 +1,5 @@
 #include "catalog.h"
+
 #include <iostream>
 #include <fstream>
 #include <cassert>
@@ -70,8 +71,8 @@ base::Catalog::Catalog(const std::string& catalog_file, double j2koffset=0.0, do
                 assert (star.ra_degrees >= 0.0 && star.ra_degrees <= 360.0);
                 assert (star.dec_degrees >= -90.0 && star.dec_degrees <= 90.0);
 
-                double ra = star.ra_degrees * datum::pi / 180.0;
-                double dec = star.dec_degrees * datum::pi / 180.0;
+                double ra = star.ra_degrees * arma::datum::pi / 180.0;
+                double dec = star.dec_degrees * arma::datum::pi / 180.0;
                 star.uv.set_size(3);
                 star.uv(0) = cos(ra)*cos(dec);
                 star.uv(1) = sin(ra)*cos(dec);
@@ -101,7 +102,7 @@ base::Catalog::Catalog(const std::string& catalog_file, double j2koffset=0.0, do
     zfinder.SetTable(ztable);
 }
 
-std::vector<int> base::Catalog::StarsNearPoint(vec& uv, const double radius) {
+std::vector<int> base::Catalog::StarsNearPoint(arma::vec& uv, const double radius) {
     std::vector<int> xring = StarsInRing(uv(0), radius, xfinder);
     std::vector<int> yring = StarsInRing(uv(1), radius, yfinder);
     std::vector<int> zring = StarsInRing(uv(2), radius, zfinder);
