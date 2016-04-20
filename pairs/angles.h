@@ -1,7 +1,6 @@
 #ifndef ANGLES_H
 #define ANGLES_H
 
-#include "geometry.h"
 #include "catalog.h"
 #include "indexfinder.h"
 
