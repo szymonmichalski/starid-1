@@ -4,9 +4,9 @@ pairs::Triplets::Triplets() {}
 pairs::Triplets::Triplets(base::Obs& obs)
     : n(obs.uv.n_rows), curtriplet(0)
 {
-    mata.set_size(n,3);
-    matb.set_size(n,3);
-    matc.set_size(n,3);
+    mata.zeros(n,3);
+    matb.zeros(n,3);
+    matc.zeros(n,3);
     uint cnt {0};
     uint i, j, k, dj, dk;
     for (dj = 1; dj <= n-2; ++dj) {
@@ -26,7 +26,6 @@ pairs::Triplets::Triplets(base::Obs& obs)
 
 arma::mat pairs::Triplets::getTriplet() {
     arma::mat triplet;
-    triplet.set_size(3,3);
     triplet.zeros(3,3);
     if (curtriplet >= mata.n_rows) {
         return triplet;
