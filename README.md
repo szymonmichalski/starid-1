@@ -1,5 +1,5 @@
 # starid
-some discussion and related documents are at
+discussion and related documents are at
 
 http://staridentification.blogspot.de/
 
