@@ -1,4 +1,4 @@
-#include "triangle_sequence.h"
+#include "triplets.h"
 #include "../base/geometry.h"
 #include "../base/catalog.h"
 #include "../base/sensor.h"
@@ -26,7 +26,7 @@ int main()
     base::Sensor sensor(pointing, fovradius);
     base::Obs obs = sensor.GetObs(catalog);
 
-    pairs::TriangleSequence triangle_sequence(obs);
+    pairs::Triplets triplets(obs);
 
     return 0;
 }
