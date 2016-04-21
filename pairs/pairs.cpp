@@ -1,6 +1,7 @@
-#include "geometry.h"
-#include "catalog.h"
-#include "sensor.h"
+#include "triangle_sequence.h"
+#include "../base/geometry.h"
+#include "../base/catalog.h"
+#include "../base/sensor.h"
 
 #include <chrono>
 #include <armadillo>
@@ -24,6 +25,8 @@ int main()
     base::Pointing pointing(RaCass, DecCass, yaw);
     base::Sensor sensor(pointing, fovradius);
     base::Obs obs = sensor.GetObs(catalog);
+
+    pairs::TriangleSequence triangle_sequence(obs);
 
     return 0;
 }
