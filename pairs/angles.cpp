@@ -31,6 +31,9 @@ pairs::Angles::Angles(base::Catalog& cat, double radius)
     }
     afinder.SetTable(atable);
     std::sort(atable.begin(), atable.end());
+}
+
+void pairs::Angles::Status() {
     int sz = atable.size();
     std::cout << "atable size " << sz
               << " med " << atable[sz/2].first * 180.0 / arma::datum::pi

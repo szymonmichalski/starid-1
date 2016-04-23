@@ -5,17 +5,28 @@
 
 namespace pairs {
 
+struct Triplet {
+    arma::vec uva;
+    arma::vec uvb;
+    arma::vec uvc;
+    double ab;
+    double ac;
+    double bc;
+};
+
 class Triplets
 {
 public:
     Triplets();
-    Triplets(base::Obs& obs);
+    Triplets(base::Obs& obs, int ntrip);
+    Triplet GetTriplet();
+    bool IsMoreTriplets();
+private:
     uint n;
     uint curtriplet;
     arma::mat mata;
     arma::mat matb;
     arma::mat matc;
-    arma::mat getTriplet();
 };
 
 }

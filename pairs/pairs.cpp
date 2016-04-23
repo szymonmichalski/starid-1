@@ -1,3 +1,4 @@
+#include "angles.h"
 #include "triplets.h"
 #include "../base/geometry.h"
 #include "../base/catalog.h"
@@ -26,7 +27,17 @@ int main()
     base::Sensor sensor(pointing, fovradius);
     base::Obs obs = sensor.GetObs(catalog);
 
-    pairs::Triplets triplets(obs);
+    double criteria1 = 3600 * arma::datum::pi / 648e3;
+    pairs::Angles angles(catalog, fovradius);
+    angles.Status();
+    pairs::Triplets triplets(obs, 1e3);
+    while (triplets.IsMoreTriplets()) {
+        pairs::Triplet triplet = triplets.GetTriplet();
+        if (abs(triplet.ab - triplet.ac) < criteria1) continue;
+        if (abs(triplet.ab - triplet.bc) < criteria1) continue;
+        if (abs(triplet.ac - triplet.bc) < criteria1) continue;
+
+    }
 
     return 0;
 }
