@@ -27,16 +27,20 @@ int main()
     base::Sensor sensor(pointing, fovradius);
     base::Obs obs = sensor.GetObs(catalog);
 
-    double criteria1 = 3600 * arma::datum::pi / 648e3;
+    double criteria1 = 60 * arma::datum::pi / 648e3;
+    double tolerance = 30 * arma::datum::pi / 648e3;
     pairs::Angles angles(catalog, fovradius);
     angles.Status();
+
     pairs::Triplets triplets(obs, 1e3);
     while (triplets.IsMoreTriplets()) {
         pairs::Triplet triplet = triplets.GetTriplet();
-        if (abs(triplet.ab - triplet.ac) < criteria1) continue;
-        if (abs(triplet.ab - triplet.bc) < criteria1) continue;
-        if (abs(triplet.ac - triplet.bc) < criteria1) continue;
-
+        if (abs(triplet.ang_ab - triplet.ang_ac) < criteria1) continue;
+        if (abs(triplet.ang_ab - triplet.ang_bc) < criteria1) continue;
+        if (abs(triplet.ang_ac - triplet.ang_bc) < criteria1) continue;
+        std::vector<int> can_ab = angles.Candidates(triplet.ang_ab, tolerance);
+        std::vector<int> can_ac = angles.Candidates(triplet.ang_ac, tolerance);
+        std::vector<int> can_bc = angles.Candidates(triplet.ang_bc, tolerance);
     }
 
     return 0;

@@ -19,6 +19,7 @@ public:
     Angles();
     Angles(base::Catalog& cat, double radius);
     void Status();
+    std::vector<int> Candidates(double angle, double tolerance);
 private:
     std::vector<std::tuple<double, int, int>> starpairs; // angle, catndx1, catndx2
     std::unordered_map<std::string, int> starpairs_map; // starpairkey, starpairsndx

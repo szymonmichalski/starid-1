@@ -9,16 +9,16 @@ struct Triplet {
     arma::vec uva;
     arma::vec uvb;
     arma::vec uvc;
-    double ab;
-    double ac;
-    double bc;
+    double ang_ab;
+    double ang_ac;
+    double ang_bc;
 };
 
 class Triplets
 {
 public:
     Triplets();
-    Triplets(base::Obs& obs, int ntrip);
+    Triplets(base::Obs& obs, uint ntrip);
     Triplet GetTriplet();
     bool IsMoreTriplets();
 private:

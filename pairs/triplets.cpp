@@ -1,7 +1,7 @@
 #include "triplets.h"
 
 pairs::Triplets::Triplets() {}
-pairs::Triplets::Triplets(base::Obs& obs, int ntrip)
+pairs::Triplets::Triplets(base::Obs& obs, uint ntrip)
     : n(obs.uv.n_rows), curtriplet(0)
 {
     mata.zeros(ntrip,3);
@@ -14,7 +14,6 @@ pairs::Triplets::Triplets(base::Obs& obs, int ntrip)
             for (i = 1; i <= n-dj-dk; ++i) {
                 j = i + dj;
                 k = j + dk;
-                // current triplet is stars i, j, and k
                 mata.row(cnt) = obs.uv.row(i-1);
                 matb.row(cnt) = obs.uv.row(j-1);
                 matc.row(cnt) = obs.uv.row(k-1);
@@ -37,9 +36,9 @@ pairs::Triplet pairs::Triplets::GetTriplet() {
     triplet.uva = arma::trans(mata.row(curtriplet));
     triplet.uvb = arma::trans(matb.row(curtriplet));
     triplet.uvc = arma::trans(matc.row(curtriplet));
-    triplet.ab = acos(arma::dot(triplet.uva,triplet.uvb));
-    triplet.ac = acos(arma::dot(triplet.uva,triplet.uvc));
-    triplet.bc = acos(arma::dot(triplet.uvb,triplet.uvc));
+    triplet.ang_ab = abs(acos(arma::dot(triplet.uva,triplet.uvb)));
+    triplet.ang_ac = abs(acos(arma::dot(triplet.uva,triplet.uvc)));
+    triplet.ang_bc = abs(acos(arma::dot(triplet.uvb,triplet.uvc)));
     ++curtriplet;
     return triplet;
 }

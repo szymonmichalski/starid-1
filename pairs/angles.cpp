@@ -29,8 +29,15 @@ pairs::Angles::Angles(base::Catalog& cat, double radius)
             ++starpairsndx;
         }
     }
-    afinder.SetTable(atable);
     std::sort(atable.begin(), atable.end());
+    afinder.SetTable(atable);
+}
+
+std::vector<int> pairs::Angles::Candidates(double angle, double tolerance)
+{
+    std::vector<int> candidates;
+
+    return candidates;
 }
 
 void pairs::Angles::Status() {
