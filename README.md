@@ -1,6 +1,6 @@
 # starid
 discussion and related documents at
 
-staridentification.blogspot.com
+http://staridentification.blogspot.com
 
-goo.gl/FllehC
+http://goo.gl/FllehC
