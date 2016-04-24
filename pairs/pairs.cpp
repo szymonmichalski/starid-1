@@ -27,20 +27,31 @@ int main()
     base::Sensor sensor(pointing, fovradius);
     base::Obs obs = sensor.GetObs(catalog);
 
-    double criteria1 = 60 * arma::datum::pi / 648e3;
-    double tolerance = 30 * arma::datum::pi / 648e3;
     pairs::Angles angles(catalog, fovradius);
     angles.Status();
 
+    double tol = 60 * arma::datum::pi / 648e3;
     pairs::Triplets triplets(obs, 1e3);
     while (triplets.IsMoreTriplets()) {
-        pairs::Triplet triplet = triplets.GetTriplet();
-        if (abs(triplet.ang_ab - triplet.ang_ac) < criteria1) continue;
-        if (abs(triplet.ang_ab - triplet.ang_bc) < criteria1) continue;
-        if (abs(triplet.ang_ac - triplet.ang_bc) < criteria1) continue;
-        std::vector<int> can_ab = angles.Candidates(triplet.ang_ab, tolerance);
-        std::vector<int> can_ac = angles.Candidates(triplet.ang_ac, tolerance);
-        std::vector<int> can_bc = angles.Candidates(triplet.ang_bc, tolerance);
+        pairs::Triplet triplet = triplets.GetTriplet(tol);
+        if (triplets.is_triplet_good) {
+            std::vector<int> l1ab = angles.Candidates(triplet.angab, 0.05*tol);
+            std::vector<int> l1ac = angles.Candidates(triplet.angac, 0.05*tol);
+            std::vector<int> l1bc = angles.Candidates(triplet.angbc, 0.05*tol);
+            std::vector<int> l2abac;
+            std::vector<int> l2babc;
+            std::vector<int> l2cacb;
+            std::set_intersection(l1ab.begin(), l1ab.end(),
+                                  l1ac.begin(), l1ac.end(),
+                                  back_inserter(l2abac));
+            std::set_intersection(l1ab.begin(), l1ab.end(),
+                                  l1bc.begin(), l1bc.end(),
+                                  back_inserter(l2babc));
+            std::set_intersection(l1ac.begin(), l1ac.end(),
+                                  l1bc.begin(), l1bc.end(),
+                                  back_inserter(l2cacb));
+            int a = 1;
+        }
     }
 
     return 0;

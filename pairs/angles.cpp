@@ -18,10 +18,12 @@ pairs::Angles::Angles(base::Catalog& cat, double radius)
             int catndx2 = star.neighbors[i];
             std::string key = pairs::Angles::AnglesKey(catndx1, catndx2);
             auto search = starpairs_map.find(key);
-            if (search != starpairs_map.end()) continue;
+            if (search != starpairs_map.end()) continue; // check map that pair is unique
+
             double angle = acos( arma::dot( cat.stars[catndx1].uv , cat.stars[catndx2].uv ) );
             if (std::fabs(angle) > radius) continue;
-            starpairs_map.insert({key, starpairsndx});
+            starpairs_map.insert({key, starpairsndx}); // update map of unique pairs
+
             std::tuple<double, int, int> starpair {angle, catndx1, catndx2};
             starpairs.push_back(starpair);
             std::pair<double,int> apair {angle, starpairsndx};
@@ -35,9 +37,14 @@ pairs::Angles::Angles(base::Catalog& cat, double radius)
 
 std::vector<int> pairs::Angles::Candidates(double angle, double tolerance)
 {
-    std::vector<int> candidates;
-
-    return candidates;
+    std::vector<int> starpairsndxs = afinder.FindIndexes(angle-tolerance, angle+tolerance);
+    std::vector<int> catndxs;
+    for (int ndx : starpairsndxs) {
+        catndxs.push_back(std::get<1>(starpairs[ndx]));
+        catndxs.push_back(std::get<2>(starpairs[ndx]));
+    }
+    std::sort(catndxs.begin(), catndxs.end());
+    return catndxs;
 }
 
 void pairs::Angles::Status() {

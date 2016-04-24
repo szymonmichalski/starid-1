@@ -9,18 +9,19 @@ struct Triplet {
     arma::vec uva;
     arma::vec uvb;
     arma::vec uvc;
-    double ang_ab;
-    double ang_ac;
-    double ang_bc;
+    double angab;
+    double angac;
+    double angbc;
 };
 
 class Triplets
 {
 public:
     Triplets();
-    Triplets(base::Obs& obs, uint ntrip);
-    Triplet GetTriplet();
+    Triplets(base::Obs& obs, uint nlimit);
+    Triplet GetTriplet(double tol);
     bool IsMoreTriplets();
+    bool is_triplet_good;
 private:
     uint n;
     uint curtriplet;
