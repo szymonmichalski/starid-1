@@ -1,6 +1,6 @@
 # starid
-discussion and related documents are at
+discussion and related documents at
 
-http://staridentification.blogspot.de/
+staridentification.blogspot.com
 
-http://goo.gl/FllehC
+goo.gl/FllehC
