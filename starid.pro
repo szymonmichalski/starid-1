@@ -4,8 +4,9 @@ SUBDIRS += \
     base \
     unittests \
     pairs \
-    patterns \
-    neuralnets
+    knn \
+    mlp \
+    svm
 
 gtest.depends = base pairs patterns neuralnets
 
