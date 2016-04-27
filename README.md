@@ -3,7 +3,7 @@ http://staridentification.blogspot.com
 
 miscellaneous documents http://goo.gl/FllehC
 
-ptq is angle based identification using pairs triads and quads
+ptq is angle based pairs triads quads identification http://goo.gl/y3H3Ep
 
 knn is k nearest neighbors https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm
 
