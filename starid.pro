@@ -3,12 +3,12 @@ TEMPLATE = subdirs
 SUBDIRS += \
     base \
     unittests \
-    pairs \
+    ptq \
     knn \
     mlp \
     svm
 
-gtest.depends = base pairs patterns neuralnets
+gtest.depends = base ptq knn mlp knn
 
 OTHER_FILES += \
     README.md \

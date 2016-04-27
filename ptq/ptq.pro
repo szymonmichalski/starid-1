@@ -3,10 +3,10 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 
-TARGET = pairs
+TARGET = ptq
 
 SOURCES += \
-    pairs.cpp \
+    ptq.cpp \
     angles.cpp \
     triplets.cpp
 
