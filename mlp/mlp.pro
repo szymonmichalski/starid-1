@@ -5,4 +5,4 @@ CONFIG -= qt
 
 TARGET = mlp
 
-SOURCES += main.cpp
+SOURCES += mlp.cpp

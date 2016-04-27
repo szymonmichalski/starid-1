@@ -5,4 +5,4 @@ CONFIG -= qt
 
 TARGET = svm
 
-SOURCES += main.cpp
+SOURCES += svm.cpp

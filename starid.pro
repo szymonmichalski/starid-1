@@ -6,7 +6,7 @@ SUBDIRS += \
     pairs \
     knn \
     mlp \
-    svn
+    svm
 
 gtest.depends = base pairs patterns neuralnets
 
