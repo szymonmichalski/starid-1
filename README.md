@@ -1,7 +1,7 @@
 # starid
 http://staridentification.blogspot.com
 
-http://goo.gl/FllehC
+miscellaneous documents http://goo.gl/FllehC
 
 ptq is angle based identification using pairs triads and quads
 
