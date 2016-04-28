@@ -1,7 +1,7 @@
 # starid
 http://staridentification.blogspot.com
 
-miscellaneous documents http://goo.gl/FllehC
+miscellaneous documents https://goo.gl/xgjpmb
 
 ptq is pairs triads quads identification http://goo.gl/y3H3Ep
 
