@@ -110,7 +110,14 @@ std::vector<int> base::Catalog::StarsNearPoint(arma::vec& uv, const double radiu
     std::set_intersection(xring.begin(), xring.end(), yring.begin(), yring.end(), std::back_inserter(xy));
     std::vector<int> xyz;
     std::set_intersection(xy.begin(), xy.end(), zring.begin(), zring.end(), std::back_inserter(xyz));
-    return xyz;
+    std::vector<int> ndxs;
+    for (uint i = 0; i < xyz.size(); ++i) {
+        arma::vec uv2 = stars[xyz[i]].uv;
+        if (acos(arma::dot(uv,uv2)) <= radius) {
+            ndxs.push_back(xyz[i]);
+        }
+    }
+    return ndxs;
 }
 
 std::vector<int> base::Catalog::StarsInRing(double p, double radius, base::IndexFinder& finder) {

@@ -7,20 +7,25 @@
 namespace base {
 
 struct Obs {
-    Obs();
     double fovradius;
+    double mv;
+    arma::mat uv; // n x 3, xyz
+    arma::mat tpc; // n x 2, tangent plane coordinates in radians
+    arma::mat features;
     base::Pointing pointing;
     std::vector<int> ndxs;
     std::vector<double> mag;
-    arma::mat uv; // n x 3, xyz
-    arma::mat tpc; // n x 2, tangent plane coordinates
+    Obs(double fovradius, double mv);
+    void Status();
 };
 
 class Sensor {
 public:
+    double fov;
+    double mv;
     base::Pointing pointing;
-    double fovradius;
-    Sensor(base::Pointing& pointing, double fovradius);
+    Sensor(double fov, double mv);
+    void SetPointing(base::Pointing& pointing);
     base::Obs GetObs(base::Catalog& cat);
 private:
 };
