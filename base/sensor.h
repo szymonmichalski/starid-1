@@ -11,7 +11,7 @@ struct Obs {
     double mv;
     arma::mat uv; // n x 3, xyz
     arma::mat tpc; // n x 2, tangent plane coordinates in radians
-    arma::mat features;
+    arma::Mat<int> features;
     base::Pointing pointing;
     std::vector<int> ndxs;
     std::vector<double> mag;

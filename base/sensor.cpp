@@ -46,7 +46,7 @@ base::Obs base::Sensor::GetObs(base::Catalog& cat) {
         } else {
             y = 5 + floor(5 * yfac);
         }
-        obs.features(x,y) = 1.0;
+        obs.features(x,y) = 1;
         xvec.push_back(x);
         yvec.push_back(y);
     }
