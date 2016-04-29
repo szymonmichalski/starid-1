@@ -30,25 +30,22 @@ base::Obs base::Sensor::GetObs(base::Catalog& cat) {
     obs.tpc.col(1) = arma::atan(obs.uv.col(1) / obs.uv.col(2));
 
     // features matrix, convert tpc to
-    std::vector<int> xvec, yvec;
     for (uint i = 0; i < ndxs.size(); ++i) {
-        int x, y;
-        if (obs.tpc(i,0) == 0 || obs.tpc(i,1) == 0) continue;
-        double xfac = obs.tpc(i,0) / fov;
-        if (obs.tpc(i,0) > 0) {
-            x = 4 + ceil(5 * xfac);
+        int h, v;
+        if (obs.tpc(i,0) == 0.0 || obs.tpc(i,1) == 0.0) continue;
+        double hfac = obs.tpc(i,0) / fov;
+        if (hfac > 0) {
+            h = 4 + ceil(5 * hfac); // 4 + (1,2,3,4,5)
         } else {
-            x = 5 + floor(5 * xfac);
+            h = 5 + floor(5 * hfac); // 5 + (-1,-2,-3,-4,-5)
         }
-        double yfac = obs.tpc(i,1) / fov;
-        if (obs.tpc(i,1) > 0) {
-            y = 4 + ceil(5 * yfac);
+        double vfac = obs.tpc(i,1) / fov;
+        if (vfac > 0) {
+            v = 4 + ceil(5 * vfac); // 4 + (1,2,3,4,5)
         } else {
-            y = 5 + floor(5 * yfac);
+            v = 5 + floor(5 * vfac); // 5 + (-1,-2,-3,-4,-5)
         }
-        obs.features(x,y) = 1;
-        xvec.push_back(x);
-        yvec.push_back(y);
+        obs.features(h,v) = 1;
     }
 
     return obs;
