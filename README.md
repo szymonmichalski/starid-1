@@ -1,12 +1,12 @@
 # starid
 http://staridentification.blogspot.com
 
-miscellaneous documents https://goo.gl/xgjpmb
+related documents - https://goo.gl/xgjpmb
 
-ptq is pairs triads quads identification http://goo.gl/y3H3Ep
+ptq - pairs triads quads - http://goo.gl/y3H3Ep
 
-knn is k nearest neighbors https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm
+knn - k nearest neighbors - https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm
 
-mlp is multilayer perceptron https://en.wikipedia.org/wiki/Multilayer_perceptron
+mlp - multilayer perceptron - https://en.wikipedia.org/wiki/Multilayer_perceptron
 
-svm is support vector machine https://en.wikipedia.org/wiki/Support_vector_machine
+svm - support vector machine - https://en.wikipedia.org/wiki/Support_vector_machine
