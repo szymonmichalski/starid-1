@@ -11,12 +11,17 @@ struct Obs {
     double mv;
     arma::mat uv; // n x 3, xyz
     arma::mat tpc; // n x 2, tangent plane coordinates in radians
-    arma::Mat<int> features;
+//    arma::Mat<int> features;
     base::Pointing pointing;
     std::vector<int> ndxs;
     std::vector<double> mag;
     Obs(double fovradius, double mv);
     void Status();
+};
+
+struct Features {
+    arma::Mat<int> n10;
+    arma::Mat<int> n100;
 };
 
 class Sensor {

@@ -4,7 +4,13 @@ base::Obs::Obs(double fovradius, double mv)
     : fovradius(fovradius), mv(mv) {
     uv.zeros(1,3);
     tpc.zeros(1,2);
-    features.zeros(10,10);
+//    features.zeros(10,10);
+}
+
+base::Obs::Features(double fovradius, double mv)
+    : fovradius(fovradius), mv(mv) {
+    n10.zeros(10,10);
+    n100.zeros(100,100);
 }
 
 base::Sensor::Sensor(double fovradius, double mv)
@@ -29,23 +35,23 @@ base::Obs base::Sensor::GetObs(base::Catalog& cat) {
     obs.tpc.col(0) = arma::atan(obs.uv.col(0) / obs.uv.col(2));
     obs.tpc.col(1) = arma::atan(obs.uv.col(1) / obs.uv.col(2));
 
-    // features matrix, convert tpc to
-    for (uint i = 0; i < ndxs.size(); ++i) {
-        int h, v;
-        if (obs.tpc(i,0) == 0.0 || obs.tpc(i,1) == 0.0) continue;
-        double hfac = obs.tpc(i,0) / fov;
-        if (hfac > 0) {
-            h = 4 + ceil(5 * hfac); // 4 + (1,2,3,4,5)
-        } else {
-            h = 5 + floor(5 * hfac); // 5 + (-1,-2,-3,-4,-5)
-        }
-        double vfac = obs.tpc(i,1) / fov;
-        if (vfac > 0) {
-            v = 4 + ceil(5 * vfac); // 4 + (1,2,3,4,5)
-        } else {
-            v = 5 + floor(5 * vfac); // 5 + (-1,-2,-3,-4,-5)
-        }
-        obs.features(h,v) = 1;
+//    // features matrix, convert tpc to
+//    for (uint i = 0; i < ndxs.size(); ++i) {
+//        int h, v;
+//        if (obs.tpc(i,0) == 0.0 || obs.tpc(i,1) == 0.0) continue;
+//        double hfac = obs.tpc(i,0) / fov;
+//        if (hfac > 0) {
+//            h = 4 + ceil(5 * hfac); // 4 + (1,2,3,4,5)
+//        } else {
+//            h = 5 + floor(5 * hfac); // 5 + (-1,-2,-3,-4,-5)
+//        }
+//        double vfac = obs.tpc(i,1) / fov;
+//        if (vfac > 0) {
+//            v = 4 + ceil(5 * vfac); // 4 + (1,2,3,4,5)
+//        } else {
+//            v = 5 + floor(5 * vfac); // 5 + (-1,-2,-3,-4,-5)
+//        }
+//        obs.features(h,v) = 1;
     }
 
     return obs;
