@@ -20,8 +20,11 @@ struct Obs {
 };
 
 struct Features {
+    double fovradius;
+    double mv;
     arma::Mat<int> n10;
     arma::Mat<int> n100;
+    Features(double fovradius, double mv);
 };
 
 class Sensor {

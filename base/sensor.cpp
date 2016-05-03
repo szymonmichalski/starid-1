@@ -7,7 +7,7 @@ base::Obs::Obs(double fovradius, double mv)
 //    features.zeros(10,10);
 }
 
-base::Obs::Features(double fovradius, double mv)
+base::Features::Features(double fovradius, double mv)
     : fovradius(fovradius), mv(mv) {
     n10.zeros(10,10);
     n100.zeros(100,100);
@@ -52,7 +52,7 @@ base::Obs base::Sensor::GetObs(base::Catalog& cat) {
 //            v = 5 + floor(5 * vfac); // 5 + (-1,-2,-3,-4,-5)
 //        }
 //        obs.features(h,v) = 1;
-    }
+//    }
 
     return obs;
 }
@@ -60,5 +60,5 @@ base::Obs base::Sensor::GetObs(base::Catalog& cat) {
 void base::Obs::Status() {
     std::cout << uv << "\n";
     std::cout << tpc << "\n";
-    std::cout << features << "\n";
+//    std::cout << features << "\n";
 }
