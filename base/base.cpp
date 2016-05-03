@@ -27,7 +27,7 @@ int main()
     base::Pointing pointing(RaCass, DecCass, yaw);
     base::Sensor sensor(fovradius, mv);
     sensor.SetPointing(pointing);
-    base::Obs obs = sensor.GetObs(catalog);
+    base::L1 obs = sensor.Level1(catalog);
     obs.Status();
 
     return 0;
