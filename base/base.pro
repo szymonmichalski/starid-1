@@ -7,16 +7,14 @@ TARGET = base
 
 SOURCES += \
     catalog.cpp \
-    indexfinder.cpp \
     sensor.cpp \
-    geometry.cpp \
-    base.cpp
+    base.cpp \
+    pointing.cpp
 
 HEADERS += \
     catalog.h \
-    indexfinder.h \
     sensor.h \
-    geometry.h
+    pointing.h
 
 INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so

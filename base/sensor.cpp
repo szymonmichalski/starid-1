@@ -1,28 +1,11 @@
 #include "sensor.h"
 
-base::L1::L1(double fovradius, double mv)
-    : fovradius(fovradius), mv(mv) {
-    uv.zeros(1,3);
-    tpc.zeros(1,2);
-    //    features.zeros(10,10);
-}
-
-base::L2::L2(base::L1& l1)
-    : fovradius(l1.fovradius), mv(l1.mv) {
-    n10.zeros(10,10);
-    n100.zeros(100,100);
-}
-
 base::Sensor::Sensor(double fovradius, double mv)
     : fov(fovradius), mv(mv) {
 }
 
-void base::Sensor::SetPointing(base::Pointing& pointing0) {
-    pointing = pointing0;
-}
-
-base::L1 base::Sensor::Level1(base::Catalog& cat) {
-    base::L1 l1(fov, mv);
+void base::Sensor::Update(base::Catalog& cat,  base::Pointing& p) {
+    pointing = p;
     std::vector<int> ndxs = cat.StarsNearPoint(pointing.uv, fov);
     l1.uv.set_size(ndxs.size(),3);
     l1.tpc.set_size(ndxs.size(),2);
@@ -34,11 +17,7 @@ base::L1 base::Sensor::Level1(base::Catalog& cat) {
     l1.uv = trans(trans(pointing.RotationMatrix()) * trans(l1.uv));
     l1.tpc.col(0) = arma::atan(l1.uv.col(0) / l1.uv.col(2));
     l1.tpc.col(1) = arma::atan(l1.uv.col(1) / l1.uv.col(2));
-    return l1;
-}
 
-base::L2 base::Sensor::Level2(base::L1& l1) {
-    base::L2 l2(l1);
     for (uint i = 0; i < l1.ndxs.size(); ++i) {
         int h, v;
         if (l1.tpc(i,0) == 0.0 || l1.tpc(i,1) == 0.0) continue;
@@ -56,11 +35,11 @@ base::L2 base::Sensor::Level2(base::L1& l1) {
         }
         l2.n10(h,v) = 1;
     }
-    return l2;
 }
 
-void base::L1::Status() {
-    std::cout << uv << "\n";
-    std::cout << tpc << "\n";
-    //    std::cout << features << "\n";
+void base::Sensor::Status() {
+    std::cout << l1.uv << "\n";
+    std::cout << l1.tpc << "\n";
+    std::cout << l2.n10 << "\n";
 }
+

@@ -1,5 +1,5 @@
-#ifndef GEOMETRY_H
-#define GEOMETRY_H
+#ifndef POINTING_H
+#define POINTING_H
 
 #include <armadillo>
 

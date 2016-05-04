@@ -1,4 +1,4 @@
-#include "geometry.h"
+#include "pointing.h"
 
 #include "gtest/gtest.h"
 #include <armadillo>

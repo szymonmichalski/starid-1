@@ -1,6 +1,6 @@
 #include "angles.h"
 #include "triplets.h"
-#include "../base/geometry.h"
+#include "../base/pointing.h"
 #include "../base/catalog.h"
 #include "../base/sensor.h"
 
