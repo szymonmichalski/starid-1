@@ -1,9 +1,6 @@
 #include "catalog.h"
 
-#include <iostream>
-#include <fstream>
 #include <cassert>
-#include <algorithm>
 
 base::Star::Star()
     : iau_identifier(""),

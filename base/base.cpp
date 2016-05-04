@@ -2,8 +2,6 @@
 #include "catalog.h"
 #include "sensor.h"
 
-#include <string>
-
 int main()
 {
     std::string fcatalog = "../../SKYMAP_SKY2000_V5R4.txt";

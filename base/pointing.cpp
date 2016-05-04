@@ -1,8 +1,8 @@
 #include "pointing.h"
 
-#include <string>
-#include <iostream>
-#include <cmath>
+//#include <string>
+//#include <iostream>
+//#include <cmath>
 #include <cassert>
 
 base::Pointing::Pointing() {}

@@ -2,7 +2,6 @@
 #define CATALOG_H
 
 #include <armadillo>
-#include <vector>
 
 namespace base {
 
