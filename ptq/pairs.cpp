@@ -7,11 +7,11 @@ ptq::Star::Star(int catndxin, base::Catalog& cat, double radius)
 }
 
 ptq::Pairs::Pairs() {};
-ptq::Pairs::Pairs(base::Catalog& cat, double radius)
+ptq::Pairs::Pairs(base::Catalog& cat, double fov)
 {
     int starpairsndx = 0;
     for (uint catndx = 0; catndx < cat.stars.size(); ++catndx) {
-        ptq::Star star(catndx, cat, radius);
+        ptq::Star star(catndx, cat, fov);
         for (uint i = 0; i < star.neighbors.size(); ++i) {
             if (star.catndx == star.neighbors[i]) continue;
             int catndx1 = star.catndx;
@@ -21,7 +21,7 @@ ptq::Pairs::Pairs(base::Catalog& cat, double radius)
             if (search != starpairs_map.end()) continue; // check map that pair is unique
 
             double angle = acos( arma::dot( cat.stars[catndx1].uv , cat.stars[catndx2].uv ) );
-            if (std::fabs(angle) > radius) continue;
+            if (std::fabs(angle) > fov) continue;
             starpairs_map.insert({key, starpairsndx}); // update map of unique pairs
 
             std::tuple<double, int, int> starpair {angle, catndx1, catndx2};

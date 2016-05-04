@@ -8,7 +8,7 @@ SUBDIRS += \
     mlp \
     svm
 
-gtest.depends = base ptq knn mlp knn
+unittests.depends = base ptq knn mlp knn
 
 OTHER_FILES += \
     README.md \

@@ -1,11 +1,13 @@
 #include "pointing.h"
 #include "catalog.h"
 #include "sensor.h"
+#include "pairs.h"
+#include "triplets.h"
 
 #include <armadillo>
 #include "gtest/gtest.h"
 
-TEST(base_sensor, endtoend)
+TEST(ptq_main, endtoend)
 {
     std::string fcatalog = "../../SKYMAP_SKY2000_V5R4.txt";
     double t = 0.0;
@@ -19,5 +21,11 @@ TEST(base_sensor, endtoend)
     base::Catalog catalog(fcatalog, t, mv);
     base::Sensor sensor(fov, mv);
     sensor.Update(catalog, pointing);
-    EXPECT_EQ(sensor.l1.tpc.n_rows, (unsigned)23);
+
+    ptq::Pairs pairs(catalog, fov);
+    pairs.Status();
+
+    double tol = 60 * arma::datum::pi / 648e3;
+    ptq::Triplets triplets(sensor.l1, 1e3);
+//    EXPECT_EQ(triplets.n, 23);
 }

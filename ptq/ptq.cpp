@@ -21,10 +21,6 @@ int main()
     base::Sensor sensor(fov, mv);
     sensor.Update(catalog, pointing);
 
-//    base::Sensor sensor(fovradius, mv);
-//    sensor.SetPointing(pointing);
-//    base::L1 obs = sensor.Level1(catalog);
-
     ptq::Pairs pairs(catalog, fov);
     pairs.Status();
 
