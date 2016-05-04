@@ -1,22 +1,22 @@
-#include "angles.h"
+#include "pairs.h"
 
-pairs::Star::Star(int catndxin, base::Catalog& cat, double radius)
+ptq::Star::Star(int catndxin, base::Catalog& cat, double radius)
 {
     catndx = catndxin;
     neighbors = cat.StarsNearPoint(cat.stars[catndx].uv, radius);
 }
 
-pairs::Angles::Angles() {};
-pairs::Angles::Angles(base::Catalog& cat, double radius)
+ptq::Pairs::Pairs() {};
+ptq::Pairs::Pairs(base::Catalog& cat, double radius)
 {
     int starpairsndx = 0;
     for (uint catndx = 0; catndx < cat.stars.size(); ++catndx) {
-        pairs::Star star(catndx, cat, radius);
+        ptq::Star star(catndx, cat, radius);
         for (uint i = 0; i < star.neighbors.size(); ++i) {
             if (star.catndx == star.neighbors[i]) continue;
             int catndx1 = star.catndx;
             int catndx2 = star.neighbors[i];
-            std::string key = pairs::Angles::AnglesKey(catndx1, catndx2);
+            std::string key = ptq::Pairs::PairsKey(catndx1, catndx2);
             auto search = starpairs_map.find(key);
             if (search != starpairs_map.end()) continue; // check map that pair is unique
 
@@ -35,7 +35,7 @@ pairs::Angles::Angles(base::Catalog& cat, double radius)
     afinder.SetTable(atable);
 }
 
-std::vector<int> pairs::Angles::Candidates(double angle, double tolerance)
+std::vector<int> ptq::Pairs::Candidates(double angle, double tolerance)
 {
     std::vector<int> starpairsndxs = afinder.FindIndexes(angle-tolerance, angle+tolerance);
     std::vector<int> catndxs;
@@ -47,14 +47,14 @@ std::vector<int> pairs::Angles::Candidates(double angle, double tolerance)
     return catndxs;
 }
 
-void pairs::Angles::Status() {
+void ptq::Pairs::Status() {
     int sz = atable.size();
     std::cout << "atable size " << sz
               << " med " << atable[sz/2].first * 180.0 / arma::datum::pi
               << " max " << atable[sz-1].first * 180.0 / arma::datum::pi << "\n";
 }
 
-std::string pairs::Angles::AnglesKey(int& catndx1, int& catndx2) {
+std::string ptq::Pairs::PairsKey(int& catndx1, int& catndx2) {
     if (catndx1 > catndx2) {
         int tmp = catndx1;
         catndx1 = catndx2;

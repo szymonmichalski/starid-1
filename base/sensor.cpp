@@ -18,6 +18,8 @@ void base::Sensor::Update(base::Catalog& cat,  base::Pointing& p) {
     l1.tpc.col(0) = arma::atan(l1.uv.col(0) / l1.uv.col(2));
     l1.tpc.col(1) = arma::atan(l1.uv.col(1) / l1.uv.col(2));
 
+    l2.n10.zeros(10,10);
+    l2.n100.zeros(100,100);
     for (uint i = 0; i < l1.ndxs.size(); ++i) {
         int h, v;
         if (l1.tpc(i,0) == 0.0 || l1.tpc(i,1) == 0.0) continue;

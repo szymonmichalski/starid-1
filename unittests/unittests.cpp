@@ -5,8 +5,8 @@ int main(int argc, char **argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
 
-    ::testing::GTEST_FLAG(filter) = "base_geometry.unitvector"
-                                    ":base_geometry.rotation"
+    ::testing::GTEST_FLAG(filter) = "base_pointing.unitvector"
+                                    ":base_pointing.rotation"
                                     ":base_sensor.endtoend";
     return RUN_ALL_TESTS();
 }

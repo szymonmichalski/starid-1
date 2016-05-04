@@ -1,12 +1,11 @@
-#ifndef ANGLES_H
-#define ANGLES_H
+#ifndef PAIRS_H
+#define PAIRS_H
 
 #include "catalog.h"
-#include "indexfinder.h"
 
 #include <unordered_map>
 
-namespace pairs {
+namespace ptq {
 
 struct Star {
     Star(int catndxin, base::Catalog& cat, double radius);
@@ -14,20 +13,20 @@ struct Star {
     std::vector<int> neighbors; // catndxs
 };
 
-class Angles {
+class Pairs {
 public:
-    Angles();
-    Angles(base::Catalog& cat, double radius);
+    Pairs();
+    Pairs(base::Catalog& cat, double fov);
     void Status();
     std::vector<int> Candidates(double angle, double tolerance);
 private:
     std::vector<std::tuple<double, int, int>> starpairs; // angle, catndx1, catndx2
     std::unordered_map<std::string, int> starpairs_map; // starpairkey, starpairsndx
-    std::string AnglesKey(int& catndx1, int& catndx2); // hash key
+    std::string PairsKey(int& catndx1, int& catndx2); // hash key
     std::vector<std::pair<double, int>> atable; // angle, starpairs ndx
     base::IndexFinder afinder;
 };
 
 }
 
-#endif // STARPAIRS_H
+#endif

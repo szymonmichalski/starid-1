@@ -1,7 +1,7 @@
 #include "triplets.h"
 
-pairs::Triplets::Triplets() {}
-pairs::Triplets::Triplets(base::L1& obs, uint nlimit)
+ptq::Triplets::Triplets() {}
+ptq::Triplets::Triplets(base::L1& obs, uint nlimit)
     : n(obs.uv.n_rows), curtriplet(0)
 {
     mata.zeros(nlimit,3);
@@ -31,8 +31,8 @@ pairs::Triplets::Triplets(base::L1& obs, uint nlimit)
     }
 }
 
-pairs::Triplet pairs::Triplets::GetTriplet(double tol) {
-    pairs::Triplet triplet;
+ptq::Triplet ptq::Triplets::GetTriplet(double tol) {
+    ptq::Triplet triplet;
     triplet.uva = arma::trans(mata.row(curtriplet));
     triplet.uvb = arma::trans(matb.row(curtriplet));
     triplet.uvc = arma::trans(matc.row(curtriplet));
@@ -48,7 +48,7 @@ pairs::Triplet pairs::Triplets::GetTriplet(double tol) {
     return triplet;
 }
 
-bool pairs::Triplets::IsMoreTriplets() {
+bool ptq::Triplets::IsMoreTriplets() {
     if (curtriplet >= mata.n_rows) return false;
     return true;
 }

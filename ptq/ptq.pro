@@ -7,17 +7,16 @@ TARGET = ptq
 
 SOURCES += \
     ptq.cpp \
-    angles.cpp \
-    triplets.cpp
+    triplets.cpp \
+    pairs.cpp
 
 HEADERS += \
-    angles.h \
-    triplets.h
+    triplets.h \
+    pairs.h
 
 INCLUDEPATH += ../base
-LIBS += ../base/geometry.o
+LIBS += ../base/pointing.o
 LIBS += ../base/catalog.o
-LIBS += ../base/indexfinder.o
 LIBS += ../base/sensor.o
 
 INCLUDEPATH += ../../armadillo

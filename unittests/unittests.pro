@@ -6,16 +6,15 @@ CONFIG -= qt
 TARGET = unittests
 
 SOURCES += \
-    base_geometry.cpp \
     base_sensor.cpp \
-    unittests.cpp
+    unittests.cpp \
+    base_pointing.cpp
 
 HEADERS += \
 
 INCLUDEPATH += ../base
-LIBS += ../base/geometry.o
+LIBS += ../base/pointing.o
 LIBS += ../base/catalog.o
-LIBS += ../base/indexfinder.o
 LIBS += ../base/sensor.o
 
 INCLUDEPATH += ../../googletest/include

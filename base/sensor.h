@@ -23,12 +23,12 @@ public:
     Sensor(double fov, double mv);
     void Update(base::Catalog& cat, base::Pointing& p);
     void Status();
+    base::L1 l1;
+    base::L2 l2;
 private:
     double fov;
     double mv;
     base::Pointing pointing;
-    base::L1 l1;
-    base::L2 l2;
 };
 
 }
