@@ -7,8 +7,8 @@
 namespace base {
 
 struct L1 {
-    arma::mat uv; // n x 3, xyz
-    arma::mat hv; // n x 2, tangent plane coordinates in radians
+    arma::mat uv;
+    arma::mat hv;
     std::vector<int> ndxs;
     std::vector<double> mag;
 };
