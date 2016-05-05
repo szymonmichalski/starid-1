@@ -3,7 +3,7 @@ http://staridentification.blogspot.com
 
 related files - https://goo.gl/xgjpmb
 
-ptq - pairs triplets quads - http://goo.gl/y3H3Ep
+ptq - pairs triplets quadruplets - http://goo.gl/y3H3Ep
 
 knn - k nearest neighbors - https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm
 
