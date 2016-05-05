@@ -6,10 +6,10 @@ CONFIG -= qt
 TARGET = unittests
 
 SOURCES += \
-    unittests.cpp \
     base_pointing.cpp \
     ptq_main.cpp \
-    base_main.cpp
+    base_main.cpp \
+    main.cpp
 
 HEADERS += \
 

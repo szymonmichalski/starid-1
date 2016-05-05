@@ -18,6 +18,6 @@ TEST(base_main, endtoend)
 
     base::Catalog catalog(fcatalog, t, mv);
     base::Sensor sensor(fov, mv);
-    sensor.Update(catalog, pointing);
-    EXPECT_EQ(sensor.l1.tpc.n_rows, (unsigned)23);
+    sensor.Obs(catalog, pointing);
+    EXPECT_EQ(sensor.l1.hv.n_rows, (unsigned)23);
 }

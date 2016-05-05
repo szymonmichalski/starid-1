@@ -5,4 +5,5 @@ CONFIG -= qt
 
 TARGET = knn
 
-SOURCES += knn.cpp
+SOURCES += \
+    main.cpp

@@ -6,9 +6,9 @@ CONFIG -= qt
 TARGET = ptq
 
 SOURCES += \
-    ptq.cpp \
     triplets.cpp \
-    pairs.cpp
+    pairs.cpp \
+    main.cpp
 
 HEADERS += \
     triplets.h \

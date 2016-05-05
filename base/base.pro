@@ -8,8 +8,8 @@ TARGET = base
 SOURCES += \
     catalog.cpp \
     sensor.cpp \
-    base.cpp \
-    pointing.cpp
+    pointing.cpp \
+    main.cpp
 
 HEADERS += \
     catalog.h \

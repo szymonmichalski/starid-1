@@ -20,10 +20,9 @@ TEST(ptq_main, endtoend)
 
     base::Catalog catalog(fcatalog, t, mv);
     base::Sensor sensor(fov, mv);
-    sensor.Update(catalog, pointing);
+    sensor.Obs(catalog, pointing);
 
     ptq::Pairs pairs(catalog, fov);
-    pairs.Status();
 
     double tol = 60 * arma::datum::pi / 648e3;
     ptq::Triplets triplets(sensor.l1, 1e3);

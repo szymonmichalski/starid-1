@@ -8,20 +8,20 @@ namespace base {
 
 struct L1 {
     arma::mat uv; // n x 3, xyz
-    arma::mat tpc; // n x 2, tangent plane coordinates in radians
+    arma::mat hv; // n x 2, tangent plane coordinates in radians
     std::vector<int> ndxs;
     std::vector<double> mag;
 };
 
 struct L2 {
-    arma::Mat<int> n10;
-    arma::Mat<int> n100;
+    arma::Mat<int> pat1;
+    arma::Mat<int> pat2;
 };
 
 class Sensor {
 public:
     Sensor(double fov, double mv);
-    void Update(base::Catalog& cat, base::Pointing& p);
+    void Obs(base::Catalog& cat, base::Pointing& p);
     void Status();
     base::L1 l1;
     base::L2 l2;

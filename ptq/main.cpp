@@ -19,7 +19,7 @@ int main()
 
     base::Catalog catalog(fcatalog, t, mv);
     base::Sensor sensor(fov, mv);
-    sensor.Update(catalog, pointing);
+    sensor.Obs(catalog, pointing);
 
     ptq::Pairs pairs(catalog, fov);
     pairs.Status();
