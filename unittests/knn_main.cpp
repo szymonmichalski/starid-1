@@ -3,8 +3,9 @@
 #include "../base/sensor.h"
 
 #include <armadillo>
+#include "gtest/gtest.h"
 
-int main()
+TEST(knn_main, endtoend)
 {
     using namespace arma;
     std::string fcatalog = "../../SKYMAP_SKY2000_V5R4.txt";
@@ -28,18 +29,19 @@ int main()
     rowvec nfeatures1 = sum(fvs1);
     mat dot1 = trans(normalise(fvs1)) * normalise(fvs1);
 
-    rowvec nfeatures2 = sum(fvs2);
-    mat dot2 = trans(normalise(fvs2)) * normalise(fvs2);
+//    rowvec nfeatures2 = sum(fvs2);
+//    mat dot2 = trans(normalise(fvs2)) * normalise(fvs2);
 
-    std::cout << hist(nfeatures1, linspace<vec>(0,60,10)) << "\n";
-    std::cout << hist(nfeatures2, linspace<vec>(0,60,10)) << "\n";
+    urowvec hist1 = hist(nfeatures1, linspace<vec>(0,60,10));
+//    urowvec hist2 = hist(nfeatures2, linspace<vec>(0,60,10));
+//    std::cout << hist1 << "\n";
+//    std::cout << hist2 << "\n";
+    EXPECT_EQ(hist1(0), (unsigned)104);
 
-    vec dot1vec = vectorise(dot1);
-    vec dot2vec = vectorise(dot2);
-    uvec hist1 = hist(dot1vec, linspace<vec>(0,1,10))/2; hist1(9) = hist1(9) - 4439;
-    uvec hist2 = hist(dot2vec, linspace<vec>(0,1,10))/2; hist2(9) = hist2(9) - 4439;
-    std::cout << trans(hist1) << "\n";
-    std::cout << trans(hist2) << "\n";
-
-    return 0;
+//    vec dot1vec = vectorise(dot1);
+//    vec dot2vec = vectorise(dot2);
+//    uvec hist1 = hist(dot1vec, linspace<vec>(0,1,10))/2; hist1(9) = hist1(9) - 4439;
+//    uvec hist2 = hist(dot2vec, linspace<vec>(0,1,10))/2; hist2(9) = hist2(9) - 4439;
+//    std::cout << trans(hist1) << "\n";
+//    std::cout << trans(hist2) << "\n";
 }

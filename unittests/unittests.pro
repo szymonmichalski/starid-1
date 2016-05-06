@@ -11,7 +11,8 @@ SOURCES += \
     base_pointing.cpp \
     ptq_main.cpp \
     base_main.cpp \
-    main.cpp
+    main.cpp \
+    knn_main.cpp
 
 HEADERS += \
 
@@ -23,6 +24,8 @@ LIBS += ../base/sensor.o
 INCLUDEPATH += ../ptq
 LIBS += ../ptq/pairs.o
 LIBS += ../ptq/triplets.o
+
+INCLUDEPATH += ../knn
 
 INCLUDEPATH += ../../googletest/include
 LIBS += ../../googletest/libgtest.a
