@@ -17,6 +17,8 @@ base::Star::Star()
       mv1(100.0),
       ra_degrees(0.0),
       dec_degrees(0.0),
+      ra(0.0),
+      dec(0.0),
       uv()
 {
 
@@ -70,6 +72,8 @@ base::Catalog::Catalog(const std::string& catalog_file, double j2koffset=0.0, do
 
                 double ra = star.ra_degrees * arma::datum::pi / 180.0;
                 double dec = star.dec_degrees * arma::datum::pi / 180.0;
+                star.ra = ra;
+                star.dec = dec;
                 star.uv.set_size(3);
                 star.uv(0) = cos(ra)*cos(dec);
                 star.uv(1) = sin(ra)*cos(dec);

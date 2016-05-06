@@ -16,6 +16,8 @@ struct L1 {
 struct L2 {
     arma::Mat<int> pat1;
     arma::Mat<int> pat2;
+    arma::Col<int> fv1;
+    arma::Col<int> fv2;
 };
 
 class Sensor {

@@ -7,3 +7,11 @@ TARGET = knn
 
 SOURCES += \
     main.cpp
+
+INCLUDEPATH += ../base
+LIBS += ../base/pointing.o
+LIBS += ../base/catalog.o
+LIBS += ../base/sensor.o
+
+INCLUDEPATH += ../../armadillo
+LIBS += ../../armadillo/libarmadillo.so

@@ -20,6 +20,8 @@ struct Star {
     double mv1;
     double ra_degrees;
     double dec_degrees;
+    double ra;
+    double dec;
     arma::vec uv;
     Star();
 };
