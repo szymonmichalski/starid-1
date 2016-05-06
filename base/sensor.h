@@ -14,10 +14,10 @@ struct L1 {
 };
 
 struct L2 {
-    arma::Mat<int> pat1;
-    arma::Mat<int> pat2;
-    arma::Col<int> fv1;
-    arma::Col<int> fv2;
+    arma::Mat<double> pat1;
+    arma::Mat<double> pat2;
+    arma::Col<double> fv1;
+    arma::Col<double> fv2;
 };
 
 class Sensor {

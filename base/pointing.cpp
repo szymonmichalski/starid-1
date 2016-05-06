@@ -1,35 +1,35 @@
 #include "pointing.h"
 
-//#include <string>
-//#include <iostream>
-//#include <cmath>
 #include <cassert>
 
 base::Pointing::Pointing() {}
-base::Pointing::Pointing(double ra=0.0, double dec=0.0, double yaw=0.0) : yaw(yaw) {
-    uv.set_size(3);
-    uv(0) = cos(ra)*cos(dec);
-    uv(1) = sin(ra)*cos(dec);
-    uv(2) = sin(dec);
-    uv = normalise(uv);
-    assert(norm(uv) == 1.0);
+base::Pointing::Pointing(double ra=0.0, double dec=0.0, double yaw=0.0)
+    : yaw(yaw) {
+    uv = {1, 0, 0};
+    uv(0) = std::cos(ra) * std::cos(dec);
+    uv(1) = std::sin(ra) * std::cos(dec);
+    uv(2) = std::sin(dec);
+    uv = arma::normalise(uv);
+    double err = std::abs(arma::norm(uv) - 1.0);
+    assert(err < 1e-10);
 }
 
 arma::mat base::Pointing::RotationMatrix() {
     arma::mat rm;
-    rm.set_size(3,3);
+    rm.eye(3,3);
     arma::vec bz = uv;
     arma::vec iz = { 0.0, 0.0, 1.0 };
-    arma::vec b1x = cross(bz,iz);
-    b1x = normalise(b1x);
-    arma::vec b1y = cross(bz,b1x);
-    b1y = normalise(b1y);
-    arma::vec bx = cos(yaw)*b1x + sin(yaw)*b1y;
-    arma::vec by = sin(yaw)*b1x + cos(yaw)*b1y;
-    rm.col(0) = bx;
-    rm.col(1) = by;
+    arma::vec b1x = arma::cross(bz,iz);
+    b1x = arma::normalise(b1x);
+    arma::vec b1y = arma::cross(bz,b1x);
+    b1y = arma::normalise(b1y);
+    arma::vec bx = std::cos(yaw) * b1x + std::sin(yaw) * b1y;
+    arma::vec by = std::sin(yaw) * b1x + std::cos(yaw) * b1y;
+    rm.col(0) = arma::normalise(bx);
+    rm.col(1) = arma::normalise(by);
     rm.col(2) = bz;
-    assert(det(rm) == 1.0);
+    double err = std::abs(arma::det(rm) - 1.0);
+    assert(err < 1e-10);
     return rm;
 }
 
@@ -38,8 +38,8 @@ arma::vec base::Pointing::Quaternion() {
     arma::vec q;
     q.set_size(4);
     q = rm2q(rm);
-    q = normalise(q);
-    assert(norm(q) == 1.0);
+    q = arma::normalise(q);
+    assert(arma::norm(q) == 1.0);
     return q;
 }
 
@@ -50,7 +50,7 @@ arma::vec base::qmult(arma::vec& q1, arma::vec& q2) {
                 q1(0)*q2(1) + -q1(1)*q2(0) + q1(2)*q2(3) + q1(3)*q2(2),
                 -q1(0)*q2(0) + -q1(1)*q2(1) + -q1(2)*q2(2) + q1(3)*q2(3)
     };
-    q3 = normalise(q3);
+    q3 = arma::normalise(q3);
     if (q3(3) < 0.0) q3 = -q3;
     return q3;
 }
@@ -62,7 +62,7 @@ arma::vec base::qconj(arma::vec& q) {
 
 arma::vec base::rv2q(arma::vec& rv) {
     arma::vec q { rv(0)/2, rv(1)/2, rv(2)/2, 1 };
-    q = normalise(q);
+    q = arma::normalise(q);
     if (q(3) < 0.0) q = -q;
     return q;
 }
@@ -80,7 +80,7 @@ arma::vec base::qdif2rv(arma::vec& q1, arma::vec& q2a) {
                 q1(0)*q2(1) + -q1(1)*q2(0) + q1(2)*q2(3) + q1(3)*q2(2),
                 -q1(0)*q2(0) + -q1(1)*q2(1) + -q1(2)*q2(2) + q1(3)*q2(3)
     };
-    q3 = normalise(q3);
+    q3 = arma::normalise(q3);
     if ( q3(3) < 0 ) { q3 = -q3; }
     arma::vec rv { 2.0*q3(0), 2.0*q3(1), 2.0*q3(2) };
     return rv;
@@ -106,7 +106,7 @@ arma::vec base::rm2q(arma::mat& rm) {
     q(1) = 0.5 * sqrt(1.0 - rm(0,0) + rm(1,1) - rm(2,2)) * sgn( rm(2,0)-rm(0,2) );
     q(2) = 0.5 * sqrt(1.0 - rm(0,0) - rm(1,1) + rm(2,2)) * sgn( rm(0,1)-rm(1,0) );
     q(3) = 0.5 * sqrt(1.0 + rm(0,0) + rm(1,1) + rm(2,2));
-    q = normalise(q);
+    q = arma::normalise(q);
     if (q(3) < 0.0) q = -q;
     return q;
 }

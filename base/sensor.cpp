@@ -35,11 +35,11 @@ void base::Sensor::Obs(base::Catalog& cat,  base::Pointing& p) {
         try {
             int h1 = 5 + floor(5 * hv2(i,0) / fov);
             int v1 = 5 + floor(5 * hv2(i,1) / fov);
-            l2.pat1(h1,v1) = 1;
+            l2.pat1(h1,v1) = 1.0;
             l2.fv1 = arma::vectorise(l2.pat1);
             int h2 = 50 + floor(50 * hv2(i,0) / fov);
             int v2 = 50 + floor(50 * hv2(i,1) / fov);
-            l2.pat2(h2,v2) = 1;
+            l2.pat2(h2,v2) = 1.0;
             l2.fv2 = arma::vectorise(l2.pat2);
         } catch (...) {
             bool outofbounds = true;

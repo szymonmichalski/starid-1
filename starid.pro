@@ -1,5 +1,8 @@
 TEMPLATE = subdirs
 
+CONFIG += c++14
+CONFIG += warn_off
+
 SUBDIRS += \
     base \
     unittests \
