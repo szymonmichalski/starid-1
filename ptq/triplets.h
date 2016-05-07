@@ -22,12 +22,12 @@ public:
     Triplet GetTriplet(double tol);
     bool IsMoreTriplets();
     bool is_triplet_good;
-private:
     uint n;
     uint curtriplet;
     arma::mat mata;
     arma::mat matb;
     arma::mat matc;
+private:
 };
 
 }

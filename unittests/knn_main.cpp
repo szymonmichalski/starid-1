@@ -36,7 +36,7 @@ TEST(knn_main, endtoend)
 //    urowvec hist2 = hist(nfeatures2, linspace<vec>(0,60,10));
 //    std::cout << hist1 << "\n";
 //    std::cout << hist2 << "\n";
-    EXPECT_EQ(hist1(0), (unsigned)104);
+    EXPECT_EQ(hist1(0), 103);
 
 //    vec dot1vec = vectorise(dot1);
 //    vec dot2vec = vectorise(dot2);

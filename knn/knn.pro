@@ -8,7 +8,8 @@ CONFIG += warn_off
 TARGET = knn
 
 SOURCES += \
-    main.cpp
+    main.cpp \
+    l2.cpp
 
 INCLUDEPATH += ../base
 LIBS += ../base/pointing.o
@@ -17,3 +18,6 @@ LIBS += ../base/sensor.o
 
 INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so
+
+HEADERS += \
+    l2.h
