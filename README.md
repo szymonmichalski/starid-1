@@ -1,7 +1,5 @@
 # starid
-http://staridentification.blogspot.com and related files https://goo.gl/xgjpmb
-
-three levels
+http://staridentification.blogspot.com
 
 l0 - unprocessed measurements, hardware dependent
 
