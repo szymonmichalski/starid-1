@@ -17,7 +17,7 @@ ptq - angles between unit vectors
 
 knn - similarity of feature vectors
 
-svm - linear and nonlinear kernel separation of feature vectors
+svm - linear and kernel separation of feature vectors
 
 mlp - nonlinear response to feature vectors
 
