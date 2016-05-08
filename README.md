@@ -5,9 +5,9 @@ three levels
 
 l0 - unprocessed measurements, hardware dependent
 
-l1 - three dimensional pointing vectors in sensor frames and the celestial frame
+l1 - three dimensional pointing vectors in sensor frames and celestial frame
 
-l2 - high dimensional feature vectors
+l2 - higher dimensional feature vectors
 
 approaches
 
@@ -19,4 +19,4 @@ svm - linear and kernel separation of feature vectors
 
 mlp - nonlinear response to feature vectors
 
-the emphasis is on simd processing using blas and lapack. concurrency will follow on.
+current emphasis is on simd processing using blas and lapack. concurrency will follow.
