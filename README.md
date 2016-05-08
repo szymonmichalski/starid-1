@@ -17,4 +17,4 @@ svm - linear and kernel separation of feature vectors
 
 mlp - nonlinear response to feature vectors
 
-current emphasis is on vectorized processing using blas and lapack. concurrency will follow.
+current emphasis is on vectorized processing using blas, atlas, and lapack. concurrency can follow.
