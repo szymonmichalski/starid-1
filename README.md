@@ -13,8 +13,8 @@ ptq - angles between pointing vectors
 
 knn - similarity of feature vectors
 
-svm - linear and kernel separation of feature vectors
+svm - separation of feature vectors
 
-mlp - nonlinear response to feature vectors
+mlp - response to feature vectors
 
 current emphasis is on vectorized processing using blas, atlas, and lapack. concurrency can follow.
