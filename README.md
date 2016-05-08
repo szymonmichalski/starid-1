@@ -7,7 +7,7 @@ l0 - unprocessed measurements, hardware dependent
 
 l1 - three dimensional pointing vectors in sensor frames and the celestial frame
 
-l2 - high dimensional feature vectors representing star patterns
+l2 - high dimensional feature vectors
 
 approaches
 
