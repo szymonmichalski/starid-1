@@ -3,10 +3,16 @@ http://staridentification.blogspot.com
 
 related files - https://goo.gl/xgjpmb
 
-ptq - pairs triplets quadruplets - http://goo.gl/y3H3Ep
+the lost-in-space problem is divided here into three levels - l0, l1, l2
 
-knn - k nearest neighbors - https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm
+l0 - unprocessed measurements, hardware dependent
 
-mlp - multilayer perceptron - https://en.wikipedia.org/wiki/Multilayer_perceptron
+l1 - three dimensional unit vectors representing stars in sensor and celestial frames
+    - ptq - angles between unit vectors
 
-svm - support vector machine - https://en.wikipedia.org/wiki/Support_vector_machine
+l2 - high dimensional feature vectors representing star patterns
+    - knn - similarity of feature vectors
+    - svm - linear and nonlinear kernel separation of feature vectors
+    - mlp - nonlinear response to feature vectors
+
+the emphasis here is on vectorized processing of feature vectors
