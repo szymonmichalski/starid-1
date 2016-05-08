@@ -1,7 +1,7 @@
 # starid
 http://staridentification.blogspot.com and related files https://goo.gl/xgjpmb
 
-three levels of the lost-in-space problem
+three levels
 
 l0 - unprocessed measurements, hardware dependent
 
