@@ -1,7 +1,5 @@
 # starid
-http://staridentification.blogspot.com
-
-related files - https://goo.gl/xgjpmb
+http://staridentification.blogspot.com and related files https://goo.gl/xgjpmb
 
 three levels of the lost-in-space problem
 
