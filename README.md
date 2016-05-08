@@ -5,13 +5,13 @@ three levels of the lost-in-space problem
 
 l0 - unprocessed measurements, hardware dependent
 
-l1 - three dimensional unit vectors representing stars in sensor and celestial frames
+l1 - three dimensional pointing vectors representing stars in sensor and celestial frames
 
 l2 - high dimensional feature vectors representing star patterns
 
 approaches
 
-ptq - angles between unit vectors
+ptq - angles between pointing vectors
 
 knn - similarity of feature vectors
 
