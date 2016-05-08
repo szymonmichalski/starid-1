@@ -19,4 +19,4 @@ svm - linear and kernel separation of feature vectors
 
 mlp - nonlinear response to feature vectors
 
-the emphasis is on simd processing using blas, lapack, etc
+the emphasis is on simd processing using blas and lapack. concurrency will follow on.
