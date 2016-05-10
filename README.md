@@ -17,4 +17,4 @@ svm - separation of feature vectors
 
 mlp - response to feature vectors
 
-current emphasis is on vectorized processing using blas, atlas, and lapack. concurrency can follow.
+current emphasis is on vectorized processing using blas. concurrency can follow.
