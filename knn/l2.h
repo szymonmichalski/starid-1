@@ -16,6 +16,7 @@ public:
     arma::Mat<double> l2b;
     void StatusFeatures();
     void StatusOrthogonality();
+    uint Classify(arma::vec& fv);
 private:
 };
 

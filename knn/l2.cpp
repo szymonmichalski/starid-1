@@ -1,5 +1,14 @@
 #include "l2.h"
 
+uint knn::L2::Classify(arma::vec& fv) {
+    using namespace arma;
+    uint catndx = 0;
+    rowvec distances = trans(fv) * l2a;
+    uvec ndxs = sort_index(trans(distances), "descend");
+    catndx = ndxs(0);
+    return catndx;
+}
+
 knn::L2::L2(base::Catalog &catalog, base::Sensor &sensor) {
     l2a.zeros(1e2, catalog.stars.size());
     l2b.zeros(1e4, catalog.stars.size());

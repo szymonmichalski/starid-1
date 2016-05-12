@@ -19,5 +19,12 @@ int main()
     l2.StatusFeatures();
 //    l2.StatusOrthogonality();
 
+    double ra = 0.0 * arma::datum::pi / 180.0;
+    double dec = 60.0 * arma::datum::pi / 180.0;
+    double yaw = 0.0 * arma::datum::pi / 180.0;
+    base::Pointing p(ra, dec, yaw);
+    sensor.Obs(catalog, p);
+    vec fv = sensor.l2.fv1;
+
     return 0;
 }
