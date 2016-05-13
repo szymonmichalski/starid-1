@@ -5,7 +5,7 @@
 #include <armadillo>
 #include "gtest/gtest.h"
 
-TEST(knn_main, endtoend)
+TEST(knn_main, l2)
 {
     using namespace arma;
     std::string fcatalog = "../../SKYMAP_SKY2000_V5R4.txt";

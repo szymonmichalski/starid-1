@@ -1,11 +1,12 @@
 #include "../base/pointing.h"
 #include "../base/catalog.h"
 #include "../base/sensor.h"
-#include "l2.h"
+#include "../knn/l2.h"
 
 #include <armadillo>
+#include "gtest/gtest.h"
 
-int main()
+TEST(knn_main, endtoend)
 {
     using namespace arma;
     std::string fcatalog = "../../SKYMAP_SKY2000_V5R4.txt";
@@ -16,7 +17,7 @@ int main()
     base::Sensor sensor(fov, mv);
 
     knn::L2 l2(catalog, sensor);
-    l2.StatusFeatures();
+//    l2.StatusFeatures();
 //    l2.StatusOrthogonality();
 
     uint catndx1 = 4030;
@@ -29,5 +30,6 @@ int main()
     vec fv = sensor.l2.fv1;
     uint catndx2 = l2.Classify(fv);
 
-    return 0;
+    EXPECT_EQ(catndx1, catndx2);
+
 }
