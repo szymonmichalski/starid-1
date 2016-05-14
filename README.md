@@ -9,12 +9,12 @@ l2 - higher dimensional feature vectors
 
 approaches
 
-ptq - similaity of pointing vectors using star pair angular separations
+ptq - recognition of pointing vectors using star pair angular separations
 
-knn - similarity of feature vectors using kth nearest neighbors methods
+knn - recognition of feature vectors using kth nearest neighbors methods
 
-svm - classification using support vector machines
+svm - classification of feature vectors using support vector machines
 
-ann - classification using artificial neural networks
+ann - classification of feature vectors using artificial neural networks
 
 current emphasis is on vectorized processing using blas. concurrency can follow.
