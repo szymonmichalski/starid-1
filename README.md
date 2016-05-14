@@ -3,9 +3,9 @@ http://staridentification.blogspot.com
 
 l0 - unprocessed sensor measurements
 
-l1 - three dimensional pointing vectors in sensor frames and celestial frame
+l1 - pointing vectors in sensor frames and the celestial frame
 
-l2 - high dimensional feature vectors
+l2 - feature vectors
 
 approaches
 
