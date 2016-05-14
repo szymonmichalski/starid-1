@@ -13,8 +13,8 @@ ptq - angles between pointing vectors
 
 knn - similarity of feature vectors
 
-svm - separation of feature vectors
+svm - classification using support vector machines
 
-mlp - response to feature vectors
+ann - classification using multilayer feedforward neural networks
 
 current emphasis is on vectorized processing using blas. concurrency can follow.
