@@ -15,6 +15,6 @@ knn - similarity of feature vectors
 
 svm - classification using support vector machines
 
-ann - classification using multilayer feedforward neural networks
+ann - classification using artificial neural networks
 
 current emphasis is on vectorized processing using blas. concurrency can follow.
