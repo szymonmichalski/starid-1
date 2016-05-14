@@ -11,7 +11,7 @@ approaches
 
 ptq - recognition of pointing vectors using star pair angular separations
 
-knn - recognition of feature vectors using kth nearest neighbors methods
+knn - recognition of feature vectors using k nearest neighbors
 
 svm - classification of feature vectors using support vector machines
 
