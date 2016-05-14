@@ -9,9 +9,9 @@ l2 - higher dimensional feature vectors
 
 approaches
 
-ptq - angles between pointing vectors
+ptq - similaity of pointing vectors using star pair angular separations
 
-knn - similarity of feature vectors
+knn - similarity of feature vectors using kth nearest neighbors methods
 
 svm - classification using support vector machines
 
