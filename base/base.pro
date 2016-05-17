@@ -11,12 +11,14 @@ SOURCES += \
     catalog.cpp \
     sensor.cpp \
     pointing.cpp \
-    main.cpp
+    main.cpp \
+    training.cpp
 
 HEADERS += \
     catalog.h \
     sensor.h \
-    pointing.h
+    pointing.h \
+    training.h
 
 INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so
