@@ -1,6 +1,7 @@
 #include "pointing.h"
 #include "catalog.h"
 #include "sensor.h"
+#include "training.h"
 
 int main()
 {
@@ -16,7 +17,10 @@ int main()
     base::Catalog catalog(fcatalog, t, mv);
     base::Sensor sensor(fov, mv);
     sensor.Obs(catalog, pointing);
-    sensor.Status();
+//    sensor.Status();
+
+    uint starndx = 1;
+    base::Training training(catalog, sensor, 1);
 
     return 0;
 }

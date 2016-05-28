@@ -9,15 +9,14 @@
 namespace base {
 
 struct TrainingSet {
-    arma::mat examples; // n x l matrix of n dimensional feature vectors
-    arma::vec labels; // l x 1 vector of class labels -1 (outofclass) or 1 (inclass)
-    uint cntinclass; //in class examples count
-    uint cntoutofclass; // out of class examples count
+    uint starndx; // star to train for
+    uint inclass; //in class examples count
+    uint outclass; // out of class examples count
 };
 
 class Training {
 public:
-    Training(Catalog& catalog, Sensor& sensor);
+    Training(Catalog& catalog, Sensor& sensor, uint starndx);
     void Status();
 private:
 };
