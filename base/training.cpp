@@ -1,9 +1,12 @@
 #include "training.h"
 
-base::Training::Training(uint cnt_inclass, uint cnt_outofclass) {
+base::Training::Training(Catalog& catalog, Sensor& sensor)
+{
     TrainingSet trainingset;
-    trainingset.cntinclass = cnt_inclass;
-    trainingset.cntoutofclass = cnt_outofclass;
+    trainingset.cntinclass = 10;
+    trainingset.cntoutofclass = 10;
+
+
 }
 
 void base::Training::Status() {

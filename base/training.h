@@ -1,6 +1,9 @@
 #ifndef TRAINING_H
 #define TRAINING_H
 
+#include "catalog.h"
+#include "sensor.h"
+#include "pointing.h"
 #include <armadillo>
 
 namespace base {
@@ -8,13 +11,13 @@ namespace base {
 struct TrainingSet {
     arma::mat examples; // n x l matrix of n dimensional feature vectors
     arma::vec labels; // l x 1 vector of class labels -1 (outofclass) or 1 (inclass)
-    uint cntinclass;
-    uint cntoutofclass;
+    uint cntinclass; //in class examples count
+    uint cntoutofclass; // out of class examples count
 };
 
 class Training {
 public:
-    Training(uint cnt_inclass, uint cnt_outofclass);
+    Training(Catalog& catalog, Sensor& sensor);
     void Status();
 private:
 };
