@@ -21,7 +21,7 @@ void base::Sensor::L1a(base::Catalog& cat,  base::Pointing& p) {
 }
 
 void base::Sensor::L1b() {
-
+    double hvsig = 2.5 * datum::pi / 6.48e5;
 }
 
 void base::Sensor::L2a() {
