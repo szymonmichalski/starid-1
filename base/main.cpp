@@ -16,7 +16,7 @@ int main()
 
     base::Catalog catalog(fcatalog, t, mv);
     base::Sensor sensor(fov, mv);
-    sensor.Obs(catalog, pointing);
+    sensor.L1a(catalog, pointing);
 //    sensor.Status();
 
     uint starndx = 1;

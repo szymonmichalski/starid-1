@@ -21,7 +21,7 @@ TEST(knn_main, l2)
     fvs2.zeros(1e4, catalog.stars.size());
     for (uint i = 0; i <= catalog.stars.size()-1; ++i) {
         base::Pointing p(catalog.stars[i].ra, catalog.stars[i].dec, 0.0);
-        sensor.Obs(catalog, p);
+        sensor.L1a(catalog, p);
         fvs1.col(i) = sensor.l2.fv1;
         fvs2.col(i) = sensor.l2.fv2;
     }

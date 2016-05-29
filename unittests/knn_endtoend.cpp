@@ -26,7 +26,7 @@ TEST(knn_main, endtoend)
     double dec = catalog.stars[catndx1].dec;
     double yaw = 0.0 * arma::datum::pi / 180.0;
     base::Pointing p(ra, dec, yaw);
-    sensor.Obs(catalog, p);
+    sensor.L1a(catalog, p);
     vec fv = sensor.l2.fv1;
     uint catndx2 = l2.Classify(fv);
 

@@ -23,10 +23,17 @@ struct L2 {
 class Sensor {
 public:
     Sensor(double fov, double mv);
-    void Obs(base::Catalog& cat, base::Pointing& p);
+
+    void L1a(base::Catalog& cat, base::Pointing& p);
+    void L1b();
+
+    void L2a();
+    void L2b();
+
     void Status();
     base::L1 l1;
     base::L2 l2;
+
 private:
     double fov;
     double mv;

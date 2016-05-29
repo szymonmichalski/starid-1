@@ -14,7 +14,7 @@ knn::L2::L2(base::Catalog &catalog, base::Sensor &sensor) {
     l2b.zeros(1e4, catalog.stars.size());
     for (uint i = 0; i <= catalog.stars.size()-1; ++i) {
         base::Pointing p(catalog.stars[i].ra, catalog.stars[i].dec, 0.0);
-        sensor.Obs(catalog, p);
+        sensor.L1a(catalog, p);
         l2a.col(i) = sensor.l2.fv1;
         l2b.col(i) = sensor.l2.fv2;
     }

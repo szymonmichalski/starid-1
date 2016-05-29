@@ -4,7 +4,7 @@ base::Sensor::Sensor(double fovradius, double mv)
     : fov(fovradius), mv(mv) {
 }
 
-void base::Sensor::Obs(base::Catalog& cat,  base::Pointing& p) {
+void base::Sensor::L1a(base::Catalog& cat,  base::Pointing& p) {
     pointing = p;
     std::vector<int> ndxs = cat.StarsNearPoint(pointing.uv, fov);
 
@@ -18,7 +18,13 @@ void base::Sensor::Obs(base::Catalog& cat,  base::Pointing& p) {
     l1.uv = trans(trans(pointing.RotationMatrix()) * trans(l1.uv));
     l1.hv.col(0) = arma::atan(l1.uv.col(0) / l1.uv.col(2));
     l1.hv.col(1) = arma::atan(l1.uv.col(1) / l1.uv.col(2));
+}
 
+void base::Sensor::L1b() {
+
+}
+
+void base::Sensor::L2a() {
     // rotate so the nearest star is on the v axis
     arma::vec d = arma::sqrt(l1.hv.col(0)%l1.hv.col(0) + l1.hv.col(1)%l1.hv.col(1));
     arma::uvec ndxs2 = arma::sort_index(d);
@@ -45,6 +51,9 @@ void base::Sensor::Obs(base::Catalog& cat,  base::Pointing& p) {
             bool outofbounds = true;
         }
     }
+}
+
+void base::Sensor::L2b() {
 
 }
 
