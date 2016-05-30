@@ -25,6 +25,6 @@ TEST(ptq_main, endtoend)
     ptq::Pairs pairs(catalog, fov);
 
     double tol = 60 * arma::datum::pi / 648e3;
-    ptq::Triplets triplets(sensor.l1, 1e3);
+    ptq::Triplets triplets(sensor.l1a, 1e3);
     EXPECT_EQ(triplets.n, 23);
 }

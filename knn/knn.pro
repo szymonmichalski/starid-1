@@ -9,7 +9,7 @@ TARGET = knn
 
 SOURCES += \
     main.cpp \
-    l2.cpp
+    simple.cpp
 
 INCLUDEPATH += ../base
 LIBS += ../base/pointing.o
@@ -20,4 +20,4 @@ INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so
 
 HEADERS += \
-    l2.h
+    simple.h

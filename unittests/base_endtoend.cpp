@@ -19,5 +19,5 @@ TEST(base_main, endtoend)
     base::Catalog catalog(fcatalog, t, mv);
     base::Sensor sensor(fov, mv);
     sensor.L1a(catalog, pointing);
-    EXPECT_EQ(sensor.l1.hv.n_rows, 23);
+    EXPECT_EQ(sensor.l1a.hv.n_rows, 23);
 }

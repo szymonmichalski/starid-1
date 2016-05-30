@@ -1,7 +1,7 @@
 #include "../base/pointing.h"
 #include "../base/catalog.h"
 #include "../base/sensor.h"
-#include "l2.h"
+#include "simple.h"
 
 #include <armadillo>
 
@@ -15,9 +15,9 @@ int main()
     base::Catalog catalog(fcatalog, t, mv);
     base::Sensor sensor(fov, mv);
 
-    knn::L2 l2(catalog, sensor);
-    l2.StatusFeatures();
-//    l2.StatusOrthogonality();
+    knn::Simple simple(catalog, sensor);
+    simple.StatusFeatures();
+//    simple.StatusOrthogonality();
 
     uint catndx1 = 4030;
     std::string star_name = catalog.stars[catndx1].star_name;
@@ -26,8 +26,8 @@ int main()
     double yaw = 0.0 * arma::datum::pi / 180.0;
     base::Pointing p(ra, dec, yaw);
     sensor.L1a(catalog, p);
-    vec fv = sensor.l2.fv1;
-    uint catndx2 = l2.Classify(fv);
+    vec fv = sensor.l2a.fv;
+    uint catndx2 = simple.Classify(fv);
 
     return 0;
 }

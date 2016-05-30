@@ -7,9 +7,9 @@ int main()
 {
     std::string fcatalog = "../../SKYMAP_SKY2000_V5R4.txt";
     double t = 0.0;
+    double mv = 6.5;
     base::Catalog catalog(fcatalog, t, mv);
 
-    double mv = 6.5;
     double fov = 4.0 * arma::datum::pi / 180.0;
     base::Sensor sensor(fov, mv);
 

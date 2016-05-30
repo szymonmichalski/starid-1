@@ -14,10 +14,8 @@ struct L1 {
 };
 
 struct L2 {
-    arma::Mat<double> pat1;
-    arma::Mat<double> pat2;
-    arma::Col<double> fv1;
-    arma::Col<double> fv2;
+    arma::Mat<double> pat;
+    arma::Col<double> fv;
 };
 
 class Sensor {
@@ -31,8 +29,10 @@ public:
     void L2b();
 
     void Status();
-    base::L1 l1;
-    base::L2 l2;
+    base::L1 l1a;
+    base::L1 l1b;
+    base::L2 l2a;
+    base::L2 l2b;
 
 private:
     double fov;

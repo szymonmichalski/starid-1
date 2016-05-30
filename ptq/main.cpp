@@ -25,7 +25,7 @@ int main()
     pairs.Status();
 
     double tol = 60 * arma::datum::pi / 648e3;
-    ptq::Triplets triplets(sensor.l1, 1e3);
+    ptq::Triplets triplets(sensor.l1a, 1e3);
     while (triplets.IsMoreTriplets()) {
         ptq::Triplet triplet = triplets.GetTriplet(tol);
         if (triplets.is_triplet_good) {

@@ -1,5 +1,5 @@
-#ifndef L2_H
-#define L2_H
+#ifndef SIMPLE_H
+#define SIMPLE_H
 
 #include "../base/pointing.h"
 #include "../base/catalog.h"
@@ -9,11 +9,10 @@
 
 namespace knn {
 
-class L2 {
+class Simple {
 public:
-    L2(base::Catalog& catalog, base::Sensor& sensor);
+    Simple(base::Catalog& catalog, base::Sensor& sensor);
     arma::Mat<double> l2a;
-    arma::Mat<double> l2b;
     void StatusFeatures();
     void StatusOrthogonality();
     uint Classify(arma::vec& fv);

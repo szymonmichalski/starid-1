@@ -10,10 +10,10 @@ TARGET = unittests
 SOURCES += \
     base_pointing.cpp \
     main.cpp \
-    knn_l2.cpp \
     knn_endtoend.cpp \
     ptq_endtoend.cpp \
-    base_endtoend.cpp
+    base_endtoend.cpp \
+    knn_simple.cpp
 
 HEADERS += \
 
@@ -27,7 +27,7 @@ LIBS += ../ptq/pairs.o
 LIBS += ../ptq/triplets.o
 
 INCLUDEPATH += ../knn
-LIBS += ../knn/l2.o
+LIBS += ../knn/simple.o
 
 INCLUDEPATH += ../../googletest/include
 LIBS += ../../googletest/libgtest.a
