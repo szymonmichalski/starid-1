@@ -24,9 +24,9 @@ public:
 
     void L1a(base::Catalog& cat, base::Pointing& p);
     void L1b();
-
     void L2a();
     void L2b();
+    void Click(base::Catalog& cat, base::Pointing& p);
 
     void Status();
     base::L1 l1a;

@@ -21,18 +21,28 @@ void base::Sensor::L1a(base::Catalog& cat,  base::Pointing& p) {
 }
 
 void base::Sensor::L1b() {
-    double hvsig = 2.5 * arma::datum::pi / 6.48e5;
+    using namespace arma;
+
+    mat hvnoise = (2.5 * datum::pi / 6.48e5) * randn(l1a.hv.n_rows, l1a.hv.n_cols);
+    l1b.hv = l1a.hv + hvnoise;
+
+    mat z(l1b.hv.n_rows, 1, fill::ones);
+    l1b.uv = l1b.hv;
+    l1b.uv.insert_cols(2, z);
+    normalise(l1b.uv, 2, 1);
 }
 
 void base::Sensor::L2a() {
+    using namespace arma;
+
     // rotate so the nearest star is on the v axis
-    arma::vec d = arma::sqrt(l1a.hv.col(0)%l1a.hv.col(0) + l1a.hv.col(1)%l1a.hv.col(1));
-    arma::uvec ndxs2 = arma::sort_index(d);
+    vec d = arma::sqrt(l1a.hv.col(0)%l1a.hv.col(0) + l1a.hv.col(1)%l1a.hv.col(1));
+    uvec ndxs2 = arma::sort_index(d);
     double h = l1a.hv(ndxs2(0),0);
     double v = l1a.hv(ndxs2(0),1);
     double a = std::atan2(h,v); // angle from v axis
-    arma::mat hv2 = l1a.hv;
-    arma::mat rm = { {cos(a), -sin(a)}, {sin(a), cos(a)} };
+    mat hv2 = l1a.hv;
+    mat rm = { {cos(a), -sin(a)}, {sin(a), cos(a)} };
     hv2 = trans(rm * trans(hv2));
 
     l2a.pat.zeros(10,10);
@@ -50,6 +60,13 @@ void base::Sensor::L2a() {
 
 void base::Sensor::L2b() {
 
+}
+
+void base::Sensor::Click(base::Catalog& cat, base::Pointing& p) {
+    L1a(cat, p);
+    L1b();
+    L2a();
+    L2b();
 }
 
 void base::Sensor::Status() {

@@ -9,10 +9,9 @@ base::Training::Training(Catalog& catalog, Sensor& sensor, uint starndx) {
     trainingset.outclass = 10;
 
     // make the set of inclass examples
-    uint catndx1 = 4030;
-    std::string star_name = catalog.stars[catndx1].star_name;
-    double ra = catalog.stars[catndx1].ra;
-    double dec = catalog.stars[catndx1].dec;
+    std::string star_name = catalog.stars[starndx].star_name;
+    double ra = catalog.stars[starndx].ra;
+    double dec = catalog.stars[starndx].dec;
     double yaw = 0.0 * arma::datum::pi / 180.0;
     base::Pointing p(ra, dec, yaw);
     sensor.L1a(catalog, p);

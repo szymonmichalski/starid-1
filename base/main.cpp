@@ -2,9 +2,12 @@
 #include "catalog.h"
 #include "sensor.h"
 #include "training.h"
+#include <armadillo>
 
 int main()
 {
+    arma::arma_rng::set_seed_random();
+
     std::string fcatalog = "../../SKYMAP_SKY2000_V5R4.txt";
     double t = 0.0;
     double mv = 6.5;
@@ -18,12 +21,10 @@ int main()
     double yaw = 0.0 * arma::datum::pi / 180.0;
     base::Pointing pointing(ra, dec, yaw);
 
-    sensor.L1a(catalog, pointing);
-    sensor.L1b();
-//    sensor.Status();
+    sensor.Click(catalog, pointing);
 
-    uint starndx = 1;
-    base::Training training(catalog, sensor, 1);
+    uint starndx = 4030;
+    base::Training training(catalog, sensor, starndx);
 
     return 0;
 }
