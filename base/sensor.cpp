@@ -70,8 +70,8 @@ void base::Sensor::Click(base::Catalog& cat, base::Pointing& p) {
 }
 
 void base::Sensor::Status() {
-//    std::cout << l1.uv << "\n";
-//    std::cout << l1.hv << "\n";
+//    std::cout << l1a.uv << "\n";
+//    std::cout << l1a.hv << "\n";
     std::cout << l2a.pat << "\n";
 }
 

@@ -22,6 +22,10 @@ class Sensor {
 public:
     Sensor(double fov, double mv);
 
+    base::L1 l1a;
+    base::L1 l1b;
+    base::L2 l2a;
+    base::L2 l2b;
     void L1a(base::Catalog& cat, base::Pointing& p);
     void L1b();
     void L2a();
@@ -29,10 +33,6 @@ public:
     void Click(base::Catalog& cat, base::Pointing& p);
 
     void Status();
-    base::L1 l1a;
-    base::L1 l1b;
-    base::L2 l2a;
-    base::L2 l2b;
 
 private:
     double fov;
