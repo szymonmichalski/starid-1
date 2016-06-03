@@ -15,7 +15,7 @@ knn::Simple::Simple(base::Catalog &catalog, base::Sensor &sensor) {
         base::Pointing p(catalog.stars[i].ra, catalog.stars[i].dec, 0.0);
         sensor.L1a(catalog, p);
         sensor.L2a();
-        l2a.col(i) = sensor.l2a.fv;
+        l2a.col(i) = sensor.l2a.fv();
     }
 }
 

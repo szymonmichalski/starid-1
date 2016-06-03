@@ -45,13 +45,13 @@ void base::Sensor::L2a() {
     mat rm = { {cos(a), -sin(a)}, {sin(a), cos(a)} };
     hv2 = trans(rm * trans(hv2));
 
-    l2a.pat.zeros(10,10);
+    l2a.pattern.zeros(10,10);
     for (uint i = 0; i <= hv2.n_rows-1; ++i) {
         try {
             int h1 = 5 + floor(5 * hv2(i,0) / fov);
             int v1 = 5 + floor(5 * hv2(i,1) / fov);
-            l2a.pat(h1,v1) = 1.0;
-            l2a.fv = arma::vectorise(l2a.pat);
+            l2a.pattern(h1,v1) = 1.0;
+//            l2a.fv = arma::vectorise(l2a.pat);
         } catch (...) {
             bool outofbounds = true;
         }
@@ -59,7 +59,10 @@ void base::Sensor::L2a() {
 }
 
 void base::Sensor::L2b() {
+}
 
+arma::Col<double> base::L2::fv() {
+    return arma::vectorise(pattern);
 }
 
 void base::Sensor::Click(base::Catalog& cat, base::Pointing& p) {
@@ -72,6 +75,6 @@ void base::Sensor::Click(base::Catalog& cat, base::Pointing& p) {
 void base::Sensor::Status() {
 //    std::cout << l1a.uv << "\n";
 //    std::cout << l1a.hv << "\n";
-    std::cout << l2a.pat << "\n";
+    std::cout << l2a.pattern << "\n";
 }
 

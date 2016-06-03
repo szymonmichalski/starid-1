@@ -22,7 +22,7 @@ TEST(knn_simple, simple)
         base::Pointing p(catalog.stars[i].ra, catalog.stars[i].dec, 0.0);
         sensor.L1a(catalog, p);
         sensor.L2a();
-        fvs.col(i) = sensor.l2a.fv;
+        fvs.col(i) = sensor.l2a.fv();
     }
 
     rowvec nfeatures = sum(fvs);

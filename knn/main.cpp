@@ -27,7 +27,7 @@ int main()
     double yaw = 0.0 * arma::datum::pi / 180.0;
     base::Pointing p(ra, dec, yaw);
     sensor.L1a(catalog, p);
-    vec fv = sensor.l2a.fv;
+    vec fv = sensor.l2a.fv();
     uint catndx2 = simple.Classify(fv);
 
     return 0;

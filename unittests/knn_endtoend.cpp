@@ -28,7 +28,7 @@ TEST(knn_main, endtoend)
     base::Pointing p(ra, dec, yaw);
     sensor.L1a(catalog, p);
     sensor.L2a();
-    vec fv = sensor.l2a.fv;
+    vec fv = sensor.l2a.fv();
     uint catndx2 = simple.Classify(fv);
 
     EXPECT_EQ(catndx1, catndx2);
