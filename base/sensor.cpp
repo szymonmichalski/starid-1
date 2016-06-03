@@ -1,7 +1,7 @@
 #include "sensor.h"
 
-base::Sensor::Sensor(double fovradius, double mv)
-    : fov(fovradius), mv(mv) {
+base::Sensor::Sensor(double fov, double mv, double noise, double falsestars)
+    : fov(fov), mv(mv), noise(noise), falsestars(falsestars) {
 }
 
 void base::Sensor::L1a(base::Catalog& cat,  base::Pointing& p) {
@@ -23,7 +23,7 @@ void base::Sensor::L1a(base::Catalog& cat,  base::Pointing& p) {
 void base::Sensor::L1b() {
     using namespace arma;
 
-    mat hvnoise = (2.5 * datum::pi / 6.48e5) * randn(l1a.hv.n_rows, l1a.hv.n_cols);
+    mat hvnoise = (noise * datum::pi / 6.48e5) * randn(l1a.hv.n_rows, l1a.hv.n_cols);
     l1b.hv = l1a.hv + hvnoise;
 
     mat z(l1b.hv.n_rows, 1, fill::ones);
@@ -51,7 +51,6 @@ void base::Sensor::L2a() {
             int h1 = 5 + floor(5 * hv2(i,0) / fov);
             int v1 = 5 + floor(5 * hv2(i,1) / fov);
             l2a.pattern(h1,v1) = 1.0;
-//            l2a.fv = arma::vectorise(l2a.pat);
         } catch (...) {
             bool outofbounds = true;
         }
@@ -59,6 +58,28 @@ void base::Sensor::L2a() {
 }
 
 void base::Sensor::L2b() {
+    using namespace arma;
+
+    // rotate so the nearest star is on the v axis
+    vec d = arma::sqrt(l1b.hv.col(0)%l1b.hv.col(0) + l1b.hv.col(1)%l1b.hv.col(1));
+    uvec ndxs2 = arma::sort_index(d);
+    double h = l1b.hv(ndxs2(0),0);
+    double v = l1b.hv(ndxs2(0),1);
+    double a = std::atan2(h,v); // angle from v axis
+    mat hv2 = l1b.hv;
+    mat rm = { {cos(a), -sin(a)}, {sin(a), cos(a)} };
+    hv2 = trans(rm * trans(hv2));
+
+    l2b.pattern.zeros(10,10);
+    for (uint i = 0; i <= hv2.n_rows-1; ++i) {
+        try {
+            int h1 = 5 + floor(5 * hv2(i,0) / fov);
+            int v1 = 5 + floor(5 * hv2(i,1) / fov);
+            l2b.pattern(h1,v1) = 1.0;
+        } catch (...) {
+            bool outofbounds = true;
+        }
+    }
 }
 
 arma::Col<double> base::L2::fv() {

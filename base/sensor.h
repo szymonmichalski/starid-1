@@ -20,7 +20,7 @@ struct L2 {
 
 class Sensor {
 public:
-    Sensor(double fov, double mv);
+    Sensor(double fov, double mv, double noise=5.0, double falsestars=1.0);
 
     base::L1 l1a; // ideal level 1
     base::L1 l1b; // more realistic level 1
@@ -35,8 +35,10 @@ public:
     void Status();
 
 private:
-    double fov;
-    double mv;
+    double fov; // fov radius, radians
+    double mv; // dimmest star
+    double noise; // pointing vector noise equivalent angle, arcseconds
+    double falsestars; // mean false star count per click
     base::Pointing pointing;
 };
 
