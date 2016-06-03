@@ -1,7 +1,10 @@
 #include "sensor.h"
 
-base::Sensor::Sensor(double fov, double mv, double noise, double falsestars)
-    : fov(fov), mv(mv), noise(noise), falsestars(falsestars) {
+base::Sensor::Sensor(double fov, double mv, double noise,
+                     double false_stars_mean, double false_stars_var)
+    : fov(fov), mv(mv), noise(noise),
+      false_stars_mean(false_stars_mean), false_stars_var(false_stars_var)
+{
 }
 
 void base::Sensor::L1a(base::Catalog& cat,  base::Pointing& p) {
@@ -26,6 +29,12 @@ void base::Sensor::L1b() {
     mat hvnoise = (noise * datum::pi / 6.48e5) * randn(l1a.hv.n_rows, l1a.hv.n_cols);
     l1b.hv = l1a.hv + hvnoise;
 
+    // handle false stars in hv space
+    vec nfalsevec = false_stars_mean + (false_stars_var * arma::randn(1));
+    int nfalse = (int)std::round(nfalsevec(1));
+    if (nfalse <= 0) nfalse = 0;
+
+    // generate pointing vector from hv space
     mat z(l1b.hv.n_rows, 1, fill::ones);
     l1b.uv = l1b.hv;
     l1b.uv.insert_cols(2, z);
