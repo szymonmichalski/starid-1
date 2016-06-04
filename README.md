@@ -7,14 +7,14 @@ l1 - pointing vectors in sensor frames and the celestial frame
 
 l2 - feature vectors
 
-approaches
+learning methods
 
-ptq - pointing vector classification using star pair angular separations
+ptq - l1 classification using star pair angular separations
 
-knn - feature vector classification using k nearest neighbors
+knn - l2 classification using k nearest neighbors
 
-svm - feature vector classification using support vector machines
+svm - l2 classification using support vector machines
 
-ann - feature vector classification using artificial neural networks
+ann - l2 classification using artificial neural networks
 
-current emphasis is on vectorized processing using blas. concurrency can follow.
+current emphasis is on vectorized processing using blas
