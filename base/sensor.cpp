@@ -3,7 +3,7 @@
 base::Sensor::Sensor(double fov, double mv, double noise,
                      double false_stars_mean, double false_stars_var)
     : fov(fov), mv(mv), noise(noise),
-      false_stars_mean(false_stars_mean), false_stars_var(false_stars_var)
+      false_stars_mean(false_stars_mean), false_stars_stdv(false_stars_var)
 {
 }
 
@@ -25,14 +25,25 @@ void base::Sensor::L1a(base::Catalog& cat,  base::Pointing& p) {
 
 void base::Sensor::L1b() {
     using namespace arma;
+    l1b.ndxs = l1a.ndxs;
+    l1b.mag = l1a.mag;
 
     mat hvnoise = (noise * datum::pi / 6.48e5) * randn(l1a.hv.n_rows, l1a.hv.n_cols);
     l1b.hv = l1a.hv + hvnoise;
 
     // handle false stars in hv space
-    vec nfalsevec = false_stars_mean + (false_stars_var * arma::randn(1));
-    int nfalse = (int)std::round(nfalsevec(1));
-    if (nfalse <= 0) nfalse = 0;
+    vec nfalsevec = false_stars_mean + (false_stars_stdv * arma::randn(1));
+    int nfalse = (int)std::round(nfalsevec(0));
+    if (nfalse > 0) {
+        uint ntrue = l1b.hv.n_rows;
+        l1b.hv.resize(ntrue + nfalse, l1b.hv.n_cols);
+        for (uint i = 1; i <= nfalse; ++i) {
+            l1b.ndxs.push_back(-1);
+            l1b.mag.push_back(-1.0);
+            vec hvrand = ((randu(2) * 2.0) - 1.0) * fov;
+            l1b.hv.row(ntrue - 1 + i) = trans(hvrand);
+        }
+    }
 
     // generate pointing vector from hv space
     mat z(l1b.hv.n_rows, 1, fill::ones);
