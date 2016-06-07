@@ -33,7 +33,7 @@ void base::Sensor::L1b() {
 
     // handle false stars in hv space
     vec nfalsevec = false_stars_mean + (false_stars_stdv * arma::randn(1));
-    int nfalse = (int)std::round(nfalsevec(0));
+    int nfalse = std::round(nfalsevec(0));
     if (nfalse > 0) {
         uint ntrue = l1b.hv.n_rows;
         l1b.hv.resize(ntrue + nfalse, l1b.hv.n_cols);
