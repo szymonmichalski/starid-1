@@ -5,7 +5,7 @@ star model
 
 l0 - unprocessed imager measurements
 
-l1 - pointing vectors in sensor frames and the celestial frame
+l1 - pointing vectors in the imager and celestial reference frames
 
 l2 - feature vectors
 
