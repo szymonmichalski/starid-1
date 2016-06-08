@@ -9,9 +9,8 @@ SUBDIRS += \
     ptq \
     knn \
     svm \
-    ann
 
-unittests.depends = base ptq knn svm ann
+unittests.depends = base ptq knn svm
 
 OTHER_FILES += \
     README.md \
