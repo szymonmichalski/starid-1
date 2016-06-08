@@ -5,7 +5,7 @@ star model
 
 l0 - unprocessed sensor measurements
 
-l1 - pointing vectors in the sensor and celestial reference frames
+l1 - pointing vectors in the sensor coordinate frame
 
 l2 - feature vectors
 
