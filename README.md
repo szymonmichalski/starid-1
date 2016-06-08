@@ -3,9 +3,9 @@ http://staridentification.blogspot.com
 
 star model
 
-l0 - unprocessed imager measurements
+l0 - unprocessed sensor measurements
 
-l1 - pointing vectors in the imager and celestial reference frames
+l1 - pointing vectors in the sensor and celestial reference frames
 
 l2 - feature vectors
 
