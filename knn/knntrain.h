@@ -1,5 +1,5 @@
-#ifndef SIMPLE_H
-#define SIMPLE_H
+#ifndef KNNTRAIN_H
+#define KNNTRAIN_H
 
 #include "../base/pointing.h"
 #include "../base/catalog.h"
@@ -9,9 +9,9 @@
 
 namespace knn {
 
-class Simple {
+class KnnTrain {
 public:
-    Simple(base::Catalog& catalog, base::Sensor& sensor);
+    KnnTrain(base::Catalog& catalog, base::Sensor& sensor);
     arma::Mat<double> l2a;
     void StatusFeatures();
     void StatusOrthogonality();

@@ -1,7 +1,7 @@
 #include "../base/pointing.h"
 #include "../base/catalog.h"
 #include "../base/sensor.h"
-#include "../knn/simple.h"
+#include "../knn/knntrain.h"
 
 #include <armadillo>
 #include "gtest/gtest.h"
@@ -16,7 +16,7 @@ TEST(knn_main, endtoend)
     base::Catalog catalog(fcatalog, t, mv);
     base::Sensor sensor(fov, mv);
 
-    knn::Simple simple(catalog, sensor);
+    knn::KnnTrain simple(catalog, sensor);
 //    simple.StatusFeatures();
 //    simple.StatusOrthogonality();
 

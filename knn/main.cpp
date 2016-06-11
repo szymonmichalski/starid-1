@@ -1,7 +1,7 @@
 #include "../base/pointing.h"
 #include "../base/catalog.h"
 #include "../base/sensor.h"
-#include "simple.h"
+#include "knntrain.h"
 #include <armadillo>
 
 int main()
@@ -16,10 +16,6 @@ int main()
     base::Catalog catalog(fcatalog, t, mv);
     base::Sensor sensor(fov, mv);
 
-    knn::Simple simple(catalog, sensor);
-    simple.StatusFeatures();
-//    simple.StatusOrthogonality();
-
     uint catndx1 = 4030;
     std::string star_name = catalog.stars[catndx1].star_name;
     double ra = catalog.stars[catndx1].ra;
@@ -28,6 +24,10 @@ int main()
     base::Pointing p(ra, dec, yaw);
     sensor.L1a(catalog, p);
     vec fv = sensor.l2a.fv();
+
+    knn::KnnTrain simple(catalog, sensor);
+    simple.StatusFeatures();
+//    simple.StatusOrthogonality();
     uint catndx2 = simple.Classify(fv);
 
     return 0;

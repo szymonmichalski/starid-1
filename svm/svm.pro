@@ -8,4 +8,16 @@ CONFIG += warn_off
 TARGET = svm
 
 SOURCES += \
-    main.cpp
+    main.cpp \
+    svmtrain.cpp
+
+HEADERS += \
+    svmtrain.h
+
+INCLUDEPATH += ../base
+LIBS += ../base/pointing.o
+LIBS += ../base/catalog.o
+LIBS += ../base/sensor.o
+
+INCLUDEPATH += ../../armadillo
+LIBS += ../../armadillo/libarmadillo.so

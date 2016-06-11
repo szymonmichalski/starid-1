@@ -27,7 +27,10 @@ LIBS += ../ptq/pairs.o
 LIBS += ../ptq/triplets.o
 
 INCLUDEPATH += ../knn
-LIBS += ../knn/simple.o
+LIBS += ../knn/knntrain.o
+
+INCLUDEPATH += ../svm
+LIBS += ../svm/svmtrain.o
 
 INCLUDEPATH += ../../googletest/include
 LIBS += ../../googletest/libgtest.a

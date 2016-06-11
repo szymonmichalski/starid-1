@@ -1,6 +1,6 @@
-#include "simple.h"
+#include "knntrain.h"
 
-uint knn::Simple::Classify(arma::vec& fv) {
+uint knn::KnnTrain::Classify(arma::vec& fv) {
     using namespace arma;
     uint catndx = 0;
     rowvec distances = trans(fv) * l2a;
@@ -9,7 +9,7 @@ uint knn::Simple::Classify(arma::vec& fv) {
     return catndx;
 }
 
-knn::Simple::Simple(base::Catalog &catalog, base::Sensor &sensor) {
+knn::KnnTrain::KnnTrain(base::Catalog &catalog, base::Sensor &sensor) {
     l2a.zeros(1e2, catalog.stars.size());
     for (uint i = 0; i <= catalog.stars.size()-1; ++i) {
         base::Pointing p(catalog.stars[i].ra, catalog.stars[i].dec, 0.0);
@@ -19,13 +19,13 @@ knn::Simple::Simple(base::Catalog &catalog, base::Sensor &sensor) {
     }
 }
 
-void knn::Simple::StatusFeatures() {
+void knn::KnnTrain::StatusFeatures() {
     using namespace arma;
     rowvec nfeaturesa = sum(l2a);
     std::cout << hist(nfeaturesa, linspace<vec>(0,60,10)) << "\n";
 }
 
-void knn::Simple::StatusOrthogonality() {
+void knn::KnnTrain::StatusOrthogonality() {
     using namespace arma;
     mat dota = trans(normalise(l2a)) * normalise(l2a);
     vec tmpa = vectorise(dota);
