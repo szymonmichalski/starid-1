@@ -9,3 +9,4 @@ ptq - pairs triads quads
 star identity learning
 knn - nearest neighbors
 svm - support vector machines 
+tf  - tensorflow
