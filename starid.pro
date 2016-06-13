@@ -9,6 +9,7 @@ SUBDIRS += \
     ptq \
     knn \
     svm \
+    tf
 
 unittests.depends = base ptq knn svm
 
