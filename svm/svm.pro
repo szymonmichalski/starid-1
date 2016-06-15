@@ -9,10 +9,12 @@ TARGET = svm
 
 SOURCES += \
     main.cpp \
-    svmtrain.cpp
+    svmtrain.cpp \
+    solver.cpp
 
 HEADERS += \
-    svmtrain.h
+    svmtrain.h \
+    solver.h
 
 INCLUDEPATH += ../base
 LIBS += ../base/pointing.o
