@@ -21,9 +21,9 @@ SOURCES += \
     $$DIR1/pointing.cpp \
     $$DIR1/sensor.cpp \
     $$DIR1/training.cpp \
-    main.cpp \
     svmtrain.cpp \
-    solver.cpp
+    solver.cpp \
+    svm.cpp
 
 HEADERS += \
     $$DIR1/catalog.h \
@@ -32,11 +32,6 @@ HEADERS += \
     $$DIR1/training.h \
     svmtrain.h \
     solver.h
-
-INCLUDEPATH += ../base
-LIBS += ../base/pointing.o
-LIBS += ../base/catalog.o
-LIBS += ../base/sensor.o
 
 INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so

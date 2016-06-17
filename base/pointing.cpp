@@ -2,9 +2,16 @@
 
 #include <cassert>
 
-base::Pointing::Pointing() {}
-base::Pointing::Pointing(double ra=0.0, double dec=0.0, double yaw=0.0)
-    : yaw(yaw) {
+base::Pointing::Pointing() {
+    double ra = 0.0 * arma::datum::pi / 180.0;
+    double dec = 60.0 * arma::datum::pi / 180.0;
+    double yaw = 0.0 * arma::datum::pi / 180.0;
+    init(ra, dec, yaw);
+}
+base::Pointing::Pointing(double ra, double dec, double yaw) {
+    init(ra, dec, yaw);
+}
+void base::Pointing::init(double ra, double dec, double yaw) {
     uv = {1, 0, 0};
     uv(0) = std::cos(ra) * std::cos(dec);
     uv(1) = std::sin(ra) * std::cos(dec);

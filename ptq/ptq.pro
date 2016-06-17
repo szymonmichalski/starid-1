@@ -23,7 +23,7 @@ SOURCES += \
     $$DIR1/training.cpp \
     triplets.cpp \
     pairs.cpp \
-    main.cpp
+    ptq.cpp
 
 HEADERS += \
     $$DIR1/catalog.h \
@@ -32,11 +32,6 @@ HEADERS += \
     $$DIR1/training.h \
     triplets.h \
     pairs.h
-
-INCLUDEPATH += ../base
-LIBS += ../base/pointing.o
-LIBS += ../base/catalog.o
-LIBS += ../base/sensor.o
 
 INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so

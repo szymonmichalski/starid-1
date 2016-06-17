@@ -3,7 +3,7 @@
 #include "gtest/gtest.h"
 #include <armadillo>
 
-TEST(base_pointing, unitvector)
+TEST(base, pointing1)
 {
     double ra = 0.0 * arma::datum::pi / 180.0; // cass
     double dec = 60.0 * arma::datum::pi / 180.0; // cass
@@ -12,7 +12,7 @@ TEST(base_pointing, unitvector)
     EXPECT_EQ(norm(pointing.uv), 1.0);
 }
 
-TEST(base_pointing, rotation)
+TEST(base, pointing2)
 {
 double ra = 0.0 * arma::datum::pi / 180.0; // cass
 double dec = 60.0 * arma::datum::pi / 180.0; // cass

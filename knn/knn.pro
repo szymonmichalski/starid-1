@@ -21,8 +21,8 @@ SOURCES += \
     $$DIR1/pointing.cpp \
     $$DIR1/sensor.cpp \
     $$DIR1/training.cpp \
-    main.cpp \
-    knntrain.cpp
+    knntrain.cpp \
+    knn.cpp
 
 HEADERS += \
     $$DIR1/catalog.h \

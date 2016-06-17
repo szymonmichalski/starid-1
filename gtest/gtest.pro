@@ -35,12 +35,10 @@ SOURCES += \
     $$DIR2/triplets.cpp \
     $$DIR3/knntrain.cpp \
     $$DIR4/svmtrain.cpp \
-    base_pointing.cpp \
-    main.cpp \
-    knn_endtoend.cpp \
-    ptq_endtoend.cpp \
-    base_endtoend.cpp \
-    knn_simple.cpp
+    gtest.cpp \
+    base.cpp \
+    knn.cpp \
+    ptq.cpp
 
 INCLUDEPATH += ../../googletest/include
 LIBS += ../../googletest/libgtest.a

@@ -11,8 +11,8 @@ SOURCES += \
     catalog.cpp \
     sensor.cpp \
     pointing.cpp \
-    main.cpp \
-    training.cpp
+    training.cpp \
+    base.cpp
 
 HEADERS += \
     catalog.h \

@@ -32,12 +32,12 @@ int main()
     vec labels = zeros<vec>(200);
     for (uint i = 0; i < 100; ++i) {
         sensor.Click(catalog, p1);
-        examples.row(i) = trans(sensor.l2b.fv());
+        examples.row(i) = trans(sensor.l2b.fv);
         labels(i) = 1.0;
     }
     for (uint i = 100; i < 200; ++i) {
         sensor.Click(catalog, p2);
-        examples.row(i) = trans(sensor.l2b.fv());
+        examples.row(i) = trans(sensor.l2b.fv);
         labels(i) = -1.0;
     }
 

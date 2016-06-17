@@ -7,7 +7,7 @@
 #include <armadillo>
 #include "gtest/gtest.h"
 
-TEST(ptq_main, endtoend)
+TEST(ptq, test1)
 {
     std::string fcatalog = "../../SKYMAP_SKY2000_V5R4.txt";
     double t = 0.0;
@@ -20,7 +20,7 @@ TEST(ptq_main, endtoend)
 
     base::Catalog catalog(fcatalog, t, mv);
     base::Sensor sensor(fov, mv);
-    sensor.L1a(catalog, pointing);
+    sensor.Click(catalog, pointing);
 
     ptq::Pairs pairs(catalog, fov);
 

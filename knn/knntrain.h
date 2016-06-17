@@ -11,10 +11,12 @@ namespace knn {
 class KnnTrain {
 public:
     KnnTrain(base::Catalog& catalog, base::Sensor& sensor);
-    arma::Mat<double> l2a;
     void StatusFeatures();
     void StatusOrthogonality();
     uint Classify(arma::vec& fv);
+
+    arma::Mat<double> fvs;
+
 private:
 };
 

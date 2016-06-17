@@ -22,13 +22,13 @@ int main()
     double dec = catalog.stars[catndx1].dec;
     double yaw = 0.0 * arma::datum::pi / 180.0;
     base::Pointing p(ra, dec, yaw);
-    sensor.L1a(catalog, p);
-    vec fv = sensor.l2a.fv();
+    sensor.Click(catalog, p);
+    vec fv = sensor.l2a.fv;
 
-    knn::KnnTrain simple(catalog, sensor);
-    simple.StatusFeatures();
+    knn::KnnTrain knntrain(catalog, sensor);
+    knntrain.StatusFeatures();
 //    simple.StatusOrthogonality();
-    uint catndx2 = simple.Classify(fv);
+    uint catndx2 = knntrain.Classify(fv);
 
     return 0;
 }

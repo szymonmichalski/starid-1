@@ -75,6 +75,7 @@ void base::Sensor::L2a() {
             bool outofbounds = true;
         }
     }
+    l2a.fv = arma::vectorise(l2a.pattern);
 }
 
 void base::Sensor::L2b() {
@@ -100,17 +101,14 @@ void base::Sensor::L2b() {
             bool outofbounds = true;
         }
     }
-}
-
-arma::Col<double> base::L2::fv() {
-    return arma::vectorise(pattern);
+    l2b.fv = arma::vectorise(l2b.pattern);
 }
 
 void base::Sensor::Click(base::Catalog& cat, base::Pointing& p) {
     L1a(cat, p);
     L1b();
     L2a();
-    L2b();
+//    L2b();
 }
 
 void base::Sensor::Status() {

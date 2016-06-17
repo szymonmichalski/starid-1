@@ -15,13 +15,14 @@ struct L1 {
 
 struct L2 {
     arma::Mat<double> pattern; // star pattern two dimensional matrix
-    arma::Col<double> fv(); // star pattern as column vector
+    arma::Col<double> fv; // star pattern as column vector
 };
 
 class Sensor {
 public:
     Sensor(double fov, double mv, double noise=5.0,
            double false_stars_mean=1.0, double false_stars_stdv=1.0);
+
     void Click(base::Catalog& cat, base::Pointing& p); // process a sky image
 
     base::L1 l1a; // ideal level 1
