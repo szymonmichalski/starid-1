@@ -5,7 +5,7 @@ CONFIG += warn_off
 
 SUBDIRS += \
     base \
-    unittests \
+    gtest \
     ptq \
     knn \
     svm \
@@ -14,5 +14,5 @@ SUBDIRS += \
 unittests.depends = base ptq knn svm
 
 OTHER_FILES += \
-    README.md \
+    README.txt \
     LICENSE.txt
