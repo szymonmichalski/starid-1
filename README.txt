@@ -6,7 +6,7 @@ l2 - feature vectors
 star identification
 ptq - pairs triads quads
 
-star identity learning
+starid learning
 knn - nearest neighbors
 svm - support vector machines 
 tf - tensorflow
