@@ -4,17 +4,17 @@
 #include "../base/pointing.h"
 #include "../base/catalog.h"
 #include "../base/sensor.h"
+#include "../base/training.h"
 #include <armadillo>
 
 namespace svm {
 
 class SvmTrain {
 public:
-    SvmTrain(arma::mat& examples, arma::vec& labels);
+    SvmTrain(base::Training& trainingset);
 
 private:
-    arma::mat examples;
-    arma::vec labels;
+
 };
 
 }

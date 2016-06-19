@@ -8,16 +8,14 @@
 
 namespace base {
 
-struct TrainingSet {
-    uint starndx; // star to train for
-    uint inclass; //in class examples count
-    uint outclass; // out of class examples count
-};
-
 class Training {
 public:
-    Training(Catalog& catalog, Sensor& sensor, uint starndx);
+    Training();
     void Status();
+
+    arma::mat examples;
+    arma::vec labels;
+
 private:
 };
 

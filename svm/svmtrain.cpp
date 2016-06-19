@@ -1,7 +1,8 @@
 #include "svmtrain.h"
 
-svm::SvmTrain::SvmTrain(arma::mat& examples, arma::vec& labels)
-    : examples(examples), labels(labels)
+svm::SvmTrain::SvmTrain(base::Training& trainingset)
 {
+
+
 
 }

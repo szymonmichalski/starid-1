@@ -23,8 +23,7 @@ int main()
 
     sensor.Click(catalog, pointing);
 
-    uint starndx = 4030;
-    base::Training training(catalog, sensor, starndx);
+    base::Training trainingset;
 
     return 0;
 }
