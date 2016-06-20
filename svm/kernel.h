@@ -9,7 +9,7 @@ namespace svm {
 class Kernel {
 
 public:
-    Kernel(uint l, SvmParameters& param);
+    Kernel(svm::SvmProblem& problem);
 
 };
 
