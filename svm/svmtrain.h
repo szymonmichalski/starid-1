@@ -10,6 +10,7 @@
 namespace svm {
 
 class SvmTrain {
+
 public:
     SvmTrain(base::Training& trainingset);
 

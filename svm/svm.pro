@@ -23,7 +23,8 @@ SOURCES += \
     $$DIR1/training.cpp \
     svmtrain.cpp \
     solver.cpp \
-    svm.cpp
+    svm.cpp \
+    kernel.cpp
 
 HEADERS += \
     $$DIR1/catalog.h \
@@ -31,7 +32,9 @@ HEADERS += \
     $$DIR1/sensor.h \
     $$DIR1/training.h \
     svmtrain.h \
-    solver.h
+    solver.h \
+    kernel.h \
+    svm.h
 
 INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so
