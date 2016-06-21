@@ -1,15 +1,15 @@
 #ifndef KERNEL_H
 #define KERNEL_H
 
+#include "dualproblem.h"
 #include <armadillo>
-#include "svmtrain.h"
 
 namespace svm {
 
 class Kernel {
 
 public:
-    Kernel(svm::SvmProblem& problem);
+    Kernel(svm::DualProblem& dualproblem);
 
 };
 

@@ -9,7 +9,7 @@ namespace svm {
 class Solver {
 
 public:
-    void Solve(svm::SvmProblem& problem, svm::Kernel& kernel);
+    Solver(svm::DualProblem& dualproblem);
 
 private:
 

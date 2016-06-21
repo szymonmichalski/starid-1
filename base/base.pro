@@ -23,4 +23,7 @@ HEADERS += \
 INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so
 
+DISTFILES += \
+    base.pri
+
 

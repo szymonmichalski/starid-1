@@ -1,18 +1,20 @@
-#include "../base/pointing.h"
-#include "../base/catalog.h"
-#include "../base/sensor.h"
-#include "../base/training.h"
-#include "svmtrain.h"
+#include "svmproblem.h"
+#include "dualproblem.h"
+#include "solver.h"
+
+#include "training.h"
 #include <armadillo>
 
 int main()
 {
-    using namespace arma;
-    arma::arma_rng::set_seed_random();
 
     base::Training trainingset;
 
-    svm::SvmTrain svmtrain(trainingset);
+    svm::SvmProblem svmproblem(trainingset);
+
+    svm::DualProblem dualproblem(svmproblem);
+
+    svm::Solver solver(dualproblem);
 
     return 0;
 }
