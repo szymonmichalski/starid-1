@@ -5,7 +5,7 @@
 
 #include <unordered_map>
 
-namespace ptq {
+namespace pairs {
 
 struct Star {
     Star(int catndxin, base::Catalog& cat, double radius);

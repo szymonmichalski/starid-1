@@ -7,7 +7,7 @@
 #include <armadillo>
 #include "gtest/gtest.h"
 
-TEST(ptq, test1)
+TEST(pairs, test1)
 {
     std::string fcatalog = "../../SKYMAP_SKY2000_V5R4.txt";
     double t = 0.0;
@@ -22,9 +22,9 @@ TEST(ptq, test1)
     base::Sensor sensor(fov, mv);
     sensor.Click(catalog, pointing);
 
-    ptq::Pairs pairs(catalog, fov);
+    pairs::Pairs pairs(catalog, fov);
 
     double tol = 60 * arma::datum::pi / 648e3;
-    ptq::Triplets triplets(sensor.l1a, 1e3);
+    pairs::Triplets triplets(sensor.l1a, 1e3);
     EXPECT_EQ(triplets.n, 23);
 }

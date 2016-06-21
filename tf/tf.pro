@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-    tf.cpp
+    main.cpp
 
 DISTFILES += \
     tfhello.py

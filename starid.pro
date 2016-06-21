@@ -5,13 +5,11 @@ CONFIG += warn_off
 
 SUBDIRS += \
     base \
-    gtest \
-    ptq \
+    pairs \
     knn \
     svm \
+    gtest \
     tf
-
-unittests.depends = base ptq knn svm
 
 OTHER_FILES += \
     README.txt \

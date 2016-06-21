@@ -3,7 +3,7 @@
 
 #include "../base/sensor.h"
 
-namespace ptq {
+namespace pairs {
 
 struct Triplet {
     arma::vec uva;

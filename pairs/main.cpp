@@ -22,13 +22,13 @@ int main()
     base::Sensor sensor(fov, mv);
     sensor.L1a(catalog, pointing);
 
-    ptq::Pairs pairs(catalog, fov);
+    pairs::Pairs pairs(catalog, fov);
     pairs.Status();
 
     double tol = 60 * arma::datum::pi / 648e3;
-    ptq::Triplets triplets(sensor.l1a, 1e3);
+    pairs::Triplets triplets(sensor.l1a, 1e3);
     while (triplets.IsMoreTriplets()) {
-        ptq::Triplet triplet = triplets.GetTriplet(tol);
+        pairs::Triplet triplet = triplets.GetTriplet(tol);
         if (triplets.is_triplet_good) {
             std::vector<int> l1ab = pairs.Candidates(triplet.angab, 0.05*tol);
             std::vector<int> l1ac = pairs.Candidates(triplet.angac, 0.05*tol);

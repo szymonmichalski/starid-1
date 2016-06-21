@@ -22,7 +22,7 @@ SOURCES += \
     $$DIR1/sensor.cpp \
     $$DIR1/training.cpp \
     knntrain.cpp \
-    knn.cpp
+    main.cpp
 
 HEADERS += \
     $$DIR1/catalog.h \

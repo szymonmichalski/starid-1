@@ -5,7 +5,7 @@ CONFIG -= qt
 CONFIG += c++14
 CONFIG += warn_off
 
-TARGET = ptq
+TARGET = pairs
 
 DIR1 = ../base
 DIR2 = ../ptq
@@ -23,7 +23,7 @@ SOURCES += \
     $$DIR1/training.cpp \
     triplets.cpp \
     pairs.cpp \
-    ptq.cpp
+    main.cpp
 
 HEADERS += \
     $$DIR1/catalog.h \

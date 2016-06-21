@@ -2,7 +2,7 @@
 #define KERNEL_H
 
 #include <armadillo>
-#include "svm.h"
+#include "svmtrain.h"
 
 namespace svm {
 

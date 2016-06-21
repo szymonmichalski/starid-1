@@ -8,7 +8,7 @@ CONFIG += warn_off
 TARGET = gtest
 
 DIR1 = ../base
-DIR2 = ../ptq
+DIR2 = ../pairs
 DIR3 = ../knn
 DIR4 = ../svm
 INCLUDEPATH += $$DIR1
@@ -35,10 +35,10 @@ SOURCES += \
     $$DIR2/triplets.cpp \
     $$DIR3/knntrain.cpp \
     $$DIR4/svmtrain.cpp \
-    gtest.cpp \
     base.cpp \
     knn.cpp \
-    ptq.cpp
+    ptq.cpp \
+    main.cpp
 
 INCLUDEPATH += ../../googletest/include
 LIBS += ../../googletest/libgtest.a

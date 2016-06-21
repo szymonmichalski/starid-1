@@ -9,6 +9,15 @@
 
 namespace svm {
 
+struct SvmProblem
+{
+    int l;
+    arma::vec y;
+    double gamma;
+    double eps;
+    double C;
+};
+
 class SvmTrain {
 
 public:

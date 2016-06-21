@@ -1,22 +1,22 @@
 #include "pairs.h"
 
-ptq::Star::Star(int catndxin, base::Catalog& cat, double radius)
+pairs::Star::Star(int catndxin, base::Catalog& cat, double radius)
 {
     catndx = catndxin;
     neighbors = cat.StarsNearPoint(cat.stars[catndx].uv, radius);
 }
 
-ptq::Pairs::Pairs() {};
-ptq::Pairs::Pairs(base::Catalog& cat, double fov)
+pairs::Pairs::Pairs() {};
+pairs::Pairs::Pairs(base::Catalog& cat, double fov)
 {
     int starpairsndx = 0;
     for (uint catndx = 0; catndx < cat.stars.size(); ++catndx) {
-        ptq::Star star(catndx, cat, fov);
+        pairs::Star star(catndx, cat, fov);
         for (uint i = 0; i < star.neighbors.size(); ++i) {
             if (star.catndx == star.neighbors[i]) continue;
             int catndx1 = star.catndx;
             int catndx2 = star.neighbors[i];
-            std::string key = ptq::Pairs::PairsKey(catndx1, catndx2);
+            std::string key = pairs::Pairs::PairsKey(catndx1, catndx2);
             auto search = starpairs_map.find(key);
             if (search != starpairs_map.end()) continue; // check map that pair is unique
 
@@ -35,7 +35,7 @@ ptq::Pairs::Pairs(base::Catalog& cat, double fov)
     afinder.SetTable(atable);
 }
 
-std::vector<int> ptq::Pairs::Candidates(double angle, double tolerance)
+std::vector<int> pairs::Pairs::Candidates(double angle, double tolerance)
 {
     std::vector<int> starpairsndxs = afinder.FindIndexes(angle-tolerance, angle+tolerance);
     std::vector<int> catndxs;
@@ -47,14 +47,14 @@ std::vector<int> ptq::Pairs::Candidates(double angle, double tolerance)
     return catndxs;
 }
 
-void ptq::Pairs::Status() {
+void pairs::Pairs::Status() {
     int sz = atable.size();
     std::cout << "atable size " << sz
               << " med " << atable[sz/2].first * 180.0 / arma::datum::pi
               << " max " << atable[sz-1].first * 180.0 / arma::datum::pi << "\n";
 }
 
-std::string ptq::Pairs::PairsKey(int& catndx1, int& catndx2) {
+std::string pairs::Pairs::PairsKey(int& catndx1, int& catndx2) {
     if (catndx1 > catndx2) {
         int tmp = catndx1;
         catndx1 = catndx2;
