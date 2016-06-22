@@ -8,8 +8,8 @@ SUBDIRS += \
     pairs \
     knn \
     svm \
-    gtest \
-    tf
+    svmtf \
+    gtest
 
 OTHER_FILES += \
     README.txt \

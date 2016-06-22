@@ -1,4 +1,5 @@
 include (../base/base.pri)
+include (../svm/svm.pri)
 
 TEMPLATE = app
 CONFIG += console c++14
@@ -7,20 +8,13 @@ CONFIG -= qt
 CONFIG += c++14
 CONFIG += warn_off
 
-TARGET = svm
+TARGET = svmtf
 
 SOURCES += \
-    problem.cpp \
-    solver.cpp \
     main.cpp
 
 HEADERS += \
-    problem.h \
-    solver.h
+
 
 INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so
-
-DISTFILES += \
-    svm.pri
-

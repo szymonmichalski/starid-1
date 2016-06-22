@@ -6,10 +6,10 @@
 
 namespace svm {
 
-class SvmProblem {
+class Problem {
 
 public:
-    SvmProblem(base::Training& trainingset);
+    Problem(base::Training& trainingset);
 
     arma::mat examples;
     arma::vec labels;

@@ -1,5 +1,4 @@
-#include "svmproblem.h"
-#include "dualproblem.h"
+#include "problem.h"
 #include "solver.h"
 
 #include "training.h"
@@ -10,11 +9,9 @@ int main()
 
     base::Training trainingset;
 
-    svm::SvmProblem svmproblem(trainingset);
+    svm::Problem problem(trainingset);
 
-    svm::DualProblem dualproblem(svmproblem);
-
-    svm::Solver solver(dualproblem);
+    svm::Solver solver(problem);
 
     return 0;
 }

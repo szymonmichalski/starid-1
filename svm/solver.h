@@ -1,7 +1,7 @@
 #ifndef SOLVER_H
 #define SOLVER_H
 
-#include "kernel.h"
+#include "problem.h"
 #include <armadillo>
 
 namespace svm {
@@ -9,7 +9,7 @@ namespace svm {
 class Solver {
 
 public:
-    Solver(svm::DualProblem& dualproblem);
+    Solver(svm::Problem& problem);
 
 private:
 
