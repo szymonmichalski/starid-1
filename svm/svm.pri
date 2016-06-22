@@ -3,9 +3,9 @@ DIRSVM = ../svm
 INCLUDEPATH += $$DIRSMV
 
 SOURCES += \
-    $$DIRSVM/solver.cpp \
-    $$DIRSVM/problem.cpp
+    $$DIRSVM/train.cpp \
+    $$DIRSVM/model.cpp
 
 HEADERS += \
-    $$DIRSVM/solver.h \
-    $$DIRSVM/problem.h
+    $$DIRSVM/train.h \
+    $$DIRSVM/model.h

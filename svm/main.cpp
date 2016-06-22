@@ -1,5 +1,5 @@
-#include "problem.h"
-#include "solver.h"
+#include "model.h"
+#include "train.h"
 
 #include "training.h"
 #include <armadillo>
@@ -9,9 +9,9 @@ int main()
 
     base::Training trainingset;
 
-    svm::Problem problem(trainingset);
+    svm::Model model(trainingset);
 
-    svm::Solver solver(problem);
+    svm::Train train(model);
 
     return 0;
 }

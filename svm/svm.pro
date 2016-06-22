@@ -10,13 +10,13 @@ CONFIG += warn_off
 TARGET = svm
 
 SOURCES += \
-    problem.cpp \
-    solver.cpp \
-    main.cpp
+    main.cpp \
+    model.cpp \
+    train.cpp
 
 HEADERS += \
-    problem.h \
-    solver.h
+    model.h \
+    train.h
 
 INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so

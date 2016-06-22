@@ -1,15 +1,15 @@
 #ifndef SOLVER_H
 #define SOLVER_H
 
-#include "problem.h"
+#include "model.h"
 #include <armadillo>
 
 namespace svm {
 
-class Solver {
+class Train {
 
 public:
-    Solver(svm::Problem& problem);
+    Train(svm::Model& problem);
 
 private:
 
