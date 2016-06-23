@@ -8,5 +8,5 @@ pairs - l1 star catalog search
 
 starid learning
 knn - l2 nearest neighbor
-svm - support vector machine
-svmtf - tensorflow svm
+svm - support vector machine using sequential minimal optimization
+svmtf - tensorflow svm using direct optimization
