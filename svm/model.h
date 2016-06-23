@@ -14,10 +14,10 @@ public:
     arma::mat examples;
     arma::vec labels;
 
-    uint l;
+    uint tssize; // l
     double gamma; // kernel RBF param
     double epsilon;
-    double C; // C > 0 regularization param
+    double regparam; // C > 0 regularization param
 
     arma::vec alpha;
     arma::mat K;

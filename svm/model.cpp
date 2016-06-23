@@ -6,15 +6,15 @@ svm::Model::Model(base::Training &trainingset)
 {
     using namespace arma;
 
-    l = labels.n_rows;
+    tssize = labels.n_rows;
     gamma = 1;
     epsilon = 0.001;
-    C = 1;
+    regparam = 1;
 
-    alpha.zeros(l);
-    K.eye(l,l);
-    for (uint i = 0; i < l; ++i) {
-        for (uint j = i+1; j < l; ++j) {
+    alpha.zeros(tssize);
+    K.eye(tssize,tssize);
+    for (uint i = 0; i < tssize; ++i) {
+        for (uint j = i+1; j < tssize; ++j) {
              K(i,j) = exp( -gamma * dot( examples.row(i), examples.row(j) ) ); // rbf kernel
              K(j,i) = K(i,j);
         }
