@@ -9,7 +9,7 @@ namespace svm {
 class Train {
 
 public:
-    Train(svm::Model& problem);
+    Train(svm::Model& model);
 
 private:
 

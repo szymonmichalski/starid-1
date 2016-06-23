@@ -1,5 +1,5 @@
 #include "train.h"
 
-svm::Train::Train(svm::Model& problem) {
+svm::Train::Train(svm::Model& model) {
 
 }

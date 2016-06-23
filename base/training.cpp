@@ -10,9 +10,8 @@ base::Training::Training() {
     base::Catalog catalog(fcatalog, t, mv);
     base::Sensor sensor(fov, mv);
 
-    examples.zeros();
-    examples.set_size(200, 100);
-    labels = zeros<vec>(200);
+    examples.zeros(200, 100);
+    labels = zeros(200);
 
     uint catndx1 = 4030;
     double ra1 = catalog.stars[catndx1].ra;
