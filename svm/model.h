@@ -11,18 +11,20 @@ class Model {
 public:
     Model(base::Training& trainingset);
 
-    arma::mat examples;
-    arma::vec labels;
-
-    uint tsetsize; // l
-    double gamma; // rbf kernel param
+    double gamma; // rbf kernel param 1/(2*sigma)^2
     double epsilon;
-    double regparam; // C > 0 regularization param
+    double Cval; // C > 0 regularization param
 
-    arma::vec alpha;
-    arma::mat kernel;
+    arma::mat xvecs;
+    arma::vec yvec;
+    uint lval; // l
+
+    arma::vec alphavec;
+    arma::mat Kmat;
+    arma::mat Qmat;
 
 private:
+    arma::rowvec vecdiff;
 
 };
 

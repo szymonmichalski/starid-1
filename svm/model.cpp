@@ -1,23 +1,27 @@
 #include "model.h"
 
-svm::Model::Model(base::Training &trainingset)
-    : examples(trainingset.examples),
-      labels(trainingset.labels)
-{
+svm::Model::Model(base::Training &trainingset) {
     using namespace arma;
-
-    tsetsize = labels.n_rows;
     gamma = 1;
     epsilon = 0.001;
-    regparam = 1;
+    Cval = 1;
 
-    alpha.zeros(tsetsize);
-    kernel.eye(tsetsize,tsetsize);
-    for (uint i = 0; i < tsetsize; ++i) {
-        for (uint j = i+1; j < tsetsize; ++j) {
-             rowvec vecdiff = examples.row(i) - examples.row(j);
-             kernel(i,j) = exp( -gamma * dot( vecdiff, vecdiff ) ); // rbf kernel
-             kernel(j,i) = kernel(i,j);
+    xvecs = trainingset.examples;
+    yvec = trainingset.labels;
+    lval = yvec.n_rows;
+
+    alphavec.zeros(lval);
+    Kmat.zeros(lval,lval);
+    Qmat = Kmat;
+    for (uint i = 0; i < lval; ++i) {
+        for (uint j = i; j < lval; ++j) {
+
+            vecdiff = xvecs.row(i) - xvecs.row(j);
+            Kmat(i,j) = exp( -gamma * dot( vecdiff, vecdiff ) ); // rbf kernel
+            Qmat(i,j) = yvec(i) * yvec(j) * Kmat(i,j);
+
+            Kmat(j,i) = Kmat(i,j);
+            Qmat(j,i) = Qmat(i,j);
         }
     }
 
