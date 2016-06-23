@@ -6,17 +6,18 @@ svm::Model::Model(base::Training &trainingset)
 {
     using namespace arma;
 
-    tssize = labels.n_rows;
+    tsetsize = labels.n_rows;
     gamma = 1;
     epsilon = 0.001;
     regparam = 1;
 
-    alpha.zeros(tssize);
-    K.eye(tssize,tssize);
-    for (uint i = 0; i < tssize; ++i) {
-        for (uint j = i+1; j < tssize; ++j) {
-             K(i,j) = exp( -gamma * dot( examples.row(i), examples.row(j) ) ); // rbf kernel
-             K(j,i) = K(i,j);
+    alpha.zeros(tsetsize);
+    kernel.eye(tsetsize,tsetsize);
+    for (uint i = 0; i < tsetsize; ++i) {
+        for (uint j = i+1; j < tsetsize; ++j) {
+             rowvec vecdiff = examples.row(i) - examples.row(j);
+             kernel(i,j) = exp( -gamma * dot( vecdiff, vecdiff ) ); // rbf kernel
+             kernel(j,i) = kernel(i,j);
         }
     }
 
