@@ -23,8 +23,11 @@ public:
     arma::mat Kmat;
     arma::mat Qmat;
 
+    double Kernel(arma::vec& veci, arma::vec& vecj);
+
+    double Predict(arma::vec& vecx);
+
 private:
-    arma::rowvec vecdiff;
 
 };
 

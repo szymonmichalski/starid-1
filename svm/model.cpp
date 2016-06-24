@@ -2,6 +2,7 @@
 
 svm::Model::Model(base::Training &trainingset) {
     using namespace arma;
+
     gamma = 1;
     epsilon = 0.001;
     Cval = 1;
@@ -13,11 +14,14 @@ svm::Model::Model(base::Training &trainingset) {
     alphavec.zeros(lval);
     Kmat.zeros(lval,lval);
     Qmat = Kmat;
+
     for (uint i = 0; i < lval; ++i) {
         for (uint j = i; j < lval; ++j) {
 
-            vecdiff = xvecs.row(i) - xvecs.row(j);
-            Kmat(i,j) = exp( -gamma * dot( vecdiff, vecdiff ) ); // rbf kernel
+            vec veci = trans(xvecs.row(i));
+            vec vecj = trans(xvecs.row(j));
+
+            Kmat(i,j) = Kernel(veci, vecj);
             Qmat(i,j) = yvec(i) * yvec(j) * Kmat(i,j);
 
             Kmat(j,i) = Kmat(i,j);
@@ -26,3 +30,19 @@ svm::Model::Model(base::Training &trainingset) {
     }
 
 }
+
+double svm::Model::Kernel(arma::vec &veci, arma::vec &vecj) {
+    return exp( -gamma * arma::dot( veci-vecj , veci-vecj ) ); // rbf kernel
+}
+
+double svm::Model::Predict(arma::vec &vecx) {
+
+    double decisionval {0.0};
+    for (uint i = 0; i < lval; ++i) {
+            arma::vec veci = trans(xvecs.row(i));
+            decisionval += yvec(i) * alphavec(i) * Kernel(veci, vecx);
+    }
+
+    return decisionval;
+}
+
