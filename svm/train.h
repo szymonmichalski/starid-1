@@ -6,10 +6,21 @@
 
 namespace svm {
 
+
 class Train {
 
 public:
     Train(svm::Model& model);
+
+    bool IsStoppingCriteriaTrue();
+
+    struct WorkingSet {
+        uint i;
+        uint j;
+    };
+    WorkingSet workingset;
+    WorkingSet SelectWorkingSet();
+
 
 private:
 
