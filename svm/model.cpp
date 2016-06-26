@@ -3,9 +3,9 @@
 svm::Model::Model(base::Training &trainingset) {
     using namespace arma;
 
-    gamma = 1;
+    gamma = 1.0;
     epsilon = 0.001;
-    Cval = 1;
+    Cval = 1.0;
 
     xvecs = trainingset.examples;
     yvec = trainingset.labels;

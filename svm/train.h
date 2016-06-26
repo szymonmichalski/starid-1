@@ -1,5 +1,5 @@
-#ifndef SOLVER_H
-#define SOLVER_H
+#ifndef TRAIN_H
+#define TRAIN_H
 
 #include "model.h"
 #include <armadillo>
@@ -11,16 +11,18 @@ class Train {
 
 public:
     Train(svm::Model& model);
+    bool StoppingCriteria();
+    void SelectWorkingSet(uint& wsndx1, uint& wsndx2);
 
-    bool IsStoppingCriteriaTrue();
-
-    struct WorkingSet {
-        uint i;
-        uint j;
-    };
-    WorkingSet workingset;
-    WorkingSet SelectWorkingSet();
-
+    double epsilon;
+    double lval;
+    double Cval;
+    arma::vec bvec;
+    arma::vec pvec;
+    arma::vec yvec;
+    arma::mat Qmat;
+    arma::vec alphavec;
+    arma::vec gradientvec;
 
 private:
 
