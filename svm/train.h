@@ -13,13 +13,13 @@ public:
     Train(svm::Model& model);
     bool WorkingSet(); // returns stopping criteria bool
     void MainLoop();
-    void UpdateEq20();
     void SubProblem();
-    void UpdateGradient();
+    void BiasValue();
 
     double epsilon;
     double lval;
     double Cval;
+    double bval;
     arma::vec bvec;
     arma::vec pvec;
     arma::vec yvec;
@@ -31,12 +31,6 @@ public:
     uint wsj;
 
 private:
-    arma::mat Qbb;
-    arma::vec alphab;
-    arma::vec gradb;
-    arma::mat Qbcols;
-    arma::vec eq20;
-    arma::vec alphavecprev;
 };
 
 }

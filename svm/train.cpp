@@ -12,54 +12,47 @@ svm::Train::Train(svm::Model& model) {
     Kmat = model.Kmat;
     Qmat = model.Qmat;
     alphavec = model.alphavec;
-    gradient = (Qmat * alphavec) + pvec;
-
-    Qbb = zeros(2,2);
-    alphab = zeros(2);
-    gradb = zeros(2);
-    Qbcols = zeros(lval,2);
-    eq20 = zeros(2);
 }
 
 void svm::Train::MainLoop() {
     using namespace arma;
-    uint loopcnt = 0;
-    while (loopcnt < 1e6) {
-        ++loopcnt;
-        alphavecprev = alphavec;
+    vec alphavecprev;
+    mat Qcols = zeros(lval,2);
+
+    gradient = (Qmat * alphavec) + pvec;
+    for (uint k = 0; k < 1000000; ++k) {
         if (!WorkingSet()) break;
-        UpdateEq20();
+        alphavecprev = alphavec;
         SubProblem();
-        UpdateGradient();
+        Qcols.col(0) = Qmat.col(wsi);
+        Qcols.col(1) = Qmat.col(wsj);
+        gradient = gradient + (Qcols * (alphavec - alphavecprev));
     }
+
+    BiasValue();
 }
 
-void::svm::Train::UpdateEq20() {
-    using namespace arma;
-    gradb(0) = gradient(wsi);
-    gradb(1) = gradient(wsj);
-    Qbb(0,0) = Qmat(wsi,wsi);
-    Qbb(0,1) = Qmat(wsi,wsj);
-    Qbb(1,0) = Qmat(wsj,wsi);
-    Qbb(1,1) = Qmat(wsj,wsj);
-    alphab(0) = alphavec(wsi);
-    alphab(1) = alphavec(wsj);
-    eq20 = gradb + (Qbb * alphab);
-}
 
-void::svm::Train::UpdateGradient() {
+void::svm::Train::BiasValue() {
     using namespace arma;
 
 }
 
 void::svm::Train::SubProblem() {
     using namespace arma;
-
+    double aij = Kmat(wsi,wsi) + Kmat(wsj,wsj) - 2*Kmat(wsi,wsj);
+    if (aij <= 0.0) aij = 1.0e-9;
+    double bij = -(yvec(wsi) * gradient(wsi)) + (yvec(wsj) * gradient(wsj));
+    alphavec(wsi) = alphavec(wsi) + (yvec(wsi) * bij / aij);
+    alphavec(wsj) = alphavec(wsj) - (yvec(wsj) * bij / aij);
+    if (alphavec(wsi) < 0.0) alphavec(wsi) = 0.0;
+    if (alphavec(wsj) < 0.0) alphavec(wsj) = 0.0;
+    if (alphavec(wsi) > Cval) alphavec(wsi) = Cval;
+    if (alphavec(wsj) > Cval) alphavec(wsj) = Cval;
 }
 
 bool svm::Train::WorkingSet() {
     using namespace arma;
-//    gradientvec = Qmat * alphavec + pvec;
     double malpha = -1.0e9;
     double Malpha = 1.0e9;
     vec upflags = zeros(lval);
@@ -74,22 +67,25 @@ bool svm::Train::WorkingSet() {
             if (alphavec(i) < Cval) lowflags(i) = 1.0;
             if (alphavec(i) > 0.0) upflags(i) = 1.0;
         }
+        double grad = -yvec(i) * gradient(i);
         if (upflags(i) == 1.0) {
-            if (-yvec(i) * gradient(i) > malpha) {
-                malpha = -yvec(i) * gradient(i);
+            if (grad > malpha) {
+                malpha = grad;
                 wsi = i;
             }
         }
         if (lowflags(i) == 1.0) {
-            if (-yvec(i) * gradient(i) < Malpha) Malpha = -yvec(i) * gradient(i);
+            if (grad < Malpha) {
+                Malpha = grad;
+            }
         }
     }
     double curmin = 1.0e9;
     for (uint j = 0; j < lval; ++j) { // wsj
         if (!(-gradient(j) < -gradient(wsi))) continue;
         if (lowflags(j) == 1.0) {
-            double ait = Kmat(wsi,wsi) * Kmat(j,j) - 2*Kmat(wsi,j);
-            if (ait <= 0.0 ) ait = 1.0e-9;
+            double ait = Kmat(wsi,wsi) + Kmat(j,j) - 2*Kmat(wsi,j);
+            if (ait <= 0.0) ait = 1.0e-9;
             double bit = -gradient(wsi) + gradient(j);
             if (-bit*bit/ait < curmin) {
                 curmin = -bit*bit/ait;
