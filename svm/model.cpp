@@ -11,7 +11,7 @@ svm::Model::Model(base::Training &trainingset) {
     yvec = trainingset.labels;
     lval = yvec.n_rows;
 
-    bval = 0.0;
+    biasval = 0.0;
     alphavec.zeros(lval);
     Kmat.zeros(lval,lval);
     Qmat = Kmat;
@@ -38,7 +38,7 @@ double svm::Model::Kernel(arma::vec &veci, arma::vec &vecj) {
 
 double svm::Model::Predict(arma::vec &vecx) {
 
-    double decisionval = bval;
+    double decisionval = biasval;
     for (uint i = 0; i < lval; ++i) {
             arma::vec veci = trans(xvecs.row(i));
             decisionval += yvec(i) * alphavec(i) * Kernel(veci, vecx);

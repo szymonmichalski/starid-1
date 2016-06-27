@@ -14,12 +14,11 @@ public:
     bool WorkingSet(); // returns stopping criteria bool
     void MainLoop();
     void SubProblem();
-    void BiasValue();
 
     double epsilon;
     double lval;
     double Cval;
-    double bval;
+    double biasval;
     arma::vec bvec;
     arma::vec pvec;
     arma::vec yvec;

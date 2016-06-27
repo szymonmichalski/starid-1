@@ -12,6 +12,7 @@ svm::Train::Train(svm::Model& model) {
     Kmat = model.Kmat;
     Qmat = model.Qmat;
     alphavec = model.alphavec;
+    biasval = 0.0;
 }
 
 void svm::Train::MainLoop() {
@@ -29,13 +30,12 @@ void svm::Train::MainLoop() {
         gradient = gradient + (Qcols * (alphavec - alphavecprev));
     }
 
-    BiasValue();
-}
-
-
-void::svm::Train::BiasValue() {
-    using namespace arma;
-
+    for (uint i = 0; i < lval; ++i) {
+        if (alphavec(i) > 0.0 && alphavec(i) < Cval) {
+            biasval = yvec(i) * gradient(i);
+            break;
+        }
+    }
 }
 
 void::svm::Train::SubProblem() {

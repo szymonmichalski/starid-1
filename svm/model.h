@@ -19,8 +19,8 @@ public:
     arma::vec yvec;
     uint lval; // l
 
-    double bval;
-    rma::vec alphavec;
+    double biasval;
+    arma::vec alphavec;
     arma::mat Kmat;
     arma::mat Qmat;
 
