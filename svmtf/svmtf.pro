@@ -18,3 +18,6 @@ HEADERS += \
 
 INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so
+
+DISTFILES += \
+    tftest.py
