@@ -20,8 +20,8 @@ SOURCES += \
     ptq.cpp \
     main.cpp
 
-INCLUDEPATH += ../../googletest/include
-LIBS += ../../googletest/libgtest.a
+INCLUDEPATH += ../../gtest/include
+LIBS += ../../gtest/libgtest.a
 LIBS += -pthread
 
 INCLUDEPATH += ../../armadillo
