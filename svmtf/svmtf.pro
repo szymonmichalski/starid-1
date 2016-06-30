@@ -20,4 +20,5 @@ INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so
 
 DISTFILES += \
-    tftest.py
+    tftest.py \
+    mnist.py
