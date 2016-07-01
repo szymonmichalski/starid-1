@@ -21,4 +21,5 @@ LIBS += ../../armadillo/libarmadillo.so
 
 DISTFILES += \
     tftest.py \
-    mnist.py
+    mnist.py \
+    mnist2.py
