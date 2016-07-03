@@ -24,6 +24,7 @@ INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so
 
 DISTFILES += \
-    base.pri
+    base.pri \
+    SKYMAP_SKY2000_V5R4.txt
 
 
