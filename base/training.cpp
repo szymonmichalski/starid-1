@@ -3,14 +3,17 @@
 base::Training::Training() {
     using namespace arma;
 
-    std::string fcatalog = "../../SKYMAP_SKY2000_V5R4.txt";
+    arma::arma_rng::set_seed_random();
+
+    std::string fcatalog = "SKYMAP_SKY2000_V5R4.txt";
     double t = 0.0;
     double mv = 6.5;
-    double fov = 4.0 * datum::pi / 180.0;
     base::Catalog catalog(fcatalog, t, mv);
+
+    double fov = 4.0 * arma::datum::pi / 180.0;
     base::Sensor sensor(fov, mv);
 
-    examples.zeros(200, 100);
+    examples.zeros(200, 784);
     labels = zeros(200);
 
     uint catndx1 = 4030;

@@ -12,3 +12,6 @@ SOURCES += \
     $$DIRBASE/pointing.cpp \
     $$DIRBASE/sensor.cpp \
     $$DIRBASE/training.cpp \
+
+DISTFILES += \
+    $$DIRBASE/SKYMAP_SKY2000_V5R4.txt
