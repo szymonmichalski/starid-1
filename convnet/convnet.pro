@@ -20,15 +20,9 @@ INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so
 
 DISTFILES += \
-    mnist2.py \
-    fully_connected_feed.py \
-    mnist3.py \
-    tf1.py \
-    mnist1.py \
-    mnist4.py \
     cifar10_input.py \
     cifar10.py \
     cifar10_train.py \
     cifar10_multi_gpu_train.py \
     cifar10_eval.py \
-    convnet.py
+    mnist.py
