@@ -1,6 +1,6 @@
 # source activate tensorflow
 # source deactivate
-# tensorboard --logdir=/tmp/mnist_logs
+# tensorboard --logdir=/tmp/convnet_logs
 
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
@@ -68,7 +68,7 @@ with tf.name_scope('accuracy'):
   tf.scalar_summary('accuracy', accuracy)
 
 merged = tf.merge_all_summaries()
-train_writer = tf.train.SummaryWriter('/tmp/mnist_logs' + '/train', sess.graph)
+train_writer = tf.train.SummaryWriter('/tmp/convnet_logs' + '/train', sess.graph)
 sess.run(tf.initialize_all_variables())
 
 for i in range(1000):
