@@ -16,7 +16,6 @@ HEADERS += \
 
 SOURCES += \
     base.cpp \
-    knn.cpp \
     ptq.cpp \
     main.cpp
 

@@ -1,12 +1,11 @@
 star model
-l0 - unprocessed sensor measurements
-l1 - pointing vectors in the sensor coordinate frame
-l2 - feature vectors
+l0 - low level star sensor measurements
+l1 - star pointing vectors in a sensor coordinate frame
+l2 - star patterns
 
-star identification
+heuristic starid
 pairs - l1 star catalog search
 
 starid learning
-knn - l2 nearest neighbor
-svm - support vector machine using sequential minimal optimization
-svmtf - tensorflow svm using direct optimization
+svm - support vector machines
+convnet - convolutional networks

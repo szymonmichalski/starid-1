@@ -12,11 +12,13 @@ TARGET = svm
 SOURCES += \
     main.cpp \
     model.cpp \
-    train.cpp
+    train.cpp \
+    knntrain.cpp
 
 HEADERS += \
     model.h \
-    train.h
+    train.h \
+    knntrain.h
 
 INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so

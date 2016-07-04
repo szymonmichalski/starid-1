@@ -6,9 +6,8 @@ CONFIG += warn_off
 SUBDIRS += \
     base \
     pairs \
-    knn \
     svm \
-    svmtf \
+    convnet \
     gtest
 
 OTHER_FILES += \
