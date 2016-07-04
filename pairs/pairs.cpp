@@ -6,7 +6,7 @@ pairs::Star::Star(int catndxin, base::Catalog& cat, double radius)
     neighbors = cat.StarsNearPoint(cat.stars[catndx].uv, radius);
 }
 
-pairs::Pairs::Pairs() {};
+pairs::Pairs::Pairs() {}
 pairs::Pairs::Pairs(base::Catalog& cat, double fov)
 {
     int starpairsndx = 0;

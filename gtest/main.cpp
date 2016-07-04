@@ -7,8 +7,8 @@ int main(int argc, char **argv)
 
     ::testing::InitGoogleTest(&argc, argv);
 
-    ::testing::GTEST_FLAG(filter) = "base.pointing1"
-                                    ":base.pointing2";
+//    ::testing::GTEST_FLAG(filter) = "base.pointing1"
+//                                    ":base.pointing2";
 
     return RUN_ALL_TESTS();
 }

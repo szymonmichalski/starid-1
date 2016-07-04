@@ -1,7 +1,4 @@
 include (../base/base.pri)
-include (../pairs/pairs.pri)
-include (../knn/knn.pri)
-include (../svm/svm.pri)
 
 TEMPLATE = app
 CONFIG += console c++14
@@ -15,9 +12,8 @@ TARGET = gtest
 HEADERS += \
 
 SOURCES += \
-    base.cpp \
-    ptq.cpp \
-    main.cpp
+    main.cpp \
+    base.cpp
 
 INCLUDEPATH += ../../gtest/include
 LIBS += ../../gtest/libgtest.a

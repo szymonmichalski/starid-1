@@ -3,8 +3,7 @@
 #include "gtest/gtest.h"
 #include <armadillo>
 
-TEST(base, pointing1)
-{
+TEST(base, test1) {
     double ra = 0.0 * arma::datum::pi / 180.0; // cass
     double dec = 60.0 * arma::datum::pi / 180.0; // cass
 
@@ -12,8 +11,7 @@ TEST(base, pointing1)
     EXPECT_EQ(norm(pointing.uv), 1.0);
 }
 
-TEST(base, pointing2)
-{
+TEST(base, test2) {
 double ra = 0.0 * arma::datum::pi / 180.0; // cass
 double dec = 60.0 * arma::datum::pi / 180.0; // cass
 

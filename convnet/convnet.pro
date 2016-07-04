@@ -25,4 +25,10 @@ DISTFILES += \
     mnist3.py \
     tf1.py \
     mnist1.py \
-    mnist4.py
+    mnist4.py \
+    cifar10_input.py \
+    cifar10.py \
+    cifar10_train.py \
+    cifar10_multi_gpu_train.py \
+    cifar10_eval.py \
+    convnet.py
