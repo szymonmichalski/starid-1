@@ -4,7 +4,7 @@ import tensorflow as tf
 import convnet
 
 def train():
-    convnet.go()
+    inputs = convnet.inputs()
 
 def main(argv=None):
     train()
