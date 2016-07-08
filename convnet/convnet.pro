@@ -21,4 +21,6 @@ LIBS += ../../armadillo/libarmadillo.so
 
 DISTFILES += \
     convnet.py \
+    convnet_input.py \
+    convnet_eval.py \
     convnet_train.py
