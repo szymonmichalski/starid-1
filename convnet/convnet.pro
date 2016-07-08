@@ -20,4 +20,5 @@ INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so
 
 DISTFILES += \
-    convnet.py
+    convnet.py \
+    convnet_train.py
