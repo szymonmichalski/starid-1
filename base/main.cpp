@@ -8,7 +8,7 @@ int main()
 {
     arma::arma_rng::set_seed_random();
 
-    std::string fcatalog = "SKYMAP_SKY2000_V5R4.txt";
+    std::string fcatalog = "../../SKYMAP_SKY2000_V5R4.txt";
     double t = 0.0;
     double mv = 6.5;
     base::Catalog catalog(fcatalog, t, mv);
