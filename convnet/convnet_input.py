@@ -1,27 +1,19 @@
-
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-
 import tensorflow as tf
-#from tensorflow.examples.tutorials.mnist import input_data
-
 import gzip
-
 import numpy
 from six.moves import xrange  # pylint: disable=redefined-builtin
-
 from tensorflow.contrib.learn.python.learn.datasets import base
 from tensorflow.python.framework import dtypes
 from tensorflow.python.platform import gfile
 
 SOURCE_URL = 'http://yann.lecun.com/exdb/mnist/'
 
-
 def _read32(bytestream):
   dt = numpy.dtype(numpy.uint32).newbyteorder('>')
   return numpy.frombuffer(bytestream.read(4), dtype=dt)[0]
-
 
 def extract_images(filename):
   """Extract the images into a 4D uint8 numpy array [index, y, x, depth]."""
@@ -39,7 +31,6 @@ def extract_images(filename):
     data = data.reshape(num_images, rows, cols, 1)
     return data
 
-
 def dense_to_one_hot(labels_dense, num_classes):
   """Convert class labels from scalars to one-hot vectors."""
   num_labels = labels_dense.shape[0]
@@ -47,7 +38,6 @@ def dense_to_one_hot(labels_dense, num_classes):
   labels_one_hot = numpy.zeros((num_labels, num_classes))
   labels_one_hot.flat[index_offset + labels_dense.ravel()] = 1
   return labels_one_hot
-
 
 def extract_labels(filename, one_hot=False, num_classes=10):
   """Extract the labels into a 1D uint8 numpy array [index]."""
@@ -64,9 +54,7 @@ def extract_labels(filename, one_hot=False, num_classes=10):
       return dense_to_one_hot(labels, num_classes)
     return labels
 
-
 class DataSet(object):
-
   def __init__(self,
                images,
                labels,
@@ -87,7 +75,7 @@ class DataSet(object):
       self.one_hot = one_hot
     else:
       assert images.shape[0] == labels.shape[0], (
-          'images.shape: %s labels.shape: %s' % (images.shape, labels.shape))
+        'images.shape: %s labels.shape: %s' % (images.shape, labels.shape))
       self._num_examples = images.shape[0]
 
       # Convert shape from [num examples, rows, columns, depth]
@@ -129,8 +117,8 @@ class DataSet(object):
       else:
         fake_label = 0
       return [fake_image for _ in xrange(batch_size)], [
-          fake_label for _ in xrange(batch_size)
-      ]
+        fake_label for _ in xrange(batch_size)
+        ]
     start = self._index_in_epoch
     self._index_in_epoch += batch_size
     if self._index_in_epoch > self._num_examples:
@@ -148,13 +136,11 @@ class DataSet(object):
     end = self._index_in_epoch
     return self._images[start:end], self._labels[start:end]
 
-
 def read_data_sets(train_dir,
                    fake_data=False,
                    one_hot=False,
                    dtype=dtypes.float32):
   if fake_data:
-
     def fake():
       return DataSet([], [], fake_data=True, one_hot=one_hot, dtype=dtype)
 
@@ -195,12 +181,6 @@ def read_data_sets(train_dir,
   test = DataSet(test_images, test_labels, dtype=dtype)
 
   return base.Datasets(train=train, validation=validation, test=test)
-
-def training_inputs():
-    inputs = read_data_sets('/tmp/data', one_hot=True)
-    #print('getting batch')
-    batch = inputs.train.next_batch(50)
-    return batch[0], batch[1]
 
 def load_mnist():
   return read_data_sets('MNIST_data')
