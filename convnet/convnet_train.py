@@ -1,28 +1,52 @@
+import time
 import numpy as np
 import tensorflow as tf
 import convnet
-import convnet_input
+from convnet_input import inputs
 
-def train():
-  input = convnet_input.read_data_sets('/tmp/data', one_hot=True)
-  images = tf.placeholder(tf.float32, shape=[None, 784])
-  labels = tf.placeholder(tf.float32, shape=[None, 10])
+flags = tf.app.flags
+FLAGS = flags.FLAGS
+flags.DEFINE_integer('num_epochs', 2, 'Number of epochs to run trainer.')
+flags.DEFINE_integer('batch_size', 100, 'Batch size.')
 
-  logits = convnet.inference(images)
-  loss = convnet.loss(logits, labels)
-  train = convnet.train(loss)
+def run_training():
+  with tf.Graph().as_default():
+    images, labels = inputs(train=True, batch_size=FLAGS.batch_size,
+                            num_epochs=FLAGS.num_epochs)
 
-  init = tf.initialize_all_variables()
-  sess = tf.Session()
-  sess.run(init)
-  for i in range(10):
-    batch = input.train.next_batch(50)
-    loss_val = sess.run(loss, feed_dict={images: batch[0], labels: batch[1]})
-    print("step %d, loss %g" % (i, loss_val))
-    sess.run(train, feed_dict={images: batch[0], labels: batch[1]})
+    logits = convnet.inference(images)
+    loss = convnet.loss(logits, labels)
+    train_op = convnet.train(loss)
+
+    init_op = tf.initialize_all_variables()
+    sess = tf.Session()
+    sess.run(init_op)
+
+    coord = tf.train.Coordinator()
+    threads = tf.train.start_queue_runners(sess=sess, coord=coord)
+
+    try:
+      step = 0
+      while not coord.should_stop():
+        start_time = time.time()
+
+        _, loss_value = sess.run([train_op, loss])
+
+        duration = time.time() - start_time
+        if step % 100 == 0:
+          print('Step %d: loss = %.2f (%.3f sec)' % (step, loss_value,
+                                                     duration))
+        step += 1
+    except tf.errors.OutOfRangeError:
+      print('Done training for %d epochs, %d steps.' % (FLAGS.num_epochs, step))
+    finally:
+      coord.request_stop()
+
+    coord.join(threads)
+    sess.close()
 
 def main(argv=None):
-  train()
+  run_training()
 
 if __name__ == '__main__':
   tf.app.run()

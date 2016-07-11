@@ -14,11 +14,11 @@ def conv2d(x, W):
 def max_pool_2x2(x):
   return tf.nn.max_pool(x, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 
-def inference(x):
+def inference(images):
   with tf.variable_scope('conv1') as scope:
     W_conv1 = weight_variable([5, 5, 1, 32])
     b_conv1 = bias_variable([32])
-    x_image = tf.reshape(x, [-1, 28, 28, 1])
+    x_image = tf.reshape(images, [-1, 28, 28, 1])
     h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)
     h_pool1 = max_pool_2x2(h_conv1)
   with tf.variable_scope('conv2') as scope:
@@ -36,12 +36,20 @@ def inference(x):
   with tf.variable_scope('softmax'):
     W_fc2 = weight_variable([1024, 10])
     b_fc2 = bias_variable([10])
-    y_conv = tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2) + b_fc2)
-  return y_conv
+    logits = tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2) + b_fc2)
+  return logits
 
-def loss(y_conv, y_):
-  cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y_conv), reduction_indices=[1]))
-  return cross_entropy
+def loss(logits, labels):
+
+  labels = tf.to_int64(labels)
+  cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, labels, name='xentropy')
+  loss = tf.reduce_mean(cross_entropy, name='xentropy_mean')
+
+  # labels = tf.to_float(labels)
+  # cross_entropy = -tf.reduce_sum(logits * tf.log(labels))
+  # loss = tf.reduce_mean(cross_entropy)
+
+  return loss
 
 def train(loss):
   train_step = tf.train.AdamOptimizer(1e-4).minimize(loss)
