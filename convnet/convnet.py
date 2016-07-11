@@ -40,15 +40,11 @@ def inference(images):
   return logits
 
 def loss(logits, labels):
-
   labels = tf.to_int64(labels)
-  cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, labels, name='xentropy')
-  loss = tf.reduce_mean(cross_entropy, name='xentropy_mean')
-
-  # labels = tf.to_float(labels)
-  # cross_entropy = -tf.reduce_sum(logits * tf.log(labels))
+  cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, labels)
+  loss = tf.reduce_mean(cross_entropy)
+  # cross_entropy = -tf.reduce_sum(labels * tf.log(logits), reduction_indices=[1])
   # loss = tf.reduce_mean(cross_entropy)
-
   return loss
 
 def train(loss):
