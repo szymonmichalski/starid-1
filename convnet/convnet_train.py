@@ -18,25 +18,32 @@ def run_training():
     loss = convnet.loss(logits, labels)
     train_op = convnet.train(loss)
 
-    init_op = tf.initialize_all_variables()
+    init = tf.initialize_all_variables()
+
     sess = tf.Session()
-    sess.run(init_op)
+    sess.run(init)
+
+    summary_op = tf.merge_all_summaries()
+    summary_writer = tf.train.SummaryWriter('/home/noah/dev/tf/log/train', sess.graph)
 
     coord = tf.train.Coordinator()
     threads = tf.train.start_queue_runners(sess=sess, coord=coord)
 
     try:
       step = 0
+
       while not coord.should_stop():
         start_time = time.time()
-
         _, loss_value = sess.run([train_op, loss])
-
         duration = time.time() - start_time
+
         if step % 100 == 0:
-          print('Step %d: loss = %.2f (%.3f sec)' % (step, loss_value,
-                                                     duration))
+          print('Step %d: loss = %.2f (%.3f sec)' % (step, loss_value, duration))
+          summary_str = sess.run(summary_op)
+          summary_writer.add_summary(summary_str, step)
+
         step += 1
+
     except tf.errors.OutOfRangeError:
       print('Done training for %d epochs, %d steps.' % (FLAGS.num_epochs, step))
     finally:
