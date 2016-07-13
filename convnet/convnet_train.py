@@ -1,19 +1,24 @@
+
+from datetime import datetime
+import os.path
 import time
+
 import numpy as np
 import tensorflow as tf
+from six.moves import xrange  # pylint: disable=redefined-builtin
+
 import convnet
 from convnet_input import inputs
 
-flags = tf.app.flags
-FLAGS = flags.FLAGS
-flags.DEFINE_integer('num_epochs', 2, 'Number of epochs to run trainer.')
-flags.DEFINE_integer('batch_size', 100, 'Batch size.')
+FLAGS = tf.app.flags.FLAGS
+tf.app.flags.DEFINE_string('train_dir', '/home/noah/dev/tf/train1', 'event dir')
+tf.app.flags.DEFINE_integer('max_steps', 100, 'number of batches to run')
+tf.app.flags.DEFINE_integer('batch_size', 100, 'batch size')
 
 def run_training():
   with tf.Graph().as_default():
-    images, labels = inputs(train=True, batch_size=FLAGS.batch_size,
-                            num_epochs=FLAGS.num_epochs)
 
+    images, labels = inputs(FLAGS.batch_size)
     logits = convnet.inference(images)
     loss = convnet.loss(logits, labels)
     train_op = convnet.train(loss)
@@ -24,35 +29,34 @@ def run_training():
     sess.run(init)
 
     summary_op = tf.merge_all_summaries()
-    summary_writer = tf.train.SummaryWriter('/home/noah/dev/tf/log/train', sess.graph)
+    summary_writer = tf.train.SummaryWriter(FLAGS.train_dir, sess.graph)
 
     coord = tf.train.Coordinator()
     threads = tf.train.start_queue_runners(sess=sess, coord=coord)
 
-    try:
-      step = 0
+    for step in xrange(FLAGS.max_steps):
+      start_time = time.time()
+      _, loss_value = sess.run([train_op, loss])
+      duration = time.time() - start_time
 
-      while not coord.should_stop():
-        start_time = time.time()
-        _, loss_value = sess.run([train_op, loss])
-        duration = time.time() - start_time
+      assert not np.isnan(loss_value), 'model diverged'
 
-        if step % 100 == 0:
-          print('Step %d: loss = %.2f (%.3f sec)' % (step, loss_value, duration))
-          summary_str = sess.run(summary_op)
-          summary_writer.add_summary(summary_str, step)
+      if step % 10 == 0:
+        num_examples_per_step = FLAGS.batch_size
+        examples_per_sec = num_examples_per_step / duration
+        sec_per_batch = float(duration)
 
-        step += 1
+        format_str = ('%s: step %d, loss = %.2f (%.1f examples/sec; %.3f sec/batch)')
+        print (format_str % (datetime.now(), step, loss_value, examples_per_sec, sec_per_batch))
 
-    except tf.errors.OutOfRangeError:
-      print('Done training for %d epochs, %d steps.' % (FLAGS.num_epochs, step))
-    finally:
-      coord.request_stop()
-
-    coord.join(threads)
-    sess.close()
+      if step % 100 == 0:
+        summary_str = sess.run(summary_op)
+        summary_writer.add_summary(summary_str, step)
 
 def main(argv=None):
+  if tf.gfile.Exists(FLAGS.train_dir):
+    tf.gfile.DeleteRecursively(FLAGS.train_dir)
+  tf.gfile.MakeDirs(FLAGS.train_dir)
   run_training()
 
 if __name__ == '__main__':

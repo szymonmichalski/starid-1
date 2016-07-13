@@ -1,5 +1,7 @@
 import tensorflow as tf
 
+TOWER_NAME = 'tower'
+
 def variable_summaries(var, name):
   with tf.name_scope('summaries'):
     mean = tf.reduce_mean(var)
@@ -26,6 +28,7 @@ def max_pool_2x2(x):
   return tf.nn.max_pool(x, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 
 def inference(images):
+
   with tf.variable_scope('conv1') as scope:
     with tf.name_scope('weights'):
       W_conv1 = weight_variable([5, 5, 1, 32])
