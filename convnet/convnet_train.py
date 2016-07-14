@@ -12,7 +12,7 @@ from convnet_input import inputs
 
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('train_dir', '/home/noah/dev/tf/train1', 'event dir')
-tf.app.flags.DEFINE_integer('max_steps', 100, 'number of batches to run')
+tf.app.flags.DEFINE_integer('max_steps', 590, 'number of batches to run')
 tf.app.flags.DEFINE_integer('batch_size', 100, 'batch size')
 
 def run_training():
@@ -34,7 +34,6 @@ def run_training():
       start_time = time.time()
       _, loss_value = sess.run([train_op, loss])
       duration = time.time() - start_time
-      assert not np.isnan(loss_value), 'model diverged'
 
       if step % 10 == 0:
         num_examples_per_step = FLAGS.batch_size
