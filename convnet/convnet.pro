@@ -11,7 +11,8 @@ CONFIG += warn_off
 TARGET = svmtf
 
 SOURCES += \
-    main.cpp
+    main.cpp \
+    mnist.cpp
 
 HEADERS += \
 
