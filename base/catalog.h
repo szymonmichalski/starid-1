@@ -39,6 +39,7 @@ public:
     Catalog(const std::string& catalog_file, double j2koffset, double mv);
     std::vector<base::Star> stars;
     std::vector<int> StarsNearPoint(arma::vec& uv, const double radius);
+    void Status();
 private:
     base::IndexFinder xfinder;
     base::IndexFinder yfinder;

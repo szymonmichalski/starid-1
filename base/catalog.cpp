@@ -20,8 +20,10 @@ base::Star::Star()
       ra(0.0),
       dec(0.0),
       uv()
-{
+{}
 
+void base::Catalog::Status() {
+    std::cout << "number of stars " << stars.size() << "\n";
 }
 
 base::Catalog::Catalog(const std::string& catalog_file, double j2koffset=0.0, double mv=7.2)

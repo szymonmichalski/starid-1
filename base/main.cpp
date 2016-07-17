@@ -12,6 +12,7 @@ int main()
     double t = 0.0;
     double mv = 6.5;
     base::Catalog catalog(fcatalog, t, mv);
+    catalog.Status();
 
     double fov = 4.0 * arma::datum::pi / 180.0;
     base::Sensor sensor(fov, mv);

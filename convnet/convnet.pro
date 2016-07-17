@@ -15,6 +15,7 @@ SOURCES += \
     mnist.cpp
 
 HEADERS += \
+    mnist.h
 
 
 INCLUDEPATH += ../../armadillo
