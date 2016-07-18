@@ -1,5 +1,4 @@
-#include (../base/base.pri)
-#include (../svm/svm.pri)
+include (../base/base.pri)
 
 TEMPLATE = app
 CONFIG += console c++14
@@ -8,7 +7,7 @@ CONFIG -= qt
 CONFIG += c++14
 CONFIG += warn_off
 
-TARGET = svmtf
+TARGET = convnet
 
 SOURCES += \
     main.cpp \

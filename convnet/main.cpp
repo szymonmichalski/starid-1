@@ -4,8 +4,7 @@
 #include "mnist.h"
 #include <armadillo>
 
-int main()
-{
+int main() {
     using namespace std;
     int number_of_images = 60000;
     string f_mnist0a  = "../../mnist_initial_images.mnist";
@@ -27,9 +26,9 @@ int main()
     convnet::Mnist mnist;
 
     mnist.ReadMnistI(f_mnist0a, vec1);
-    mnist.ReadMnistL(f_mnist0b, vec2);
-
     mnist.WriteMnistI(f_mnist1a, vec1);
+
+    mnist.ReadMnistL(f_mnist0b, vec2);
     mnist.WriteMnistL(f_mnist1b, vec2);
 
     return 0;
