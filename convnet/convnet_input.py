@@ -21,9 +21,7 @@ def read_and_decode(filename_queue):
   image.set_shape([IMAGE_PIXELS])
   label = tf.cast(features['label'], tf.int32)
   image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
-
   image = tf.reshape(image, [28, 28, 1])
-
   return image, label
 
 def inputs(batch_size):
