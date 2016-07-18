@@ -6,10 +6,19 @@
 
 int main()
 {
-    std::string filename1a = "../../train-images.idx3-ubyte";
-    std::string filename1b = "../../train-labels.idx1-ubyte";
-    std::string filename2a = "../../traini.mnist";
-    std::string filename2b = "../../trainl.mnist";
+    using namespace std;
+
+    string f_mnist1a  = "../../mnist_unyawed_images.mnist";
+    string f_mnist1b  = "../../mnist_unyawed_labels.mnist";
+
+    string f_mnist2a  = "../../mnist_yawed_images.mnist";
+    string f_mnist2b  = "../../minst_yawed_labels.mnist";
+
+    string f_starid1a = "../../starid_unyawed_images.mnist";
+    string f_starid1b = "../../starid_unyawed_labels.mnist";
+
+    string f_starid2a = "../../starid_yawed_images.mnist";
+    string f_starid2b = "../../starid_yawed_labels.mnist";
 
     int number_of_images = 60000;
     int image_size = 28 * 28;
@@ -18,11 +27,11 @@ int main()
 
     convnet::Mnist mnist;
 
-    mnist.ReadMnistI(filename1a, vec1);
-    mnist.ReadMnistL(filename1b, vec2);
+    mnist.ReadMnistI(fname0a, vec1);
+    mnist.ReadMnistL(fname02, vec2);
 
-    mnist.WriteMnistI(filename2a, vec1);
-    mnist.WriteMnistL(filename2b, vec2);
+    mnist.WriteMnistI(fname1a1, vec1);
+    mnist.WriteMnistL(fname1a2, vec2);
 
     return 0;
 }

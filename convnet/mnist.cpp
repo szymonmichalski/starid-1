@@ -116,19 +116,3 @@ void convnet::Mnist::ReadMnistL(std::string filename, arma::colvec &vec) {
     }
 }
 
-//int main()
-//{
-//    string filename1 = "mnist/t10k-images-idx3-ubyte";
-//    string filename2 = "mnist/t10k-labels-idx1-ubyte";
-//    int number_of_images = 10000;
-//    int image_size = 28 * 28;
-//    vector<arma::mat> vec1;
-//    arma::colvec vec2 = arma::zeros<arma::colvec>(number_of_images);
-//    read_Mnist(filename1, vec1);
-//    read_Mnist_Label(filename2, vec2);
-////    cout<<vec1.size()<<endl;
-////    cout<<vec1[0].size()<<endl;
-////    cout<<vec1[0]<<endl;
-////    cout<<vec2.size()<<endl;
-//    return 0;
-//}
