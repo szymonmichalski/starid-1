@@ -10,7 +10,7 @@ import convnet
 from convnet_input import inputs
 
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('train_dir', '/home/noah/dev/tf/train1', 'event dir')
+tf.app.flags.DEFINE_string('train_dir', '/home/noah/dev/train1', 'event dir')
 tf.app.flags.DEFINE_integer('max_steps', 590, 'number of batches to run')
 tf.app.flags.DEFINE_integer('batch_size', 100, 'batch size')
 
