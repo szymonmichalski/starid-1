@@ -1,11 +1,10 @@
-
 from datetime import datetime
 import os.path
 import time
+from six.moves import xrange
 
 import numpy as np
 import tensorflow as tf
-from six.moves import xrange  # pylint: disable=redefined-builtin
 
 import convnet
 from convnet_input import inputs
