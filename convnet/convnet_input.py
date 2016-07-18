@@ -3,7 +3,10 @@ import time
 
 import numpy
 import tensorflow as tf
-from tensorflow.examples.tutorials.mnist import mnist
+
+NUM_CLASSES = 10
+IMAGE_SIZE = 28
+IMAGE_PIXELS = IMAGE_SIZE * IMAGE_SIZE
 
 def read_and_decode(filename_queue):
   reader = tf.TFRecordReader()
@@ -15,9 +18,11 @@ def read_and_decode(filename_queue):
       'label': tf.FixedLenFeature([], tf.int64),
     })
   image = tf.decode_raw(features['image_raw'], tf.uint8)
-  image.set_shape([mnist.IMAGE_PIXELS])
-  image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
+  image.set_shape([IMAGE_PIXELS])
   label = tf.cast(features['label'], tf.int32)
+  image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
+
+  image = tf.reshape(image, [28, 28, 1])
 
   return image, label
 

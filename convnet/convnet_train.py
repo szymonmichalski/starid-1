@@ -21,17 +21,18 @@ def run_training():
     logits = convnet.inference(images)
     loss = convnet.loss(logits, labels)
     train_op = convnet.train(loss)
+    init_op = tf.initialize_all_variables()
+    img_op = tf.image_summary('test', images, max_images=5)
 
-    init = tf.initialize_all_variables()
     sess = tf.Session()
-    sess.run(init)
+    sess.run(init_op)
     summary_op = tf.merge_all_summaries()
     summary_writer = tf.train.SummaryWriter(FLAGS.train_dir, sess.graph)
     tf.train.start_queue_runners(sess=sess)
 
-    for step in xrange(FLAGS.max_steps):
+    for step in xrange(590):
       start_time = time.time()
-      _, loss_value = sess.run([train_op, loss])
+      _, loss_value, img_summary = sess.run([train_op, loss, img_op])
       duration = time.time() - start_time
 
       if step % 10 == 0:
@@ -44,6 +45,7 @@ def run_training():
       if step % 100 == 0:
         summary_str = sess.run(summary_op)
         summary_writer.add_summary(summary_str, step)
+        summary_writer.add_summary(img_summary)
 
 def main(argv=None):
   if tf.gfile.Exists(FLAGS.train_dir):
