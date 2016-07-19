@@ -58,15 +58,15 @@ def inference(images):
     keep_prob = 1.0  # tf.placeholder(tf.float32)
     h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
 
-  with tf.variable_scope('readout'):
+  with tf.variable_scope('softmax'):
     W_fc2 = weight_variable([1024, 10])
     b_fc2 = bias_variable([10])
-    logits = tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2) + b_fc2)
-  return logits
+    softmax = tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2) + b_fc2)
+  return softmax
 
-def loss(logits, labels):
+def loss(softmax, labels):
   labels = tf.to_int64(labels)
-  cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, labels)
+  cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(softmax, labels)
   with tf.name_scope('loss'):
      loss = tf.reduce_mean(cross_entropy)
       # loss = tf.reduce_mean( -tf.reduce_sum(labels * tf.log(logits), reduction_indices=[1]) )
