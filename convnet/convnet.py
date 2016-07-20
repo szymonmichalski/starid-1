@@ -55,7 +55,7 @@ def inference(images):
     b_fc1 = bias_variable([1024])
     h_pool2_flat = tf.reshape(h_pool2, [-1, 7 * 7 * 64])
     h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
-    keep_prob = 1.0  # tf.placeholder(tf.float32)
+    keep_prob = 1.0
     h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
 
   with tf.variable_scope('softmax'):
@@ -69,7 +69,6 @@ def loss(softmax, labels):
   cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(softmax, labels)
   with tf.name_scope('loss'):
      loss = tf.reduce_mean(cross_entropy)
-      # loss = tf.reduce_mean( -tf.reduce_sum(labels * tf.log(logits), reduction_indices=[1]) )
      variable_summaries(loss, 'loss')
   return loss
 
