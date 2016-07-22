@@ -23,6 +23,7 @@ private:
     int cols;
     int imgcnt;
     int ReverseInt (int i);
+    void Yaw(arma::mat &img, double angle);
 
 };
 

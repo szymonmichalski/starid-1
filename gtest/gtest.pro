@@ -12,8 +12,8 @@ TARGET = gtest
 HEADERS += \
 
 SOURCES += \
-    main.cpp \
-    base.cpp
+    base.cpp \
+    gtest_main.cpp
 
 INCLUDEPATH += ../../gtest/include
 LIBS += ../../gtest/libgtest.a

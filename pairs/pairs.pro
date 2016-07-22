@@ -12,7 +12,7 @@ TARGET = pairs
 SOURCES += \
     triplets.cpp \
     pairs.cpp \
-    main.cpp
+    pairs_main.cpp
 
 HEADERS += \
     triplets.h \

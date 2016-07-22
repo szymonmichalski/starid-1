@@ -12,7 +12,7 @@ SOURCES += \
     sensor.cpp \
     pointing.cpp \
     training.cpp \
-    main.cpp
+    base_main.cpp
 
 HEADERS += \
     catalog.h \

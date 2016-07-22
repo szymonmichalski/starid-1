@@ -65,16 +65,6 @@ void base::Sensor::L2a() {
     mat rm = { {cos(a), -sin(a)}, {sin(a), cos(a)} };
     hv2 = trans(rm * trans(hv2));
 
-//    l2a.pattern.zeros(10,10);
-//    for (uint i = 0; i <= hv2.n_rows-1; ++i) {
-//        try {
-//            int h1 = 5 + floor(5 * hv2(i,0) / fov);
-//            int v1 = 5 + floor(5 * hv2(i,1) / fov);
-//            l2a.pattern(h1,v1) = 1.0;
-//        } catch (...) {
-//            bool outofbounds = true;
-//        }
-//    }
     l2a.pattern.zeros(28,28);
     for (uint i = 0; i <= hv2.n_rows-1; ++i) {
         try {

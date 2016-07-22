@@ -5,8 +5,7 @@
 #include "../base/sensor.h"
 #include <armadillo>
 
-int main()
-{
+int main() {
     arma::arma_rng::set_seed_random();
 
     std::string fcatalog = "../../SKYMAP_SKY2000_V5R4.txt";

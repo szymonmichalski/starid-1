@@ -10,8 +10,8 @@ CONFIG += warn_off
 TARGET = convnet
 
 SOURCES += \
-    main.cpp \
-    mnist.cpp
+    mnist.cpp \
+    convnet_main.cpp
 
 HEADERS += \
     mnist.h

@@ -10,10 +10,10 @@ CONFIG += warn_off
 TARGET = svm
 
 SOURCES += \
-    main.cpp \
     model.cpp \
     train.cpp \
-    knntrain.cpp
+    knntrain.cpp \
+    svm_main.cpp
 
 HEADERS += \
     model.h \

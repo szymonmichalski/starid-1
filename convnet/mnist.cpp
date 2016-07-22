@@ -1,6 +1,4 @@
 #include "mnist.h"
-#include <math.h>
-#include <iostream>
 
 void convnet::Mnist::WriteMnistI(std::vector<arma::mat> &vec, bool yaw, std::string filename) {
     std::ofstream file (filename, std::ios::binary);
@@ -14,20 +12,25 @@ void convnet::Mnist::WriteMnistI(std::vector<arma::mat> &vec, bool yaw, std::str
         file.write((char*) &rev_rows, sizeof(rev_rows));
         file.write((char*) &rev_cols, sizeof(rev_cols));
         for (int i = 0; i < imgcnt; ++i) {
-            arma::mat tp = vec[i];
+            arma::mat img = vec[i];
 
             if (yaw) {
-
+                arma::vec angle = 2.0 * arma::datum::pi * arma::randu(1);
+                Yaw(img, angle(0));
             }
 
             for(int r = 0; r < rows; ++r) {
                 for(int c = 0; c < cols; ++c) {
-                    unsigned char temp = (unsigned char)tp(r,c);
+                    unsigned char temp = (unsigned char)img(r,c);
                     file.write((char*) &temp, sizeof(temp));
                 }
             }
         }
     }
+}
+
+void convnet::Mnist::Yaw(arma::mat &img, double angle) {
+
 }
 
 void convnet::Mnist::WriteMnistL(arma::colvec &vec, std::string filename) {
