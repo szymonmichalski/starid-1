@@ -2,41 +2,7 @@
 #include <math.h>
 #include <iostream>
 
-void convnet::Mnist::ReadMnistL(std::string filename, arma::colvec &vec) {
-    std::ifstream file (filename, std::ios::binary);
-    if (file.is_open()) {
-        int magic_number = 0;
-        int number_of_images = 0;
-        int n_rows = 0;
-        int n_cols = 0;
-        file.read((char*) &magic_number, sizeof(magic_number));
-        magic_number = ReverseInt(magic_number);
-        file.read((char*) &number_of_images,sizeof(number_of_images));
-        number_of_images = ReverseInt(number_of_images);
-        for(int i = 0; i < number_of_images; ++i) {
-            unsigned char temp = 0;
-            file.read((char*) &temp, sizeof(temp));
-            vec(i)= (double)temp;
-        }
-        magic_numberl = magic_number;
-    }
-}
-
-void convnet::Mnist::WriteMnistL(std::string filename, arma::colvec &vec) {
-    std::ofstream file (filename, std::ios::binary);
-    int rev_magic_number = ReverseInt(magic_numberl);
-    int rev_imgcnt = ReverseInt(imgcnt);
-    if (file.is_open()) {
-        file.write((char*) &rev_magic_number, sizeof(rev_magic_number));
-        file.write((char*) &rev_imgcnt, sizeof(rev_imgcnt));
-        for(int i = 0; i < imgcnt; ++i) {
-            unsigned char temp = (unsigned char)vec(i);
-            file.write((char*) &temp, sizeof(temp));
-        }
-    }
-}
-
-void convnet::Mnist::WriteMnistI(std::string filename, std::vector<arma::mat> &vec) {
+void convnet::Mnist::WriteMnistI(std::vector<arma::mat> &vec, bool yaw, std::string filename) {
     std::ofstream file (filename, std::ios::binary);
     int rev_magic_number = ReverseInt(magic_numberi);
     int rev_imgcnt = ReverseInt(imgcnt);
@@ -47,14 +13,33 @@ void convnet::Mnist::WriteMnistI(std::string filename, std::vector<arma::mat> &v
         file.write((char*) &rev_imgcnt, sizeof(rev_imgcnt));
         file.write((char*) &rev_rows, sizeof(rev_rows));
         file.write((char*) &rev_cols, sizeof(rev_cols));
-        for(int i = 0; i < imgcnt; ++i) {
+        for (int i = 0; i < imgcnt; ++i) {
             arma::mat tp = vec[i];
+
+            if (yaw) {
+
+            }
+
             for(int r = 0; r < rows; ++r) {
                 for(int c = 0; c < cols; ++c) {
                     unsigned char temp = (unsigned char)tp(r,c);
                     file.write((char*) &temp, sizeof(temp));
                 }
             }
+        }
+    }
+}
+
+void convnet::Mnist::WriteMnistL(arma::colvec &vec, std::string filename) {
+    std::ofstream file (filename, std::ios::binary);
+    int rev_magic_number = ReverseInt(magic_numberl);
+    int rev_imgcnt = ReverseInt(imgcnt);
+    if (file.is_open()) {
+        file.write((char*) &rev_magic_number, sizeof(rev_magic_number));
+        file.write((char*) &rev_imgcnt, sizeof(rev_imgcnt));
+        for(int i = 0; i < imgcnt; ++i) {
+            unsigned char temp = (unsigned char)vec(i);
+            file.write((char*) &temp, sizeof(temp));
         }
     }
 }
@@ -90,6 +75,26 @@ void convnet::Mnist::ReadMnistI(std::string filename, std::vector<arma::mat> &ve
         rows = n_rows;
         cols = n_cols;
         imgcnt = number_of_images;
+    }
+}
+
+void convnet::Mnist::ReadMnistL(std::string filename, arma::colvec &vec) {
+    std::ifstream file (filename, std::ios::binary);
+    if (file.is_open()) {
+        int magic_number = 0;
+        int number_of_images = 0;
+        int n_rows = 0;
+        int n_cols = 0;
+        file.read((char*) &magic_number, sizeof(magic_number));
+        magic_number = ReverseInt(magic_number);
+        file.read((char*) &number_of_images,sizeof(number_of_images));
+        number_of_images = ReverseInt(number_of_images);
+        for(int i = 0; i < number_of_images; ++i) {
+            unsigned char temp = 0;
+            file.read((char*) &temp, sizeof(temp));
+            vec(i)= (double)temp;
+        }
+        magic_numberl = magic_number;
     }
 }
 

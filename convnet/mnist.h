@@ -8,10 +8,12 @@ namespace convnet {
 class Mnist {
 
 public:
-    void WriteMnistI(std::string filename, std::vector<arma::mat> &vec);
-    void WriteMnistL(std::string filename, arma::colvec &vec);
+
     void ReadMnistI(std::string filename, std::vector<arma::mat> &vec);
     void ReadMnistL(std::string filename, arma::colvec &vec);
+
+    void WriteMnistI(std::vector<arma::mat> &vec, bool yaw, std::string filename);
+    void WriteMnistL(arma::colvec &vec, std::string filename);
 
 private:
 
