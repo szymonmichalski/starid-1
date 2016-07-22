@@ -1,5 +1,19 @@
 #include "mnist.h"
 
+void convnet::Mnist::Yaw(arma::mat &img, double a) {
+    using namespace arma;
+    mat rm = { {cos(a), -sin(a)}, {sin(a), cos(a)} };
+    uvec ndxs = find(img); // pixel values are 0.0 to 255.0, find gives non empty, >0.0, pixels
+    mat pixels(ndxs.n_rows, 3, fill::zeros);
+    for (uint i = 0; i < ndxs.n_rows; ++i) {
+        uvec rowcol = ind2sub(size(img), ndxs(i));
+        pixels(i, 0) = rowcol(0) - 13.5;
+        pixels(i, 1) = rowcol(1) - 13.5;
+        pixels(i, 2) = img(ndxs(i));
+    }
+    pixels.cols(0,1) = trans(rm * trans(pixels.cols(0,1)));
+}
+
 void convnet::Mnist::WriteMnistI(std::vector<arma::mat> &vec, bool yaw, std::string filename) {
     std::ofstream file (filename, std::ios::binary);
     int rev_magic_number = ReverseInt(magic_numberi);
@@ -27,10 +41,6 @@ void convnet::Mnist::WriteMnistI(std::vector<arma::mat> &vec, bool yaw, std::str
             }
         }
     }
-}
-
-void convnet::Mnist::Yaw(arma::mat &img, double angle) {
-
 }
 
 void convnet::Mnist::WriteMnistL(arma::colvec &vec, std::string filename) {
