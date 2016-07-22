@@ -12,6 +12,12 @@ void convnet::Mnist::Yaw(arma::mat &img, double a) {
         pixels(i, 2) = img(ndxs(i));
     }
     pixels.cols(0,1) = trans(rm * trans(pixels.cols(0,1)));
+    img.zeros();
+    for (uint i = 0; i < pixels.n_rows; ++i) {
+        if (pixels(i,0) <= -14.0 || pixels(i,0) >= 14.0) continue;
+        if (pixels(i,1) <= -14.0 || pixels(i,1) >= 14.0) continue;
+        img(floor(pixels(i,0) + 14.0), floor(pixels(i,1) + 14.0)) = pixels(i,2);
+    }
 }
 
 void convnet::Mnist::WriteMnistI(std::vector<arma::mat> &vec, bool yaw, std::string filename) {

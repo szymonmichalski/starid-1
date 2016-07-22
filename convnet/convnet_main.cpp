@@ -15,7 +15,7 @@ int main() {
     std::string fm_unyawedi  = "../../mnist_unyawed_images.mnist";
     std::string fm_unyawedl  = "../../mnist_unyawed_labels.mnist";
     std::string fm_yawedi  = "../../mnist_yawed_images.mnist";
-    std::string fm_yawedl  = "../../minst_yawed_labels.mnist";
+    std::string fm_yawedl  = "../../mnist_yawed_labels.mnist";
 
     std::string fs_unyawedi = "../../starid_unyawed_images.mnist";
     std::string fs_unyawedl = "../../starid_unyawed_labels.mnist";
