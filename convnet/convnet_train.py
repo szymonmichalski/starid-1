@@ -1,5 +1,5 @@
 from datetime import datetime
-#import time
+import time
 import numpy as np
 import tensorflow as tf
 import convnet
