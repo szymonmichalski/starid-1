@@ -3,9 +3,9 @@
 
 #include <armadillo>
 
-namespace svm {
+namespace convnet {
 
-class Model {
+class SvmModel {
 
 public:
 //    Model(stars::Training& trainingset);

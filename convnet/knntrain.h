@@ -6,7 +6,7 @@
 #include "../stars/sensor.h"
 #include <armadillo>
 
-namespace knn {
+namespace convnet {
 
 class KnnTrain {
 public:

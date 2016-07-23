@@ -6,7 +6,6 @@ CONFIG += warn_off
 SUBDIRS += \
     stars \
     pairs \
-    svm \
     convnet \
     gtest
 

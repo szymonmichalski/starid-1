@@ -1,6 +1,6 @@
 #include "knntrain.h"
 
-uint knn::KnnTrain::Classify(arma::vec& fv) {
+uint convnet::KnnTrain::Classify(arma::vec& fv) {
     using namespace arma;
     uint catndx = 0;
     rowvec distances = trans(fv) * fvs;
@@ -9,7 +9,7 @@ uint knn::KnnTrain::Classify(arma::vec& fv) {
     return catndx;
 }
 
-knn::KnnTrain::KnnTrain(stars::Catalog &catalog, stars::Sensor &sensor) {
+convnet::KnnTrain::KnnTrain(stars::Catalog &catalog, stars::Sensor &sensor) {
     fvs.zeros(1e2, catalog.stars.size());
     for (uint i = 0; i < catalog.stars.size(); ++i) {
         stars::Pointing p(catalog.stars[i].ra, catalog.stars[i].dec, 0.0);
@@ -18,13 +18,13 @@ knn::KnnTrain::KnnTrain(stars::Catalog &catalog, stars::Sensor &sensor) {
     }
 }
 
-void knn::KnnTrain::StatusFeatures() {
+void convnet::KnnTrain::StatusFeatures() {
     using namespace arma;
     rowvec nfeaturesa = sum(fvs);
     std::cout << hist(nfeaturesa, linspace<vec>(0,60,10)) << "\n";
 }
 
-void knn::KnnTrain::StatusOrthogonality() {
+void convnet::KnnTrain::StatusOrthogonality() {
     using namespace arma;
     mat dota = trans(normalise(fvs)) * normalise(fvs);
     vec tmpa = vectorise(dota);

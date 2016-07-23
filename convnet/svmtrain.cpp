@@ -1,7 +1,7 @@
-#include "train.h"
+#include "svmtrain.h"
 #include <cassert>
 
-svm::Train::Train(svm::Model& model) {
+convnet::SvmTrain::SvmTrain(convnet::SvmModel& model) {
     using namespace arma;
     epsilon = model.epsilon;
     lval = model.lval;
@@ -15,7 +15,7 @@ svm::Train::Train(svm::Model& model) {
     biasval = 0.0;
 }
 
-void svm::Train::MainLoop() {
+void convnet::SvmTrain::MainLoop() {
     using namespace arma;
     vec alphavecprev;
     mat Qcols = zeros(lval,2);
@@ -38,7 +38,7 @@ void svm::Train::MainLoop() {
     }
 }
 
-void::svm::Train::SubProblem() {
+void::convnet::SvmTrain::SubProblem() {
     using namespace arma;
     double aij = Kmat(wsi,wsi) + Kmat(wsj,wsj) - 2*Kmat(wsi,wsj);
     if (aij <= 0.0) aij = 1.0e-9;
@@ -51,7 +51,7 @@ void::svm::Train::SubProblem() {
     if (alphavec(wsj) > Cval) alphavec(wsj) = Cval;
 }
 
-bool svm::Train::WorkingSet() {
+bool convnet::SvmTrain::WorkingSet() {
     using namespace arma;
     double malpha = -1.0e9;
     double Malpha = 1.0e9;

@@ -1,4 +1,4 @@
-#include "model.h"
+#include "svmmodel.h"
 
 //svm::Model::Model(stars::Training &trainingset) {
 //    using namespace arma;
@@ -32,11 +32,11 @@
 
 //}
 
-double svm::Model::Kernel(arma::vec &veci, arma::vec &vecj) {
+double convnet::SvmModel::Kernel(arma::vec &veci, arma::vec &vecj) {
     return exp( -gamma * arma::dot( veci-vecj , veci-vecj ) ); // rbf kernel
 }
 
-double svm::Model::Predict(arma::vec &vecx) {
+double convnet::SvmModel::Predict(arma::vec &vecx) {
 
     double decisionval = biasval;
     for (uint i = 0; i < lval; ++i) {

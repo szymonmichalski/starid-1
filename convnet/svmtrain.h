@@ -1,16 +1,16 @@
 #ifndef TRAIN_H
 #define TRAIN_H
 
-#include "model.h"
+#include "svmmodel.h"
 #include <armadillo>
 
-namespace svm {
+namespace convnet {
 
 
-class Train {
+class SvmTrain {
 
 public:
-    Train(svm::Model& model);
+    SvmTrain(convnet::SvmModel& model);
     bool WorkingSet(); // returns stopping criteria bool
     void MainLoop();
     void SubProblem();
