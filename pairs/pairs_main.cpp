@@ -1,8 +1,8 @@
 #include "pairs.h"
 #include "triplets.h"
-#include "../base/pointing.h"
-#include "../base/catalog.h"
-#include "../base/sensor.h"
+#include "../stars/pointing.h"
+#include "../stars/catalog.h"
+#include "../stars/sensor.h"
 #include <armadillo>
 
 int main() {
@@ -15,10 +15,10 @@ int main() {
     double ra = 0.0 * arma::datum::pi / 180.0;
     double dec = 60.0 * arma::datum::pi / 180.0;
     double yaw = 0.0 * arma::datum::pi / 180.0;
-    base::Pointing pointing(ra, dec, yaw);
+    stars::Pointing pointing(ra, dec, yaw);
 
-    base::Catalog catalog(fcatalog, t, mv);
-    base::Sensor sensor(fov, mv);
+    stars::Catalog catalog(fcatalog, t, mv);
+    stars::Sensor sensor(fov, mv);
     sensor.L1a(catalog, pointing);
 
     pairs::Pairs pairs(catalog, fov);

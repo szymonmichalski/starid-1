@@ -2,7 +2,7 @@
 
 #include <cassert>
 
-base::Star::Star()
+stars::Star::Star()
     : iau_identifier(""),
       star_name(""),
       variablestar_name(""),
@@ -22,11 +22,11 @@ base::Star::Star()
       uv()
 {}
 
-void base::Catalog::Status() {
+void stars::Catalog::Status() {
     std::cout << "number of stars " << stars.size() << "\n";
 }
 
-base::Catalog::Catalog(const std::string& catalog_file, double j2koffset=0.0, double mv=7.2)
+stars::Catalog::Catalog(const std::string& catalog_file, double j2koffset=0.0, double mv=7.2)
 {
     std::ifstream catfile (catalog_file);
     int ndx {0};
@@ -105,7 +105,7 @@ base::Catalog::Catalog(const std::string& catalog_file, double j2koffset=0.0, do
     zfinder.SetTable(ztable);
 }
 
-std::vector<int> base::Catalog::StarsNearPoint(arma::vec& uv, const double radius) {
+std::vector<int> stars::Catalog::StarsNearPoint(arma::vec& uv, const double radius) {
     std::vector<int> xring = StarsInRing(uv(0), radius, xfinder);
     std::vector<int> yring = StarsInRing(uv(1), radius, yfinder);
     std::vector<int> zring = StarsInRing(uv(2), radius, zfinder);
@@ -123,7 +123,7 @@ std::vector<int> base::Catalog::StarsNearPoint(arma::vec& uv, const double radiu
     return ndxs;
 }
 
-std::vector<int> base::Catalog::StarsInRing(double p, double radius, base::IndexFinder& finder) {
+std::vector<int> stars::Catalog::StarsInRing(double p, double radius, stars::IndexFinder& finder) {
     double pmin, pmax;
     if (p >= cos(radius)) {
         pmin = p*cos(radius) - sqrt(1-(p*p))*sin(radius);
@@ -141,13 +141,13 @@ std::vector<int> base::Catalog::StarsInRing(double p, double radius, base::Index
     return ring;
 }
 
-bool base::IndexFinder::SetTable(std::vector<std::pair<double,int>>& tablein) {
+bool stars::IndexFinder::SetTable(std::vector<std::pair<double,int>>& tablein) {
     table = tablein;
     std::sort(table.begin(), table.end());
     return true;
 }
 
-std::vector<int> base::IndexFinder::FindIndexes(double low, double hi) {
+std::vector<int> stars::IndexFinder::FindIndexes(double low, double hi) {
     auto itlow = std::lower_bound(table.begin(), table.end(), std::make_pair(low, 0));
     auto ithi = std::upper_bound(table.begin(), table.end(), std::make_pair(hi, 0));
     std::vector<int> ndxs;

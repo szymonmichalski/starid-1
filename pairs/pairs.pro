@@ -1,4 +1,4 @@
-include (../base/base.pri)
+include (../stars/stars.pri)
 
 TEMPLATE = app
 CONFIG += console c++14

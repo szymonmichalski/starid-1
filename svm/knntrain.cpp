@@ -9,10 +9,10 @@ uint knn::KnnTrain::Classify(arma::vec& fv) {
     return catndx;
 }
 
-knn::KnnTrain::KnnTrain(base::Catalog &catalog, base::Sensor &sensor) {
+knn::KnnTrain::KnnTrain(stars::Catalog &catalog, stars::Sensor &sensor) {
     fvs.zeros(1e2, catalog.stars.size());
     for (uint i = 0; i < catalog.stars.size(); ++i) {
-        base::Pointing p(catalog.stars[i].ra, catalog.stars[i].dec, 0.0);
+        stars::Pointing p(catalog.stars[i].ra, catalog.stars[i].dec, 0.0);
         sensor.Click(catalog, p);
         fvs.col(i) = sensor.l2a.fv;
     }

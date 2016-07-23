@@ -1,7 +1,7 @@
 #ifndef TRIPLETS_H
 #define TRIPLETS_H
 
-#include "../base/sensor.h"
+#include "../stars/sensor.h"
 
 namespace pairs {
 
@@ -18,7 +18,7 @@ class Triplets
 {
 public:
     Triplets();
-    Triplets(base::L1& obs, uint nlimit);
+    Triplets(stars::L1& obs, uint nlimit);
     Triplet GetTriplet(double tol);
     bool IsMoreTriplets();
     bool is_triplet_good;

@@ -3,7 +3,7 @@
 
 #include <armadillo>
 
-namespace base {
+namespace stars {
 
 struct Star {
     std::string iau_identifier;
@@ -37,17 +37,17 @@ private:
 class Catalog {
 public:
     Catalog(const std::string& catalog_file, double j2koffset, double mv);
-    std::vector<base::Star> stars;
+    std::vector<stars::Star> stars;
     std::vector<int> StarsNearPoint(arma::vec& uv, const double radius);
     void Status();
 private:
-    base::IndexFinder xfinder;
-    base::IndexFinder yfinder;
-    base::IndexFinder zfinder;
+    stars::IndexFinder xfinder;
+    stars::IndexFinder yfinder;
+    stars::IndexFinder zfinder;
     std::vector<std::pair<double,int>> xtable;
     std::vector<std::pair<double,int>> ytable;
     std::vector<std::pair<double,int>> ztable;
-    std::vector<int> StarsInRing(double p, double radius, base::IndexFinder& finder);
+    std::vector<int> StarsInRing(double p, double radius, stars::IndexFinder& finder);
 };
 
 }

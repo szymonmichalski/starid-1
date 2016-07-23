@@ -1,4 +1,4 @@
-include (../base/base.pri)
+include (../stars/stars.pri)
 
 TEMPLATE = app
 CONFIG += console c++14
@@ -12,7 +12,7 @@ TARGET = gtest
 HEADERS += \
 
 SOURCES += \
-    base.cpp \
+    stars.cpp \
     gtest_main.cpp
 
 INCLUDEPATH += ../../gtest/include

@@ -1,13 +1,13 @@
 #include "sensor.h"
 
-base::Sensor::Sensor(double fov, double mv, double noise,
+stars::Sensor::Sensor(double fov, double mv, double noise,
                      double false_stars_mean, double false_stars_var)
     : fov(fov), mv(mv), noise(noise),
       false_stars_mean(false_stars_mean), false_stars_stdv(false_stars_var)
 {
 }
 
-void base::Sensor::L1a(base::Catalog& cat,  base::Pointing& p) {
+void stars::Sensor::L1a(stars::Catalog& cat,  stars::Pointing& p) {
     pointing = p;
     std::vector<int> ndxs = cat.StarsNearPoint(pointing.uv, fov);
 
@@ -23,7 +23,7 @@ void base::Sensor::L1a(base::Catalog& cat,  base::Pointing& p) {
     l1a.hv.col(1) = arma::atan(l1a.uv.col(1) / l1a.uv.col(2));
 }
 
-void base::Sensor::L1b() {
+void stars::Sensor::L1b() {
     using namespace arma;
     l1b.ndxs = l1a.ndxs;
     l1b.mag = l1a.mag;
@@ -52,7 +52,7 @@ void base::Sensor::L1b() {
     normalise(l1b.uv, 2, 1);
 }
 
-void base::Sensor::L2a() {
+void stars::Sensor::L2a() {
     using namespace arma;
 
     // rotate so the nearest star is on the v axis
@@ -78,7 +78,7 @@ void base::Sensor::L2a() {
     l2a.fv = arma::vectorise(l2a.pattern);
 }
 
-void base::Sensor::L2b() {
+void stars::Sensor::L2b() {
     using namespace arma;
 
     // rotate so the nearest star is on the v axis
@@ -104,14 +104,14 @@ void base::Sensor::L2b() {
     l2b.fv = arma::vectorise(l2b.pattern);
 }
 
-void base::Sensor::Click(base::Catalog& cat, base::Pointing& p) {
+void stars::Sensor::Click(stars::Catalog& cat, stars::Pointing& p) {
     L1a(cat, p);
     L1b();
     L2a();
 //    L2b();
 }
 
-void base::Sensor::Status() {
+void stars::Sensor::Status() {
 //    std::cout << l1a.uv << "\n";
 //    std::cout << l1a.hv << "\n";
     std::cout << l2a.pattern << "\n";

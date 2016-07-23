@@ -1,4 +1,4 @@
-include (../base/base.pri)
+include (../stars/stars.pri)
 
 TEMPLATE = app
 CONFIG += console c++14
@@ -10,11 +10,9 @@ CONFIG += warn_off
 TARGET = convnet
 
 SOURCES += \
-    mnist.cpp \
     convnet_main.cpp
 
 HEADERS += \
-    mnist.h
 
 
 INCLUDEPATH += ../../armadillo

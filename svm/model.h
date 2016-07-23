@@ -1,7 +1,6 @@
 #ifndef SVMPROBLEM_H
 #define SVMPROBLEM_H
 
-#include "training.h"
 #include <armadillo>
 
 namespace svm {
@@ -9,7 +8,7 @@ namespace svm {
 class Model {
 
 public:
-    Model(base::Training& trainingset);
+//    Model(stars::Training& trainingset);
 
     double gamma; // rbf kernel param 1/(2*sigma)^2
     double epsilon;

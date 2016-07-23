@@ -1,6 +1,6 @@
 #include "mnist.h"
 
-void convnet::Mnist::Yaw(arma::mat &img, double a) {
+void stars::Mnist::Yaw(arma::mat &img, double a) {
     using namespace arma;
     mat rm = { {cos(a), -sin(a)}, {sin(a), cos(a)} };
     uvec ndxs = find(img); // pixel values are 0.0 to 255.0, find gives non empty, >0.0, pixels
@@ -20,7 +20,7 @@ void convnet::Mnist::Yaw(arma::mat &img, double a) {
     }
 }
 
-void convnet::Mnist::WriteMnistI(std::vector<arma::mat> &vec, bool yaw, std::string filename) {
+void stars::Mnist::WriteMnistI(std::vector<arma::mat> &vec, bool yaw, std::string filename) {
     std::ofstream file (filename, std::ios::binary);
     int rev_magic_number = ReverseInt(magic_numberi);
     int rev_imgcnt = ReverseInt(imgcnt);
@@ -49,7 +49,7 @@ void convnet::Mnist::WriteMnistI(std::vector<arma::mat> &vec, bool yaw, std::str
     }
 }
 
-void convnet::Mnist::WriteMnistL(arma::colvec &vec, std::string filename) {
+void stars::Mnist::WriteMnistL(arma::colvec &vec, std::string filename) {
     std::ofstream file (filename, std::ios::binary);
     int rev_magic_number = ReverseInt(magic_numberl);
     int rev_imgcnt = ReverseInt(imgcnt);
@@ -63,7 +63,7 @@ void convnet::Mnist::WriteMnistL(arma::colvec &vec, std::string filename) {
     }
 }
 
-void convnet::Mnist::ReadMnistI(std::string filename, std::vector<arma::mat> &vec) {
+void stars::Mnist::ReadMnistI(std::string filename, std::vector<arma::mat> &vec) {
     std::ifstream file (filename, std::ios::binary);
     if (file.is_open())
     {
@@ -97,7 +97,7 @@ void convnet::Mnist::ReadMnistI(std::string filename, std::vector<arma::mat> &ve
     }
 }
 
-void convnet::Mnist::ReadMnistL(std::string filename, arma::colvec &vec) {
+void stars::Mnist::ReadMnistL(std::string filename, arma::colvec &vec) {
     std::ifstream file (filename, std::ios::binary);
     if (file.is_open()) {
         int magic_number = 0;
@@ -117,7 +117,7 @@ void convnet::Mnist::ReadMnistL(std::string filename, arma::colvec &vec) {
     }
 }
 
-int convnet::Mnist::ReverseInt (int i)
+int stars::Mnist::ReverseInt (int i)
 {
     unsigned char ch1, ch2, ch3, ch4;
     ch1 = i & 255;

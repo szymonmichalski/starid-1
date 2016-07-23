@@ -5,25 +5,26 @@ CONFIG -= qt
 CONFIG += c++14
 CONFIG += warn_off
 
-TARGET = base
+TARGET = stars
 
 SOURCES += \
     catalog.cpp \
     sensor.cpp \
     pointing.cpp \
-    training.cpp \
-    base_main.cpp
+    stars_main.cpp \
+    mnist.cpp
 
 HEADERS += \
     catalog.h \
     sensor.h \
     pointing.h \
-    training.h
+    mnist.h
 
 INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so
 
 DISTFILES += \
-    base.pri
+    stars.pri \
+    mnist_to_tfrecords.py \
 
 

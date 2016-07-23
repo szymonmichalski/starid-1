@@ -1,17 +1,16 @@
 #include "model.h"
 #include "train.h"
 
-#include "training.h"
 #include <armadillo>
 
 int main()
 {
 
-    base::Training trainingset;
+//    stars::Training trainingset;
 
-    svm::Model model(trainingset);
+//    svm::Model model(trainingset);
 
-    svm::Train train(model);
+//    svm::Train train(model);
 
     return 0;
 }

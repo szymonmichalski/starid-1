@@ -2,16 +2,16 @@
 
 #include <cassert>
 
-base::Pointing::Pointing() {
+stars::Pointing::Pointing() {
     double ra = 0.0 * arma::datum::pi / 180.0;
     double dec = 60.0 * arma::datum::pi / 180.0;
     double yaw = 0.0 * arma::datum::pi / 180.0;
     init(ra, dec, yaw);
 }
-base::Pointing::Pointing(double ra, double dec, double yaw) {
+stars::Pointing::Pointing(double ra, double dec, double yaw) {
     init(ra, dec, yaw);
 }
-void base::Pointing::init(double ra, double dec, double yaw) {
+void stars::Pointing::init(double ra, double dec, double yaw) {
     uv = {1, 0, 0};
     uv(0) = std::cos(ra) * std::cos(dec);
     uv(1) = std::sin(ra) * std::cos(dec);
@@ -21,7 +21,7 @@ void base::Pointing::init(double ra, double dec, double yaw) {
     assert(err < 1e-10);
 }
 
-arma::mat base::Pointing::RotationMatrix() {
+arma::mat stars::Pointing::RotationMatrix() {
     arma::mat rm;
     rm.eye(3,3);
     arma::vec bz = uv;
@@ -40,7 +40,7 @@ arma::mat base::Pointing::RotationMatrix() {
     return rm;
 }
 
-arma::vec base::Pointing::Quaternion() {
+arma::vec stars::Pointing::Quaternion() {
     arma::mat rm = RotationMatrix();
     arma::vec q;
     q.set_size(4);
@@ -50,7 +50,7 @@ arma::vec base::Pointing::Quaternion() {
     return q;
 }
 
-arma::vec base::qmult(arma::vec& q1, arma::vec& q2) {
+arma::vec stars::qmult(arma::vec& q1, arma::vec& q2) {
     arma::vec q3 {
         q1(0)*q2(3) + q1(1)*q2(2) + -q1(2)*q2(1) + q1(3)*q2(0),
                 -q1(0)*q2(2) + q1(1)*q2(3) + q1(2)*q2(0) + q1(3)*q2(1),
@@ -62,24 +62,24 @@ arma::vec base::qmult(arma::vec& q1, arma::vec& q2) {
     return q3;
 }
 
-arma::vec base::qconj(arma::vec& q) {
+arma::vec stars::qconj(arma::vec& q) {
     arma::vec q2 { -q(0), -q(1), -q(2), q(3) };
     return q2;
 }
 
-arma::vec base::rv2q(arma::vec& rv) {
+arma::vec stars::rv2q(arma::vec& rv) {
     arma::vec q { rv(0)/2, rv(1)/2, rv(2)/2, 1 };
     q = arma::normalise(q);
     if (q(3) < 0.0) q = -q;
     return q;
 }
 
-arma::vec base::q2rv(arma::vec& q) {
+arma::vec stars::q2rv(arma::vec& q) {
     arma::vec rv { 2*q(0), 2*q(1), 2*q(2) };
     return rv;
 }
 
-arma::vec base::qdif2rv(arma::vec& q1, arma::vec& q2a) {
+arma::vec stars::qdif2rv(arma::vec& q1, arma::vec& q2a) {
     arma::vec q2 { -q2a(0), -q2a(1), -q2a(2), q2a(3) };
     arma::vec q3 {
         q1(0)*q2(3) + q1(1)*q2(2) + -q1(2)*q2(1) + q1(3)*q2(0),
@@ -93,7 +93,7 @@ arma::vec base::qdif2rv(arma::vec& q1, arma::vec& q2a) {
     return rv;
 }
 
-arma::mat base::q2rm(arma::vec& q) {
+arma::mat stars::q2rm(arma::vec& q) {
     arma::mat rm(3,3);
     rm(0,0) =  q(0)*q(0) - q(1)*q(1) - q(2)*q(2) + q(3)*q(3);
     rm(0,1) = 2.0*( q(0)*q(1) + q(2)*q(3) );
@@ -107,7 +107,7 @@ arma::mat base::q2rm(arma::vec& q) {
     return rm;
 }
 
-arma::vec base::rm2q(arma::mat& rm) {
+arma::vec stars::rm2q(arma::mat& rm) {
     arma::vec q { 0.0, 0.0, 0.0, 1.0 };
     q(0) = 0.5 * sqrt(1.0 + rm(0,0) - rm(1,1) - rm(2,2)) * sgn( rm(1,2)-rm(2,1) );
     q(1) = 0.5 * sqrt(1.0 - rm(0,0) + rm(1,1) - rm(2,2)) * sgn( rm(2,0)-rm(0,2) );
@@ -118,7 +118,7 @@ arma::vec base::rm2q(arma::mat& rm) {
     return q;
 }
 
-double base::sgn(double x) { // nonstandard signum return +1 for 0
+double stars::sgn(double x) { // nonstandard signum return +1 for 0
     if (x >= 0.0) return 1.0;
     if (x < 0.0) return -1.0;
     return 1.0;

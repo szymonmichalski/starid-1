@@ -3,7 +3,7 @@
 
 #include <armadillo>
 
-namespace base {
+namespace stars {
 
 class Pointing {
 public:

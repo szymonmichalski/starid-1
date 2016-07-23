@@ -1,13 +1,13 @@
 #include "pairs.h"
 
-pairs::Star::Star(int catndxin, base::Catalog& cat, double radius)
+pairs::Star::Star(int catndxin, stars::Catalog& cat, double radius)
 {
     catndx = catndxin;
     neighbors = cat.StarsNearPoint(cat.stars[catndx].uv, radius);
 }
 
 pairs::Pairs::Pairs() {}
-pairs::Pairs::Pairs(base::Catalog& cat, double fov)
+pairs::Pairs::Pairs(stars::Catalog& cat, double fov)
 {
     int starpairsndx = 0;
     for (uint catndx = 0; catndx < cat.stars.size(); ++catndx) {

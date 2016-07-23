@@ -8,7 +8,7 @@
 namespace pairs {
 
 struct Star {
-    Star(int catndxin, base::Catalog& cat, double radius);
+    Star(int catndxin, stars::Catalog& cat, double radius);
     int catndx;
     std::vector<int> neighbors; // catndxs
 };
@@ -16,7 +16,7 @@ struct Star {
 class Pairs {
 public:
     Pairs();
-    Pairs(base::Catalog& cat, double fov);
+    Pairs(stars::Catalog& cat, double fov);
     void Status();
     std::vector<int> Candidates(double angle, double tolerance);
 private:
@@ -24,7 +24,7 @@ private:
     std::unordered_map<std::string, int> starpairs_map; // starpairkey, starpairsndx
     std::string PairsKey(int& catndx1, int& catndx2); // hash key
     std::vector<std::pair<double, int>> atable; // angle, starpairs ndx
-    base::IndexFinder afinder;
+    stars::IndexFinder afinder;
 };
 
 }

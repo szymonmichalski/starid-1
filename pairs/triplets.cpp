@@ -1,7 +1,7 @@
 #include "triplets.h"
 
 pairs::Triplets::Triplets() {}
-pairs::Triplets::Triplets(base::L1& obs, uint nlimit)
+pairs::Triplets::Triplets(stars::L1& obs, uint nlimit)
     : n(obs.uv.n_rows), curtriplet(0)
 {
     mata.zeros(nlimit,3);

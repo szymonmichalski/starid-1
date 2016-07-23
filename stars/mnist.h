@@ -3,7 +3,7 @@
 
 #include <armadillo>
 
-namespace convnet {
+namespace stars {
 
 class Mnist {
 

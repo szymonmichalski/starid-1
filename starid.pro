@@ -4,7 +4,7 @@ CONFIG += c++14
 CONFIG += warn_off
 
 SUBDIRS += \
-    base \
+    stars \
     pairs \
     svm \
     convnet \
