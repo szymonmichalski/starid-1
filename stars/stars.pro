@@ -8,17 +8,15 @@ CONFIG += warn_off
 TARGET = stars
 
 SOURCES += \
-    catalog.cpp \
     sensor.cpp \
-    pointing.cpp \
     stars_main.cpp \
-    mnist.cpp
+    mnist.cpp \
+    stars.cpp
 
 HEADERS += \
-    catalog.h \
     sensor.h \
-    pointing.h \
-    mnist.h
+    mnist.h \
+    stars.h
 
 INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so

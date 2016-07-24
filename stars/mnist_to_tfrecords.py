@@ -66,9 +66,15 @@ def convert_to_tfrecords(images, labels, filename):
   writer.close()
 
 def main(argv):
-  images = read_images('/home/noah/dev/mnist_yawed_images.mnist')
-  labels = read_labels('/home/noah/dev/mnist_yawed_labels.mnist')
-  convert_to_tfrecords(images, labels, '/home/noah/dev/mnist_yawed.tfrecords')
+
+  images = read_images('/home/noah/dev/starid_unyawed_images.mnist')
+  labels = read_labels('/home/noah/dev/starid_unyawed_labels.mnist')
+  convert_to_tfrecords(images, labels, '/home/noah/dev/starid_unyawed.tfrecords')
+
+  # images = read_images('/home/noah/dev/mnist_yawed_images.mnist')
+  # labels = read_labels('/home/noah/dev/mnist_yawed_labels.mnist')
+  # convert_to_tfrecords(images, labels, '/home/noah/dev/mnist_yawed.tfrecords')
+
   # images = read_images('/home/noah/dev/mnist_unyawed_images.mnist')
   # labels = read_labels('/home/noah/dev/mnist_unyawed_labels.mnist')
   # convert_to_tfrecords(images, labels, '/home/noah/dev/mnist_unyawed.tfrecords')

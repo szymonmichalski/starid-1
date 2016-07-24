@@ -31,7 +31,8 @@ def read_and_decode(filename_queue):
 def inputs(batch_size):
   num_epochs = 1
   if not num_epochs: num_epochs = None
-  filename = '/home/noah/dev/mnist_yawed.tfrecords'
+  filename = '/home/noah/dev/starid_unyawed.tfrecords'
+  # filename = '/home/noah/dev/mnist_yawed.tfrecords'
   with tf.name_scope('input'):
     filename_queue = tf.train.string_input_producer(
       [filename], num_epochs=num_epochs)

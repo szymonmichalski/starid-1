@@ -1,14 +1,14 @@
 #ifndef PAIRS_H
 #define PAIRS_H
 
-#include "catalog.h"
+#include "stars.h"
 
 #include <unordered_map>
 
 namespace pairs {
 
 struct Star {
-    Star(int catndxin, stars::Catalog& cat, double radius);
+    Star(int catndxin, stars::Stars& cat, double radius);
     int catndx;
     std::vector<int> neighbors; // catndxs
 };
@@ -16,7 +16,7 @@ struct Star {
 class Pairs {
 public:
     Pairs();
-    Pairs(stars::Catalog& cat, double fov);
+    Pairs(stars::Stars& cat, double fov);
     void Status();
     std::vector<int> Candidates(double angle, double tolerance);
 private:
@@ -24,7 +24,7 @@ private:
     std::unordered_map<std::string, int> starpairs_map; // starpairkey, starpairsndx
     std::string PairsKey(int& catndx1, int& catndx2); // hash key
     std::vector<std::pair<double, int>> atable; // angle, starpairs ndx
-    stars::IndexFinder afinder;
+    stars::Neighbors afinder;
 };
 
 }

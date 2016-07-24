@@ -5,8 +5,6 @@ CONFIG += warn_off
 
 SUBDIRS += \
     stars \
-    pairs \
-    convnet \
     gtest
 
 OTHER_FILES += \

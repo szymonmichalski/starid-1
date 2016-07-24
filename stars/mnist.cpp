@@ -20,7 +20,7 @@ void stars::Mnist::Yaw(arma::mat &img, double a) {
     }
 }
 
-void stars::Mnist::WriteMnistI(std::vector<arma::mat> &vec, bool yaw, std::string filename) {
+void stars::Mnist::WriteMnistI(std::string filename, std::vector<arma::mat> &vec, bool yaw) {
     std::ofstream file (filename, std::ios::binary);
     int rev_magic_number = ReverseInt(magic_numberi);
     int rev_imgcnt = ReverseInt(imgcnt);
@@ -49,7 +49,7 @@ void stars::Mnist::WriteMnistI(std::vector<arma::mat> &vec, bool yaw, std::strin
     }
 }
 
-void stars::Mnist::WriteMnistL(arma::colvec &vec, std::string filename) {
+void stars::Mnist::WriteMnistL(std::string filename, arma::colvec &vec) {
     std::ofstream file (filename, std::ios::binary);
     int rev_magic_number = ReverseInt(magic_numberl);
     int rev_imgcnt = ReverseInt(imgcnt);

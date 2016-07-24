@@ -1,5 +1,4 @@
-#include "catalog.h"
-
+#include "stars.h"
 #include <cassert>
 
 stars::Star::Star()
@@ -22,13 +21,15 @@ stars::Star::Star()
       uv()
 {}
 
-void stars::Catalog::Status() {
-    std::cout << "number of stars " << stars.size() << "\n";
-}
-
-stars::Catalog::Catalog(const std::string& catalog_file, double j2koffset=0.0, double mv=7.2)
+stars::Stars::Stars()
 {
-    std::ifstream catfile (catalog_file);
+    arma::arma_rng::set_seed_random();
+    f_catalog = "../../SKYMAP_SKY2000_V5R4.txt";
+    t = 0.0;
+    mv = 6.5;
+    fov = 4.0 * arma::datum::pi / 180.0;
+
+    std::ifstream catfile (f_catalog);
     int ndx {0};
     int dim_stars {0};
     int error_stars {0};
@@ -67,8 +68,8 @@ stars::Catalog::Catalog(const std::string& catalog_file, double j2koffset=0.0, d
                 if (line.substr(157,1) == "-") pmdecsign = -1.0;
                 star.ra_degrees = 15.0 * (rah + ram/60.0 + ras/3600.0);
                 star.dec_degrees = decsign * (decd + decm/60.0 + decs/3600.0);
-                star.ra_degrees += (j2koffset * pmra_arcsec_per_year) / 3600.0;
-                star.dec_degrees += (j2koffset * pmdecsign * pmdec_arcsec_per_year) / 3600.0;
+                star.ra_degrees += (t * pmra_arcsec_per_year) / 3600.0;
+                star.dec_degrees += (t * pmdecsign * pmdec_arcsec_per_year) / 3600.0;
                 assert (star.ra_degrees >= 0.0 && star.ra_degrees <= 360.0);
                 assert (star.dec_degrees >= -90.0 && star.dec_degrees <= 90.0);
 
@@ -89,7 +90,7 @@ stars::Catalog::Catalog(const std::string& catalog_file, double j2koffset=0.0, d
                 xtable.push_back(xpair);
                 ytable.push_back(ypair);
                 ztable.push_back(zpair);
-                stars.push_back(star);
+                starsvec.push_back(star);
                 ++ndx;
             } catch (...) {
                 ++error_stars;
@@ -100,22 +101,25 @@ stars::Catalog::Catalog(const std::string& catalog_file, double j2koffset=0.0, d
     } else {
         std::cout << "catalog file not found" << "\n";
     }
-    xfinder.SetTable(xtable);
-    yfinder.SetTable(ytable);
-    zfinder.SetTable(ztable);
+    std::sort(xtable.begin(), xtable.end());
+    std::sort(ytable.begin(), ytable.end());
+    std::sort(ztable.begin(), ztable.end());
 }
+//double UnixTimeToJ2000Offset = 946684800.0;
+//std::chrono::time_point<std::chrono::system_clock> tcurrent {std::chrono::system_clock::now()};
+//double t {(double(std::chrono::system_clock::to_time_t(tcurrent)) - UnixTimeToJ2000Offset) / 31557600.0}; // julian years
 
-std::vector<int> stars::Catalog::StarsNearPoint(arma::vec& uv, const double radius) {
-    std::vector<int> xring = StarsInRing(uv(0), radius, xfinder);
-    std::vector<int> yring = StarsInRing(uv(1), radius, yfinder);
-    std::vector<int> zring = StarsInRing(uv(2), radius, zfinder);
+std::vector<int> stars::Stars::StarsNearPoint(arma::vec& uv, const double radius) {
+    std::vector<int> xring = StarsInRing(uv(0), radius, xtable);
+    std::vector<int> yring = StarsInRing(uv(1), radius, ytable);
+    std::vector<int> zring = StarsInRing(uv(2), radius, ztable);
     std::vector<int> xy;
     std::set_intersection(xring.begin(), xring.end(), yring.begin(), yring.end(), std::back_inserter(xy));
     std::vector<int> xyz;
     std::set_intersection(xy.begin(), xy.end(), zring.begin(), zring.end(), std::back_inserter(xyz));
     std::vector<int> ndxs;
     for (uint i = 0; i < xyz.size(); ++i) {
-        arma::vec uv2 = stars[xyz[i]].uv;
+        arma::vec uv2 = starsvec[xyz[i]].uv;
         if (acos(arma::dot(uv,uv2)) <= radius) {
             ndxs.push_back(xyz[i]);
         }
@@ -123,7 +127,7 @@ std::vector<int> stars::Catalog::StarsNearPoint(arma::vec& uv, const double radi
     return ndxs;
 }
 
-std::vector<int> stars::Catalog::StarsInRing(double p, double radius, stars::IndexFinder& finder) {
+std::vector<int> stars::Stars::StarsInRing(double p, double radius, std::vector<std::pair<double,int>> &table) {
     double pmin, pmax;
     if (p >= cos(radius)) {
         pmin = p*cos(radius) - sqrt(1-(p*p))*sin(radius);
@@ -136,24 +140,17 @@ std::vector<int> stars::Catalog::StarsInRing(double p, double radius, stars::Ind
         pmax = p*cos(radius) + sqrt(1-(p*p))*sin(radius);
     }
     assert (pmin >= -1.0 && pmax <= 1.0);
-    std::vector<int> ring = finder.FindIndexes(pmin, pmax);
+    auto itlow = std::lower_bound(table.begin(), table.end(), std::make_pair(pmin, 0));
+    auto ithi = std::upper_bound(table.begin(), table.end(), std::make_pair(pmax, 0));
+    std::vector<int> ring;
+    for (auto it = itlow; it <= ithi; ++it) {
+        auto tablerow = *it;
+        ring.push_back(tablerow.second);
+    }
     std::sort(ring.begin(),ring.end());
     return ring;
 }
 
-bool stars::IndexFinder::SetTable(std::vector<std::pair<double,int>>& tablein) {
-    table = tablein;
-    std::sort(table.begin(), table.end());
-    return true;
-}
-
-std::vector<int> stars::IndexFinder::FindIndexes(double low, double hi) {
-    auto itlow = std::lower_bound(table.begin(), table.end(), std::make_pair(low, 0));
-    auto ithi = std::upper_bound(table.begin(), table.end(), std::make_pair(hi, 0));
-    std::vector<int> ndxs;
-    for (auto it = itlow; it <= ithi; ++it) {
-        auto tablerow = *it;
-        ndxs.push_back(tablerow.second);
-    }
-    return ndxs;
+void stars::Stars::Status() {
+    std::cout << "number of stars " << starsvec.size() << "\n";
 }

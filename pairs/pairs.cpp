@@ -1,13 +1,13 @@
 #include "pairs.h"
 
-pairs::Star::Star(int catndxin, stars::Catalog& cat, double radius)
+pairs::Star::Star(int catndxin, stars::Stars& cat, double radius)
 {
     catndx = catndxin;
     neighbors = cat.StarsNearPoint(cat.stars[catndx].uv, radius);
 }
 
 pairs::Pairs::Pairs() {}
-pairs::Pairs::Pairs(stars::Catalog& cat, double fov)
+pairs::Pairs::Pairs(stars::Stars& cat, double fov)
 {
     int starpairsndx = 0;
     for (uint catndx = 0; catndx < cat.stars.size(); ++catndx) {
@@ -32,12 +32,12 @@ pairs::Pairs::Pairs(stars::Catalog& cat, double fov)
         }
     }
     std::sort(atable.begin(), atable.end());
-    afinder.SetTable(atable);
+    afinder.is_neighbors_table(atable);
 }
 
 std::vector<int> pairs::Pairs::Candidates(double angle, double tolerance)
 {
-    std::vector<int> starpairsndxs = afinder.FindIndexes(angle-tolerance, angle+tolerance);
+    std::vector<int> starpairsndxs = afinder.FindNeighbors(angle-tolerance, angle+tolerance);
     std::vector<int> catndxs;
     for (int ndx : starpairsndxs) {
         catndxs.push_back(std::get<1>(starpairs[ndx]));
