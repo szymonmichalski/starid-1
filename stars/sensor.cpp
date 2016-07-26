@@ -26,9 +26,17 @@ arma::mat stars::Sensor::Image(uint starndx) {
             bool outofbounds = true;
         }
     }
-//    std::cout << img << "\n";
+    //    std::cout << img << "\n";
 
     return img;
+}
+
+void stars::Sensor::Status() {
+    using namespace arma;
+    mat tmp1 = l1_uvecs;
+    mat tmp2 = 14 + floor(14 * l1_hv / fov);
+    tmp1.insert_cols(3,tmp2);
+    std::cout << tmp1 << "\n";
 }
 
 stars::Sensor::Sensor() {
@@ -43,11 +51,6 @@ stars::Sensor::Sensor() {
     pointing(1) = std::sin(ra) * std::cos(dec);
     pointing(2) = std::sin(dec);
     pointing = arma::normalise(pointing);
-}
-
-void stars::Sensor::Status() {
-//    std::cout << l1a.uvec << "\n";
-//    std::cout << l1a.hv << "\n";
 }
 
 arma::mat stars::Sensor::RotationMatrix() {

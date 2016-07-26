@@ -1,4 +1,4 @@
-#include "pointing.h"
+#include "sensor.h"
 
 #include "gtest/gtest.h"
 #include <armadillo>

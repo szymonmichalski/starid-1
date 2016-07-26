@@ -25,6 +25,8 @@ int main() {
                 arma::mat img = sensor.Image(starndx);
                 labels(10*itrcnt + label) = (double)label;
                 images[10*itrcnt + label] = img;
+                sensor.Status();
+                int a = 1;
             }
         }
     }

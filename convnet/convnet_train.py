@@ -5,7 +5,7 @@ import tensorflow as tf
 import convnet
 
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('train_dir', '/home/noah/dev/train1', 'event dir')
+tf.app.flags.DEFINE_string('train_dir', '/home/noah/dev/train2', 'event dir')
 tf.app.flags.DEFINE_integer('max_steps', 590, 'number of batches to run')
 tf.app.flags.DEFINE_integer('batch_size', 100, 'batch size')
 NUM_CLASSES = 10
@@ -32,7 +32,7 @@ def inputs(batch_size):
   num_epochs = 1
   if not num_epochs: num_epochs = None
   filename = '/home/noah/dev/starid_unyawed.tfrecords'
-  # filename = '/home/noah/dev/mnist_yawed.tfrecords'
+  #filename = '/home/noah/dev/mnist_yawed.tfrecords'
   with tf.name_scope('input'):
     filename_queue = tf.train.string_input_producer(
       [filename], num_epochs=num_epochs)
@@ -51,7 +51,7 @@ def run_training():
     loss = convnet.loss(softmax, labels)
     train_op = convnet.train(loss)
     init_op = tf.initialize_all_variables()
-    img_op = tf.image_summary('test', images, max_images=5)
+    img_op = tf.image_summary('test', images, max_images=10)
 
     sess = tf.Session()
     sess.run(init_op)
