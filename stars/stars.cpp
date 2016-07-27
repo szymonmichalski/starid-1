@@ -120,9 +120,7 @@ std::vector<int> stars::Stars::StarsNearPoint(arma::vec& uv, const double radius
     std::vector<int> ndxs;
     for (uint i = 0; i < xyz.size(); ++i) {
         arma::vec uv2 = starsvec[xyz[i]].uv;
-        if (acos(arma::dot(uv,uv2)) <= radius) {
-            ndxs.push_back(xyz[i]);
-        }
+        ndxs.push_back(xyz[i]);
     }
     return ndxs;
 }
