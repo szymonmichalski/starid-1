@@ -13,9 +13,11 @@ public:
     arma::mat Image(uint starndx);
 
     std::vector<int> starsvec_ndxs; // starvec ndxs
-    std::vector<double> l1_mags;
-    arma::mat l1_uvecs;
+
+    arma::mat l1_uvec;
     arma::mat l1_hv;
+    arma::vec l1_starndx;
+    arma::vec l1_mag;
 
     void Status();
 

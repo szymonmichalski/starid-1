@@ -6,15 +6,19 @@ arma::mat stars::Sensor::Image(uint starndx) {
     pointing = stars.starsvec[starndx].uv;
     starsvec_ndxs = stars.StarsNearPoint(pointing, fov);
 
-    l1_uvecs.set_size(starsvec_ndxs.size(),3);
+    l1_uvec.set_size(starsvec_ndxs.size(),3);
     l1_hv.set_size(starsvec_ndxs.size(),2);
+    l1_starndx.set_size(starsvec_ndxs.size());
+    l1_mag.set_size(starsvec_ndxs.size());
+
     for (uint i = 0; i < starsvec_ndxs.size(); ++i) {
-        l1_mags.push_back(stars.starsvec[starsvec_ndxs[i]].mv1);
-        l1_uvecs.row(i) = trans(stars.starsvec[starsvec_ndxs[i]].uv);
+        l1_uvec.row(i) = trans(stars.starsvec[starsvec_ndxs[i]].uv);
+        l1_starndx(i) = starsvec_ndxs[i];
+        l1_mag(i) = stars.starsvec[starsvec_ndxs[i]].mv1;
     }
-    l1_uvecs = trans(trans(RotationMatrix()) * trans(l1_uvecs));
-    l1_hv.col(0) = arma::atan(l1_uvecs.col(0) / l1_uvecs.col(2));
-    l1_hv.col(1) = arma::atan(l1_uvecs.col(1) / l1_uvecs.col(2));
+    l1_uvec = trans(trans(RotationMatrix()) * trans(l1_uvec));
+    l1_hv.col(0) = arma::atan(l1_uvec.col(0) / l1_uvec.col(2));
+    l1_hv.col(1) = arma::atan(l1_uvec.col(1) / l1_uvec.col(2));
 
     mat img(28, 28, fill::zeros);
     for (uint i = 0; i < l1_hv.n_rows; ++i) {
@@ -33,9 +37,11 @@ arma::mat stars::Sensor::Image(uint starndx) {
 
 void stars::Sensor::Status() {
     using namespace arma;
-    mat tmp1 = l1_uvecs;
+    mat tmp1 = l1_uvec;
     mat tmp2 = 14 + floor(14 * l1_hv / fov);
-    tmp1.insert_cols(3,tmp2);
+    tmp1.insert_cols(3, tmp2);
+    tmp1.insert_cols(5, l1_starndx);
+    tmp1.insert_cols(6, l1_mag);
     std::cout << tmp1 << "\n";
 }
 
