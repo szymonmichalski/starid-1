@@ -8,7 +8,7 @@ namespace stars {
 
 class Sensor {
 public:
-    Sensor();
+    Sensor(std::string f_catalog, double mv, double fov);
     stars::Stars stars; // constructs stars object
     arma::mat Image(uint starndx);
 

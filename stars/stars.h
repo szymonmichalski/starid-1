@@ -29,7 +29,7 @@ struct Star {
 class Stars {
 public:
     std::vector<stars::Star> starsvec;
-    Stars();
+    void Init(std::string f_catalog, double mv, double fov);
     std::vector<int> StarsNearPoint(arma::vec& uv, const double radius);
     void Status();
 private:

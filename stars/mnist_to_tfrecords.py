@@ -2,9 +2,6 @@ from tensorflow.python.platform import gfile
 import numpy
 import tensorflow as tf
 
-tf.app.flags.DEFINE_string('directory', '/home/noah/dev', 'dir')
-FLAGS = tf.app.flags.FLAGS
-
 def _int64_feature(value):
   return tf.train.Feature(int64_list=tf.train.Int64List(value=[value]))
 
@@ -67,17 +64,9 @@ def convert_to_tfrecords(images, labels, filename):
 
 def main(argv):
 
-  images = read_images('/home/noah/dev/starid_unyawed_images.mnist')
-  labels = read_labels('/home/noah/dev/starid_unyawed_labels.mnist')
-  convert_to_tfrecords(images, labels, '/home/noah/dev/starid_unyawed.tfrecords')
-
-  # images = read_images('/home/noah/dev/mnist_yawed_images.mnist')
-  # labels = read_labels('/home/noah/dev/mnist_yawed_labels.mnist')
-  # convert_to_tfrecords(images, labels, '/home/noah/dev/mnist_yawed.tfrecords')
-
-  # images = read_images('/home/noah/dev/mnist_unyawed_images.mnist')
-  # labels = read_labels('/home/noah/dev/mnist_unyawed_labels.mnist')
-  # convert_to_tfrecords(images, labels, '/home/noah/dev/mnist_unyawed.tfrecords')
+  images = read_images('/home/noah/dev/starid_data/mnist_format/starid1_yawed_images.mnist')
+  labels = read_labels('/home/noah/dev/starid_data/mnist_format/starid1_yawed_labels.mnist')
+  convert_to_tfrecords(images, labels, '/home/noah/dev/starid_data/starid1_yawed.tfrecords')
 
 if __name__ == '__main__':
   tf.app.run()

@@ -21,13 +21,12 @@ stars::Star::Star()
       uv()
 {}
 
-stars::Stars::Stars()
-{
+void stars::Stars::Init(std::string f_catalog_, double mv_, double fov_) {
     arma::arma_rng::set_seed_random();
-    f_catalog = "../../SKYMAP_SKY2000_V5R4.txt";
+    f_catalog = f_catalog_;
+    mv = mv_;
+    fov = fov_;
     t = 0.0;
-    mv = 6.5;
-    fov = 4.0 * arma::datum::pi / 180.0;
 
     std::ifstream catfile (f_catalog);
     int ndx {0};

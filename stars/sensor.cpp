@@ -22,8 +22,8 @@ arma::mat stars::Sensor::Image(uint starndx) {
 
     mat img(28, 28, fill::zeros);
     for (uint i = 0; i < l1_hv.n_rows; ++i) {
-        int row = 14 + floor(14 * l1_hv(i,0) / fov + 0.5);
-        int col = 14 + floor(14 * l1_hv(i,1) / fov + 0.5);
+        int row = 14 + floor(14 * l1_hv(i,0) / fov);
+        int col = 14 + floor(14 * l1_hv(i,1) / fov);
         if (row < 0 || row > 27) continue;
         if (col < 0 || col > 27) continue;
         img(row, col) = 255.0;
@@ -43,9 +43,10 @@ void stars::Sensor::Status() {
     std::cout << tmp1 << "\n";
 }
 
-stars::Sensor::Sensor() {
-    mv = 6.5;
-    fov = 4.0 * arma::datum::pi / 180.0;
+stars::Sensor::Sensor(std::string f_catalog, double mv, double fov)
+    : mv(mv), fov(fov)
+{
+    stars.Init(f_catalog, mv, fov);
     noise = 5.0;
     ra = 0.0 * arma::datum::pi / 180.0;
     dec = 0.0 * arma::datum::pi / 180.0;

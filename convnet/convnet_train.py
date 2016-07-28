@@ -5,7 +5,7 @@ import tensorflow as tf
 import convnet
 
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('train_dir', '/home/noah/dev/train2', 'event dir')
+tf.app.flags.DEFINE_string('train_dir', '/home/noah/dev/tflog', 'event dir')
 tf.app.flags.DEFINE_integer('max_steps', 590, 'number of batches to run')
 tf.app.flags.DEFINE_integer('batch_size', 100, 'batch size')
 NUM_CLASSES = 10
@@ -31,7 +31,7 @@ def read_and_decode(filename_queue):
 def inputs(batch_size):
   num_epochs = 1
   if not num_epochs: num_epochs = None
-  filename = '/home/noah/dev/starid_unyawed.tfrecords'
+  filename = '/home/noah/dev/starid_data/mnist2_yawed.tfrecords'
   #filename = '/home/noah/dev/mnist_yawed.tfrecords'
   with tf.name_scope('input'):
     filename_queue = tf.train.string_input_producer(
@@ -59,7 +59,8 @@ def run_training():
     summary_writer = tf.train.SummaryWriter(FLAGS.train_dir, sess.graph)
     tf.train.start_queue_runners(sess=sess)
 
-    for step in range(590):
+    # for step in range(590):
+    for step in range(90):
       start_time = time.time()
       _, loss_value, img_summary = sess.run([train_op, loss, img_op])
       duration = time.time() - start_time
