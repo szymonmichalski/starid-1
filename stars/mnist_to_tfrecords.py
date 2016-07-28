@@ -64,9 +64,9 @@ def convert_to_tfrecords(images, labels, filename):
 
 def main(argv):
 
-  images = read_images('/home/noah/dev/starid_data/mnist_format/starid_imagesb_yawed.mnist')
-  labels = read_labels('/home/noah/dev/starid_data/mnist_format/starid_labelsb_yawed.mnist')
-  convert_to_tfrecords(images, labels, '/home/noah/dev/starid_data/starid_yawedb.tfrecords')
+  images = read_images('/home/noah/dev/starid_data/mnist_format/starid_imagesb.mnist')
+  labels = read_labels('/home/noah/dev/starid_data/mnist_format/starid_labelsb.mnist')
+  convert_to_tfrecords(images, labels, '/home/noah/dev/starid_data/staridb.tfrecords')
 
 if __name__ == '__main__':
   tf.app.run()

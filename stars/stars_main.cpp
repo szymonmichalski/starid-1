@@ -9,8 +9,8 @@ int main() {
     int number_of_images  = 10000;
     std::string f_img1    = "/home/noah/dev/starid_data/mnist_format/mnist_imagesb.mnist";
     std::string f_lab1    = "/home/noah/dev/starid_data/mnist_format/mnist_labelsb.mnist";
-    std::string f_img2    = "/home/noah/dev/starid_data/mnist_format/starid_imagesb_yawed.mnist";
-    std::string f_lab2    = "/home/noah/dev/starid_data/mnist_format/starid_labelsb_yawed.mnist";
+    std::string f_img2    = "/home/noah/dev/starid_data/mnist_format/starid_imagesb.mnist";
+    std::string f_lab2    = "/home/noah/dev/starid_data/mnist_format/starid_labelsb.mnist";
 
     std::string f_catalog = "/home/noah/dev/starid_data/SKYMAP_SKY2000_V5R4.txt";
     double mv             = 6.5;
