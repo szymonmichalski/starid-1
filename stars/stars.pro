@@ -23,6 +23,5 @@ LIBS += ../../armadillo/libarmadillo.so
 
 DISTFILES += \
     stars.pri \
-    mnist_to_tfrecords.py \
 
 

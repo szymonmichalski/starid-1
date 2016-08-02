@@ -30,9 +30,10 @@ def train():
 
     for step in range(590):
       start_time = time.time()
-      _, loss_value, img_summary = sess.run([train_op, loss, img_op])
-      duration = time.time() - start_time
 
+      _, loss_value, img_summary = sess.run([train_op, loss, img_op])
+
+      duration = time.time() - start_time
       if step % 10 == 0:
         num_examples_per_step = FLAGS.batch_size
         examples_per_sec = num_examples_per_step / duration
