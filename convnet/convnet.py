@@ -1,6 +1,20 @@
+import os
 import tensorflow as tf
-
+import convnet_input
+FLAGS = tf.app.flags.FLAGS
+tf.app.flags.DEFINE_string('data_dir', '/home/noah/dev/starid_data', 'data dir')
+tf.app.flags.DEFINE_string('train_data', 'starida.tfrecords', 'train data')
+tf.app.flags.DEFINE_string('eval_data', 'staridb.tfrecords', 'eval data')
+tf.app.flags.DEFINE_integer('batch_size', 100, 'batch size')
 TOWER_NAME = 'tower'
+
+def inputs_train():
+  filename = os.path.join(FLAGS.data_dir, FLAGS.train_data)
+  return convnet_input.inputs(filename, batch_size=FLAGS.batch_size)
+
+def inputs_eval():
+  filename = os.path.join(FLAGS.data_dir, FLAGS.eval_data)
+  return convnet_input.inputs(filename, batch_size=FLAGS.batch_size)
 
 def variable_summaries(var, name):
   with tf.name_scope('summaries'):

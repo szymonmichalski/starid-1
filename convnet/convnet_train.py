@@ -1,21 +1,18 @@
 from datetime import datetime
 import time
 import numpy as np
+import os
 import tensorflow as tf
 import convnet
-import convnet_input
-
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('train_dir', '/home/noah/dev/tflog', 'event dir')
+tf.app.flags.DEFINE_string('train_dir', '/home/noah/dev/train_dir', 'event dir')
 tf.app.flags.DEFINE_integer('max_steps', 590, 'number of batches to run')
-tf.app.flags.DEFINE_integer('batch_size', 100, 'batch size')
 
 def train():
   with tf.Graph().as_default():
     global_step = tf.Variable(0, trainable=False)
 
-    # images, labels = convnet_input.inputs_v1(FLAGS.batch_size)
-    images, labels = convnet_input.inputs(FLAGS.batch_size)
+    images, labels = convnet.inputs_train()
     softmax = convnet.inference(images)
     loss = convnet.loss(softmax, labels)
     train_op = convnet.train(loss)

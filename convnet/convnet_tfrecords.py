@@ -72,7 +72,6 @@ def convert_to_tfrecords(images, labels, filename):
   writer.close()
 
 def main(argv):
-
   images = read_images('/home/noah/dev/starid_data/mnist_format/starid_imagesb.mnist')
   labels = read_labels('/home/noah/dev/starid_data/mnist_format/starid_labelsb.mnist')
   convert_to_tfrecords(images, labels, '/home/noah/dev/starid_data/staridb.tfrecords')

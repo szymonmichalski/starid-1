@@ -1,5 +1,7 @@
 import tensorflow as tf
+FLAGS = tf.app.flags.FLAGS
 
+image_size = 28
 num_classes = 10
 num_examples_per_epoch_for_train = 60000
 num_examples_per_epoch_for_eval = 10000
@@ -28,9 +30,9 @@ def get_example(filename_queue):
   example.depth = tf.cast(features['depth'], tf.int32)
   example.label = tf.cast(features['label'], tf.int32)
   image = tf.decode_raw(features['image_raw'], tf.uint8)
-  image.set_shape([28 * 28])
+  image.set_shape([image_size * image_size])
   image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
-  example.image = tf.reshape(image, [28, 28, 1])
+  example.image = tf.reshape(image, [image_size, image_size, 1])
   return example
 
 def get_batch(example, min_queue_examples, batch_size, shuffle):
@@ -51,8 +53,8 @@ def get_batch(example, min_queue_examples, batch_size, shuffle):
   tf.image_summary('images', images)
   return images, tf.reshape(labels, [batch_size])
 
-def inputs(batch_size):
-  filenames = ['/home/noah/dev/starid_data/starida.tfrecords']
+def inputs(filename, batch_size):
+  filenames = [filename]
   num_examples_per_epoch = num_examples_per_epoch_for_train
   filename_queue = tf.train.string_input_producer(filenames)
   example = get_example(filename_queue)
