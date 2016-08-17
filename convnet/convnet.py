@@ -8,6 +8,11 @@ tf.app.flags.DEFINE_string('eval_data', 'staridb.tfrecords', 'eval data')
 tf.app.flags.DEFINE_integer('batch_size', 100, 'batch size')
 TOWER_NAME = 'tower'
 
+IMAGE_SIZE = convnet_input.IMAGE_SIZE
+NUM_CLASSES = convnet_input.NUM_CLASSES
+NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = convnet_input.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
+NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = convnet_input.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
+
 def inputs_train():
   filename = os.path.join(FLAGS.data_dir, FLAGS.train_data)
   return convnet_input.inputs(filename, batch_size=FLAGS.batch_size)

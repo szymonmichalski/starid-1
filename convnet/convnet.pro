@@ -11,18 +11,18 @@ TARGET = convnet
 
 SOURCES += \
     convnet_main.cpp \
-    knntrain.cpp \
-    svmmodel.cpp \
-    svmtrain.cpp \
+#    knntrain.cpp \
+#    svmmodel.cpp \
+#    svmtrain.cpp \
 
 HEADERS += \
-    knntrain.h \
-    svmmodel.h \
-    svmtrain.h
+#    knntrain.h \
+#    svmmodel.h \
+#    svmtrain.h
 
 INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so
 
 DISTFILES += \
-    convnet.py \
-    convnet_train.py
+#    convnet.py \
+#    convnet_train.py

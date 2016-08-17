@@ -5,7 +5,8 @@ CONFIG += warn_off
 
 SUBDIRS += \
     stars \
-    gtest
+    convnet \
+    pairs \
 
 OTHER_FILES += \
     README.txt \

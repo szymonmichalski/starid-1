@@ -1,10 +1,10 @@
 import tensorflow as tf
 FLAGS = tf.app.flags.FLAGS
 
-image_size = 28
-num_classes = 10
-num_examples_per_epoch_for_train = 60000
-num_examples_per_epoch_for_eval = 10000
+IMAGE_SIZE = 28
+NUM_CLASSES = 10
+NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 60000
+NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 10000
 
 def get_example(filename_queue):
   class Example(object):
@@ -30,9 +30,9 @@ def get_example(filename_queue):
   example.depth = tf.cast(features['depth'], tf.int32)
   example.label = tf.cast(features['label'], tf.int32)
   image = tf.decode_raw(features['image_raw'], tf.uint8)
-  image.set_shape([image_size * image_size])
+  image.set_shape([IMAGE_SIZE * IMAGE_SIZE])
   image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
-  example.image = tf.reshape(image, [image_size, image_size, 1])
+  example.image = tf.reshape(image, [IMAGE_SIZE, IMAGE_SIZE, 1])
   return example
 
 def get_batch(example, min_queue_examples, batch_size, shuffle):
@@ -55,7 +55,7 @@ def get_batch(example, min_queue_examples, batch_size, shuffle):
 
 def inputs(filename, batch_size):
   filenames = [filename]
-  num_examples_per_epoch = num_examples_per_epoch_for_train
+  num_examples_per_epoch = NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
   filename_queue = tf.train.string_input_producer(filenames)
   example = get_example(filename_queue)
   min_queue_examples = int(0.4 * num_examples_per_epoch)
