@@ -10,17 +10,17 @@ CONFIG += warn_off
 TARGET = pairs
 
 SOURCES += \
-    triplets.cpp \
-    pairs.cpp \
+#    triplets.cpp \
+#    pairs.cpp \
     pairs_main.cpp
 
 HEADERS += \
-    triplets.h \
-    pairs.h
+#    triplets.h \
+#    pairs.h
 
 INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so
 
 DISTFILES += \
-    pairs.pri
+#    pairs.pri
 

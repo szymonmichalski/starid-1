@@ -24,7 +24,7 @@ private:
     std::unordered_map<std::string, int> starpairs_map; // starpairkey, starpairsndx
     std::string PairsKey(int& catndx1, int& catndx2); // hash key
     std::vector<std::pair<double, int>> atable; // angle, starpairs ndx
-    stars::Neighbors afinder;
+//    stars::Neighbors afinder;
 };
 
 }

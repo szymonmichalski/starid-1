@@ -18,7 +18,7 @@ class Triplets
 {
 public:
     Triplets();
-    Triplets(stars::L1& obs, uint nlimit);
+//    Triplets(stars::L1& obs, uint nlimit);
     Triplet GetTriplet(double tol);
     bool IsMoreTriplets();
     bool is_triplet_good;
