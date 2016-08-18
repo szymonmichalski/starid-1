@@ -27,12 +27,18 @@ struct Star {
 };
 
 class Stars {
+
 public:
+
     std::vector<stars::Star> starsvec;
+
     void Init(std::string f_catalog, double mv, double fov);
+
     std::vector<int> StarsNearPoint(arma::vec& uv, const double radius);
     void Status();
+
 private:
+
     double t;
     double mv;
     double fov;
@@ -41,6 +47,7 @@ private:
     std::vector<std::pair<double,int>> ytable;
     std::vector<std::pair<double,int>> ztable;
     std::vector<int> StarsInRing(double p, double radius, std::vector<std::pair<double,int>> &table);
+
 };
 
 }

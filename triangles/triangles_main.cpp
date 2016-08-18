@@ -1,11 +1,24 @@
-//#include "pairs.h"
-//#include "triplets.h"
-#include "../stars/stars.h"
-#include "../stars/sensor.h"
+#include "pairs.h"
+#include "triangles.h"
+#include "sensor.h"
 #include <armadillo>
 
 int main() {
     arma::arma_rng::set_seed_random();
+
+    std::string f_catalog = "/home/noah/dev/SKYMAP_SKY2000_V5R4.txt";
+    double mv             = 6.5;
+    double fov            = 4.0 * arma::datum::pi / 180.0;
+
+    stars::Sensor sensor(f_catalog, mv, fov);
+
+    uint starndx = 800;
+    arma::mat img = sensor.Image(starndx);
+
+    triangles::Pairs pairs(sensor, fov);
+
+    return 0;
+}
 
 //    std::string fcatalog = "../../SKYMAP_SKY2000_V5R4.txt";
 //    double t = 0.0;
@@ -20,13 +33,6 @@ int main() {
 //    stars::Sensor sensor(fov, mv);
 //    sensor.L1a(catalog, pointing);
 
-    std::string f_catalog = "/home/noah/dev/SKYMAP_SKY2000_V5R4.txt";
-    double mv             = 6.5;
-    double fov            = 4.0 * arma::datum::pi / 180.0;
-
-    stars::Sensor sensor(f_catalog, mv, fov);
-
-//    pairs::Pairs pairs(catalog, fov);
 //    pairs.Status();
 
 //    double tol = 60 * arma::datum::pi / 648e3;
@@ -52,6 +58,3 @@ int main() {
 //            int a = 1;
 //        }
 //    }
-
-    return 0;
-}

@@ -1,9 +1,9 @@
 #ifndef TRIPLETS_H
 #define TRIPLETS_H
 
-#include "../stars/sensor.h"
+#include "sensor.h"
 
-namespace pairs {
+namespace triangles {
 
 struct Triplet {
     arma::vec uva;

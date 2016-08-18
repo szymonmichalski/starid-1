@@ -6,7 +6,7 @@ CONFIG += warn_off
 SUBDIRS += \
     stars \
     convnet \
-    pairs \
+    triangles \
 
 OTHER_FILES += \
     README.txt \

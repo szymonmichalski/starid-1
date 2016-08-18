@@ -7,16 +7,16 @@ CONFIG -= qt
 CONFIG += c++14
 CONFIG += warn_off
 
-TARGET = pairs
+TARGET = triangles
 
 SOURCES += \
-#    triplets.cpp \
-#    pairs.cpp \
-    pairs_main.cpp
+    pairs.cpp \
+    triangles_main.cpp \
+    triangles.cpp
 
 HEADERS += \
-#    triplets.h \
-#    pairs.h
+    pairs.h \
+    triangles.h
 
 INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so
