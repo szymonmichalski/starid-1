@@ -1,5 +1,5 @@
 heuristic starid
-pairs - l1 star pair angle matching
+triangles - star pattern matching
 
 starid learning
 convnet - convolutional network
