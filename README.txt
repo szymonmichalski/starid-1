@@ -1,4 +1,4 @@
-triangles - star pattern matching heuristic
+triangles - star pattern heuristics
 
 convnet - star pattern learning
 
