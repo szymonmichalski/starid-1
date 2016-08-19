@@ -7,7 +7,7 @@
 
 namespace triangles {
 
-class Pairs {
+class PairsOverWholeSky {
 
 public:
 

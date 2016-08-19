@@ -1,4 +1,4 @@
-#include "triangles.h"
+#include "triangles_in_star_image.h"
 #include "sensor.h"
 #include <armadillo>
 
@@ -13,11 +13,12 @@ int main() {
     uint triplets_max     = 1e3;
 
     stars::Sensor sensor(f_catalog, mv, fov);
-    triangles::Triangles triangles(sensor, triplets_tol, triplets_max);
 
-    sensor.Image(starndx);
-    triangles.StarPairsInImage(sensor);
-    uint starndx2 = triangles.MatchTriangles();
+    triangles::TrianglesInStarImage triangles(sensor, triplets_tol, triplets_max);
+
+    sensor.MakeStarImage(starndx);
+
+    triangles.RecognizeTriangleInStarImage();
 
     return 0;
 }

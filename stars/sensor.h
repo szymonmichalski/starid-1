@@ -13,7 +13,7 @@ public:
 
     stars::Stars stars;
 
-    arma::mat Image(uint starndx);
+    arma::mat MakeStarImage(uint starndx);
 
     std::vector<int> starsvec_ndxs; // starvec ndxs
 

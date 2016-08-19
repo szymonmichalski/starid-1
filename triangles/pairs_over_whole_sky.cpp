@@ -1,6 +1,6 @@
-#include "pairs.h"
+#include "pairs_over_whole_sky.h"
 
-void triangles::Pairs::Init(stars::Sensor &sensor)
+void triangles::PairsOverWholeSky::Init(stars::Sensor &sensor)
 {
     int starpairsndx = 0;
     for (int starndx = 0; starndx < sensor.stars.starsvec.size(); ++starndx) {
@@ -31,7 +31,7 @@ void triangles::Pairs::Init(stars::Sensor &sensor)
     std::sort(pair_angle_table.begin(), pair_angle_table.end());
 }
 
-std::string triangles::Pairs::PairsKey(int& catndx1, int& catndx2) {
+std::string triangles::PairsOverWholeSky::PairsKey(int& catndx1, int& catndx2) {
     if (catndx1 > catndx2) {
         int tmp = catndx1;
         catndx1 = catndx2;
@@ -41,7 +41,7 @@ std::string triangles::Pairs::PairsKey(int& catndx1, int& catndx2) {
     return key;
 }
 
-std::vector<int> triangles::Pairs::Candidates(double angle, double tolerance)
+std::vector<int> triangles::PairsOverWholeSky::Candidates(double angle, double tolerance)
 {
     std::vector<int> starpairsndxs; // = afinder.FindNeighbors(angle-tolerance, angle+tolerance);
     // search pair_angle_table for ndxs into starpairs
@@ -55,7 +55,7 @@ std::vector<int> triangles::Pairs::Candidates(double angle, double tolerance)
     return candndxs;
 }
 
-void triangles::Pairs::Status() {
+void triangles::PairsOverWholeSky::Status() {
     int sz = pair_angle_table.size();
     std::cout << "atable size " << sz
               << " med " << pair_angle_table[sz/2].first * 180.0 / arma::datum::pi

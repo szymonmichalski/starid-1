@@ -31,7 +31,7 @@ int main() {
 
             for (uint label = 0; label < 10; ++label) {
                 uint starndx = 800 * (label + 1);
-                arma::mat img = sensor.Image(starndx);
+                arma::mat img = sensor.MakeStarImage(starndx);
                 labels(10*itrcnt + label) = (double)label;
                 images[10*itrcnt + label] = img;
                 sensor.Status();

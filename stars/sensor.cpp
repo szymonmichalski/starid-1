@@ -1,7 +1,7 @@
 #include "sensor.h"
 #include <cassert>
 
-arma::mat stars::Sensor::Image(uint starndx) {
+arma::mat stars::Sensor::MakeStarImage(uint starndx) {
     using namespace arma;
     pointing = stars.starsvec[starndx].uv;
     starsvec_ndxs = stars.StarsNearPoint(pointing, fov);

@@ -10,13 +10,13 @@ CONFIG += warn_off
 TARGET = triangles
 
 SOURCES += \
-    pairs.cpp \
     triangles_main.cpp \
-    triangles.cpp
+    pairs_over_whole_sky.cpp \
+    triangles_in_star_image.cpp
 
 HEADERS += \
-    pairs.h \
-    triangles.h
+    pairs_over_whole_sky.h \
+    triangles_in_star_image.h
 
 INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so
