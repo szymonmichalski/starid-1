@@ -1,11 +1,11 @@
 #include "pairs.h"
 
-triangles::Pairs::Pairs(stars::Sensor &sensor, double fov)
+void triangles::Pairs::Init(stars::Sensor &sensor)
 {
     int starpairsndx = 0;
     for (int starndx = 0; starndx < sensor.stars.starsvec.size(); ++starndx) {
 
-        std::vector<int> neighbors = sensor.stars.StarsNearPoint(sensor.stars.starsvec[starndx].uv, fov);
+        std::vector<int> neighbors = sensor.stars.StarsNearPoint(sensor.stars.starsvec[starndx].uv, sensor.fov);
 
         for (int i = 0; i < neighbors.size(); ++i) {
             if (starndx == neighbors[i]) continue;
@@ -15,7 +15,7 @@ triangles::Pairs::Pairs(stars::Sensor &sensor, double fov)
             if (search != starpairs_map.end()) continue; // check map that pair is unique
 
             double angle = acos( arma::dot( sensor.stars.starsvec[starndx].uv , sensor.stars.starsvec[neighbors[i]].uv ) );
-            if (std::fabs(angle) > fov) continue;
+            if (std::fabs(angle) > sensor.fov) continue;
 
             std::tuple<double, int, int> starpair {angle, starndx, neighbors[i]};
             std::pair<double,int> pair_angle {angle, starpairsndx};

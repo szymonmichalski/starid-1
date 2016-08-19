@@ -11,7 +11,7 @@ class Pairs {
 
 public:
 
-    Pairs(stars::Sensor &sensor, double fov);
+    void Init(stars::Sensor &sensor);
 
     std::vector<int> Candidates(double angle, double tolerance);
 

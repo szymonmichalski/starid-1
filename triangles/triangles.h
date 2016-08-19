@@ -2,6 +2,7 @@
 #define TRIPLETS_H
 
 #include "sensor.h"
+#include "pairs.h"
 
 namespace triangles {
 
@@ -19,9 +20,16 @@ class Triangles
 
 public:
 
-    Triangles(stars::Sensor &sensor, uint triplets_max);
+    Triangles(stars::Sensor &sensor, double triangle_tol, uint max_triangles);
 
-    Triangle GetTriplet(double tol);
+    triangles::Pairs pairs;
+
+    Triangle triangle;
+    Triangle GetTriplet(double triangle_tol);
+
+    void StarPairsInImage(stars::Sensor &sensor);
+    uint MatchTriangles();
+
     bool IsMoreTriplets();
     bool is_triplet_good;
     uint n;
@@ -31,6 +39,9 @@ public:
     arma::mat matc;
 
 private:
+
+    double triangle_tol;
+    uint max_triangles;
 
 };
 

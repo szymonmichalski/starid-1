@@ -11,11 +11,15 @@ public:
 
     Sensor(std::string f_catalog, double mv, double fov);
 
-    stars::Stars stars; // constructs stars object
+    stars::Stars stars;
 
     arma::mat Image(uint starndx);
 
     std::vector<int> starsvec_ndxs; // starvec ndxs
+
+    double fov; // fov radius, radians
+    double mv; // dimmest star
+    double noise; // pointing vector noise equivalent angle, arcseconds
 
     arma::mat l1_uvec;
     arma::mat l1_hv;
@@ -25,9 +29,7 @@ public:
     void Status();
 
 private:
-    double fov; // fov radius, radians
-    double mv; // dimmest star
-    double noise; // pointing vector noise equivalent angle, arcseconds
+
 
     double ra, dec, yaw;
     arma::vec pointing; // pointing vec
