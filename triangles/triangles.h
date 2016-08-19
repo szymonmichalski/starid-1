@@ -5,7 +5,7 @@
 
 namespace triangles {
 
-struct Triplet {
+struct Triangle {
     arma::vec uva;
     arma::vec uvb;
     arma::vec uvc;
@@ -14,12 +14,14 @@ struct Triplet {
     double angbc;
 };
 
-class Triplets
+class Triangles
 {
+
 public:
-    Triplets();
-//    Triplets(stars::L1& obs, uint nlimit);
-    Triplet GetTriplet(double tol);
+
+    Triangles(stars::Sensor &sensor, uint triplets_max);
+
+    Triangle GetTriplet(double tol);
     bool IsMoreTriplets();
     bool is_triplet_good;
     uint n;
@@ -27,7 +29,9 @@ public:
     arma::mat mata;
     arma::mat matb;
     arma::mat matc;
+
 private:
+
 };
 
 }
