@@ -1,4 +1,4 @@
-#include "triangles_in_star_image.h"
+﻿#include "triangles_in_star_image.h"
 #include "sensor.h"
 #include <armadillo>
 
@@ -16,7 +16,7 @@ int main() {
     stars::Sensor sensor(fcatalog, mv, fov);
     sensor.MakeStarImage(starndx);
 
-    // create star triangles in the image and try to recognize a triangle
+    // create star triangles for the image and try to recognize a triangle
     triangles::TrianglesInStarImage triangles(sensor, triangles_tol, triangles_max);
     triangles.RecognizeTriangleInStarImage();
 

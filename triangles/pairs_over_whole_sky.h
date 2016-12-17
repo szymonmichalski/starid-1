@@ -23,7 +23,7 @@ private:
     std::vector<std::tuple<double, int, int>> starpairs; // angle, catndx1, catndx2
     std::unordered_map<std::string, int>      starpairs_map; // starpairkey, starpairsndx
 
-    std::string PairsKey(int& catndx1, int& catndx2); // hash key
+    std::string PairsKey(int catndx1, int catndx2); // hash key
 
 
 };

@@ -3,21 +3,22 @@
 void triangles::PairsOverWholeSky::Init(stars::Sensor &sensor)
 {
     int starpairsndx = 0;
-    for (int starndx = 0; starndx < sensor.stars.starsvec.size(); ++starndx) {
+    int maxcurrstar = sensor.stars.starsvec.size();
+    int currstar = 0;
+    while (currstar < maxcurrstar) {
 
-        std::vector<int> neighbors = sensor.stars.StarsNearPoint(sensor.stars.starsvec[starndx].uv, sensor.fov);
-
+        std::vector<int> neighbors = sensor.stars.StarsNearPoint(sensor.stars.starsvec[currstar].uv, sensor.fov);
         for (int i = 0; i < neighbors.size(); ++i) {
-            if (starndx == neighbors[i]) continue;
+            if (currstar == neighbors[i]) continue;
 
-            std::string key = PairsKey(starndx, neighbors[i]);
+            std::string key = PairsKey(currstar, neighbors[i]);
             auto search = starpairs_map.find(key);
             if (search != starpairs_map.end()) continue; // check map that pair is unique
 
-            double angle = acos( arma::dot( sensor.stars.starsvec[starndx].uv , sensor.stars.starsvec[neighbors[i]].uv ) );
+            double angle = acos( arma::dot( sensor.stars.starsvec[currstar].uv , sensor.stars.starsvec[neighbors[i]].uv ) );
             if (std::fabs(angle) > sensor.fov) continue;
 
-            std::tuple<double, int, int> starpair {angle, starndx, neighbors[i]};
+            std::tuple<double, int, int> starpair {angle, currstar, neighbors[i]};
             std::pair<double,int> pair_angle {angle, starpairsndx};
 
             starpairs.push_back(starpair);
@@ -26,12 +27,14 @@ void triangles::PairsOverWholeSky::Init(stars::Sensor &sensor)
 
             ++starpairsndx;
         }
+        ++currstar;
+        //std::cout << currstar << std::endl;
     }
 
     std::sort(pair_angle_table.begin(), pair_angle_table.end());
 }
 
-std::string triangles::PairsOverWholeSky::PairsKey(int& catndx1, int& catndx2) {
+std::string triangles::PairsOverWholeSky::PairsKey(int catndx1, int catndx2) {
     if (catndx1 > catndx2) {
         int tmp = catndx1;
         catndx1 = catndx2;
