@@ -5,7 +5,6 @@ CONFIG += warn_off
 
 SUBDIRS += \
     stars \
-    convnet \
     triangles \
 
 OTHER_FILES += \

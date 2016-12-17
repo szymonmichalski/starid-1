@@ -2,7 +2,7 @@
 
 triangles::TrianglesInStarImage::TrianglesInStarImage(stars::Sensor &sensor, double triangle_tol, uint max_triangles) :
     sensor(sensor),
-    num_stars(sensor.stars.starsvec.size()),
+    num_stars(sensor.l1_uvec.n_rows),
     cur_triangle(0),
     triangle_tol(triangle_tol),
     max_triangles(max_triangles)
@@ -11,6 +11,9 @@ triangles::TrianglesInStarImage::TrianglesInStarImage(stars::Sensor &sensor, dou
 }
 
 void triangles::TrianglesInStarImage::RecognizeTriangleInStarImage() {
+    arma::mat mata;
+    arma::mat matb;
+    arma::mat matc;
     mata.zeros(max_triangles,3);
     matb.zeros(max_triangles,3);
     matc.zeros(max_triangles,3);
@@ -51,14 +54,15 @@ void triangles::TrianglesInStarImage::RecognizeTriangleInStarImage() {
         triangle.angac = acos(arma::dot(triangle.uva, triangle.uvc));
         triangle.angbc = acos(arma::dot(triangle.uvb, triangle.uvc));
 
-        //    std::cout << triplet.angab - triplet.angac << " " << tol << "\n";
-        if (std::abs(triangle.angab - triangle.angac) < triangle_tol) is_triplet_good = false;
-        if (std::abs(triangle.angab - triangle.angbc) < triangle_tol) is_triplet_good = false;
-        if (std::abs(triangle.angac - triangle.angbc) < triangle_tol) is_triplet_good = false;
+//        //    std::cout << triplet.angab - triplet.angac << " " << tol << "\n";
+//        if (std::abs(triangle.angab - triangle.angac) < triangle_tol) is_triplet_good = false;
+//        if (std::abs(triangle.angab - triangle.angbc) < triangle_tol) is_triplet_good = false;
+//        if (std::abs(triangle.angac - triangle.angbc) < triangle_tol) is_triplet_good = false;
 
-        std::vector<int> l1ab = pairs_over_whole_sky.Candidates(triangle.angab, 0.05 * triangle_tol);
-        std::vector<int> l1ac = pairs_over_whole_sky.Candidates(triangle.angac, 0.05 * triangle_tol);
-        std::vector<int> l1bc = pairs_over_whole_sky.Candidates(triangle.angbc, 0.05 * triangle_tol);
+        std::vector<int> l1ab = pairs_over_whole_sky.StarsFromPairs(triangle.angab, 0.05 * triangle_tol);
+        std::vector<int> l1ac = pairs_over_whole_sky.StarsFromPairs(triangle.angac, 0.05 * triangle_tol);
+        std::vector<int> l1bc = pairs_over_whole_sky.StarsFromPairs(triangle.angbc, 0.05 * triangle_tol);
+
         std::vector<int> l2abac;
         std::vector<int> l2babc;
         std::vector<int> l2cacb;
@@ -71,8 +75,10 @@ void triangles::TrianglesInStarImage::RecognizeTriangleInStarImage() {
         std::set_intersection(l1ac.begin(), l1ac.end(),
                               l1bc.begin(), l1bc.end(),
                               back_inserter(l2cacb));
+        continue;
     }
 
+    std::cout << std::endl;
 }
 
 

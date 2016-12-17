@@ -124,7 +124,8 @@ std::vector<int> stars::Stars::StarsNearPoint(arma::vec& uv, const double radius
     return ndxs;
 }
 
-std::vector<int> stars::Stars::StarsInRing(double p, double radius, std::vector<std::pair<double,int>> &table) {
+std::vector<int> stars::Stars::StarsInRing(double p, double radius,
+                                           std::vector<std::pair<double,int>> &floatIntTable) {
     double pmin, pmax;
     if (p >= cos(radius)) {
         pmin = p*cos(radius) - sqrt(1-(p*p))*sin(radius);
@@ -137,15 +138,19 @@ std::vector<int> stars::Stars::StarsInRing(double p, double radius, std::vector<
         pmax = p*cos(radius) + sqrt(1-(p*p))*sin(radius);
     }
     assert (pmin >= -1.0 && pmax <= 1.0);
-    auto itlow = std::lower_bound(table.begin(), table.end(), std::make_pair(pmin, 0));
-    auto ithi = std::upper_bound(table.begin(), table.end(), std::make_pair(pmax, 0));
-    std::vector<int> ring;
+
+    double minFloat = pmin;
+    double maxFloat = pmax;
+    std::vector<int> intsFromTable;
+    auto itlow = std::lower_bound(floatIntTable.begin(), floatIntTable.end(), std::make_pair(minFloat, 0));
+    auto ithi = std::upper_bound(floatIntTable.begin(), floatIntTable.end(), std::make_pair(maxFloat, 0));
     for (auto it = itlow; it <= ithi; ++it) {
         auto tablerow = *it;
-        ring.push_back(tablerow.second);
+        intsFromTable.push_back(tablerow.second);
     }
-    std::sort(ring.begin(),ring.end());
-    return ring;
+    std::sort(intsFromTable.begin(),intsFromTable.end());
+
+    return intsFromTable;
 }
 
 void stars::Stars::Status() {

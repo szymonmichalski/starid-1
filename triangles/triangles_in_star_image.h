@@ -35,11 +35,6 @@ private:
     bool is_triplet_good;
     uint num_stars;
     uint cur_triangle;
-
-    arma::mat mata;
-    arma::mat matb;
-    arma::mat matc;
-
 };
 
 }
