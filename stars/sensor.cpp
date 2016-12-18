@@ -4,7 +4,7 @@
 arma::mat stars::Sensor::MakeStarImage(uint starndx) {
     using namespace arma;
     pointing = stars.starsvec[starndx].uv;
-    starsvec_ndxs = stars.StarsNearPoint(pointing, fov);
+    starsvec_ndxs = stars.starsNearPoint(pointing, fov);
 
     l1_uvec.set_size(starsvec_ndxs.size(),3);
     l1_hv.set_size(starsvec_ndxs.size(),2);
@@ -46,7 +46,7 @@ void stars::Sensor::Status() {
 stars::Sensor::Sensor(std::string f_catalog, double mv, double fov)
     : mv(mv), fov(fov)
 {
-    stars.Init(f_catalog, mv, fov);
+    stars.init(f_catalog, mv, fov);
     noise = 5.0;
     ra = 0.0 * arma::datum::pi / 180.0;
     dec = 0.0 * arma::datum::pi / 180.0;

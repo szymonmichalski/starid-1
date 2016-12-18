@@ -18,7 +18,7 @@ int main() {
 
     // create star triangles for the image and try to recognize a triangle
     triangles::TrianglesInStarImage triangles(sensor, triangles_tol, triangles_max);
-    triangles.RecognizeTriangleInStarImage();
+    triangles.recognizeTriangleInStarImage();
 
     return 0;
 }

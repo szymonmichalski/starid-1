@@ -7,10 +7,10 @@ triangles::TrianglesInStarImage::TrianglesInStarImage(stars::Sensor &sensor, dou
     triangle_tol(triangle_tol),
     max_triangles(max_triangles)
 {
-    pairs_over_whole_sky.Init(sensor);
+    pairsOverWholeSky.init(sensor);
 }
 
-void triangles::TrianglesInStarImage::RecognizeTriangleInStarImage() {
+void triangles::TrianglesInStarImage::recognizeTriangleInStarImage() {
     arma::mat mata;
     arma::mat matb;
     arma::mat matc;
@@ -54,14 +54,14 @@ void triangles::TrianglesInStarImage::RecognizeTriangleInStarImage() {
         triangle.angac = acos(arma::dot(triangle.uva, triangle.uvc));
         triangle.angbc = acos(arma::dot(triangle.uvb, triangle.uvc));
 
-//        //    std::cout << triplet.angab - triplet.angac << " " << tol << "\n";
-//        if (std::abs(triangle.angab - triangle.angac) < triangle_tol) is_triplet_good = false;
-//        if (std::abs(triangle.angab - triangle.angbc) < triangle_tol) is_triplet_good = false;
-//        if (std::abs(triangle.angac - triangle.angbc) < triangle_tol) is_triplet_good = false;
+        // triangle sides are too similar
+        if (std::abs(triangle.angab - triangle.angac) < triangle_tol
+            || std::abs(triangle.angab - triangle.angbc) < triangle_tol
+            || std::abs(triangle.angac - triangle.angbc) < triangle_tol) continue;
 
-        std::vector<int> l1ab = pairs_over_whole_sky.StarsFromPairs(triangle.angab, 0.05 * triangle_tol);
-        std::vector<int> l1ac = pairs_over_whole_sky.StarsFromPairs(triangle.angac, 0.05 * triangle_tol);
-        std::vector<int> l1bc = pairs_over_whole_sky.StarsFromPairs(triangle.angbc, 0.05 * triangle_tol);
+        std::vector<int> l1ab = pairsOverWholeSky.starsFromPairs(triangle.angab, 0.05 * triangle_tol);
+        std::vector<int> l1ac = pairsOverWholeSky.starsFromPairs(triangle.angac, 0.05 * triangle_tol);
+        std::vector<int> l1bc = pairsOverWholeSky.starsFromPairs(triangle.angbc, 0.05 * triangle_tol);
 
         std::vector<int> l2abac;
         std::vector<int> l2babc;

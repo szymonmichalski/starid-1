@@ -21,18 +21,14 @@ class TrianglesInStarImage
 public:
 
     TrianglesInStarImage(stars::Sensor &sensor, double triangle_tol, uint max_triangles);
-
-    void RecognizeTriangleInStarImage();
+    void recognizeTriangleInStarImage();
 
 private:
 
-    triangles::PairsOverWholeSky pairs_over_whole_sky;
+    triangles::PairsOverWholeSky pairsOverWholeSky;
     stars::Sensor &sensor;
-
     double triangle_tol;
     uint max_triangles;
-
-    bool is_triplet_good;
     uint num_stars;
     uint cur_triangle;
 };

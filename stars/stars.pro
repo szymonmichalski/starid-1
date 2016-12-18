@@ -11,12 +11,14 @@ SOURCES += \
     sensor.cpp \
     stars_main.cpp \
     mnist.cpp \
-    stars.cpp
+    stars.cpp \
+    float_int_table.cpp
 
 HEADERS += \
     sensor.h \
     mnist.h \
-    stars.h
+    stars.h \
+    float_int_table.h
 
 INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so

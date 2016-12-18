@@ -2,6 +2,7 @@
 #define STARS_H
 
 #include <armadillo>
+#include <float_int_table.h>
 
 namespace stars {
 
@@ -31,11 +32,9 @@ class Stars {
 public:
 
     std::vector<stars::Star> starsvec;
-
-    void Init(std::string f_catalog, double mv, double fov);
-
-    std::vector<int> StarsNearPoint(arma::vec& uv, const double radius);
-    void Status();
+    void init(std::string f_catalog, double mv, double fov);
+    std::vector<int> starsNearPoint(arma::vec& uv, const double radius);
+    void status();
 
 private:
 
@@ -43,10 +42,10 @@ private:
     double mv;
     double fov;
     std::string f_catalog;
-    std::vector<std::pair<double,int>> xtable;
-    std::vector<std::pair<double,int>> ytable;
-    std::vector<std::pair<double,int>> ztable;
-    std::vector<int> StarsInRing(double p, double radius, std::vector<std::pair<double,int>> &table);
+    FloatIntTable xtable;
+    FloatIntTable ytable;
+    FloatIntTable ztable;
+    std::vector<int> starsInRing(double p, double radius, FloatIntTable& table);
 
 };
 

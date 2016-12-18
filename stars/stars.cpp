@@ -21,7 +21,7 @@ stars::Star::Star()
       uv()
 {}
 
-void stars::Stars::Init(std::string f_catalog_, double mv_, double fov_) {
+void stars::Stars::init(std::string f_catalog_, double mv_, double fov_) {
     arma::arma_rng::set_seed_random();
     f_catalog = f_catalog_;
     mv = mv_;
@@ -83,12 +83,9 @@ void stars::Stars::Init(std::string f_catalog_, double mv_, double fov_) {
                 star.uv = normalise(star.uv);
                 assert(norm(star.uv) - 1.0 < 1e-10);
 
-                std::pair<double,int> xpair {star.uv(0), ndx};
-                std::pair<double,int> ypair {star.uv(1), ndx};
-                std::pair<double,int> zpair {star.uv(2), ndx};
-                xtable.push_back(xpair);
-                ytable.push_back(ypair);
-                ztable.push_back(zpair);
+                xtable.addPair(star.uv(0), ndx);
+                ytable.addPair(star.uv(1), ndx);
+                ztable.addPair(star.uv(2), ndx);
                 starsvec.push_back(star);
                 ++ndx;
             } catch (...) {
@@ -96,22 +93,22 @@ void stars::Stars::Init(std::string f_catalog_, double mv_, double fov_) {
             }
         }
         catfile.close();
-//        std::cout << "stars " << ndx << " dim stars " << dim_stars << " error_stars " << error_stars << "\n";
+        std::cout << "stars " << ndx << " dim stars " << dim_stars << " error_stars " << error_stars << "\n";
     } else {
         std::cout << "catalog file not found" << "\n";
     }
-    std::sort(xtable.begin(), xtable.end());
-    std::sort(ytable.begin(), ytable.end());
-    std::sort(ztable.begin(), ztable.end());
+    xtable.sort();
+    ytable.sort();
+    ztable.sort();
 }
 //double UnixTimeToJ2000Offset = 946684800.0;
 //std::chrono::time_point<std::chrono::system_clock> tcurrent {std::chrono::system_clock::now()};
 //double t {(double(std::chrono::system_clock::to_time_t(tcurrent)) - UnixTimeToJ2000Offset) / 31557600.0}; // julian years
 
-std::vector<int> stars::Stars::StarsNearPoint(arma::vec& uv, const double radius) {
-    std::vector<int> xring = StarsInRing(uv(0), radius, xtable);
-    std::vector<int> yring = StarsInRing(uv(1), radius, ytable);
-    std::vector<int> zring = StarsInRing(uv(2), radius, ztable);
+std::vector<int> stars::Stars::starsNearPoint(arma::vec& uv, const double radius) {
+    std::vector<int> xring = starsInRing(uv(0), radius, xtable);
+    std::vector<int> yring = starsInRing(uv(1), radius, ytable);
+    std::vector<int> zring = starsInRing(uv(2), radius, ztable);
     std::vector<int> xy;
     std::set_intersection(xring.begin(), xring.end(), yring.begin(), yring.end(), std::back_inserter(xy));
     std::vector<int> xyz;
@@ -124,8 +121,8 @@ std::vector<int> stars::Stars::StarsNearPoint(arma::vec& uv, const double radius
     return ndxs;
 }
 
-std::vector<int> stars::Stars::StarsInRing(double p, double radius,
-                                           std::vector<std::pair<double,int>> &floatIntTable) {
+std::vector<int> stars::Stars::starsInRing(double p, double radius, FloatIntTable& table)
+{
     double pmin, pmax;
     if (p >= cos(radius)) {
         pmin = p*cos(radius) - sqrt(1-(p*p))*sin(radius);
@@ -138,21 +135,9 @@ std::vector<int> stars::Stars::StarsInRing(double p, double radius,
         pmax = p*cos(radius) + sqrt(1-(p*p))*sin(radius);
     }
     assert (pmin >= -1.0 && pmax <= 1.0);
-
-    double minFloat = pmin;
-    double maxFloat = pmax;
-    std::vector<int> intsFromTable;
-    auto itlow = std::lower_bound(floatIntTable.begin(), floatIntTable.end(), std::make_pair(minFloat, 0));
-    auto ithi = std::upper_bound(floatIntTable.begin(), floatIntTable.end(), std::make_pair(maxFloat, 0));
-    for (auto it = itlow; it <= ithi; ++it) {
-        auto tablerow = *it;
-        intsFromTable.push_back(tablerow.second);
-    }
-    std::sort(intsFromTable.begin(),intsFromTable.end());
-
-    return intsFromTable;
+    return table.findInts(pmin, pmax);
 }
 
-void stars::Stars::Status() {
+void stars::Stars::status() {
     std::cout << "number of stars " << starsvec.size() << "\n";
 }
