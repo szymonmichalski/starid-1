@@ -3,7 +3,8 @@ import time
 import numpy as np
 import os
 import tensorflow as tf
-import convnet
+import infer
+
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('train_dir', '/home/noah/dev/train_dir', 'event dir')
 tf.app.flags.DEFINE_integer('max_steps', 590, 'number of batches to run')
@@ -12,10 +13,10 @@ def train():
   with tf.Graph().as_default():
     global_step = tf.Variable(0, trainable=False)
 
-    images, labels = convnet.inputs_train()
-    softmax = convnet.inference(images)
-    loss = convnet.loss(softmax, labels)
-    train_op = convnet.train(loss)
+    images, labels = infer.inputs_train()
+    softmax = infer.inference(images)
+    loss = infer.loss(softmax, labels)
+    train_op = infer.train(loss)
     init_op = tf.initialize_all_variables()
     img_op = tf.image_summary('test', images, max_images=10)
 

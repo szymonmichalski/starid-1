@@ -1,6 +1,6 @@
 import tensorflow as tf
-FLAGS = tf.app.flags.FLAGS
 
+FLAGS = tf.app.flags.FLAGS
 IMAGE_SIZE = 28
 NUM_CLASSES = 10
 NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 60000

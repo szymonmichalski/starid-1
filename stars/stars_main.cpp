@@ -41,8 +41,8 @@ int main() {
 
     }
 
-    mnist.WriteMnistI(f_img2, images, yaw);
-    mnist.WriteMnistL(f_lab2, labels);
+//    mnist.WriteMnistI(f_img2, images, yaw);
+//    mnist.WriteMnistL(f_lab2, labels);
 
     return 0;
 }
