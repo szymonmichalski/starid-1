@@ -22,5 +22,4 @@ INCLUDEPATH += ../../armadillo
 LIBS += ../../armadillo/libarmadillo.so
 
 DISTFILES += \
-#    pairs.pri
 

@@ -8,12 +8,12 @@ int main() {
     bool mnist_to_starid  = true;
     bool yaw              = true;
     int number_of_images  = 10000;
-    std::string f_img1    = "/home/noah/dev/starid/starid_data_v1/mnist_format/mnist_imagesb.mnist";
-    std::string f_lab1    = "/home/noah/dev/starid/starid_data_v1/mnist_format/mnist_labelsb.mnist";
-    std::string f_img2    = "/home/noah/dev/starid/starid_data_v1/mnist_format/starid_imagesb.mnist";
-    std::string f_lab2    = "/home/noah/dev/starid/starid_data_v1/mnist_format/starid_labelsb.mnist";
+    std::string f_img1    = "/home/noah/dev/starid/data/mnist_format/mnist_imagesb.mnist";
+    std::string f_lab1    = "/home/noah/dev/starid/data/mnist_format/mnist_labelsb.mnist";
+    std::string f_img2    = "/home/noah/dev/starid/data/mnist_format/starid_imagesb.mnist";
+    std::string f_lab2    = "/home/noah/dev/starid/data/mnist_format/starid_labelsb.mnist";
 
-    std::string f_catalog = "/home/noah/dev/starid/starid_data_v1/SKYMAP_SKY2000_V5R4.txt";
+    std::string f_catalog = "/home/noah/dev/starid/data/SKYMAP_SKY2000_V5R4.txt";
     double mv             = 6.5;
     double fov            = 4.0 * arma::datum::pi / 180.0;
 

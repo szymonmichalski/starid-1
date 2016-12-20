@@ -5,7 +5,7 @@
 int main() {
     arma::arma_rng::set_seed_random();
 
-    std::string fcatalog   = "/home/noah/dev/starid/starid_data_v1/SKYMAP_SKY2000_V5R4.txt";
+    std::string fcatalog   = "/home/noah/dev/starid/data/SKYMAP_SKY2000_V5R4.txt";
     double mv              = 6.5; // sensor upper limit for visual magnitude
     double fov             = 4.0 * arma::datum::pi / 180.0; // sensor field of view
     uint starndx           = 800; // star to be used
