@@ -3,7 +3,7 @@ import tensorflow as tf
 import infer_input
 
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('data_dir', '/home/noah/dev/starid/starid_data_v1', 'data dir')
+tf.app.flags.DEFINE_string('data_dir', '/home/noah/dev/starid/data', 'data dir')
 tf.app.flags.DEFINE_string('train_data', 'starida.tfrecords', 'train data')
 tf.app.flags.DEFINE_string('eval_data', 'staridb.tfrecords', 'eval data')
 tf.app.flags.DEFINE_integer('batch_size', 100, 'batch size')

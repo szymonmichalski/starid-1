@@ -1,31 +1,9 @@
-*.pro.user
-SKYMAP_SKY2000_V5R4.txt
+# Ignore everything
+*
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# But not these files...
+!.cpp
+!.py
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+# ...even if they are in subdirectories
+!*/
