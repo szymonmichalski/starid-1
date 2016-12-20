@@ -3,7 +3,9 @@
 
 # But not these files...
 !.cpp
+!.h
 !.py
+!.txt
 
 # ...even if they are in subdirectories
 !*/
