@@ -6,7 +6,7 @@ import tensorflow as tf
 import infer
 
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('train_dir', '/home/noah/dev/train_dir', 'event dir')
+tf.app.flags.DEFINE_string('train_dir', '/home/noah/dev/starid/infer/train', 'event dir')
 tf.app.flags.DEFINE_integer('max_steps', 590, 'number of batches to run')
 
 def train():
