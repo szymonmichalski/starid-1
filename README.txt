@@ -1,5 +1,5 @@
-triangles - star pattern heuristics
+triangles - pattern heuristic
 
-infer - star pattern learning
+infer - pattern learning
 
 v1 notes http://staridentification.blogspot.com/2016/07/stariddata-v1-available.html
