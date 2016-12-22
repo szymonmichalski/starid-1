@@ -9,11 +9,11 @@ namespace stars {
 class Sensor {
 public:
 
-    Sensor(std::string f_catalog, double mv, double fov);
+    Sensor(std::string fcatalog, double mv, double fov);
 
     stars::Stars stars;
 
-    arma::mat MakeStarImage(uint starndx);
+    arma::mat makeStarImage(uint starndx);
 
     std::vector<int> starsvec_ndxs; // starvec ndxs
 
@@ -26,7 +26,7 @@ public:
     arma::vec l1_starndx;
     arma::vec l1_mag;
 
-    void Status();
+    void status();
 
 private:
 
@@ -34,8 +34,8 @@ private:
     double ra, dec, yaw;
     arma::vec pointing; // pointing vec
 
-    arma::mat RotationMatrix();
-    arma::vec Quaternion();
+    arma::mat rotationMatrix();
+    arma::vec quaternion();
     arma::vec qmult(arma::vec& q1, arma::vec& q2);
     arma::vec qconj(arma::vec& q);
     arma::vec rv2q(arma::vec& rv);

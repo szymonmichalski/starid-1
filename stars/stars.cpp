@@ -23,13 +23,13 @@ stars::Star::Star()
 
 void stars::Stars::init(std::string f_catalog_, double mv_, double fov_) {
     arma::arma_rng::set_seed_random();
-    f_catalog = f_catalog_;
+    fcatalog = f_catalog_;
     mv = mv_;
     fov = fov_;
     t = 0.0;
 
-    std::ifstream catfile (f_catalog);
-    int ndx {0};
+    std::ifstream catfile (fcatalog);
+    int starndx {0};
     int dim_stars {0};
     int error_stars {0};
     if (catfile.is_open()) {
@@ -83,17 +83,18 @@ void stars::Stars::init(std::string f_catalog_, double mv_, double fov_) {
                 star.uv = normalise(star.uv);
                 assert(norm(star.uv) - 1.0 < 1e-10);
 
-                xtable.addPair(star.uv(0), ndx);
-                ytable.addPair(star.uv(1), ndx);
-                ztable.addPair(star.uv(2), ndx);
+                xtable.addPair(star.uv(0), starndx);
+                ytable.addPair(star.uv(1), starndx);
+                ztable.addPair(star.uv(2), starndx);
                 starsvec.push_back(star);
-                ++ndx;
+                catalogLines.push_back(line);
+                ++starndx;
             } catch (...) {
                 ++error_stars;
             }
         }
         catfile.close();
-        std::cout << "stars " << ndx << " dim stars " << dim_stars << " error_stars " << error_stars << "\n";
+        std::cout << "stars " << starndx << " dim stars " << dim_stars << " error_stars " << error_stars << "\n";
     } else {
         std::cout << "catalog file not found" << "\n";
     }
@@ -101,9 +102,6 @@ void stars::Stars::init(std::string f_catalog_, double mv_, double fov_) {
     ytable.sort();
     ztable.sort();
 }
-//double UnixTimeToJ2000Offset = 946684800.0;
-//std::chrono::time_point<std::chrono::system_clock> tcurrent {std::chrono::system_clock::now()};
-//double t {(double(std::chrono::system_clock::to_time_t(tcurrent)) - UnixTimeToJ2000Offset) / 31557600.0}; // julian years
 
 std::vector<int> stars::Stars::starsNearPoint(arma::vec& uv, const double radius) {
     std::vector<int> xring = starsInRing(uv(0), radius, xtable);
@@ -141,3 +139,7 @@ std::vector<int> stars::Stars::starsInRing(double p, double radius, FloatIntTabl
 void stars::Stars::status() {
     std::cout << "number of stars " << starsvec.size() << "\n";
 }
+
+//double UnixTimeToJ2000Offset = 946684800.0;
+//std::chrono::time_point<std::chrono::system_clock> tcurrent {std::chrono::system_clock::now()};
+//double t {(double(std::chrono::system_clock::to_time_t(tcurrent)) - UnixTimeToJ2000Offset) / 31557600.0}; // julian years

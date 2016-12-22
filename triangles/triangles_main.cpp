@@ -14,7 +14,7 @@ int main() {
 
     // create a sensor and make a star image
     stars::Sensor sensor(fcatalog, mv, fov);
-    sensor.MakeStarImage(starndx);
+    sensor.makeStarImage(starndx);
 
     // create star triangles for the image and try to recognize a triangle
     triangles::TrianglesInStarImage triangles(sensor, triangles_tol, triangles_max);

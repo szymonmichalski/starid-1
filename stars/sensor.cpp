@@ -1,7 +1,7 @@
 #include "sensor.h"
 #include <cassert>
 
-arma::mat stars::Sensor::MakeStarImage(uint starndx) {
+arma::mat stars::Sensor::makeStarImage(uint starndx) {
     using namespace arma;
     pointing = stars.starsvec[starndx].uv;
     starsvec_ndxs = stars.starsNearPoint(pointing, fov);
@@ -16,7 +16,7 @@ arma::mat stars::Sensor::MakeStarImage(uint starndx) {
         l1_starndx(i) = starsvec_ndxs[i];
         l1_mag(i) = stars.starsvec[starsvec_ndxs[i]].mv1;
     }
-    l1_uvec = trans(trans(RotationMatrix()) * trans(l1_uvec));
+    l1_uvec = trans(trans(rotationMatrix()) * trans(l1_uvec));
     l1_hv.col(0) = arma::atan(l1_uvec.col(0) / l1_uvec.col(2));
     l1_hv.col(1) = arma::atan(l1_uvec.col(1) / l1_uvec.col(2));
 
@@ -33,7 +33,7 @@ arma::mat stars::Sensor::MakeStarImage(uint starndx) {
     return img;
 }
 
-void stars::Sensor::Status() {
+void stars::Sensor::status() {
     using namespace arma;
     mat tmp1 = l1_uvec;
     mat tmp2 = 14 + floor(14 * l1_hv / fov);
@@ -43,10 +43,10 @@ void stars::Sensor::Status() {
     std::cout << tmp1 << "\n";
 }
 
-stars::Sensor::Sensor(std::string f_catalog, double mv, double fov)
+stars::Sensor::Sensor(std::string fcatalog, double mv, double fov)
     : mv(mv), fov(fov)
 {
-    stars.init(f_catalog, mv, fov);
+    stars.init(fcatalog, mv, fov);
     noise = 5.0;
     ra = 0.0 * arma::datum::pi / 180.0;
     dec = 0.0 * arma::datum::pi / 180.0;
@@ -58,7 +58,7 @@ stars::Sensor::Sensor(std::string f_catalog, double mv, double fov)
     pointing = arma::normalise(pointing);
 }
 
-arma::mat stars::Sensor::RotationMatrix() {
+arma::mat stars::Sensor::rotationMatrix() {
     arma::mat rm;
     rm.eye(3,3);
     arma::vec bz = pointing;
@@ -77,8 +77,8 @@ arma::mat stars::Sensor::RotationMatrix() {
     return rm;
 }
 
-arma::vec stars::Sensor::Quaternion() {
-    arma::mat rm = RotationMatrix();
+arma::vec stars::Sensor::quaternion() {
+    arma::mat rm = rotationMatrix();
     arma::vec q;
     q.set_size(4);
     q = rm2q(rm);

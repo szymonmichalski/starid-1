@@ -7,6 +7,7 @@
 namespace stars {
 
 struct Star {
+    Star();
     std::string iau_identifier;
     std::string star_name;
     std::string variablestar_name;
@@ -24,7 +25,6 @@ struct Star {
     double ra;
     double dec;
     arma::vec uv;
-    Star();
 };
 
 class Stars {
@@ -32,16 +32,17 @@ class Stars {
 public:
 
     std::vector<stars::Star> starsvec;
-    void init(std::string f_catalog, double mv, double fov);
+    void init(std::string fcatalog, double mv, double fov);
     std::vector<int> starsNearPoint(arma::vec& uv, const double radius);
     void status();
+    std::vector<std::string> catalogLines;
 
 private:
 
     double t;
     double mv;
     double fov;
-    std::string f_catalog;
+    std::string fcatalog;
     FloatIntTable xtable;
     FloatIntTable ytable;
     FloatIntTable ztable;

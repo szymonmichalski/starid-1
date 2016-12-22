@@ -7,7 +7,7 @@
 !*.py
 !*.txt
 !*.csv
-.gitignore
+!.gitignore
 
 # ...even if they are in subdirectories
 !*/
