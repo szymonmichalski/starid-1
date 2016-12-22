@@ -9,18 +9,18 @@ int main() {
     double mv             = 6.5;
     double fov            = 4.0 * arma::datum::pi / 180.0;
 
-    if (true) { // text file for star testset 1 (800, 1600, 2400, ... 8000)
+    if (0) { // catalog subset (800, 1600, 2400, ... 8000)
         stars::Stars stars;
         stars.init(fsky2000, mv, fov);
         std::ofstream fout(fref10);
         for (int label = 0; label < 10; ++label) {
             int starndx = 800 * (label + 1);
-            fout << stars.catalogLines[starndx];
+            fout << stars.catalogLines[starndx] << std::endl;
         }
         fout.close();
     }
 
-    if (false) { // generate star images in mnist format
+    if (1) { // generate star images in mnist format
         bool yaw              = true;
         int number_of_images  = 10000;
         std::string fimg1    = "/home/noah/dev/starid/data/mnist_format/mnist_imagesb.mnist";
@@ -32,18 +32,18 @@ int main() {
         arma::colvec labels = arma::zeros<arma::colvec>(number_of_images);
         mnist.ReadMnistI(fimg1, images);
         mnist.ReadMnistL(flab1, labels);
-        stars::Sensor sensor(fsky2000, mv, fov);
+        stars::Sensor sensor(fref10, mv, fov);
         for (int tenscnt = 0; tenscnt < number_of_images/10; ++tenscnt) {
             for (int label = 0; label < 10; ++label) {
-                int starndx = 800 * (label + 1);
+                int starndx = label;
                 arma::mat img = sensor.makeStarImage(starndx);
                 labels(10*tenscnt + label) = (double)label;
                 images[10*tenscnt + label] = img;
-                sensor.status();
+                //sensor.status();
             }
         }
-        mnist.WriteMnistI(fimg2, images, yaw);
-        mnist.WriteMnistL(flab2, labels);
+        //mnist.WriteMnistI(fimg2, images, yaw);
+        //mnist.WriteMnistL(flab2, labels);
     }
 
     return 0;
