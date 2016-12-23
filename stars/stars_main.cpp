@@ -27,7 +27,6 @@ int main() {
     }
 
     if (0) { // generate star images in mnist format
-        bool yaw              = true;
         int number_of_images  = 10000;
         std::string fimg1    = "/home/noah/dev/starid/data/mnist_format/mnist_imagesb.mnist";
         std::string flab1    = "/home/noah/dev/starid/data/mnist_format/mnist_labelsb.mnist";

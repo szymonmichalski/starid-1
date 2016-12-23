@@ -2,10 +2,10 @@
 
 triangles::TrianglesInStarImage::TrianglesInStarImage(stars::Sensor &sensor, double triangle_tol, uint max_triangles) :
     sensor(sensor),
-    num_stars(sensor.l1_uvec.n_rows),
-    cur_triangle(0),
     triangle_tol(triangle_tol),
-    max_triangles(max_triangles)
+    max_triangles(max_triangles),
+    num_stars(sensor.l1_uvec.n_rows),
+    cur_triangle(0)
 {
     pairsOverWholeSky.init(sensor);
 }

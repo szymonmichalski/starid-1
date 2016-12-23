@@ -17,8 +17,8 @@ public:
 
     std::vector<int> starsvec_ndxs; // starvec ndxs
 
-    double fov; // fov radius, radians
     double mv; // dimmest star
+    double fov; // fov radius, radians
     double noise; // pointing vector noise equivalent angle, arcseconds
 
     arma::mat l1_uvec;

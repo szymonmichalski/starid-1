@@ -8,7 +8,7 @@ void triangles::PairsOverWholeSky::init(stars::Sensor &sensor)
     while (currstar < maxcurrstar) {
 
         std::vector<int> neighbors = sensor.stars.starsNearPoint(sensor.stars.starsvec[currstar].uv, sensor.fov);
-        for (int i = 0; i < neighbors.size(); ++i) {
+        for (uint i = 0; i < neighbors.size(); ++i) {
             if (currstar == neighbors[i]) continue;
 
             std::string key = pairsKey(currstar, neighbors[i]);

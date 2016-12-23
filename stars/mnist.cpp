@@ -102,8 +102,6 @@ void stars::Mnist::ReadMnistL(std::string filename, arma::colvec &vec) {
     if (file.is_open()) {
         int magic_number = 0;
         int number_of_images = 0;
-        int n_rows = 0;
-        int n_cols = 0;
         file.read((char*) &magic_number, sizeof(magic_number));
         magic_number = ReverseInt(magic_number);
         file.read((char*) &number_of_images,sizeof(number_of_images));
