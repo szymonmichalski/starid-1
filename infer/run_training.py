@@ -4,13 +4,10 @@ import numpy as np
 import os
 import tensorflow as tf
 import infer
-
-# for tensorboard
-# noah@noah:~/dev/starid$ tensorboard --logdir=infer/train &
-
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('train_dir', '/home/noah/dev/starid/infer/train', 'event dir')
 tf.app.flags.DEFINE_integer('max_steps', 590, 'number of batches to run')
+# noah@noah:~/dev/starid$ tensorboard --logdir=infer/train &
 
 def train():
   with tf.Graph().as_default():
