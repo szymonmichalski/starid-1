@@ -3,20 +3,20 @@ import time
 import numpy as np
 import os
 import tensorflow as tf
-import infer
+import ops
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('train_dir', '/home/noah/dev/starid/infer/train', 'event dir')
 tf.app.flags.DEFINE_integer('max_steps', 590, 'number of batches to run')
-# noah@noah:~/dev/starid$ tensorboard --logdir=infer/train &
+# noah@noah:~/dev/starid$ tensorboard --logdir=ops/train &
 
 def train():
   with tf.Graph().as_default():
     global_step = tf.Variable(0, trainable=False)
 
-    images, labels = infer.inputs_train()
-    softmax = infer.inference(images)
-    loss = infer.loss(softmax, labels)
-    train_op = infer.train(loss)
+    images, labels = ops.inputs_train()
+    softmax = ops.inference(images)
+    loss = ops.loss(softmax, labels)
+    train_op = ops.train(loss)
     init_op = tf.initialize_all_variables()
     img_op = tf.image_summary('test', images, max_images=10)
 
