@@ -5,7 +5,7 @@ import os
 import tensorflow as tf
 import graph_nodes as gn
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('train_dir', '/home/noah/dev/starid/infer/train', 'event dir')
+tf.app.flags.DEFINE_string('train_dir', '/home/noah/dev/starid/learning/train', 'event dir')
 tf.app.flags.DEFINE_integer('max_steps', 590, 'number of batches to run')
 # noah@noah:~/dev/starid$ tensorboard --logdir=graphnodes/train &
 
