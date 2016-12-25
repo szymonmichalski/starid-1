@@ -1,4 +1,4 @@
-triangles - star pattern heuristics
+heuristics - star pattern heuristics
 
 learning - star pattern learning
 
