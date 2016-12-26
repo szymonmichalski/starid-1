@@ -7,6 +7,7 @@ def _int64_feature(value):
 
 def _bytes_feature(value):
   return tf.train.Feature(bytes_list=tf.train.BytesList(value=[value]))
+
 def _read32(bytestream):
   dt = numpy.dtype(numpy.uint32).newbyteorder('>')
   return numpy.frombuffer(bytestream.read(4), dtype=dt)[0]
@@ -19,7 +20,7 @@ def read_images(filename):
     num_images = _read32(bytestream)
     rows = _read32(bytestream)
     cols = _read32(bytestream)
-    buf = bytestream.read(rows * cols * num_images)
+    buf = bytestream.read() # read(rows * cols * num_images)
     data = numpy.frombuffer(buf, dtype=numpy.uint8)
     data = data.reshape(num_images, rows, cols, 1)
     return data
@@ -30,7 +31,7 @@ def read_labels(filename, one_hot=False, num_classes=10):
     if magic != 2049:
       raise ValueError('magic number error %s' % (magic, filename))
     num_items = _read32(bytestream)
-    buf = bytestream.read(num_items)
+    buf = bytestream.read() # read(num_items)
     labels = numpy.frombuffer(buf, dtype=numpy.uint8)
     if one_hot:
       return dense_to_one_hot(labels, num_classes)
@@ -72,8 +73,8 @@ def convert_to_tfrecords(images, labels, filename):
   writer.close()
 
 def main(argv):
-  images = read_images('/home/noah/dev/starid/data/mnist_format/starid_imagesb.mnist')
-  labels = read_labels('/home/noah/dev/starid/data/mnist_format/starid_labelsb.mnist')
+  images = read_images('/home/noah/dev/starid/data/mnist/starid_imagesb.mnist')
+  labels = read_labels('/home/noah/dev/starid/data/mnist/starid_labelsb.mnist')
   convert_to_tfrecords(images, labels, '/home/noah/dev/starid/data/staridb.tfrecords')
 
 if __name__ == '__main__':
