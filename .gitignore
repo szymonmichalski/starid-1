@@ -1,0 +1,16 @@
+# Ignore everything
+*
+
+# But not these files...
+!*.cpp
+!*.h
+!*.py
+!*.txt
+!*.tfrecords
+!*.mnist
+!.gitignore
+!*.pro
+!*.pdf
+
+# ...even if they are in subdirectories
+!*/

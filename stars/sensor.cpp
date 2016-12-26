@@ -46,7 +46,7 @@ void stars::Sensor::status() {
 stars::Sensor::Sensor(std::string fcatalog, double mv, double fov)
     : mv(mv), fov(fov)
 {
-    stars.init(fcatalog, mv, fov);
+    stars.init(fcatalog, mv);
     noise = 5.0;
     ra = 0.0 * arma::datum::pi / 180.0;
     dec = 0.0 * arma::datum::pi / 180.0;

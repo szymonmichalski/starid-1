@@ -1,102 +1,53 @@
 #include "sky.h"
+#include "skymap.h"
 #include <cassert>
 
-stars::Star::Star()
-    : iau_identifier(""),
-      star_name(""),
-      variablestar_name(""),
-      skymap_number(0),
-      hd_number(0),
-      sao_number(0),
-      dm_number(0),
-      hr_number(0),
-      wds_number(0),
-      ppm_number(0),
-      blended_position(false),
-      mv1(100.0),
-      ra_degrees(0.0),
-      dec_degrees(0.0),
-      ra(0.0),
-      dec(0.0),
-      uv()
-{}
-
-void stars::Sky::init(std::string f_catalog_, double mv_, double fov_) {
+void stars::Sky::init(std::string fcatin, double mvin) {
     arma::arma_rng::set_seed_random();
-    fcatalog = f_catalog_;
-    mv = mv_;
-    fov = fov_;
+    fcatalog = fcatin;
+    mv = mvin;
     t = 0.0;
+    Star star;
 
-    std::ifstream catfile (fcatalog);
+    data::SkymapCatalog skymapCatalog(fcatalog, mv);
     int starndx {0};
-    int dim_stars {0};
-    int error_stars {0};
-    if (catfile.is_open()) {
-        std::string line;
-        while (std::getline(catfile, line)) {
-            try {
-                Star star;
-                try {star.mv1 = std::stof(line.substr(232,6));} catch(...){}
-                if (star.mv1 > mv) {
-                    ++dim_stars;
-                    continue;
-                }
-                star.iau_identifier = line.substr(0,27);
-                try {star.star_name = line.substr(98,10);} catch(...){}
-                try {star.variablestar_name = line.substr(108,10);} catch(...){}
-                star.skymap_number = std::stoi(line.substr(27,8));
-                try {star.hd_number = std::stoi(line.substr(35,8));} catch(...){}
-                try {star.sao_number = std::stoi(line.substr(43,7));} catch(...){}
-                try {star.dm_number = std::stoi(line.substr(50,13));} catch(...){}
-                try {star.hr_number = std::stoi(line.substr(63,4));} catch(...){}
-                try {star.wds_number = std::stoi(line.substr(67,6));} catch(...){}
-                try {star.ppm_number = std::stoi(line.substr(83,7));} catch(...){}
-                try {star.blended_position = std::stoi(line.substr(146,1));} catch(...){}
-                double rah = std::stof(line.substr(118,2));
-                double ram = std::stof(line.substr(120,2));
-                double ras = std::stof(line.substr(122,7));
-                double decd = std::stof(line.substr(130,2));
-                double decm = std::stof(line.substr(132,2));
-                double decs = std::stof(line.substr(134,6));
-                double pmra_arcsec_per_year = 15.0 * std::stof(line.substr(149,8));
-                double pmdec_arcsec_per_year = std::stof(line.substr(158,7));
-                double decsign = 1.0;
-                double pmdecsign = 1.0;
-                if (line.substr(129,1) == "-") decsign = -1.0;
-                if (line.substr(157,1) == "-") pmdecsign = -1.0;
-                star.ra_degrees = 15.0 * (rah + ram/60.0 + ras/3600.0);
-                star.dec_degrees = decsign * (decd + decm/60.0 + decs/3600.0);
-                star.ra_degrees += (t * pmra_arcsec_per_year) / 3600.0;
-                star.dec_degrees += (t * pmdecsign * pmdec_arcsec_per_year) / 3600.0;
-                assert (star.ra_degrees >= 0.0 && star.ra_degrees <= 360.0);
-                assert (star.dec_degrees >= -90.0 && star.dec_degrees <= 90.0);
+    for (auto r : skymapCatalog.skymapRecords) {
+        star.iau_identifier = r.iau_identifier;
+        star.star_name = r.star_name;
+        star.variablestar_name = r.variablestar_name;
+        star.skymap_number = r.skymap_number;
+        star.hd_number = r.hd_number;
+        star.sao_number = r.sao_number;
+        star.dm_number = r.dm_number;
+        star.hr_number = r.hr_number;
+        star.wds_number = r.wds_number;
+        star.ppm_number = r.ppm_number;
+        star.blended_position = r.blended_position;
 
-                double ra = star.ra_degrees * arma::datum::pi / 180.0;
-                double dec = star.dec_degrees * arma::datum::pi / 180.0;
-                star.ra = ra;
-                star.dec = dec;
-                star.uv.set_size(3);
-                star.uv(0) = cos(ra)*cos(dec);
-                star.uv(1) = sin(ra)*cos(dec);
-                star.uv(2) = sin(dec);
-                star.uv = normalise(star.uv);
-                assert(norm(star.uv) - 1.0 < 1e-10);
+        star.ra_degrees = 15.0 * (r.rah + r.ram/60.0 + r.ras/3600.0);
+        star.dec_degrees = r.decsign * (r.decd + r.decm/60.0 + r.decs/3600.0);
+        star.ra_degrees += (t * r.pmra_arcsec_per_year) / 3600.0;
+        star.dec_degrees += (t * r.pmdecsign * r.pmdec_arcsec_per_year) / 3600.0;
+        assert (star.ra_degrees >= 0.0 && star.ra_degrees <= 360.0);
+        assert (star.dec_degrees >= -90.0 && star.dec_degrees <= 90.0);
 
-                xtable.addPair(star.uv(0), starndx);
-                ytable.addPair(star.uv(1), starndx);
-                ztable.addPair(star.uv(2), starndx);
-                starsvec.push_back(star);
-                catalogLines.push_back(line);
-                ++starndx;
-            } catch (...) {
-                ++error_stars;
-            }
-        }
-        catfile.close();
-        std::cout << "stars " << starndx << " dim stars " << dim_stars << " error_stars " << error_stars << "\n";
-    } else {
-        std::cout << "catalog file not found" << "\n";
+        double ra = star.ra_degrees * arma::datum::pi / 180.0;
+        double dec = star.dec_degrees * arma::datum::pi / 180.0;
+        star.ra = ra;
+        star.dec = dec;
+        star.uv.set_size(3);
+        star.uv(0) = cos(ra)*cos(dec);
+        star.uv(1) = sin(ra)*cos(dec);
+        star.uv(2) = sin(dec);
+        star.uv = normalise(star.uv);
+        assert(norm(star.uv) - 1.0 < 1e-10);
+
+        xtable.addPair(star.uv(0), starndx);
+        ytable.addPair(star.uv(1), starndx);
+        ztable.addPair(star.uv(2), starndx);
+        starsvec.push_back(star);
+        catalogLines.push_back(r.fileLine);
+        ++starndx;
     }
     xtable.sort();
     ytable.sort();

@@ -12,7 +12,7 @@ int main() {
 
     if (1) { // catalog subset (800, 1600, 2400, ... 8000)
         stars::Sky stars;
-        stars.init(fsky2000, mv, fov);
+        stars.init(fsky2000, mv);
         std::ofstream fout1(f10stars);
         for (int label = 0; label < 10; ++label) {
             int starndx = 800 * (label + 1);
