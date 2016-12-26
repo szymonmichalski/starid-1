@@ -3,7 +3,7 @@
 
 #include <armadillo>
 
-namespace stars {
+namespace util {
 
 class FloatIntTable {
 

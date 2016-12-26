@@ -1,7 +1,7 @@
 #ifndef SENSOR_H
 #define SENSOR_H
 
-#include "stars.h"
+#include "sky.h"
 #include <armadillo>
 
 namespace stars {
@@ -11,7 +11,7 @@ public:
 
     Sensor(std::string fcatalog, double mv, double fov);
 
-    stars::Stars stars;
+    stars::Sky stars;
 
     arma::mat makeStarImage(uint starndx);
 
@@ -29,7 +29,6 @@ public:
     void status();
 
 private:
-
 
     double ra, dec, yaw;
     arma::vec pointing; // pointing vec

@@ -1,17 +1,17 @@
 #include <float_int_table.h>
 
-void stars::FloatIntTable::addPair(double newFloat, int newInt)
+void util::FloatIntTable::addPair(double newFloat, int newInt)
 {
     std::pair<double,int> pair {newFloat, newInt};
     floatIntTable.push_back(pair);
 }
 
-void stars::FloatIntTable::sort()
+void util::FloatIntTable::sort()
 {
     std::sort(floatIntTable.begin(), floatIntTable.end());
 }
 
-std::vector<int> stars::FloatIntTable::findInts(double lowerFloat, double upperFloat)
+std::vector<int> util::FloatIntTable::findInts(double lowerFloat, double upperFloat)
 {
     std::vector<int> intsFromTable;
     auto itlow = std::lower_bound(floatIntTable.begin(), floatIntTable.end(),

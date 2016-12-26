@@ -27,7 +27,7 @@ struct Star {
     arma::vec uv;
 };
 
-class Stars {
+class Sky {
 
 public:
 
@@ -43,10 +43,10 @@ private:
     double mv;
     double fov;
     std::string fcatalog;
-    FloatIntTable xtable;
-    FloatIntTable ytable;
-    FloatIntTable ztable;
-    std::vector<int> starsInRing(double p, double radius, FloatIntTable& table);
+    util::FloatIntTable xtable;
+    util::FloatIntTable ytable;
+    util::FloatIntTable ztable;
+    std::vector<int> starsInRing(double p, double radius, util::FloatIntTable& table);
 
 };
 

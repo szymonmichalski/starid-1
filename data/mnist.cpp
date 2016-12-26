@@ -1,6 +1,6 @@
 #include "mnist.h"
 
-void stars::Mnist::Yaw(arma::mat &img, double a) {
+void data::Mnist::Yaw(arma::mat &img, double a) {
     using namespace arma;
     mat rm = { {cos(a), -sin(a)}, {sin(a), cos(a)} };
     uvec ndxs = find(img); // pixel values are 0.0 to 255.0, find gives non empty, >0.0, pixels
@@ -20,7 +20,7 @@ void stars::Mnist::Yaw(arma::mat &img, double a) {
     }
 }
 
-void stars::Mnist::WriteMnistI(std::string filename, std::vector<arma::mat> &vec, bool yaw) {
+void data::Mnist::WriteMnistI(std::string filename, std::vector<arma::mat> &vec, bool yaw) {
     std::ofstream file (filename, std::ios::binary);
     int rev_magic_number = ReverseInt(magic_numberi);
     int rev_imgcnt = ReverseInt(imgcnt);
@@ -49,7 +49,7 @@ void stars::Mnist::WriteMnistI(std::string filename, std::vector<arma::mat> &vec
     }
 }
 
-void stars::Mnist::WriteMnistL(std::string filename, arma::colvec &vec) {
+void data::Mnist::WriteMnistL(std::string filename, arma::colvec &vec) {
     std::ofstream file (filename, std::ios::binary);
     int rev_magic_number = ReverseInt(magic_numberl);
     int rev_imgcnt = ReverseInt(imgcnt);
@@ -63,7 +63,7 @@ void stars::Mnist::WriteMnistL(std::string filename, arma::colvec &vec) {
     }
 }
 
-void stars::Mnist::ReadMnistI(std::string filename, std::vector<arma::mat> &vec) {
+void data::Mnist::ReadMnistI(std::string filename, std::vector<arma::mat> &vec) {
     std::ifstream file (filename, std::ios::binary);
     if (file.is_open())
     {
@@ -97,7 +97,7 @@ void stars::Mnist::ReadMnistI(std::string filename, std::vector<arma::mat> &vec)
     }
 }
 
-void stars::Mnist::ReadMnistL(std::string filename, arma::colvec &vec) {
+void data::Mnist::ReadMnistL(std::string filename, arma::colvec &vec) {
     std::ifstream file (filename, std::ios::binary);
     if (file.is_open()) {
         int magic_number = 0;
@@ -115,7 +115,7 @@ void stars::Mnist::ReadMnistL(std::string filename, arma::colvec &vec) {
     }
 }
 
-int stars::Mnist::ReverseInt (int i)
+int data::Mnist::ReverseInt (int i)
 {
     unsigned char ch1, ch2, ch3, ch4;
     ch1 = i & 255;

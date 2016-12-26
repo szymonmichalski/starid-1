@@ -18,7 +18,7 @@ public:
 
 private:
 
-    stars::FloatIntTable angletable; // angle, starpairs ndx
+    util::FloatIntTable angletable; // angle, starpairs ndx
     std::vector<std::tuple<double, int, int>> starpairs; // angle, catndx1, catndx2
     std::unordered_map<std::string, int> starpairs_map; // starpairkey, starpairsndx
     std::string pairsKey(int catndx1, int catndx2); // hash key
