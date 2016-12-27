@@ -51,9 +51,6 @@ def convert_to_tfrecords(images, labels, filename):
   rows = images.shape[1]
   cols = images.shape[2]
   depth = images.shape[3]
-
-  ##############################################################
-  # output example to file
   writer = tf.python_io.TFRecordWriter(filename)
   for index in range(num_examples):
     image_raw = images[index].tostring()
@@ -68,14 +65,12 @@ def convert_to_tfrecords(images, labels, filename):
     )
     record = example.SerializeToString()
     writer.write(record)
-  ##############################################################
-
   writer.close()
 
 def main(argv):
-  images = read_images('/home/noah/dev/starid/data/mnist/starid_imagesb.mnist')
-  labels = read_labels('/home/noah/dev/starid/data/mnist/starid_labelsb.mnist')
-  convert_to_tfrecords(images, labels, '/home/noah/dev/starid/data/staridb.tfrecords')
+  images = read_images('/home/noah/dev/starid/data/images_b1.mnist')
+  labels = read_labels('/home/noah/dev/starid/data/images_b2.mnist')
+  convert_to_tfrecords(images, labels, '/home/noah/dev/tmp/images_b.tfrecords')
 
 if __name__ == '__main__':
   tf.app.run()

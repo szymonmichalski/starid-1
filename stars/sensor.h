@@ -33,16 +33,6 @@ private:
     double ra, dec, yaw;
     arma::vec pointing; // pointing vec
 
-    arma::mat rotationMatrix();
-    arma::vec quaternion();
-    arma::vec qmult(arma::vec& q1, arma::vec& q2);
-    arma::vec qconj(arma::vec& q);
-    arma::vec rv2q(arma::vec& rv);
-    arma::vec q2rv(arma::vec& q);
-    arma::vec qdif2rv(arma::vec& q1, arma::vec& q2);
-    arma::mat q2rm(arma::vec& q);
-    arma::vec rm2q(arma::mat& rm);
-    double sgn(double x);
 };
 
 }

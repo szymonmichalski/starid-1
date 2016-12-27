@@ -1,6 +1,6 @@
 import os
 import tensorflow as tf
-import tfrecords as tfr
+import tfrecords as tr
 
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('data_dir', '/home/noah/dev/starid/data', 'data dir')
@@ -9,19 +9,19 @@ tf.app.flags.DEFINE_string('eval_data', 'staridb.tfrecords', 'eval data')
 tf.app.flags.DEFINE_integer('batch_size', 100, 'batch size')
 TOWER_NAME = 'tower'
 
-IMAGE_SIZE = tfr.IMAGE_SIZE
-NUM_CLASSES = tfr.NUM_CLASSES
-NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = tfr.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
-NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = tfr.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
+IMAGE_SIZE = tr.IMAGE_SIZE
+NUM_CLASSES = tr.NUM_CLASSES
+NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = tr.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
+NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = tr.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
 MOVING_AVERAGE_DECAY = 0.9999
 
 def inputs_train():
   filename = os.path.join(FLAGS.data_dir, FLAGS.train_data)
-  return tfr.inputs(filename, batch_size=FLAGS.batch_size)
+  return tr.inputs(filename, batch_size=FLAGS.batch_size)
 
 def inputs_eval():
   filename = os.path.join(FLAGS.data_dir, FLAGS.eval_data)
-  return tfr.inputs(filename, batch_size=FLAGS.batch_size)
+  return tr.inputs(filename, batch_size=FLAGS.batch_size)
 
 def variable_summaries(var, name):
   with tf.name_scope('summaries'):
