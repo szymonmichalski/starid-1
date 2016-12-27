@@ -3,13 +3,13 @@ import math
 import time
 import numpy as np
 import tensorflow as tf
+import graph_nodes as gn
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('eval_dir', '/tmp/cifar10_eval', """Directory where to write event logs.""")
-tf.app.flags.DEFINE_string('eval_data', 'test', """Either 'test' or 'train_eval'.""")
-tf.app.flags.DEFINE_string('checkpoint_dir', '/tmp/cifar10_train', """Directory where to read model checkpoints.""")
-tf.app.flags.DEFINE_integer('eval_interval_secs', 60 * 5, """How often to run the eval.""")
-tf.app.flags.DEFINE_integer('num_examples', 10000, """Number of examples to run.""")
-tf.app.flags.DEFINE_boolean('run_once', False, """Whether to run eval only once.""")
+tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/dev/train', 'model dir')
+tf.app.flags.DEFINE_string('eval_dir', '/home/noah/dev/eval', 'eval dir')
+tf.app.flags.DEFINE_integer('eval_interval_secs', 60 * 5, '')
+tf.app.flags.DEFINE_integer('num_examples', 10000, '')
+tf.app.flags.DEFINE_boolean('run_once', True, '')
 
 def eval_once(saver, summary_writer, top_k_op, summary_op):
   with tf.Session() as sess:
@@ -38,7 +38,7 @@ def eval_once(saver, summary_writer, top_k_op, summary_op):
       summary = tf.Summary()
       summary.ParseFromString(sess.run(summary_op))
       summary.value.add(tag='Precision @ 1', simple_value=precision)
-      summary_writer.add_summary(summary, global_step)
+      # summary_writer.add_summary(summary, global_step)
     except Exception as e:  # pylint: disable=broad-except
       coord.request_stop(e)
     coord.request_stop()
@@ -47,15 +47,14 @@ def eval_once(saver, summary_writer, top_k_op, summary_op):
 def evaluate():
   with tf.Graph().as_default() as g:
     eval_data = FLAGS.eval_data == 'test'
-    images, labels = cifar10.inputs(eval_data=eval_data)
-    logits = cifar10.inference(images)
+    images, labels = gn.inputs_eval()
+    logits = gn.inference(images)
     top_k_op = tf.nn.in_top_k(logits, labels, 1)
-    variable_averages = tf.train.ExponentialMovingAverage(
-        cifar10.MOVING_AVERAGE_DECAY)
-    variables_to_restore = variable_averages.variables_to_restore()
-    saver = tf.train.Saver(variables_to_restore)
-    summary_op = tf.merge_all_summaries()
-    summary_writer = tf.train.SummaryWriter(FLAGS.eval_dir, g)
+    # variable_averages = tf.train.ExponentialMovingAverage(gn.MOVING_AVERAGE_DECAY)
+    # variables_to_restore = variable_averages.variables_to_restore()
+    saver = tf.train.Saver()
+    summary_op = tf.summary.merge_all()
+    summary_writer = tf.summary.FileWriter(FLAGS.eval_dir, g)
     while True:
       eval_once(saver, summary_writer, top_k_op, summary_op)
       if FLAGS.run_once:
@@ -63,7 +62,6 @@ def evaluate():
       time.sleep(FLAGS.eval_interval_secs)
 
 def main(argv=None):  # pylint: disable=unused-argument
-  cifar10.maybe_download_and_extract()
   if tf.gfile.Exists(FLAGS.eval_dir):
     tf.gfile.DeleteRecursively(FLAGS.eval_dir)
   tf.gfile.MakeDirs(FLAGS.eval_dir)

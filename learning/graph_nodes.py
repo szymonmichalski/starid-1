@@ -3,7 +3,7 @@ import tensorflow as tf
 import tfrecords as tfr
 
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('data_dir', '/home/noah/dev/starid/data/tfrecords', 'data dir')
+tf.app.flags.DEFINE_string('data_dir', '/home/noah/dev/starid/data', 'data dir')
 tf.app.flags.DEFINE_string('train_data', 'starida.tfrecords', 'train data')
 tf.app.flags.DEFINE_string('eval_data', 'staridb.tfrecords', 'eval data')
 tf.app.flags.DEFINE_integer('batch_size', 100, 'batch size')
@@ -13,6 +13,7 @@ IMAGE_SIZE = tfr.IMAGE_SIZE
 NUM_CLASSES = tfr.NUM_CLASSES
 NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = tfr.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
 NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = tfr.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
+MOVING_AVERAGE_DECAY = 0.9999
 
 def inputs_train():
   filename = os.path.join(FLAGS.data_dir, FLAGS.train_data)
@@ -25,13 +26,13 @@ def inputs_eval():
 def variable_summaries(var, name):
   with tf.name_scope('summaries'):
     mean = tf.reduce_mean(var)
-    tf.scalar_summary('mean/' + name, mean)
+    tf.summary.scalar('mean/' + name, mean)
     with tf.name_scope('stddev'):
       stddev = tf.sqrt(tf.reduce_sum(tf.square(var - mean)))
-    tf.scalar_summary('sttdev/' + name, stddev)
-    tf.scalar_summary('max/' + name, tf.reduce_max(var))
-    tf.scalar_summary('min/' + name, tf.reduce_min(var))
-    tf.histogram_summary(name, var)
+    tf.summary.scalar('sttdev/' + name, stddev)
+    tf.summary.scalar('max/' + name, tf.reduce_max(var))
+    tf.summary.scalar('min/' + name, tf.reduce_min(var))
+    tf.summary.histogram(name, var)
 
 def weight_variable(shape):
   initial = tf.truncated_normal(shape, stddev=0.1)
