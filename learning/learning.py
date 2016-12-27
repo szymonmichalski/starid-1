@@ -12,28 +12,18 @@ starndxs = 800 * (labels + 1)
 # print (np.array_str(images[0,:,:,0], max_line_width=500))
 # print (np.array_str(starndxs[0:25], max_line_width=500))
 
-label = labels[0]
-image = images[0,:,:,0]
-# image.set_shape([28*28])
-# image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
-class Example(object):
-  pass
-example = Example()
-example.height = tf.cast(28, tf.int32)
-example.width = tf.cast(28, tf.int32)
-example.depth = tf.cast(1, tf.int32)
-example.label = tf.cast(label, tf.int32)
-example.image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
-images, labels = tr.get_batch(example, min_queue_examples=1, batch_size=1, shuffle=False)
+imgndx = 2
+label = labels[imgndx]
+image = images[imgndx,:,:,0]
+image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
+image = tf.reshape(image, [28, 28, 1])
 
-softmax = gn.inference(images)
-top_k_op = tf.nn.in_top_k(softmax, labels, 1)
+softmax = gn.inference(image)
 saver = tf.train.Saver()
+
 with tf.Session() as sess:
   ckpt = tf.train.get_checkpoint_state(FLAGS.checkpoint_dir)
   saver.restore(sess, ckpt.model_checkpoint_path)
-  coord = tf.train.Coordinator()
-  predictions = sess.run([top_k_op])
-  print(np.sum(predictions))
-  coord.request_stop()
+  softmaxval = sess.run(softmax)
+  print(softmaxval)
 
