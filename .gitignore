@@ -11,6 +11,7 @@
 !.gitignore
 !*.pro
 !*.pdf
+!learning-based
 
 # ...even if they are in subdirectories
 !*/
