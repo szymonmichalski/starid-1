@@ -23,6 +23,7 @@ HEADERS += \
     ../stars/sky.h \
     ../util/float_int_table.h \
     ../data/skymap.h \
+    ../util/optionparser.h \
 
 INCLUDEPATH += \
     ../stars \
