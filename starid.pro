@@ -7,7 +7,4 @@ CONFIG -= warn_off
 
 SUBDIRS += \
     stars \
-    heuristics \
-
-INCLUDEPATH += /usr/include/armadillo_bits
-LIBS += -L"/usr/lib" -larmadillo
+    rules-based \
