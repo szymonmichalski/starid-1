@@ -71,6 +71,10 @@ def main(argv):
   images = read_images('/home/noah/dev/starid/data/images_b1.mnist')
   labels = read_labels('/home/noah/dev/starid/data/images_b2.mnist')
   convert_to_tfrecords(images, labels, '/home/noah/dev/tmp/images_b.tfrecords')
+  # imgndx = 0
+  # print (np.array_str(images[imgndx,:,:,0], max_line_width=500))
+  # starndxs = 800 * (labels + 1)
+  # print (np.array_str(starndxs[0:25], max_line_width=500))
 
 if __name__ == '__main__':
   tf.app.run()
