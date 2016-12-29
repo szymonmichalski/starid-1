@@ -6,9 +6,9 @@
 enum  optionIndex { UNKNOWN, HELP, STARNDX };
 const option::Descriptor usage[] =
 {
-    {UNKNOWN, 0, "", "",option::Arg::None, "usage: example [options]\noptions:" },
-    {HELP, 0, "", "help",option::Arg::None, "  --help  \tprint usage and exit." },
-    {STARNDX, 0, "s", "",option::Arg::Optional, "  -s[xxxx]  \tstarndx." },
+    {UNKNOWN, 0, "", "", option::Arg::None, "usage: example [options]\noptions:" },
+    {HELP, 0, "h", "help", option::Arg::None, "  -h, --help  \tprint usage and exit." },
+    {STARNDX, 0, "s", "starndx", option::Arg::Optional, "  -s, --starndx  \tstarndx." },
     {0,0,0,0,0,0} // end of options
 };
 
@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
 
     triangles::TrianglesInStarImage triangles(sensor, triangles_tol, triangles_max);
     int starndxIdentified = triangles.identifyCentralStarInImage();
-    std::cout << "identified starndx " << starndxIdentified << std::endl;
+    std::cout << starndxIdentified << std::endl;
 
     return 0;
 }

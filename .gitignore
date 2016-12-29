@@ -11,7 +11,7 @@
 !.gitignore
 !*.pro
 !*.pdf
-!learning-based
+!lb.py
 
 # ...even if they are in subdirectories
 !*/

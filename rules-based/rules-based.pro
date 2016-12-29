@@ -5,7 +5,7 @@ CONFIG -= qt
 CONFIG += c++14
 CONFIG += warn_off
 
-TARGET = rules-based
+TARGET = rb
 
 SOURCES += \
     rules-based.cpp \

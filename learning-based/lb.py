@@ -2,18 +2,14 @@ from optparse import OptionParser
 from data import mnist
 import tensorflow as tf
 import graph_nodes as gn
+import numpy as np
 
-def main():
-  usage = "usage: %prog [options] arg"
-  parser = OptionParser(usage)
-  parser.add_option('-s', '--starndx', dest='starndx', help='')
-  (options, args) = parser.parse_args()
-
+def identifyCentralStarInImage(starndx=0):
+  imgndx = int(starndx / 800) - 1
   FLAGS = tf.app.flags.FLAGS
   tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/dev/train', 'model dir')
   images = mnist.read_images('/home/noah/dev/starid/data/images_b1.mnist')
   labels = mnist.read_labels('/home/noah/dev/starid/data/images_b2.mnist')
-  imgndx = int(int(options.starndx) / 800) - 1
   label = labels[imgndx] # label value in file is (starndx/800)-1, for starndxs 800, 1600, ... 8000
   image = images[imgndx,:,:,0]
   image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
@@ -24,7 +20,14 @@ def main():
   with tf.Session() as sess:
     saver.restore(sess, ckpt.model_checkpoint_path)
     softmaxval = sess.run(softmax)
-    print(softmaxval)
+  ndx = np.argmax(softmaxval)
+  return 800*(ndx+1)
+
+def main():
+  usage = "usage: %prog [options] arg"
+  parser = OptionParser(usage)
+  parser.add_option('-s', '--starndx', dest='starndx', help='')
+  (options, args) = parser.parse_args()
 
 if __name__ == "__main__":
   main()
