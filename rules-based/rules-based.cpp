@@ -28,16 +28,18 @@ int main(int argc, char* argv[])
     std::string fcatalog    = "/home/noah/dev/starid/data/skymap_8876.txt";
     double mv               = 6.5; // sensor upper limit for visual magnitude
     double fov              = 4.0 * arma::datum::pi / 180.0; // sensor field of view
-    double triangles_tol    = 60 * arma::datum::pi / 648e3; // tolerance for triangle variations
-    int triangles_max       = 1e3; // upper limit for number of triangles
-    int starndx             = 0;
-    if (options[STARNDX]) starndx = atoi(options[STARNDX].arg);
+    double triangles_tol    = 100 * arma::datum::pi / 648e3; // tolerance for triangle variations
+    int triangles_max       = 100; // upper limit for number of triangles
+    int starndxTrue         = 0;
+    if (options[STARNDX]) starndxTrue = atoi(options[STARNDX].arg);
 
     stars::Sensor sensor(fcatalog, mv, fov);
-    sensor.makeStarImage(starndx);
+    sensor.makeStarImage(starndxTrue);
 
     triangles::TrianglesInStarImage triangles(sensor, triangles_tol, triangles_max);
-    triangles.recognizeTriangleInStarImage();
+    int starndxIdentified = triangles.identifyCentralStarInImage();
+    std::cout << "identified starndx " << starndxIdentified << std::endl;
+
     return 0;
 }
 

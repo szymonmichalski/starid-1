@@ -21,7 +21,7 @@ class TrianglesInStarImage
 public:
 
     TrianglesInStarImage(stars::Sensor &sensor, double triangle_tol, uint max_triangles);
-    void recognizeTriangleInStarImage();
+    int identifyCentralStarInImage();
 
 private:
 
