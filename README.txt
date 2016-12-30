@@ -2,4 +2,6 @@ rules-based - star pattern heuristics
 
 learning-based - star pattern learning
 
-r2016a notes http://staridentification.blogspot.com/2016/07/stariddata-v1-available.html
+related files https://drive.google.com/open?id=0B50jA_ROMYdHS3pOVExwOHk0OXM 
+
+notes https://staridentification.blogspot.de/ 
