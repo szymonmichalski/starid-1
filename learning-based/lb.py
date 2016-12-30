@@ -1,7 +1,7 @@
 from optparse import OptionParser
 from data import mnist
 import tensorflow as tf
-import graph_nodes as gn
+import graph as gn
 import numpy as np
 
 def identifyCentralStarInImage(starndx=0):

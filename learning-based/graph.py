@@ -4,8 +4,8 @@ import tfrecords as tr
 
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('data_dir', '/home/noah/dev/starid/data', 'data dir')
-tf.app.flags.DEFINE_string('train_data', 'starida.tfrecords', 'train data')
-tf.app.flags.DEFINE_string('eval_data', 'staridb.tfrecords', 'eval data')
+tf.app.flags.DEFINE_string('learn_data', 'images_a.tfrecords', '')
+tf.app.flags.DEFINE_string('predict_data', 'images_b.tfrecords', '')
 tf.app.flags.DEFINE_integer('batch_size', 100, 'batch size')
 TOWER_NAME = 'tower'
 
@@ -15,12 +15,12 @@ NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = tr.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
 NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = tr.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
 MOVING_AVERAGE_DECAY = 0.9999
 
-def inputs_train():
-  filename = os.path.join(FLAGS.data_dir, FLAGS.train_data)
+def inputs_learn():
+  filename = os.path.join(FLAGS.data_dir, FLAGS.learn_data)
   return tr.inputs(filename, batch_size=FLAGS.batch_size)
 
-def inputs_eval():
-  filename = os.path.join(FLAGS.data_dir, FLAGS.eval_data)
+def inputs_predict():
+  filename = os.path.join(FLAGS.data_dir, FLAGS.predict_data)
   return tr.inputs(filename, batch_size=FLAGS.batch_size)
 
 def variable_summaries(var, name):
@@ -85,16 +85,16 @@ def inference(images):
     softmax = tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2) + b_fc2)
   return softmax
 
-def loss(softmax, labels):
+def cost(softmax, labels):
   labels = tf.to_int64(labels)
   cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(softmax, labels)
-  with tf.name_scope('loss'):
-     loss = tf.reduce_mean(cross_entropy)
-     variable_summaries(loss, 'loss')
-  return loss
+  with tf.name_scope('cost'):
+     cost = tf.reduce_mean(cross_entropy)
+     variable_summaries(cost, 'cost')
+  return cost
 
-def train(loss):
+def learning(cost):
   with tf.name_scope('trainstep'):
-    trainstep = tf.train.AdamOptimizer(1e-4).minimize(loss)
+    learnstep = tf.train.AdamOptimizer(1e-4).minimize(cost)
     #variable_summaries(trainstep, 'trainstep')
-  return trainstep
+  return learnstep

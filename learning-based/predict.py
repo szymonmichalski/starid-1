@@ -3,7 +3,7 @@ import math
 import time
 import numpy as np
 import tensorflow as tf
-import graph_nodes as gn
+import graph as gn
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/dev/train', 'model dir')
 tf.app.flags.DEFINE_string('eval_dir', '/home/noah/dev/eval', 'eval dir')
@@ -47,7 +47,7 @@ def eval_once(saver, summary_writer, top_k_op, summary_op):
 def evaluate():
   with tf.Graph().as_default() as g:
     eval_data = FLAGS.eval_data == 'test'
-    images, labels = gn.inputs_eval()
+    images, labels = gn.inputs_predict()
     logits = gn.inference(images)
     top_k_op = tf.nn.in_top_k(logits, labels, 1)
     # variable_averages = tf.train.ExponentialMovingAverage(gn.MOVING_AVERAGE_DECAY)
