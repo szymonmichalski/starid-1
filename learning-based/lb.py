@@ -7,7 +7,7 @@ import numpy as np
 def identifyCentralStarInImage(starndx=0):
   imgndx = int(starndx / 800) - 1
   FLAGS = tf.app.flags.FLAGS
-  tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/dev/starid/checkpoint', '')
+  tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/dev/starid/models', '')
   images = mnist.read_images('/home/noah/dev/starid/data/images_b1.mnist')
   image = images[imgndx,:,:,0]
   image = tf.cast(image, tf.float32) * (1. / 255) - 0.5

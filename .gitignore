@@ -12,6 +12,9 @@
 !*.pro
 !*.pdf
 !lb.py
+!*ckpt*
+!*tfevents*
+!*checkpoint*
 
 # ...even if they are in subdirectories
 !*/

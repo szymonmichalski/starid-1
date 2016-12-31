@@ -5,7 +5,7 @@ import tensorflow as tf
 import tfrecords as tr
 import graph as gn
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/dev/starid/checkpoint', '')
+tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/dev/starid/models', '')
 tf.app.flags.DEFINE_string('examples', '/home/noah/dev/starid/data/images_b.tfrecords', '')
 tf.app.flags.DEFINE_string('num_examples', 10000, '')
 tf.app.flags.DEFINE_string('batch_size', 100, '')

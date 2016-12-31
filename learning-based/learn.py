@@ -4,8 +4,8 @@ import tensorflow as tf
 import tfrecords as tr
 import graph as gn
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/dev/starid/checkpoint', '')
-tf.app.flags.DEFINE_string('ckpt', '/home/noah/dev/starid/checkpoint/model.ckpt', '')
+tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/dev/starid/models', '')
+tf.app.flags.DEFINE_string('ckpt', '/home/noah/dev/starid/model/model.ckpt', '')
 tf.app.flags.DEFINE_string('examples', '/home/noah/dev/starid/data/images_a.tfrecords', '')
 tf.app.flags.DEFINE_string('num_examples', 60000, '')
 tf.app.flags.DEFINE_integer('batch_size', 100, '')
