@@ -11,7 +11,7 @@ tf.app.flags.DEFINE_string('num_examples', 60000, '')
 tf.app.flags.DEFINE_integer('batch_size', 100, '')
 tf.app.flags.DEFINE_integer('max_steps', 599, '')
 
-# noah@noah:~/dev/starid$ tensorboard --logdir=graphnodes/train &
+# noah@noah:~/dev/starid$ tensorboard --logdir=checkpoint &
 def learn():
 
   images, labels = tr.inputs(FLAGS)
