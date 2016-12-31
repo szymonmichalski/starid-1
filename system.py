@@ -1,7 +1,7 @@
 import subprocess
 import lb
 
-starndx = 1600
+starndx = 800
 starndx1 = lb.identifyCentralStarInImage(starndx)
 starndx2 = int(subprocess.check_output([ '/home/noah/dev/starid/rules-based/rb', '-s%d' % starndx ]))
 

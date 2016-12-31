@@ -3,9 +3,8 @@ import tensorflow as tf
 def variable_summaries(var, name):
   with tf.name_scope('summaries'):
     mean = tf.reduce_mean(var)
+    stddev = tf.sqrt(tf.reduce_sum(tf.square(var - mean)))
     tf.summary.scalar('mean/' + name, mean)
-    with tf.name_scope('stddev'):
-      stddev = tf.sqrt(tf.reduce_sum(tf.square(var - mean)))
     tf.summary.scalar('sttdev/' + name, stddev)
     tf.summary.scalar('max/' + name, tf.reduce_max(var))
     tf.summary.scalar('min/' + name, tf.reduce_min(var))
@@ -62,15 +61,3 @@ def inference(images):
     softmax = tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2) + b_fc2)
   return softmax
 
-def cost(softmax, labels):
-  labels = tf.to_int64(labels)
-  cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(softmax, labels)
-  with tf.name_scope('cost'):
-     cost = tf.reduce_mean(cross_entropy)
-     variable_summaries(cost, 'cost')
-  return cost
-
-# def learning(cost):
-#   with tf.name_scope('learn'):
-#     learnstep = tf.train.AdamOptimizer(1e-4).minimize(cost)
-#   return learnstep

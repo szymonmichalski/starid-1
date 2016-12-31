@@ -1,4 +1,3 @@
-import os
 import tensorflow as tf
 
 def get_example(filename_queue):
@@ -34,7 +33,7 @@ def get_batch(example, min_queue_examples, FLAGS, shuffle):
       capacity = min_queue_examples + 3 * FLAGS.batch_size,
       min_after_dequeue = min_queue_examples)
   else:
-    images, labels = tf.train.batch(
+    images, labels = tf.train.batch(# def cost(softmax, labels):
       [example.image, example.label],
       batch_size = FLAGS.batch_size,
       num_threads = num_preprocess_threads,
@@ -42,22 +41,10 @@ def get_batch(example, min_queue_examples, FLAGS, shuffle):
   tf.summary.image('images', images)
   return images, tf.reshape(labels, [FLAGS.batch_size])
 
-def inputs(filename, FLAGS, train_mode=True):
-  if train_mode is True:
-    num_examples_per_epoch = 60000
-  else:
-    num_examples_per_epoch = 10000
-  min_queue_examples = int(0.4 * num_examples_per_epoch)
-  filenames = [filename]
+def inputs(FLAGS):
+  min_queue_examples = int(0.4 * FLAGS.num_examples)
+  filenames = [FLAGS.examples]
   filename_queue = tf.train.string_input_producer(filenames)
   example = get_example(filename_queue)
   images, labels = get_batch(example, min_queue_examples, FLAGS, shuffle=False)
   return images, labels
-
-def inputs_learn(FLAGS):
-  filename = os.path.join(FLAGS.data_dir, FLAGS.learn_data)
-  return inputs(filename, FLAGS)
-
-def inputs_predict(FLAGS):
-  filename = os.path.join(FLAGS.data_dir, FLAGS.predict_data)
-  return inputs(filename, FLAGS)
