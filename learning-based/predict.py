@@ -1,5 +1,3 @@
-from datetime import datetime
-import math
 import numpy as np
 import tensorflow as tf
 import tfrecords as tr
@@ -19,7 +17,6 @@ saver = tf.train.Saver()
 ckpt = tf.train.get_checkpoint_state(FLAGS.checkpoint_dir)
 sess = tf.Session()
 saver.restore(sess, ckpt.model_checkpoint_path)
-
 coord = tf.train.Coordinator()
 threads = []
 for qr in tf.get_collection(tf.GraphKeys.QUEUE_RUNNERS):
@@ -29,6 +26,6 @@ for step in range(FLAGS.max_steps):
   predictions = sess.run([prediction])
   goodcnt += np.sum(predictions)
 precision = goodcnt / FLAGS.num_examples
-print('%s: precision @ 1 = %.3f' % (datetime.now(), precision))
+print('precision %.3f' % precision)
 coord.request_stop()
 coord.join(threads, stop_grace_period_secs=10)

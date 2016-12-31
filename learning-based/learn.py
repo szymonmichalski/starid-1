@@ -11,9 +11,7 @@ tf.app.flags.DEFINE_string('num_examples', 60000, '')
 tf.app.flags.DEFINE_integer('batch_size', 100, '')
 tf.app.flags.DEFINE_integer('max_steps', 599, '')
 
-# noah@noah:~/dev/starid$ tensorboard --logdir=checkpoint &
 def learn():
-
   images, labels = tr.inputs(FLAGS)
   softmax = gn.inference(images)
   cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(softmax, labels)
@@ -43,6 +41,5 @@ def learn():
       summary_writer.add_summary(summary_str, step)
       summary_writer.add_summary(img_summary)
   saver.save(sess, FLAGS.ckpt)
-
 learn()
 
