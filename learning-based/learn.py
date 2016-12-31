@@ -1,22 +1,25 @@
 from datetime import datetime
 import time
-import numpy as np
-import os
 import tensorflow as tf
+import tfrecords as tr
 import graph as gn
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('learn_dir', '/home/noah/dev/learn', 'event dir')
-tf.app.flags.DEFINE_integer('max_steps', 590, 'number of batches to run')
+tf.app.flags.DEFINE_string('learn_dir', '/home/noah/dev/learn', '')
+tf.app.flags.DEFINE_string('data_dir', '/home/noah/dev/starid/data', '')
+tf.app.flags.DEFINE_string('learn_data', 'images_a.tfrecords', '')
+tf.app.flags.DEFINE_string('predict_data', 'images_b.tfrecords', '')
+tf.app.flags.DEFINE_integer('batch_size', 100, '')
+tf.app.flags.DEFINE_integer('max_steps', 590, '')
 # noah@noah:~/dev/starid$ tensorboard --logdir=graphnodes/train &
 
 def train():
   with tf.Graph().as_default():
     global_step = tf.Variable(0, trainable=False)
 
-    images, labels = gn.inputs_learn()
+    images, labels = tr.inputs_learn(FLAGS)
     softmax = gn.inference(images)
     cost = gn.cost(softmax, labels)
-    learning = gn.learning(cost)
+    learn = tf.train.AdamOptimizer(1e-4).minimize(cost)
     init = tf.global_variables_initializer()
     img = tf.summary.image('test', images)
     saver = tf.train.Saver()
@@ -29,7 +32,7 @@ def train():
 
     for step in range(590):
       start_time = time.time()
-      _, cost_value, img_summary = sess.run([learning, cost, img])
+      _, cost_value, img_summary = sess.run([learn, cost, img])
       duration = time.time() - start_time
       if step % 10 == 0:
         num_examples_per_step = FLAGS.batch_size

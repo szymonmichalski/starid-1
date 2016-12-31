@@ -1,27 +1,4 @@
-import os
 import tensorflow as tf
-import tfrecords as tr
-
-FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('data_dir', '/home/noah/dev/starid/data', 'data dir')
-tf.app.flags.DEFINE_string('learn_data', 'images_a.tfrecords', '')
-tf.app.flags.DEFINE_string('predict_data', 'images_b.tfrecords', '')
-tf.app.flags.DEFINE_integer('batch_size', 100, 'batch size')
-TOWER_NAME = 'tower'
-
-IMAGE_SIZE = tr.IMAGE_SIZE
-NUM_CLASSES = tr.NUM_CLASSES
-NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = tr.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
-NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = tr.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
-MOVING_AVERAGE_DECAY = 0.9999
-
-def inputs_learn():
-  filename = os.path.join(FLAGS.data_dir, FLAGS.learn_data)
-  return tr.inputs(filename, batch_size=FLAGS.batch_size)
-
-def inputs_predict():
-  filename = os.path.join(FLAGS.data_dir, FLAGS.predict_data)
-  return tr.inputs(filename, batch_size=FLAGS.batch_size)
 
 def variable_summaries(var, name):
   with tf.name_scope('summaries'):
@@ -93,8 +70,7 @@ def cost(softmax, labels):
      variable_summaries(cost, 'cost')
   return cost
 
-def learning(cost):
-  with tf.name_scope('trainstep'):
-    learnstep = tf.train.AdamOptimizer(1e-4).minimize(cost)
-    #variable_summaries(trainstep, 'trainstep')
-  return learnstep
+# def learning(cost):
+#   with tf.name_scope('learn'):
+#     learnstep = tf.train.AdamOptimizer(1e-4).minimize(cost)
+#   return learnstep
