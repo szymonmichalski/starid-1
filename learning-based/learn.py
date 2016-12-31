@@ -1,15 +1,14 @@
-from datetime import datetime
 import time
 import tensorflow as tf
 import tfrecords as tr
 import graph as gn
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/dev/starid/models', '')
-tf.app.flags.DEFINE_string('ckpt', '/home/noah/dev/starid/model/model.ckpt', '')
+tf.app.flags.DEFINE_string('ckpt', '/home/noah/dev/starid/models/model.ckpt', '')
 tf.app.flags.DEFINE_string('examples', '/home/noah/dev/starid/data/images_a.tfrecords', '')
 tf.app.flags.DEFINE_string('num_examples', 60000, '')
 tf.app.flags.DEFINE_integer('batch_size', 100, '')
-tf.app.flags.DEFINE_integer('max_steps', 599, '')
+tf.app.flags.DEFINE_integer('max_steps', 600, '')
 
 def learn():
   images, labels = tr.inputs(FLAGS)
@@ -26,19 +25,14 @@ def learn():
   summary = tf.summary.merge_all()
   summary_writer = tf.summary.FileWriter(FLAGS.checkpoint_dir, sess.graph)
   tf.train.start_queue_runners(sess=sess)
-  for step in range(FLAGS.max_steps):
+  for batch in range(FLAGS.max_steps):
     start_time = time.time()
-    _, cost_value, img_summary = sess.run([learning, cost, img])
-    duration = time.time() - start_time
-    if step % 10 == 0:
-      num_examples_per_step = FLAGS.batch_size
-      examples_per_sec = num_examples_per_step / duration
-      sec_per_batch = float(duration)
-      format_str = ('%s: step %d, loss = %.2f (%.1f examples/sec; %.3f sec/batch)')
-      print (format_str % (datetime.now(), step, cost_value, examples_per_sec, sec_per_batch))
-    if step % 100 == 0:
+    _, costval, img_summary = sess.run([learning, cost, img])
+    if batch % 10 == 0:
+      print ('b %d, cost %.2f, %.3f s/b' % (batch+10, costval, float(time.time() - start_time)))
+    if batch % 100 == 0:
       summary_str = sess.run(summary)
-      summary_writer.add_summary(summary_str, step)
+      summary_writer.add_summary(summary_str, batch)
       summary_writer.add_summary(img_summary)
   saver.save(sess, FLAGS.ckpt)
 learn()

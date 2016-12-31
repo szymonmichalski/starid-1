@@ -7,7 +7,7 @@ tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/dev/starid/models', '')
 tf.app.flags.DEFINE_string('examples', '/home/noah/dev/starid/data/images_b.tfrecords', '')
 tf.app.flags.DEFINE_string('num_examples', 10000, '')
 tf.app.flags.DEFINE_string('batch_size', 100, '')
-tf.app.flags.DEFINE_integer('max_steps', 99, '')
+tf.app.flags.DEFINE_integer('max_steps', 100, '')
 
 images, labels = tr.inputs(FLAGS)
 softmax = gn.inference(images)
