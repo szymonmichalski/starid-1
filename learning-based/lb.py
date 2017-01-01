@@ -4,7 +4,7 @@ import tensorflow as tf
 import graph as gn
 import numpy as np
 
-def identifyCentralStarInImage(starndx=0):
+def identifyCentralStar(starndx=0):
   imgndx = int(starndx / 800) - 1
   FLAGS = tf.app.flags.FLAGS
   tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/dev/starid/models', '')

@@ -26,10 +26,10 @@ def learn():
   summary_writer = tf.summary.FileWriter(FLAGS.checkpoint_dir, sess.graph)
   tf.train.start_queue_runners(sess=sess)
   for batch in range(FLAGS.max_steps):
-    start_time = time.time()
+    t1 = time.time()
     _, costval, img_summary = sess.run([learning, cost, img])
     if batch % 10 == 0:
-      print ('b %d, cost %.2f, %.3f s/b' % (batch+10, costval, float(time.time() - start_time)))
+      print ('b %d, cost %.2f, %.3f s/b' % (batch+10, costval, float(time.time() - t1)))
     if batch % 100 == 0:
       summary_str = sess.run(summary)
       summary_writer.add_summary(summary_str, batch)

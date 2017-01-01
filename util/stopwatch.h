@@ -18,7 +18,7 @@ public:
 
     int end() {
         t2= std::chrono::steady_clock::now();
-        return std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
+        return std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count();
     }
 
 };
