@@ -1,7 +1,7 @@
-#include "triangles_in_star_image.h"
+#include "triangles.h"
 #include <map>
 
-triangles::TrianglesInStarImage::TrianglesInStarImage(stars::Sensor &sensor, double triangle_tol, uint max_triangles) :
+rules::Triangles::Triangles(stars::Sensor &sensor, double triangle_tol, uint max_triangles) :
     sensor(sensor),
     triangle_tol(triangle_tol),
     max_triangles(max_triangles),
@@ -11,7 +11,7 @@ triangles::TrianglesInStarImage::TrianglesInStarImage(stars::Sensor &sensor, dou
     pairsOverWholeSky.init(sensor);
 }
 
-int triangles::TrianglesInStarImage::identifyCentralStarInImage() {
+int rules::Triangles::identifyCentralStar() {
     arma::mat mata;
     arma::mat matb;
     arma::mat matc;
@@ -45,7 +45,7 @@ int triangles::TrianglesInStarImage::identifyCentralStarInImage() {
     }
     std::vector<int> staraCandNdxs;
     for (uint i = 0; i < mata.n_rows; ++i) {
-        triangles::Triangle triangle;
+        rules::Triangle triangle;
         triangle.uva = arma::trans(mata.row(i));
         triangle.uvb = arma::trans(matb.row(i));
         triangle.uvc = arma::trans(matc.row(i));

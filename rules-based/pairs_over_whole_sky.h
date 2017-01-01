@@ -6,7 +6,7 @@
 
 #include <unordered_map>
 
-namespace triangles {
+namespace rules {
 
 class PairsOverWholeSky {
 

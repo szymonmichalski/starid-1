@@ -4,7 +4,7 @@
 #include "sensor.h"
 #include "pairs_over_whole_sky.h"
 
-namespace triangles {
+namespace rules {
 
 struct Triangle {
     arma::vec uva;
@@ -15,17 +15,17 @@ struct Triangle {
     double angbc;
 };
 
-class TrianglesInStarImage
+class Triangles
 {
 
 public:
 
-    TrianglesInStarImage(stars::Sensor &sensor, double triangle_tol, uint max_triangles);
-    int identifyCentralStarInImage();
+    Triangles(stars::Sensor &sensor, double triangle_tol, uint max_triangles);
+    int identifyCentralStar();
 
 private:
 
-    triangles::PairsOverWholeSky pairsOverWholeSky;
+    rules::PairsOverWholeSky pairsOverWholeSky;
     stars::Sensor &sensor;
     double triangle_tol;
     uint max_triangles;

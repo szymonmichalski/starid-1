@@ -1,4 +1,4 @@
-﻿#include "triangles_in_star_image.h"
+﻿#include "triangles.h"
 #include "sensor.h"
 #include <armadillo>
 #include "optionparser.h"
@@ -36,8 +36,8 @@ int main(int argc, char* argv[])
     stars::Sensor sensor(fcatalog, mv, fov);
     sensor.makeStarImage(starndxTrue);
 
-    triangles::TrianglesInStarImage triangles(sensor, triangles_tol, triangles_max);
-    int starndxIdentified = triangles.identifyCentralStarInImage();
+    rules::Triangles triangles(sensor, triangles_tol, triangles_max);
+    int starndxIdentified = triangles.identifyCentralStar();
     std::cout << starndxIdentified << std::endl;
 
     return 0;

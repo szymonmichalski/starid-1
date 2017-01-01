@@ -1,6 +1,6 @@
 #include "pairs_over_whole_sky.h"
 
-void triangles::PairsOverWholeSky::init(stars::Sensor &sensor)
+void rules::PairsOverWholeSky::init(stars::Sensor &sensor)
 {
     int starpairsndx = 0;
     int maxcurrstar = sensor.stars.starsvec.size();
@@ -30,7 +30,7 @@ void triangles::PairsOverWholeSky::init(stars::Sensor &sensor)
     angletable.sort();
 }
 
-std::vector<int> triangles::PairsOverWholeSky::starsFromPairs(double angle, double tolerance)
+std::vector<int> rules::PairsOverWholeSky::starsFromPairs(double angle, double tolerance)
 {
     std::vector<int> intsFromTable = angletable.findInts(angle-tolerance, angle+tolerance);
     std::vector<int> starndxs; // ndxs2 lists stars from the pairs
@@ -42,7 +42,7 @@ std::vector<int> triangles::PairsOverWholeSky::starsFromPairs(double angle, doub
     return starndxs;
 }
 
-std::string triangles::PairsOverWholeSky::pairsKey(int catndx1, int catndx2) {
+std::string rules::PairsOverWholeSky::pairsKey(int catndx1, int catndx2) {
     if (catndx1 > catndx2) {
         int tmp = catndx1;
         catndx1 = catndx2;
@@ -52,6 +52,6 @@ std::string triangles::PairsOverWholeSky::pairsKey(int catndx1, int catndx2) {
     return key;
 }
 
-void triangles::PairsOverWholeSky::Status() {
+void rules::PairsOverWholeSky::Status() {
 }
 
