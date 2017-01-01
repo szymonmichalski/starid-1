@@ -11,7 +11,7 @@ public:
 
     Sensor(std::string fcatalog, double mv, double fov);
 
-    stars::Sky stars;
+    stars::Sky sky;
 
     arma::mat makeStarImage(uint starndx);
 

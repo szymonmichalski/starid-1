@@ -12,6 +12,7 @@ void stars::Sky::init(std::string fcatin, double mvin) {
     data::SkymapCatalog skymapCatalog(fcatalog, mv);
     int starndx {0};
     for (auto r : skymapCatalog.skymapRecords) {
+        star.starndx = starndx;
         star.iau_identifier = r.iau_identifier;
         star.star_name = r.star_name;
         star.variablestar_name = r.variablestar_name;
@@ -45,7 +46,7 @@ void stars::Sky::init(std::string fcatin, double mvin) {
         xtable.addPair(star.uv(0), starndx);
         ytable.addPair(star.uv(1), starndx);
         ztable.addPair(star.uv(2), starndx);
-        starsvec.push_back(star);
+        stars.push_back(star);
         catalogLines.push_back(r.fileLine);
         ++starndx;
     }
@@ -64,7 +65,7 @@ std::vector<int> stars::Sky::starsNearPoint(arma::vec& uv, const double radius) 
     std::set_intersection(xy.begin(), xy.end(), zring.begin(), zring.end(), std::back_inserter(xyz));
     std::vector<int> ndxs;
     for (uint i = 0; i < xyz.size(); ++i) {
-        arma::vec uv2 = starsvec[xyz[i]].uv;
+        arma::vec uv2 = stars[xyz[i]].uv;
         ndxs.push_back(xyz[i]);
     }
     return ndxs;
@@ -88,7 +89,7 @@ std::vector<int> stars::Sky::starsInRing(double p, double radius, util::FloatInt
 }
 
 void stars::Sky::status() {
-    std::cout << "number of stars " << starsvec.size() << "\n";
+    std::cout << "number of stars " << stars.size() << "\n";
 }
 
 //double UnixTimeToJ2000Offset = 946684800.0;

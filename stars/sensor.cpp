@@ -4,8 +4,8 @@
 
 arma::mat stars::Sensor::makeStarImage(uint starndx) {
     using namespace arma;
-    pointing = stars.starsvec[starndx].uv;
-    starsvec_ndxs = stars.starsNearPoint(pointing, fov);
+    pointing = sky.stars[starndx].uv;
+    starsvec_ndxs = sky.starsNearPoint(pointing, fov);
 
     l1_uvec.set_size(starsvec_ndxs.size(),3);
     l1_hv.set_size(starsvec_ndxs.size(),2);
@@ -13,9 +13,9 @@ arma::mat stars::Sensor::makeStarImage(uint starndx) {
     l1_mag.set_size(starsvec_ndxs.size());
 
     for (uint i = 0; i < starsvec_ndxs.size(); ++i) {
-        l1_uvec.row(i) = trans(stars.starsvec[starsvec_ndxs[i]].uv);
+        l1_uvec.row(i) = trans(sky.stars[starsvec_ndxs[i]].uv);
         l1_starndx(i) = starsvec_ndxs[i];
-        l1_mag(i) = stars.starsvec[starsvec_ndxs[i]].mv1;
+        l1_mag(i) = sky.stars[starsvec_ndxs[i]].mv1;
     }
     l1_uvec = trans(trans(util::rotationMatrix(pointing)) * trans(l1_uvec));
     l1_hv.col(0) = arma::atan(l1_uvec.col(0) / l1_uvec.col(2));
@@ -47,7 +47,7 @@ void stars::Sensor::status() {
 stars::Sensor::Sensor(std::string fcatalog, double mv, double fov)
     : mv(mv), fov(fov)
 {
-    stars.init(fcatalog, mv);
+    sky.init(fcatalog, mv);
     noise = 5.0;
     ra = 0.0 * arma::datum::pi / 180.0;
     dec = 0.0 * arma::datum::pi / 180.0;

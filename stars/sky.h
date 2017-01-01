@@ -24,13 +24,14 @@ struct Star {
     double ra;
     double dec;
     arma::vec uv;
+    int starndx;
 };
 
 class Sky {
 
 public:
 
-    std::vector<stars::Star> starsvec;
+    std::vector<stars::Star> stars;
     void init(std::string fcatalog, double mv);
     std::vector<int> starsNearPoint(arma::vec& uv, const double radius);
     void status();

@@ -3,29 +3,21 @@
 void rules::PairsOverWholeSky::init(stars::Sensor &sensor)
 {
     int starpairsndx = 0;
-    int maxcurrstar = sensor.stars.starsvec.size();
-    int currstar = 0;
-    while (currstar < maxcurrstar) {
-
-        std::vector<int> neighbors = sensor.stars.starsNearPoint(sensor.stars.starsvec[currstar].uv, sensor.fov);
-        for (uint i = 0; i < neighbors.size(); ++i) {
-            if (currstar == neighbors[i]) continue;
-
-            std::string key = pairsKey(currstar, neighbors[i]);
+    for(auto star : sensor.sky.stars) {
+        std::vector<int> neighborndxs = sensor.sky.starsNearPoint(star.uv, sensor.fov);
+        for (auto neighborndx : neighborndxs) {
+            if (star.starndx == neighborndx) continue;
+            std::string key = pairsKey(star.starndx, sensor.sky.stars[neighborndx].starndx);
             auto search = starpairs_map.find(key);
             if (search != starpairs_map.end()) continue; // check map that pair is unique
-
-            double angle = acos( arma::dot( sensor.stars.starsvec[currstar].uv , sensor.stars.starsvec[neighbors[i]].uv ) );
+            double angle = acos( arma::dot( star.uv , sensor.sky.stars[neighborndx].uv ) );
             if (std::fabs(angle) > sensor.fov) continue;
-
-            std::tuple<double, int, int> starpair {angle, currstar, neighbors[i]};
+            std::tuple<double, int, int> starpair {angle, star.starndx, neighborndx};
             starpairs.push_back(starpair);
             starpairs_map.insert({key, starpairsndx}); // update map of unique pairs
             angletable.addPair(angle, starpairsndx);
             ++starpairsndx;
         }
-        ++currstar;
-        //std::cout << currstar << std::endl;
     }
     angletable.sort();
 }
