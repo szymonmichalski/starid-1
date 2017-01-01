@@ -20,13 +20,16 @@ class Triangles
 
 public:
 
-    Triangles(stars::Sensor &sensor, double triangle_tol, uint max_triangles);
+    Triangles(stars::Sensor& sensor,
+              rules::PairsOverWholeSky& pairs,
+              double triangle_tol,
+              int max_triangles);
     int identifyCentralStar();
 
 private:
 
     rules::PairsOverWholeSky pairsOverWholeSky;
-    stars::Sensor &sensor;
+    stars::Sensor& sensor;
     double triangle_tol;
     uint max_triangles;
     uint num_stars;

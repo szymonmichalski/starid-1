@@ -21,6 +21,9 @@ public:
         return std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count();
     }
 
+    void reset() {
+        t1 = std::chrono::steady_clock::now();
+    }
 };
 
 }

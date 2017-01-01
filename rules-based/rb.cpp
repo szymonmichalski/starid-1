@@ -39,8 +39,16 @@ int main(int argc, char* argv[])
     sensor.makeStarImage(starndxTrue);
     std::cout << "sensor " << stopwatch.end() << std::endl;
 
-    rules::Triangles triangles(sensor, triangles_tol, triangles_max);
+    stopwatch.reset();
+    rules::PairsOverWholeSky pairs;
+    pairs.init(sensor);
+    std::cout << "pairs " << stopwatch.end() << std::endl;
+
+    stopwatch.reset();
+    rules::Triangles triangles(sensor, pairs, triangles_tol, triangles_max);
     int starndxIdentified = triangles.identifyCentralStar();
+    std::cout << "triangles " << stopwatch.end() << std::endl;
+
     std::cout << "identification " << starndxIdentified << std::endl;
 
     return 0;

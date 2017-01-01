@@ -2,7 +2,7 @@
 
 void rules::PairsOverWholeSky::init(stars::Sensor &sensor)
 {
-    int starpairsndx = 0;
+    int pairndx = 0;
     for(auto star : sensor.sky.stars) {
         std::vector<int> neighborndxs = sensor.sky.starsNearPoint(star.uv, sensor.fov);
         for (auto neighborndx : neighborndxs) {
@@ -14,9 +14,9 @@ void rules::PairsOverWholeSky::init(stars::Sensor &sensor)
             if (std::fabs(angle) > sensor.fov) continue;
             std::tuple<double, int, int> starpair {angle, star.starndx, neighborndx};
             starpairs.push_back(starpair);
-            starpairs_map.insert({key, starpairsndx}); // update map of unique pairs
-            angletable.addPair(angle, starpairsndx);
-            ++starpairsndx;
+            starpairs_map.insert({key, pairndx}); // update map of unique pairs
+            angletable.addPair(angle, pairndx);
+            ++pairndx;
         }
     }
     angletable.sort();
@@ -25,10 +25,10 @@ void rules::PairsOverWholeSky::init(stars::Sensor &sensor)
 std::vector<int> rules::PairsOverWholeSky::starsFromPairs(double angle, double tolerance)
 {
     std::vector<int> intsFromTable = angletable.findInts(angle-tolerance, angle+tolerance);
-    std::vector<int> starndxs; // ndxs2 lists stars from the pairs
-    for (int starpairsndx : intsFromTable) {
-        starndxs.push_back(std::get<1>(starpairs[starpairsndx]));
-        starndxs.push_back(std::get<2>(starpairs[starpairsndx]));
+    std::vector<int> starndxs; // list of stars from the pairs
+    for (auto pairndx : intsFromTable) {
+        starndxs.push_back(std::get<1>(starpairs[pairndx]));
+        starndxs.push_back(std::get<2>(starpairs[pairndx]));
     }
     std::sort(starndxs.begin(), starndxs.end());
     return starndxs;
