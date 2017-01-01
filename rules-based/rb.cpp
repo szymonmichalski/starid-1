@@ -1,5 +1,6 @@
 ﻿#include "triangles.h"
 #include "sensor.h"
+#include "stopwatch.h"
 #include <armadillo>
 #include "optionparser.h"
 
@@ -33,12 +34,14 @@ int main(int argc, char* argv[])
     int starndxTrue         = 0;
     if (options[STARNDX]) starndxTrue = atoi(options[STARNDX].arg);
 
+    util::Stopwatch stopwatch;
     stars::Sensor sensor(fcatalog, mv, fov);
     sensor.makeStarImage(starndxTrue);
+    std::cout << "sensor " << stopwatch.end() << std::endl;
 
     rules::Triangles triangles(sensor, triangles_tol, triangles_max);
     int starndxIdentified = triangles.identifyCentralStar();
-    std::cout << starndxIdentified << std::endl;
+    std::cout << "identification " << starndxIdentified << std::endl;
 
     return 0;
 }

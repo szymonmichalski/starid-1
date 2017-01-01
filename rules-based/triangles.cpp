@@ -1,4 +1,5 @@
 #include "triangles.h"
+#include "stopwatch.h"
 #include <map>
 
 rules::Triangles::Triangles(stars::Sensor &sensor, double triangle_tol, uint max_triangles) :
@@ -8,10 +9,13 @@ rules::Triangles::Triangles(stars::Sensor &sensor, double triangle_tol, uint max
     num_stars(sensor.l1_uvec.n_rows),
     cur_triangle(0)
 {
+    util::Stopwatch stopwatch;
     pairsOverWholeSky.init(sensor);
+    std::cout << "pairs " << stopwatch.end() << std::endl;
 }
 
 int rules::Triangles::identifyCentralStar() {
+    util::Stopwatch stopwatch;
     arma::mat mata;
     arma::mat matb;
     arma::mat matc;
@@ -77,7 +81,7 @@ int rules::Triangles::identifyCentralStar() {
         most_common = *it;
       }
     }
-
+    std::cout << "triangles " << stopwatch.end() << std::endl;
     return most_common;
 }
 

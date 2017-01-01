@@ -8,13 +8,13 @@ CONFIG += warn_off
 TARGET = rb
 
 SOURCES += \
-    rules-based.cpp \
     pairs_over_whole_sky.cpp \
     ../stars/sensor.cpp \
     ../stars/sky.cpp \
     ../util/float_int_table.cpp \
     ../data/skymap.cpp \
-    triangles.cpp
+    triangles.cpp \
+    rb.cpp
 
 HEADERS += \
     pairs_over_whole_sky.h \
@@ -23,7 +23,8 @@ HEADERS += \
     ../util/float_int_table.h \
     ../data/skymap.h \
     ../util/optionparser.h \
-    triangles.h
+    triangles.h \
+    ../util/stopwatch.h \
 
 INCLUDEPATH += \
     ../stars \
