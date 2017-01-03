@@ -10,7 +10,9 @@ class FloatIntTable {
 public:
 
     void addPair(double newFloat, int newInt);
+
     void sort();
+
     std::vector<int> findInts(double lowerFloat, double upperFloat);
 
 private:
