@@ -1,6 +1,6 @@
 #include "pairs_over_whole_sky.h"
 
-void rules::PairsOverWholeSky::init(stars::Sensor &sensor)
+void rules::PairsOverWholeSky::init(stars::Sensor& sensor)
 {
     int pairndx = 0;
     for(auto star : sensor.sky.stars) {

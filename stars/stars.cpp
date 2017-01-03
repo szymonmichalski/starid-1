@@ -1,6 +1,7 @@
 #include "sensor.h"
 #include "mnist.h"
 #include <armadillo>
+#include "cereal/archives/binary.hpp"
 
 int main() {
     arma::arma_rng::set_seed_random();

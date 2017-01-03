@@ -2,6 +2,11 @@
 #define FLOAT_INT_TABLE_H
 
 #include <armadillo>
+#include <cereal/access.hpp>
+#include <cereal/types/string.hpp>
+#include <cereal/types/tuple.hpp>
+#include <cereal/types/vector.hpp>
+#include <cereal/types/unordered_map.hpp>
 
 namespace util {
 
@@ -18,6 +23,11 @@ public:
 private:
 
     std::vector<std::pair<double,int>> floatIntTable;
+
+    friend class cereal::access;
+    template <class Archive> void serialize(Archive& ar) {
+        ar(floatIntTable);
+    }
 
 };
 

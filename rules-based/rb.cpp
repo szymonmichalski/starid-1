@@ -3,6 +3,8 @@
 #include "stopwatch.h"
 #include <armadillo>
 #include "optionparser.h"
+#include "cereal/archives/binary.hpp"
+#include <fstream>
 
 enum  optionIndex { UNKNOWN, HELP, STARNDX };
 const option::Descriptor usage[] =
@@ -43,6 +45,11 @@ int main(int argc, char* argv[])
     rules::PairsOverWholeSky pairs;
     pairs.init(sensor);
     std::cout << "pairs " << stopwatch.end() << std::endl;
+    std::ofstream os("/home/noah/dev/starid/data/pairs.bin");
+    {
+        cereal::BinaryOutputArchive oarchive(os);
+        oarchive(pairs);
+    }
 
     stopwatch.reset();
     rules::Triangles triangles(sensor, pairs, triangles_tol, triangles_max);
