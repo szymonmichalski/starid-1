@@ -35,7 +35,7 @@ private:
 
     friend class cereal::access;
     template <class Archive> void serialize(Archive& ar) {
-        ar(starpairs, starpairs_map);
+        ar(starpairs, starpairs_map, angletable);
     }
 };
 
