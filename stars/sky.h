@@ -3,6 +3,9 @@
 
 #include <armadillo>
 #include <float_int_table.h>
+#include <cereal/access.hpp>
+#include <cereal/types/string.hpp>
+#include <cereal/types/vector.hpp>
 
 namespace stars {
 
@@ -27,6 +30,12 @@ struct Star {
     double y;
     double z;
     int starndx;
+    template <class Archive> void serialize(Archive& ar) {
+        ar(iau_identifier, star_name, variablestar_name);
+        ar(skymap_number, hd_number, sao_number, dm_number, hr_number, wds_number, ppm_number);
+        ar(blended_position);
+        ar(mv1, ra_degrees, dec_degrees, ra, dec, x, y, z, starndx);
+    }
 };
 
 class Sky {
@@ -34,11 +43,13 @@ class Sky {
 public:
 
     std::vector<stars::Star> stars;
+    std::vector<std::string> catalogLines;
 
     void init(std::string fcatalog, double mv);
+
     std::vector<int> starsNearPoint(double x, double y, double z, double radius);
+
     void status();
-    std::vector<std::string> catalogLines;
 
 private:
 
@@ -49,10 +60,12 @@ private:
     util::FloatIntTable ytable;
     util::FloatIntTable ztable;
 
-    // cereal archive for stars, xtable, ytable, ztable
-
     std::vector<int> starsInRing(double p, double radius, util::FloatIntTable& table);
 
+    friend class cereal::access;
+    template <class Archive> void serialize(Archive& ar) {
+        ar(stars, xtable, ytable, ztable);
+    }
 };
 
 }

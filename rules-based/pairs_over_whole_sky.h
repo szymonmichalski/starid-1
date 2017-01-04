@@ -3,7 +3,6 @@
 
 #include "sensor.h"
 #include "float_int_table.h"
-
 #include <unordered_map>
 #include <cereal/access.hpp>
 #include <cereal/types/string.hpp>
