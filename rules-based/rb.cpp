@@ -6,12 +6,13 @@
 #include "cereal/archives/binary.hpp"
 #include <fstream>
 
-enum  optionIndex { UNKNOWN, HELP, STARNDX };
+enum  optionIndex { UNKNOWN, HELP, STARNDX, FPAIRS };
 const option::Descriptor usage[] =
 {
     {UNKNOWN, 0, "", "", option::Arg::None, "usage: example [options]\noptions:" },
     {HELP, 0, "h", "help", option::Arg::None, "  -h, --help  \tprint usage and exit." },
-    {STARNDX, 0, "s", "starndx", option::Arg::Optional, "  -s, --starndx  \tstarndx." },
+    {STARNDX, 0, "", "starndx", option::Arg::Optional, "  --starndx  \tstarndx." },
+    {FPAIRS, 0, "", "pairs", option::Arg::Optional, "  --pairs  \tpairs file." },
     {0,0,0,0,0,0} // end of options
 };
 
@@ -43,13 +44,17 @@ int main(int argc, char* argv[])
 
     stopwatch.reset();
     rules::PairsOverWholeSky pairs;
-    pairs.init(sensor);
-    std::cout << "pairs " << stopwatch.end() << std::endl;
-    std::ofstream os("/home/noah/dev/starid/data/pairs.bin");
-    {
+    if (options[FPAIRS]) {
+        std::fstream fs(options[FPAIRS].arg);
+        cereal::BinaryInputArchive iarchive(fs);
+        iarchive(pairs);
+    } else {
+        pairs.init(sensor);
+        std::ofstream os("/home/noah/dev/starid/data/pairs.bin");
         cereal::BinaryOutputArchive oarchive(os);
         oarchive(pairs);
     }
+    std::cout << "pairs " << stopwatch.end() << std::endl;
 
     stopwatch.reset();
     rules::Triangles triangles(sensor, pairs, triangles_tol, triangles_max);
