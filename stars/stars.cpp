@@ -1,9 +1,51 @@
 #include "sensor.h"
 #include "mnist.h"
 #include <armadillo>
+#include "optionparser.h"
 #include "cereal/archives/binary.hpp"
+#include <fstream>
 
-int main() {
+enum  optionIndex { UNKNOWN, HELP, FSKY };
+struct Arg: public option::Arg {
+    static void printError(const char* msg1, const option::Option& opt, const char* msg2) {
+      fprintf(stderr, "ERROR: %s", msg1);
+      fwrite(opt.name, opt.namelen, 1, stderr);
+      fprintf(stderr, "%s", msg2);
+    }
+    static option::ArgStatus Required(const option::Option& option, bool msg)
+    {
+      if (option.arg != 0) return option::ARG_OK;
+      if (msg) printError("Option '", option, "' requires an argument\n");
+      return option::ARG_ILLEGAL;
+    }
+    static option::ArgStatus Numeric(const option::Option& option, bool msg) {
+        char* endptr = 0;
+        if (option.arg != 0 && strtol(option.arg, &endptr, 10)){};
+        if (endptr != option.arg && *endptr == 0) return option::ARG_OK;
+        if (msg) printError("Option '", option, "' requires a numeric argument\n");
+        return option::ARG_ILLEGAL;
+    }
+};
+const option::Descriptor usage[] = {
+    {UNKNOWN, 0, "", "", option::Arg::None, "\nusage: example [options]\n\noptions:" },
+    {HELP, 0, "h", "help", option::Arg::None, "  -h, --help  \tprint usage and exit" },
+    {FSKY, 0, "s", "sky", Arg::Required, "  -s, --sky  \tsky file" },
+    {0,0,0,0,0,0} // end of options
+};
+
+int main(int argc, char* argv[])
+{
+    argc-=(argc>0); argv+=(argc>0); // skip program name argv[0] if present
+    option::Stats  stats(usage, argc, argv);
+    std::vector<option::Option> options(stats.options_max);
+    std::vector<option::Option> buffer(stats.buffer_max);
+    option::Parser parse(usage, argc, argv, &options[0], &buffer[0]);
+    if (parse.error()) return 1;
+    if (options[HELP] || argc == 0) {
+        option::printUsage(std::cout, usage);
+        return 0;
+    }
+
     arma::arma_rng::set_seed_random();
     std::string fsky2000    = "/home/noah/dev/starid/data/SKYMAP_SKY2000_V5R4.txt";
     std::string f10stars    = "/home/noah/dev/starid/data/SKYMAP_10_stars.txt";

@@ -32,6 +32,7 @@ class Sky {
 public:
 
     std::vector<stars::Star> stars;
+
     void init(std::string fcatalog, double mv);
     std::vector<int> starsNearPoint(arma::vec& uv, const double radius);
     void status();
@@ -45,6 +46,10 @@ private:
     util::FloatIntTable xtable;
     util::FloatIntTable ytable;
     util::FloatIntTable ztable;
+
+    // lets use cereal archive for stars, xtable, ytable, ztable
+    // generate arma uvecs at runtime
+
     std::vector<int> starsInRing(double p, double radius, util::FloatIntTable& table);
 
 };
