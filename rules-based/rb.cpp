@@ -7,12 +7,31 @@
 #include <fstream>
 
 enum  optionIndex { UNKNOWN, HELP, STARNDX, FPAIRS };
-const option::Descriptor usage[] =
-{
-    {UNKNOWN, 0, "", "", option::Arg::None, "usage: example [options]\noptions:" },
-    {HELP, 0, "h", "help", option::Arg::None, "  -h, --help  \tprint usage and exit." },
-    {STARNDX, 0, "", "starndx", option::Arg::Optional, "  --starndx  \tstarndx." },
-    {FPAIRS, 0, "", "pairs", option::Arg::Optional, "  --pairs  \tpairs file." },
+struct Arg: public option::Arg {
+    static void printError(const char* msg1, const option::Option& opt, const char* msg2) {
+      fprintf(stderr, "ERROR: %s", msg1);
+      fwrite(opt.name, opt.namelen, 1, stderr);
+      fprintf(stderr, "%s", msg2);
+    }
+    static option::ArgStatus Required(const option::Option& option, bool msg)
+    {
+      if (option.arg != 0) return option::ARG_OK;
+      if (msg) printError("Option '", option, "' requires an argument\n");
+      return option::ARG_ILLEGAL;
+    }
+    static option::ArgStatus Numeric(const option::Option& option, bool msg) {
+        char* endptr = 0;
+        if (option.arg != 0 && strtol(option.arg, &endptr, 10)){};
+        if (endptr != option.arg && *endptr == 0) return option::ARG_OK;
+        if (msg) printError("Option '", option, "' requires a numeric argument\n");
+        return option::ARG_ILLEGAL;
+    }
+};
+const option::Descriptor usage[] = {
+    {UNKNOWN, 0, "", "", option::Arg::None, "\nusage: example [options]\n\noptions:" },
+    {HELP, 0, "h", "help", option::Arg::None, "  -h, --help  \tprint usage and exit" },
+    {STARNDX, 0, "s", "starndx", Arg::Numeric, "  -s, --starndx  \tstarndx" },
+    {FPAIRS, 0, "p", "pairs", Arg::Required, "  -p, --pairs  \tpairs file" },
     {0,0,0,0,0,0} // end of options
 };
 
