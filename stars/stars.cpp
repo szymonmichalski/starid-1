@@ -8,15 +8,15 @@
 enum  optionIndex { UNKNOWN, HELP, FSKY };
 struct Arg: public option::Arg {
     static void printError(const char* msg1, const option::Option& opt, const char* msg2) {
-      fprintf(stderr, "ERROR: %s", msg1);
-      fwrite(opt.name, opt.namelen, 1, stderr);
-      fprintf(stderr, "%s", msg2);
+        fprintf(stderr, "ERROR: %s", msg1);
+        fwrite(opt.name, opt.namelen, 1, stderr);
+        fprintf(stderr, "%s", msg2);
     }
     static option::ArgStatus Required(const option::Option& option, bool msg)
     {
-      if (option.arg != 0) return option::ARG_OK;
-      if (msg) printError("Option '", option, "' requires an argument\n");
-      return option::ARG_ILLEGAL;
+        if (option.arg != 0) return option::ARG_OK;
+        if (msg) printError("Option '", option, "' requires an argument\n");
+        return option::ARG_ILLEGAL;
     }
     static option::ArgStatus Numeric(const option::Option& option, bool msg) {
         char* endptr = 0;
@@ -29,7 +29,7 @@ struct Arg: public option::Arg {
 const option::Descriptor usage[] = {
     {UNKNOWN, 0, "", "", option::Arg::None, "\nusage: example [options]\n\noptions:" },
     {HELP, 0, "h", "help", option::Arg::None, "  -h, --help  \tprint usage and exit" },
-    {FSKY, 0, "s", "sky", Arg::Required, "  -s, --sky  \tsky file" },
+    {FSKY, 0, "", "sky", Arg::Required, "  --sky  \tsky file" },
     {0,0,0,0,0,0} // end of options
 };
 
@@ -45,6 +45,15 @@ int main(int argc, char* argv[])
         option::printUsage(std::cout, usage);
         return 0;
     }
+    if (options[FSKY]) {
+        std::string f8876stars  = "/home/noah/dev/starid/data/skymap_8876.txt";
+        double mv               = 6.5;
+        stars::Sky stars;
+        stars.init(f8876stars, mv);
+        std::ofstream os("/home/noah/dev/starid/data/sky.cereal");
+        cereal::BinaryOutputArchive oarchive(os);
+        oarchive(stars);
+    }
 
     arma::arma_rng::set_seed_random();
     std::string fsky2000    = "/home/noah/dev/starid/data/SKYMAP_SKY2000_V5R4.txt";
@@ -53,7 +62,7 @@ int main(int argc, char* argv[])
     double mv               = 6.5;
     double fov              = 4.0 * arma::datum::pi / 180.0;
 
-    if (1) { // catalog subset (800, 1600, 2400, ... 8000)
+    if (0) { // catalog subset (800, 1600, 2400, ... 8000)
         stars::Sky stars;
         stars.init(fsky2000, mv);
         std::ofstream fout1(f10stars);
