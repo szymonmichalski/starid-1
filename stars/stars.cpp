@@ -50,10 +50,16 @@ int main(int argc, char* argv[])
         double mv               = 6.5;
         stars::Sky stars;
         stars.init(f8876stars, mv);
-        std::ofstream os("/home/noah/dev/starid/data/sky.cereal");
+        std::ofstream os(options[FSKY].arg);
         cereal::BinaryOutputArchive oarchive(os);
         oarchive(stars);
     }
+//    if (options[FPAIRS]) {
+//        pairs.init(sensor);
+//        std::ofstream os("/home/noah/dev/starid/data/pairs.cereal");
+//        cereal::BinaryOutputArchive oarchive(os);
+//        oarchive(pairs);
+//    }
 
     return 0;
 }

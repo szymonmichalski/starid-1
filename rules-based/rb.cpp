@@ -66,14 +66,9 @@ int main(int argc, char* argv[])
     stopwatch.reset();
     rules::PairsOverWholeSky pairs;
     if (options[FPAIRS]) {
-        std::fstream fs(options[FPAIRS].arg);
-        cereal::BinaryInputArchive iarchive(fs);
+        std::ifstream is(options[FPAIRS].arg);
+        cereal::BinaryInputArchive iarchive(is);
         iarchive(pairs);
-    } else {
-        pairs.init(sensor);
-        std::ofstream os("/home/noah/dev/starid/data/pairs.cereal");
-        cereal::BinaryOutputArchive oarchive(os);
-        oarchive(pairs);
     }
     std::cout << "pairs " << stopwatch.end() << std::endl;
 
