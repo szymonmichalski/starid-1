@@ -36,16 +36,13 @@ void stars::Sky::init(std::string fcatin, double mvin) {
         double dec = star.dec_degrees * arma::datum::pi / 180.0;
         star.ra = ra;
         star.dec = dec;
-        star.uv.set_size(3);
-        star.uv(0) = cos(ra)*cos(dec);
-        star.uv(1) = sin(ra)*cos(dec);
-        star.uv(2) = sin(dec);
-        star.uv = normalise(star.uv);
-        assert(norm(star.uv) - 1.0 < 1e-10);
+        star.x = cos(ra)*cos(dec);
+        star.y = sin(ra)*cos(dec);
+        star.z = sin(dec);
 
-        xtable.addPair(star.uv(0), starndx);
-        ytable.addPair(star.uv(1), starndx);
-        ztable.addPair(star.uv(2), starndx);
+        xtable.addPair(star.x, starndx);
+        ytable.addPair(star.y, starndx);
+        ztable.addPair(star.z, starndx);
         stars.push_back(star);
         catalogLines.push_back(r.fileLine);
         ++starndx;
@@ -55,17 +52,16 @@ void stars::Sky::init(std::string fcatin, double mvin) {
     ztable.sort();
 }
 
-std::vector<int> stars::Sky::starsNearPoint(arma::vec& uv, const double radius) {
-    std::vector<int> xring = starsInRing(uv(0), radius, xtable);
-    std::vector<int> yring = starsInRing(uv(1), radius, ytable);
-    std::vector<int> zring = starsInRing(uv(2), radius, ztable);
+std::vector<int> stars::Sky::starsNearPoint(double x, double y, double z, double radius) {
+    std::vector<int> xring = starsInRing(x, radius, xtable);
+    std::vector<int> yring = starsInRing(y, radius, ytable);
+    std::vector<int> zring = starsInRing(z, radius, ztable);
     std::vector<int> xy;
     std::set_intersection(xring.begin(), xring.end(), yring.begin(), yring.end(), std::back_inserter(xy));
     std::vector<int> xyz;
     std::set_intersection(xy.begin(), xy.end(), zring.begin(), zring.end(), std::back_inserter(xyz));
     std::vector<int> ndxs;
     for (uint i = 0; i < xyz.size(); ++i) {
-        arma::vec uv2 = stars[xyz[i]].uv;
         ndxs.push_back(xyz[i]);
     }
     return ndxs;

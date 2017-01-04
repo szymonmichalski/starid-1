@@ -4,8 +4,11 @@
 
 arma::mat stars::Sensor::makeStarImage(uint starndx) {
     using namespace arma;
-    pointing = sky.stars[starndx].uv;
-    starsvec_ndxs = sky.starsNearPoint(pointing, fov);
+    pointing.set_size(3);
+    pointing(0) = sky.stars[starndx].x;
+    pointing(1) = sky.stars[starndx].y;
+    pointing(2) = sky.stars[starndx].z;
+    starsvec_ndxs = sky.starsNearPoint(pointing(0), pointing(1), pointing(2), fov);
 
     l1_uvec.set_size(starsvec_ndxs.size(),3);
     l1_hv.set_size(starsvec_ndxs.size(),2);
@@ -13,7 +16,9 @@ arma::mat stars::Sensor::makeStarImage(uint starndx) {
     l1_mag.set_size(starsvec_ndxs.size());
 
     for (uint i = 0; i < starsvec_ndxs.size(); ++i) {
-        l1_uvec.row(i) = trans(sky.stars[starsvec_ndxs[i]].uv);
+        l1_uvec(i,0) = sky.stars[starsvec_ndxs[i]].x;
+        l1_uvec(i,1) = sky.stars[starsvec_ndxs[i]].y;
+        l1_uvec(i,2) = sky.stars[starsvec_ndxs[i]].z;
         l1_starndx(i) = starsvec_ndxs[i];
         l1_mag(i) = sky.stars[starsvec_ndxs[i]].mv1;
     }

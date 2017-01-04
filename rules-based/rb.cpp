@@ -6,7 +6,7 @@
 #include "cereal/archives/binary.hpp"
 #include <fstream>
 
-enum  optionIndex { UNKNOWN, HELP, STARNDX, FPAIRS };
+enum  optionIndex { UNKNOWN, HELP, STARNDX, FPAIRS, FSKY };
 struct Arg: public option::Arg {
     static void printError(const char* msg1, const option::Option& opt, const char* msg2) {
       fprintf(stderr, "ERROR: %s", msg1);
@@ -31,7 +31,8 @@ const option::Descriptor usage[] = {
     {UNKNOWN, 0, "", "", option::Arg::None, "\nusage: example [options]\n\noptions:" },
     {HELP, 0, "h", "help", option::Arg::None, "  -h, --help  \tprint usage and exit" },
     {STARNDX, 0, "s", "starndx", Arg::Numeric, "  -s, --starndx  \tstarndx" },
-    {FPAIRS, 0, "p", "pairs", Arg::Required, "  -p, --pairs  \tpairs file" },
+    {FPAIRS, 0, "", "pairs", Arg::Required, "  --pairs  \tpairs file" },
+    {FPAIRS, 0, "", "sky", Arg::Required, "  --sky  \tsky file" },
     {0,0,0,0,0,0} // end of options
 };
 
@@ -57,6 +58,7 @@ int main(int argc, char* argv[])
     if (options[STARNDX]) starndxTrue = atoi(options[STARNDX].arg);
 
     util::Stopwatch stopwatch;
+    // handle cereal archive for sky
     stars::Sensor sensor(fcatalog, mv, fov);
     sensor.makeStarImage(starndxTrue);
     std::cout << "sensor " << stopwatch.end() << std::endl;

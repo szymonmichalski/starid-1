@@ -4,13 +4,15 @@ void rules::PairsOverWholeSky::init(stars::Sensor& sensor)
 {
     int pairndx = 0;
     for(auto star : sensor.sky.stars) {
-        std::vector<int> neighborndxs = sensor.sky.starsNearPoint(star.uv, sensor.fov);
+        std::vector<int> neighborndxs = sensor.sky.starsNearPoint(star.x, star.y, star.z, sensor.fov);
         for (auto neighborndx : neighborndxs) {
             if (star.starndx == neighborndx) continue;
             std::string key = pairsKey(star.starndx, sensor.sky.stars[neighborndx].starndx);
             auto search = starpairs_map.find(key);
             if (search != starpairs_map.end()) continue; // check map that pair is unique
-            double angle = acos( arma::dot( star.uv , sensor.sky.stars[neighborndx].uv ) );
+            double angle = acos( (star.x * sensor.sky.stars[neighborndx].x)
+                                 + (star.y * sensor.sky.stars[neighborndx].y)
+                                 + (star.z * sensor.sky.stars[neighborndx].z));
             if (std::fabs(angle) > sensor.fov) continue;
             std::tuple<double, int, int> starpair {angle, star.starndx, neighborndx};
             starpairs.push_back(starpair);

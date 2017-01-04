@@ -23,7 +23,9 @@ struct Star {
     double dec_degrees;
     double ra;
     double dec;
-    arma::vec uv;
+    double x;
+    double y;
+    double z;
     int starndx;
 };
 
@@ -34,7 +36,7 @@ public:
     std::vector<stars::Star> stars;
 
     void init(std::string fcatalog, double mv);
-    std::vector<int> starsNearPoint(arma::vec& uv, const double radius);
+    std::vector<int> starsNearPoint(double x, double y, double z, double radius);
     void status();
     std::vector<std::string> catalogLines;
 
@@ -47,8 +49,7 @@ private:
     util::FloatIntTable ytable;
     util::FloatIntTable ztable;
 
-    // lets use cereal archive for stars, xtable, ytable, ztable
-    // generate arma uvecs at runtime
+    // cereal archive for stars, xtable, ytable, ztable
 
     std::vector<int> starsInRing(double p, double radius, util::FloatIntTable& table);
 
