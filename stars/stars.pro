@@ -21,7 +21,6 @@ HEADERS += \
     ../util/float_int_table.h \
     ../data/mnist.h \
     ../data/skymap.h \
-    ../util/rotations.h \
     ../util/optionparser.h \
     ../util/stopwatch.h \
 
