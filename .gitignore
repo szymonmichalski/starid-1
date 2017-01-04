@@ -16,7 +16,7 @@
 !*ckpt*
 !*tfevents*
 !*checkpoint*
-!*.bin
+!*.cereal
 
 # ...even if they are in subdirectories
 !*/

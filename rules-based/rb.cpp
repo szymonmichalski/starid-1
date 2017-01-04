@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
         iarchive(pairs);
     } else {
         pairs.init(sensor);
-        std::ofstream os("/home/noah/dev/starid/data/pairs.bin");
+        std::ofstream os("/home/noah/dev/starid/data/pairs.cereal");
         cereal::BinaryOutputArchive oarchive(os);
         oarchive(pairs);
     }
