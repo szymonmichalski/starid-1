@@ -1,4 +1,4 @@
-stars          - c++ generating images and data files for rb and lb
+stars          - c++ images, data, etc for rb and lb
 rules-based    - c++ star pattern heuristics
 learning-based - tensorflow star pattern learning
 
