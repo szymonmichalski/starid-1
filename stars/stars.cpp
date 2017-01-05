@@ -5,7 +5,7 @@
 #include "cereal/archives/binary.hpp"
 #include <fstream>
 
-enum  optionIndex { UNKNOWN, HELP, FSKY };
+enum  optionIndex { UNKNOWN, HELP, DATADIR, SKY };
 struct Arg: public option::Arg {
     static void printError(const char* msg1, const option::Option& opt, const char* msg2) {
         fprintf(stderr, "ERROR: %s", msg1);
@@ -29,7 +29,8 @@ struct Arg: public option::Arg {
 const option::Descriptor usage[] = {
     {UNKNOWN, 0, "", "", option::Arg::None, "\nusage: example [options]\n\noptions:" },
     {HELP, 0, "h", "help", option::Arg::None, "  -h, --help  \tprint usage and exit" },
-    {FSKY, 0, "", "sky", Arg::Required, "  --sky  \tsky file" },
+    {DATADIR, 0, "d", "data", Arg::Required, "  -d, --data  \tdata dir" },
+    {SKY, 0, "s", "", Arg::None, "  -s  \tcreate sky and pair files" },
     {0,0,0,0,0,0} // end of options
 };
 
@@ -41,25 +42,31 @@ int main(int argc, char* argv[])
     std::vector<option::Option> buffer(stats.buffer_max);
     option::Parser parse(usage, argc, argv, &options[0], &buffer[0]);
     if (parse.error()) return 1;
+
     if (options[HELP] || argc == 0) {
         option::printUsage(std::cout, usage);
         return 0;
     }
-    if (options[FSKY]) {
-        std::string f8876stars  = "/home/noah/dev/starid/data/skymap_8876.txt";
+
+    std::string datadir = "/home/noah/dev/starid/data/";
+    if (options[DATADIR]) {
+        datadir = options[DATADIR].arg;
+    } else {
+        std::cout << "no data dir parameter - using default" << std::endl;
+    }
+
+    if (options[SKY]) {
         double mv               = 6.5;
         stars::Sky stars;
-        stars.init(f8876stars, mv);
-        std::ofstream os(options[FSKY].arg);
-        cereal::BinaryOutputArchive oarchive(os);
-        oarchive(stars);
-    }
-//    if (options[FPAIRS]) {
+        stars.init(std::string(datadir + "skymap.txt"), mv);
+        std::ofstream os1(std::string(datadir + "sky.cereal"));
+        cereal::BinaryOutputArchive oarchive1(os1);
+        oarchive1(stars);
 //        pairs.init(sensor);
-//        std::ofstream os("/home/noah/dev/starid/data/pairs.cereal");
-//        cereal::BinaryOutputArchive oarchive(os);
-//        oarchive(pairs);
-//    }
+        std::ofstream os2(std::string(datadir + "pairs.cereal"));
+        cereal::BinaryOutputArchive oarchive2(os2);
+//        oarchive2(pairs);
+    }
 
     return 0;
 }
