@@ -1,9 +1,11 @@
 #include "sensor.h"
+#include "triangles.h"
 #include "mnist.h"
 #include <armadillo>
 #include "optionparser.h"
 #include "cereal/archives/binary.hpp"
 #include <fstream>
+#include "stopwatch.h"
 
 enum  optionIndex { UNKNOWN, HELP, DATADIR, SKY };
 struct Arg: public option::Arg {
@@ -56,16 +58,23 @@ int main(int argc, char* argv[])
     }
 
     if (options[SKY]) {
-        double mv               = 6.5;
-        stars::Sky stars;
-        stars.init(std::string(datadir + "skymap.txt"), mv);
+        double mv = 6.5;
+        double fov = 4.0 * arma::datum::pi / 180.0;
+        util::Stopwatch stopwatch;
+
+        stars::Sky sky;
+        sky.init(std::string(datadir + "skymap.txt"), mv);
         std::ofstream os1(std::string(datadir + "sky.cereal"));
         cereal::BinaryOutputArchive oarchive1(os1);
-        oarchive1(stars);
-//        pairs.init(sensor);
+        oarchive1(sky);
+
+        rules::PairsOverWholeSky pairs;
+        pairs.init(sky, fov);
         std::ofstream os2(std::string(datadir + "pairs.cereal"));
         cereal::BinaryOutputArchive oarchive2(os2);
-//        oarchive2(pairs);
+        oarchive2(pairs);
+
+        std::cout << "create sky and pairs files " << stopwatch.end() << std::endl;
     }
 
     return 0;

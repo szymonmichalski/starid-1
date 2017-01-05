@@ -24,6 +24,30 @@ void rules::PairsOverWholeSky::init(stars::Sensor& sensor)
     angletable.sort();
 }
 
+void rules::PairsOverWholeSky::init(stars::Sky& sky, double fov)
+{
+    int pairndx = 0;
+    for(auto star : sky.stars) {
+        std::vector<int> neighborndxs = sky.starsNearPoint(star.x, star.y, star.z, fov);
+        for (auto neighborndx : neighborndxs) {
+            if (star.starndx == neighborndx) continue;
+            std::string key = pairsKey(star.starndx, sky.stars[neighborndx].starndx);
+            auto search = starpairs_map.find(key);
+            if (search != starpairs_map.end()) continue; // check map that pair is unique
+            double angle = acos( (star.x * sky.stars[neighborndx].x)
+                                 + (star.y * sky.stars[neighborndx].y)
+                                 + (star.z * sky.stars[neighborndx].z));
+            if (std::fabs(angle) > fov) continue;
+            std::tuple<double, int, int> starpair {angle, star.starndx, neighborndx};
+            starpairs.push_back(starpair);
+            starpairs_map.insert({key, pairndx}); // update map of unique pairs
+            angletable.addPair(angle, pairndx);
+            ++pairndx;
+        }
+    }
+    angletable.sort();
+}
+
 std::vector<int> rules::PairsOverWholeSky::starsFromPairs(double angle, double tolerance)
 {
     std::vector<int> intsFromTable = angletable.findInts(angle-tolerance, angle+tolerance);
