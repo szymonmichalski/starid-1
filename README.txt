@@ -1,6 +1,6 @@
-stars           - c++ program generating images and data files for rb and lb
-rules-based     - c++ program for star pattern heuristics
-learning-based  - tensorflow program for star pattern learning
+stars           - c++ generating images and data files for rb and lb
+rules-based     - c++ star pattern heuristics
+learning-based  - tensorflow star pattern learning
 
 related files   - https://goo.gl/RbEkgk  
 notes           - https://staridentification.blogspot.com/
