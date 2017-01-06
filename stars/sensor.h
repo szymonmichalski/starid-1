@@ -10,6 +10,7 @@ class Sensor {
 public:
 
     Sensor(std::string fcatalog, double mv, double fov);
+    Sensor(stars::Sky& sky, double mv, double fov);
 
     stars::Sky sky;
 

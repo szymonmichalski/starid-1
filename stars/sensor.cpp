@@ -63,6 +63,20 @@ stars::Sensor::Sensor(std::string fcatalog, double mv, double fov)
     pointing = arma::normalise(pointing);
 }
 
+stars::Sensor::Sensor(stars::Sky& sky, double mv, double fov)
+    : sky(sky), mv(mv), fov(fov)
+{
+    noise = 5.0;
+    ra = 0.0 * arma::datum::pi / 180.0;
+    dec = 0.0 * arma::datum::pi / 180.0;
+    yaw = 0.0 * arma::datum::pi / 180.0;
+    pointing.set_size(3);
+    pointing(0) = std::cos(ra) * std::cos(dec);
+    pointing(1) = std::sin(ra) * std::cos(dec);
+    pointing(2) = std::sin(dec);
+    pointing = arma::normalise(pointing);
+}
+
 arma::mat stars::Sensor::rotationMatrix(arma::vec& pointing, double yaw) {
     arma::mat rm;
     rm.eye(3,3);

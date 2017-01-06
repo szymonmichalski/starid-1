@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
         cereal::BinaryOutputArchive oarchive2(os2);
         oarchive2(pairs);
 
-        std::cout << "create sky and pairs files " << stopwatch.end() << std::endl;
+        std::cout << "sky and pairs " << stopwatch.end() << std::endl;
     }
 
     return 0;
