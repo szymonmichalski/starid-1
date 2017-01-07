@@ -8,7 +8,7 @@ discussion     - http://stackoverflow.com/users/5716954/noah-smith
 
 thanks to the projects
 https://github.com/tensorflow/tensorflow
-https://github.com/USCiLab/cereal
 http://arma.sourceforge.net
 http://eigen.tuxfamily.org/index.php
+https://github.com/USCiLab/cereal
 http://optionparser.sourceforge.net
