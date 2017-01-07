@@ -2,8 +2,8 @@ stars          - c++ images, data, etc for rb and lb
 rules-based    - c++ star pattern heuristics
 learning-based - tensorflow star pattern learning
 
-related files  - https://goo.gl/RbEkgk
-notes          - https://staridentification.blogspot.com/
+related files  - http://goo.gl/RbEkgk
+notes          - http://staridentification.blogspot.com/
 discussion     - http://stackoverflow.com/users/5716954/noah-smith
 
 thanks to
