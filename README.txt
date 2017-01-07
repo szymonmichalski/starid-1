@@ -6,9 +6,9 @@ related files  - https://goo.gl/RbEkgk
 notes          - https://staridentification.blogspot.com/
 discussion     - http://stackoverflow.com/users/5716954/noah-smith
 
-thanks to the projects
-https://github.com/tensorflow/tensorflow
+thanks to
+http://github.com/tensorflow/tensorflow
 http://arma.sourceforge.net
 http://eigen.tuxfamily.org/index.php
-https://github.com/USCiLab/cereal
+http://github.com/USCiLab/cereal
 http://optionparser.sourceforge.net
