@@ -26,7 +26,7 @@ for resndx in range(0,10):
                                           results[resndx, 2], results[resndx, 4]))
 
 print()
-print('         %4s  %4s' % ('lb  ', 'rb  '))
-print('-------  %4s  %4s' % ('----', '----'))
-print('correct  %4.2f  %4.2f' % (np.mean(results[:,1]), np.mean(results[:,3])))
-print('time     %4.2f  %4.2f' % (np.sum(results[:,2]), np.sum(results[:,4])))
+print('    %4s  %4s' % ('ok  ', 't    '))
+print('--  %4s  %4s' % ('----', '-----'))
+print('lb  %4.2f  %4.3f' % (np.mean(results[:,1]), np.mean(results[:,2])))
+print('rb  %4.2f  %4.3f' % (np.mean(results[:,3]), np.mean(results[:,4])))
