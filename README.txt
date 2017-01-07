@@ -7,7 +7,8 @@ notes          - https://staridentification.blogspot.com/
 discussion     - http://stackoverflow.com/users/5716954/noah-smith
 
 thanks to the projects
-http://arma.sourceforge.net/
-http://optionparser.sourceforge.net/
-https://github.com/USCiLab/cereal
 https://github.com/tensorflow/tensorflow
+https://github.com/USCiLab/cereal
+http://arma.sourceforge.net
+http://eigen.tuxfamily.org/index.php
+http://optionparser.sourceforge.net
