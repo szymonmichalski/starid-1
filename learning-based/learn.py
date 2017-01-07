@@ -8,7 +8,7 @@ tf.app.flags.DEFINE_string('ckpt', '/home/noah/dev/starid/models/model.ckpt', ''
 tf.app.flags.DEFINE_string('examples', '/home/noah/dev/starid/data/images_a.tfrecords', '')
 tf.app.flags.DEFINE_string('num_examples', 60000, '')
 tf.app.flags.DEFINE_integer('batch_size', 100, '')
-tf.app.flags.DEFINE_integer('max_steps', 600, '')
+tf.app.flags.DEFINE_integer('max_steps', 6000, '')
 
 def learn():
   images, labels = tr.inputs(FLAGS)
