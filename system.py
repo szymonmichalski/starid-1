@@ -2,18 +2,31 @@ import subprocess
 import lb
 import re
 import time
+import numpy as np
 
-starndx = 800
+results = np.zeros(shape=(10, 5), dtype=float)
 
-t1 = time.time()
-starndx1 = lb.identifyCentralStar(starndx)
-print('lb %.3f seconds' % float(time.time() - t1))
+for resndx in range(0,10):
+  results[resndx, 0] = 800*(resndx+1) # starndx
 
-t1 = time.time()
-out = subprocess.check_output(['/home/noah/dev/starid/rules-based/rb', '-s%d' % starndx])
-starndx2 = int(re.search(r'identification (\d+)', out.decode('utf-8')).group(1))
-print('rb %.3f seconds' % float(time.time() - t1))
+  t1 = time.time()
+  starndx1 = lb.identifyCentralStar(results[resndx,0])
+  if starndx1 == results[resndx,0]:
+    results[resndx,1] = 1
+  results[resndx,2] = float(time.time() - t1)
 
-print('true identity %d' % starndx)
-print('learning-based identification %d' % starndx1)
-print('rules-based identification %d' % starndx2)
+  t2 = time.time()
+  out = subprocess.check_output(['/home/noah/dev/starid/rules-based/rb', '-s%d' % results[resndx,0]])
+  starndx2 = int(re.search(r'identification (\d+)', out.decode('utf-8')).group(1))
+  if starndx2 == results[resndx, 0]:
+    results[resndx, 3] = 1
+  results[resndx,4] = float(time.time() - t2)
+
+  print('%4.0f, %1.0f, %1.0f, %4.3f, %4.3f' % (results[resndx, 0], results[resndx, 1], results[resndx, 3],
+                                          results[resndx, 2], results[resndx, 4]))
+
+print()
+print('         %4s  %4s' % ('lb  ', 'rb  '))
+print('-------  %4s  %4s' % ('----', '----'))
+print('correct  %4.2f  %4.2f' % (np.mean(results[:,1]), np.mean(results[:,3])))
+print('time     %4.2f  %4.2f' % (np.sum(results[:,2]), np.sum(results[:,4])))
