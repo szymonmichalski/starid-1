@@ -79,20 +79,3 @@ int main(int argc, char* argv[])
 
     return 0;
 }
-
-//    if (0) { // catalog subset (800, 1600, 2400, ... 8000)
-//        stars::Sky stars;
-//        stars.init(fsky2000, mv);
-//        std::ofstream fout1(f10stars);
-//        for (int label = 0; label < 10; ++label) {
-//            int starndx = 800 * (label + 1);
-//            fout1 << stars.catalogLines[starndx] << std::endl;
-//        }
-//        fout1.close();
-//        std::ofstream fout2(f8876stars);
-//        for (auto it = stars.catalogLines.begin(); it != stars.catalogLines.end(); ++it) {
-//            fout2 << *it << std::endl;
-//        }
-//        fout2.close();
-//    }
-

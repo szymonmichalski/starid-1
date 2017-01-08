@@ -41,6 +41,3 @@ private:
 }
 
 #endif
-
-
-//    void init(stars::Image& sensor);
