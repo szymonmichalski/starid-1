@@ -1,6 +1,6 @@
 #include "mnist.h"
 
-void data::Mnist::Yaw(arma::mat &img, double a) {
+void data::Mnist::performYaw(arma::mat &img, double a) {
     using namespace arma;
     mat rm = { {cos(a), -sin(a)}, {sin(a), cos(a)} };
     uvec ndxs = find(img); // pixel values are 0.0 to 255.0, find gives non empty, >0.0, pixels
@@ -20,12 +20,12 @@ void data::Mnist::Yaw(arma::mat &img, double a) {
     }
 }
 
-void data::Mnist::WriteMnistI(std::string filename, std::vector<arma::mat> &vec, bool yaw) {
+void data::Mnist::writeMnistI(std::string filename, std::vector<arma::mat> &vec, bool yaw) {
     std::ofstream file (filename, std::ios::binary);
-    int rev_magic_number = ReverseInt(magic_numberi);
-    int rev_imgcnt = ReverseInt(imgcnt);
-    int rev_rows = ReverseInt(rows);
-    int rev_cols = ReverseInt(cols);
+    int rev_magic_number = reverseInt(magic_numberi);
+    int rev_imgcnt = reverseInt(imgcnt);
+    int rev_rows = reverseInt(rows);
+    int rev_cols = reverseInt(cols);
     if (file.is_open()) {
         file.write((char*) &rev_magic_number, sizeof(rev_magic_number));
         file.write((char*) &rev_imgcnt, sizeof(rev_imgcnt));
@@ -36,7 +36,7 @@ void data::Mnist::WriteMnistI(std::string filename, std::vector<arma::mat> &vec,
 
             if (yaw) {
                 arma::vec angle = 2.0 * arma::datum::pi * arma::randu(1);
-                Yaw(img, angle(0));
+                performYaw(img, angle(0));
             }
 
             for(int r = 0; r < rows; ++r) {
@@ -49,10 +49,10 @@ void data::Mnist::WriteMnistI(std::string filename, std::vector<arma::mat> &vec,
     }
 }
 
-void data::Mnist::WriteMnistL(std::string filename, arma::colvec &vec) {
+void data::Mnist::writeMnistL(std::string filename, arma::colvec &vec) {
     std::ofstream file (filename, std::ios::binary);
-    int rev_magic_number = ReverseInt(magic_numberl);
-    int rev_imgcnt = ReverseInt(imgcnt);
+    int rev_magic_number = reverseInt(magic_numberl);
+    int rev_imgcnt = reverseInt(imgcnt);
     if (file.is_open()) {
         file.write((char*) &rev_magic_number, sizeof(rev_magic_number));
         file.write((char*) &rev_imgcnt, sizeof(rev_imgcnt));
@@ -63,7 +63,45 @@ void data::Mnist::WriteMnistL(std::string filename, arma::colvec &vec) {
     }
 }
 
-void data::Mnist::ReadMnistI(std::string filename, std::vector<arma::mat> &vec) {
+Eigen::Matrix<double, 28, 28> data::Mnist::readImage(int imgndx) {
+    Eigen::Matrix<double, 28, 28> image;
+    std::ifstream file ("/home/noah/dev/starid/data/images_b1.mnist", std::ios::binary);
+    if (file.is_open())
+    {
+        int magic_number = 0;
+        int number_of_images = 0;
+        int n_rows = 0;
+        int n_cols = 0;
+        file.read((char*) &magic_number, sizeof(magic_number));
+        magic_number = reverseInt(magic_number);
+        file.read((char*) &number_of_images,sizeof(number_of_images));
+        number_of_images = reverseInt(number_of_images);
+        file.read((char*) &n_rows, sizeof(n_rows));
+        n_rows = reverseInt(n_rows);
+        file.read((char*) &n_cols, sizeof(n_cols));
+        n_cols = reverseInt(n_cols);
+        int i = 0;
+        while (i < imgndx) {
+            for(int r = 0; r < 28; ++r) {
+                for(int c = 0; c < 28; ++c) {
+                    unsigned char temp = 0;
+                    file.read((char*) &temp, sizeof(temp));
+                }
+            }
+            ++i;
+        }
+        for(int r = 0; r < 28; ++r) {
+            for(int c = 0; c < 28; ++c) {
+                unsigned char temp = 0;
+                file.read((char*) &temp, sizeof(temp));
+                image(r, c) = (double)temp;
+            }
+        }
+    }
+    return image;
+}
+
+void data::Mnist::readMnistI(std::string filename, std::vector<arma::mat> &vec) {
     std::ifstream file (filename, std::ios::binary);
     if (file.is_open())
     {
@@ -72,13 +110,13 @@ void data::Mnist::ReadMnistI(std::string filename, std::vector<arma::mat> &vec) 
         int n_rows = 0;
         int n_cols = 0;
         file.read((char*) &magic_number, sizeof(magic_number));
-        magic_number = ReverseInt(magic_number);
+        magic_number = reverseInt(magic_number);
         file.read((char*) &number_of_images,sizeof(number_of_images));
-        number_of_images = ReverseInt(number_of_images);
+        number_of_images = reverseInt(number_of_images);
         file.read((char*) &n_rows, sizeof(n_rows));
-        n_rows = ReverseInt(n_rows);
+        n_rows = reverseInt(n_rows);
         file.read((char*) &n_cols, sizeof(n_cols));
-        n_cols = ReverseInt(n_cols);
+        n_cols = reverseInt(n_cols);
         for(int i = 0; i < number_of_images; ++i) {
             arma::mat tp(n_rows, n_cols);
             for(int r = 0; r < n_rows; ++r) {
@@ -97,15 +135,15 @@ void data::Mnist::ReadMnistI(std::string filename, std::vector<arma::mat> &vec) 
     }
 }
 
-void data::Mnist::ReadMnistL(std::string filename, arma::colvec &vec) {
+void data::Mnist::readMnistL(std::string filename, arma::colvec &vec) {
     std::ifstream file (filename, std::ios::binary);
     if (file.is_open()) {
         int magic_number = 0;
         int number_of_images = 0;
         file.read((char*) &magic_number, sizeof(magic_number));
-        magic_number = ReverseInt(magic_number);
+        magic_number = reverseInt(magic_number);
         file.read((char*) &number_of_images,sizeof(number_of_images));
-        number_of_images = ReverseInt(number_of_images);
+        number_of_images = reverseInt(number_of_images);
         for(int i = 0; i < number_of_images; ++i) {
             unsigned char temp = 0;
             file.read((char*) &temp, sizeof(temp));
@@ -115,7 +153,7 @@ void data::Mnist::ReadMnistL(std::string filename, arma::colvec &vec) {
     }
 }
 
-int data::Mnist::ReverseInt (int i)
+int data::Mnist::reverseInt (int i)
 {
     unsigned char ch1, ch2, ch3, ch4;
     ch1 = i & 255;

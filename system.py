@@ -4,13 +4,13 @@ import re
 import time
 import numpy as np
 
-resultscnt = 100
+resultscnt = 15
 results = np.zeros(shape=(resultscnt, 6), dtype=float)
 
 for resndx in range(0, resultscnt):
-  starndx = 800 * (np.mod(resndx, 10) + 1)
-  imgsetndx = np.random.randint(0, 1000)
-  imgndx = 10*imgsetndx + (int(starndx/800) - 1)
+  setndx = np.random.randint(0, 1000)
+  imgndx = 10*setndx + np.mod(resndx, 10)
+  starndx = 800 * (imgndx - 10*setndx + 1)
   results[resndx, 0] = starndx
   results[resndx, 1] = imgndx
 
@@ -21,7 +21,7 @@ for resndx in range(0, resultscnt):
   results[resndx,3] = float(time.time() - t1)
 
   t2 = time.time()
-  out = subprocess.check_output(['/home/noah/dev/starid/rules-based/rb', '-s%d' % starndx])
+  out = subprocess.check_output(['/home/noah/dev/starid/rules-based/rb', '--imgndx %d' % starndx])
   starndx2 = int(re.search(r'identification (\d+)', out.decode('utf-8')).group(1))
   if starndx2 == results[resndx, 0]:
     results[resndx, 4] = 1

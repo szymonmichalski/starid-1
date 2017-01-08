@@ -1,7 +1,7 @@
 #ifndef TRIPLETS_H
 #define TRIPLETS_H
 
-#include "sensor.h"
+#include "image.h"
 #include "pairs_over_whole_sky.h"
 
 namespace rules {
@@ -20,7 +20,7 @@ class Triangles
 
 public:
 
-    Triangles(stars::Sensor& sensor,
+    Triangles(stars::Image& image,
               rules::PairsOverWholeSky& pairs,
               double triangle_tol,
               int max_triangles);
@@ -29,7 +29,7 @@ public:
 private:
 
     rules::PairsOverWholeSky pairsOverWholeSky;
-    stars::Sensor& sensor;
+    stars::Image& image;
     double triangle_tol;
     uint max_triangles;
     uint num_stars;

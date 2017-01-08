@@ -1,7 +1,7 @@
 #ifndef PAIRS_H
 #define PAIRS_H
 
-#include "sensor.h"
+#include "image.h"
 #include "float_int_table.h"
 #include <unordered_map>
 #include <cereal/access.hpp>
@@ -16,7 +16,6 @@ class PairsOverWholeSky {
 
 public:
 
-    void init(stars::Sensor& sensor);
     void init(stars::Sky& sky, double fov);
 
     std::vector<int> starsFromPairs(double angle, double tolerance);
@@ -42,3 +41,6 @@ private:
 }
 
 #endif
+
+
+//    void init(stars::Image& sensor);

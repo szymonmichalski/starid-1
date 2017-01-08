@@ -1,12 +1,12 @@
 ﻿#include "triangles.h"
-#include "sensor.h"
+#include "image.h"
 #include "stopwatch.h"
 #include <armadillo>
 #include "optionparser.h"
 #include "cereal/archives/binary.hpp"
 #include <fstream>
 
-enum  optionIndex { UNKNOWN, HELP, STARNDX, DATADIR };
+enum  optionIndex { UNKNOWN, HELP, DATADIR, IMGFILE, IMGNDX };
 struct Arg: public option::Arg {
     static void printError(const char* msg1, const option::Option& opt, const char* msg2) {
       fprintf(stderr, "ERROR: %s", msg1);
@@ -30,8 +30,9 @@ struct Arg: public option::Arg {
 const option::Descriptor usage[] = {
     {UNKNOWN, 0, "", "", option::Arg::None, "\nusage: example [options]\n\noptions:" },
     {HELP, 0, "h", "help", option::Arg::None, "  -h, --help  \tprint usage and exit" },
-    {STARNDX, 0, "s", "starndx", Arg::Numeric, "  -s, --starndx  \tstarndx" },
-    {DATADIR, 0, "d", "data", Arg::Required, "  -d, --data  \tdata dir" },
+    {DATADIR, 0, "", "datadir", Arg::Required, "  --datadir  \tdata dir" },
+    {IMGFILE, 0, "", "imgfile", Arg::Required, "  --imgfile  \timage file" },
+    {IMGNDX, 0, "", "imgndx", Arg::Numeric, "  --imgndx  \timage ndx" },
     {0,0,0,0,0,0} // end of options
 };
 
@@ -43,29 +44,28 @@ int main(int argc, char* argv[])
     std::vector<option::Option> buffer(stats.buffer_max);
     option::Parser parse(usage, argc, argv, &options[0], &buffer[0]);
     if (parse.error()) return 1;
-
     if (options[HELP] || argc == 0) {
         option::printUsage(std::cout, usage);
         return 0;
     }
-
     std::string datadir = "/home/noah/dev/starid/data/";
     if (options[DATADIR]) {
         datadir = options[DATADIR].arg;
     } else {
-        std::cout << "no data dir parameter - using default" << std::endl;
+        std::cout << "using default datadir " << datadir << std::endl;
     }
-
-    int starndxTrue         = 0;
-    if (options[STARNDX]) {
-        starndxTrue = atoi(options[STARNDX].arg);
+    std::string imgfile = "images_b1.mnist";
+    if (options[IMGFILE]) {
+        imgfile = options[IMGFILE].arg;
+    } else {
+        std::cout << "using default imgfile " << imgfile << std::endl;
     }
-
-    std::string fcatalog    = "/home/noah/dev/starid/data/skymap_8876.txt";
-    double mv               = 6.5; // sensor upper limit for visual magnitude
-    double fov              = 4.0 * arma::datum::pi / 180.0; // sensor field of view
-    double triangles_tol    = 100 * arma::datum::pi / 648e3; // tolerance for triangle variations
-    int triangles_max       = 100; // upper limit for number of triangles
+    int imgndx = 0;
+    if (options[IMGNDX]) {
+        imgndx = atoi(options[IMGNDX].arg);
+    } else {
+        std::cout << "using default imgndx " << imgndx << std::endl;
+    }
 
     util::Stopwatch stopwatch;
     stars::Sky sky;
@@ -79,12 +79,14 @@ int main(int argc, char* argv[])
     std::cout << "sky and pairs " << stopwatch.end() << std::endl;
 
     stopwatch.reset();
-    stars::Sensor sensor(sky, mv, fov);
-    sensor.makeStarImage(starndxTrue);
-    std::cout << "sensor " << stopwatch.end() << std::endl;
+    stars::Image image;
+    image.useMnistImage(imgndx);
+    std::cout << "image " << stopwatch.end() << std::endl;
 
     stopwatch.reset();
-    rules::Triangles triangles(sensor, pairs, triangles_tol, triangles_max);
+    double triTol = 100 * arma::datum::pi / 648e3;
+    int triMaxCnt = 100;
+    rules::Triangles triangles(image, pairs, triTol, triMaxCnt);
     int starndxIdentified = triangles.identifyCentralStar();
     std::cout << "triangles " << stopwatch.end() << std::endl;
 

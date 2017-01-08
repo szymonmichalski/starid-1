@@ -2,15 +2,15 @@
 #include "stopwatch.h"
 #include <map>
 
-rules::Triangles::Triangles(stars::Sensor& sensor,
+rules::Triangles::Triangles(stars::Image& image,
                             rules::PairsOverWholeSky& pairs,
                             double triangle_tol,
                             int max_triangles) :
     pairsOverWholeSky(pairs),
-    sensor(sensor),
+    image(image),
     triangle_tol(triangle_tol),
     max_triangles(max_triangles),
-    num_stars(sensor.l1_uvec.n_rows),
+    num_stars(image.uvecs.n_rows),
     cur_triangle(0)
 {}
 
@@ -29,11 +29,16 @@ int rules::Triangles::identifyCentralStar() {
                 j = i + dj;
                 k = j + dk;
                 // stara near center of field of view
-                if (sensor.l1_hv(i-1,0) > 100 * arma::datum::pi / 648e3
-                    || sensor.l1_hv(i-1,1) > 100 * arma::datum::pi / 648e3) continue;
-                mata.row(cur_triangle) = sensor.l1_uvec.row(i-1);
-                matb.row(cur_triangle) = sensor.l1_uvec.row(j-1);
-                matc.row(cur_triangle) = sensor.l1_uvec.row(k-1);
+                double x = image.uvecs(i-1,0);
+                double y = image.uvecs(i-1,1);
+                double z = image.uvecs(i-1,2);
+                double h = atan(x/z);
+                double v = atan(y/z);
+                double cutoff = 100 * arma::datum::pi / 648e3;
+                if (h > cutoff || v > cutoff) continue;
+                mata.row(cur_triangle) = image.uvecs.row(i-1);
+                matb.row(cur_triangle) = image.uvecs.row(j-1);
+                matc.row(cur_triangle) = image.uvecs.row(k-1);
                 ++cur_triangle;
                 if (cur_triangle == max_triangles-1) break;
             }

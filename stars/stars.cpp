@@ -1,4 +1,4 @@
-#include "sensor.h"
+#include "image.h"
 #include "triangles.h"
 #include "mnist.h"
 #include <armadillo>
