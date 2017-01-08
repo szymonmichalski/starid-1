@@ -12,23 +12,26 @@ public:
 
     static Eigen::Matrix<double, 28, 28> readImage(std::string& imgfile, int imgndx);
 
-    void readMnistI(std::string filename, std::vector<arma::mat> &vec);
+    void readImages(std::string filename, std::vector<arma::mat> &images);
 
-    void readMnistL(std::string filename, arma::colvec &vec);
+    void readLabels(std::string filename, arma::colvec &labels);
 
-    void writeMnistI(std::string filename, std::vector<arma::mat> &vec);
+    void writeImages(std::string filename, std::vector<arma::mat> &images);
 
-    void writeMnistL(std::string filename, arma::colvec &vec);
+    void writeLabels(std::string filename, arma::colvec &labels);
 
 private:
 
     static int reverseInt (int i);
 
-    int magic_numberi;
-    int magic_numberl;
-    int rows;
-    int cols;
+    int magnumimg;
+    int magnumlab;
     int imgcnt;
+
+    // axj, axi plane
+    // (axj inverted-y-like row-like), (axi x-like col-like) plane
+    int axjcnt; // 28
+    int axicnt; // 28
 };
 
 }

@@ -79,13 +79,12 @@ int main(int argc, char* argv[])
     if (options[MNIST]) {
         stars::Sky sky;
         sky.init(std::string(datadir + "skymap.txt"), mv);
-
         int imgCnt = 10000;
         data::Mnist mnist;
         std::vector<arma::mat> images;
         arma::colvec labels = arma::zeros<arma::colvec>(imgCnt);
-        mnist.readMnistI(std::string(datadir + "images_b1.mnist"), images);
-        mnist.readMnistL(std::string(datadir + "images_b2.mnist"), labels);
+        mnist.readImages(std::string(datadir + "images_b1.mnist"), images);
+        mnist.readLabels(std::string(datadir + "images_b2.mnist"), labels);
         for (int setndx = 0; setndx < imgCnt/10; ++setndx) {
             for (int starndx = 0; starndx < 10; ++starndx) {
                 arma::mat image = images[10*setndx + starndx];
@@ -93,8 +92,8 @@ int main(int argc, char* argv[])
                 images[10*setndx + starndx] = image;
             }
         }
-        mnist.writeMnistI(std::string(datadir + "new_images_b1.mnist"), images);
-        mnist.writeMnistL(std::string(datadir + "new_images_b2.mnist"), labels);
+        mnist.writeImages(std::string(datadir + "new_images_b1.mnist"), images);
+        mnist.writeLabels(std::string(datadir + "new_images_b2.mnist"), labels);
     }
 
     return 0;

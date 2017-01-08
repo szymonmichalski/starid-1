@@ -1,59 +1,58 @@
 #include "mnist.h"
 
-Eigen::Matrix<double, 28, 28> data::Mnist::readImage(std::string& imgfile, int imgndx) {
+Eigen::Matrix<double, 28, 28> data::Mnist::readImage(std::string& imgfile, int targetimgndx) {
     Eigen::Matrix<double, 28, 28> image;
     std::ifstream file (imgfile, std::ios::binary);
     if (file.is_open())
     {
-        int magic_number = 0;
-        int number_of_images = 0;
-        int n_rows = 0;
-        int n_cols = 0;
-        file.read((char*) &magic_number, sizeof(magic_number));
-        magic_number = reverseInt(magic_number);
-        file.read((char*) &number_of_images,sizeof(number_of_images));
-        number_of_images = reverseInt(number_of_images);
-        file.read((char*) &n_rows, sizeof(n_rows));
-        n_rows = reverseInt(n_rows);
-        file.read((char*) &n_cols, sizeof(n_cols));
-        n_cols = reverseInt(n_cols);
-        int i = 0;
-        while (i < imgndx) {
-            for (int r = 0; r < 28; ++r) {
-                for (int c = 0; c < 28; ++c) {
+        int magnumimg, imgcnt, axjcnt, axicnt; // local variables, function is static
+        file.read((char*) &magnumimg, sizeof(magnumimg));
+        magnumimg = reverseInt(magnumimg);
+        file.read((char*) &imgcnt, sizeof(imgcnt));
+        imgcnt = reverseInt(imgcnt);
+        // (axj inverted-y-like row-like), (axi x-like col-like) plane
+        file.read((char*) &axjcnt, sizeof(axjcnt));
+        axjcnt = reverseInt(axjcnt); // 28
+        file.read((char*) &axicnt, sizeof(axicnt));
+        axicnt = reverseInt(axicnt); // 28
+
+        int imgndx = 0;
+        while (imgndx < targetimgndx) {
+            for (int axjndx = 0; axjndx < 28; ++axjndx) { // inverted-y-like, row-like
+                for (int axindx = 0; axindx < 28; ++axindx) { // x-like, col-like
                     unsigned char temp = 0;
                     file.read((char*) &temp, sizeof(temp));
                 }
             }
-            ++i;
+            ++imgndx;
         }
-        for (int r = 0; r < 28; ++r) {
-            for (int c = 0; c < 28; ++c) {
+        for (int axjndx = 0; axjndx < 28; ++axjndx) { // inverted-y-like, row-like
+            for (int axindx = 0; axindx < 28; ++axindx) { // x-like, col-like
                 unsigned char temp = 0;
                 file.read((char*) &temp, sizeof(temp));
-                image(r, c) = (double)temp;
+                image(axjndx, axindx) = (double)temp;
             }
         }
     }
     return image;
 }
 
-void data::Mnist::writeMnistI(std::string filename, std::vector<arma::mat> &vec) {
+void data::Mnist::writeImages(std::string filename, std::vector<arma::mat> &images) {
     std::ofstream file (filename, std::ios::binary);
-    int rev_magic_number = reverseInt(magic_numberi);
+    int rev_magnumimg = reverseInt(magnumimg);
     int rev_imgcnt = reverseInt(imgcnt);
-    int rev_rows = reverseInt(rows);
-    int rev_cols = reverseInt(cols);
+    int rev_axjcnt = reverseInt(axjcnt);
+    int rev_axicnt = reverseInt(axicnt);
     if (file.is_open()) {
-        file.write((char*) &rev_magic_number, sizeof(rev_magic_number));
+        file.write((char*) &rev_magnumimg, sizeof(rev_magnumimg));
         file.write((char*) &rev_imgcnt, sizeof(rev_imgcnt));
-        file.write((char*) &rev_rows, sizeof(rev_rows));
-        file.write((char*) &rev_cols, sizeof(rev_cols));
-        for (int i = 0; i < imgcnt; ++i) {
-            arma::mat img = vec[i];
-            for(int r = 0; r < rows; ++r) {
-                for(int c = 0; c < cols; ++c) {
-                    unsigned char temp = (unsigned char)img(r,c);
+        file.write((char*) &rev_axjcnt, sizeof(rev_axjcnt));
+        file.write((char*) &rev_axicnt, sizeof(rev_axicnt));
+        for (int imgndx = 0; imgndx < imgcnt; ++imgndx) {
+            arma::mat image = images[imgndx];
+            for (int axjndx = 0; axjndx < axjcnt; ++axjndx) {
+                for(int axindx = 0; axindx < axicnt; ++axindx) {
+                    unsigned char temp = (unsigned char) image(axjndx, axindx);
                     file.write((char*) &temp, sizeof(temp));
                 }
             }
@@ -61,69 +60,58 @@ void data::Mnist::writeMnistI(std::string filename, std::vector<arma::mat> &vec)
     }
 }
 
-void data::Mnist::writeMnistL(std::string filename, arma::colvec &vec) {
+void data::Mnist::readImages(std::string filename, std::vector<arma::mat> &images) {
+    std::ifstream file (filename, std::ios::binary);
+    if (file.is_open())
+    {
+        file.read((char*) &magnumimg, sizeof(magnumimg));
+        magnumimg = reverseInt(magnumimg);
+        file.read((char*) &imgcnt, sizeof(imgcnt));
+        imgcnt = reverseInt(imgcnt);
+        file.read((char*) &axjcnt, sizeof(axjcnt));
+        axjcnt = reverseInt(axjcnt);
+        file.read((char*) &axicnt, sizeof(axicnt));
+        axicnt = reverseInt(axicnt);
+        for(int imgndx = 0; imgndx < imgcnt; ++imgndx) {
+            arma::mat image(axjcnt, axicnt);
+            for(int axjndx = 0; axjndx < axjcnt; ++axjndx) {
+                for(int axindx = 0; axindx < axicnt; ++axindx) {
+                    unsigned char temp = 0;
+                    file.read((char*) &temp, sizeof(temp));
+                    image(axjndx, axindx) = (double) temp;
+                }
+            }
+            images.push_back(image);
+        }
+    }
+}
+
+void data::Mnist::writeLabels(std::string filename, arma::colvec &labels) {
     std::ofstream file (filename, std::ios::binary);
-    int rev_magic_number = reverseInt(magic_numberl);
+    int rev_magnumlab = reverseInt(magnumlab);
     int rev_imgcnt = reverseInt(imgcnt);
     if (file.is_open()) {
-        file.write((char*) &rev_magic_number, sizeof(rev_magic_number));
+        file.write((char*) &rev_magnumlab, sizeof(rev_magnumlab));
         file.write((char*) &rev_imgcnt, sizeof(rev_imgcnt));
-        for(int i = 0; i < imgcnt; ++i) {
-            unsigned char temp = (unsigned char)vec(i);
+        for(int imgndx = 0; imgndx < imgcnt; ++imgndx) {
+            unsigned char temp = (unsigned char) labels(imgndx);
             file.write((char*) &temp, sizeof(temp));
         }
     }
 }
 
-void data::Mnist::readMnistI(std::string filename, std::vector<arma::mat> &vec) {
-    std::ifstream file (filename, std::ios::binary);
-    if (file.is_open())
-    {
-        int magic_number = 0;
-        int number_of_images = 0;
-        int n_rows = 0;
-        int n_cols = 0;
-        file.read((char*) &magic_number, sizeof(magic_number));
-        magic_number = reverseInt(magic_number);
-        file.read((char*) &number_of_images,sizeof(number_of_images));
-        number_of_images = reverseInt(number_of_images);
-        file.read((char*) &n_rows, sizeof(n_rows));
-        n_rows = reverseInt(n_rows);
-        file.read((char*) &n_cols, sizeof(n_cols));
-        n_cols = reverseInt(n_cols);
-        for(int i = 0; i < number_of_images; ++i) {
-            arma::mat tp(n_rows, n_cols);
-            for(int r = 0; r < n_rows; ++r) {
-                for(int c = 0; c < n_cols; ++c) {
-                    unsigned char temp = 0;
-                    file.read((char*) &temp, sizeof(temp));
-                    tp(r, c) = (double) temp;
-                }
-            }
-            vec.push_back(tp);
-        }
-        magic_numberi = magic_number;
-        rows = n_rows;
-        cols = n_cols;
-        imgcnt = number_of_images;
-    }
-}
-
-void data::Mnist::readMnistL(std::string filename, arma::colvec &vec) {
+void data::Mnist::readLabels(std::string filename, arma::colvec &labels) {
     std::ifstream file (filename, std::ios::binary);
     if (file.is_open()) {
-        int magic_number = 0;
-        int number_of_images = 0;
-        file.read((char*) &magic_number, sizeof(magic_number));
-        magic_number = reverseInt(magic_number);
-        file.read((char*) &number_of_images,sizeof(number_of_images));
-        number_of_images = reverseInt(number_of_images);
-        for(int i = 0; i < number_of_images; ++i) {
+        file.read((char*) &magnumlab, sizeof(magnumlab));
+        magnumlab = reverseInt(magnumlab);
+        file.read((char*) &imgcnt, sizeof(imgcnt));
+        imgcnt = reverseInt(imgcnt);
+        for(int imgndx = 0; imgndx < imgcnt; ++imgndx) {
             unsigned char temp = 0;
             file.read((char*) &temp, sizeof(temp));
-            vec(i)= (double)temp;
+            labels(imgndx)= (double) temp;
         }
-        magic_numberl = magic_number;
     }
 }
 
