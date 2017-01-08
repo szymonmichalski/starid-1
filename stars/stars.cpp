@@ -33,7 +33,7 @@ const option::Descriptor usage[] = {
     {HELP, 0, "h", "help", option::Arg::None, "  -h, --help  \tprint usage and exit" },
     {DATADIR, 0, "d", "data", Arg::Required, "  -d, --data  \tdata dir" },
     {SKY, 0, "s", "", Arg::None, "  -s  \tcreate sky and pair files" },
-    {MNIST, 0, "s", "", Arg::None, "  -m  \tcreate mnist files" },
+    {MNIST, 0, "m", "", Arg::None, "  -m  \tcreate mnist files" },
     {0,0,0,0,0,0} // end of options
 };
 
@@ -77,7 +77,24 @@ int main(int argc, char* argv[])
     }
 
     if (options[MNIST]) {
+        stars::Sky sky;
+        sky.init(std::string(datadir + "skymap.txt"), mv);
 
+        int imgCnt = 10000;
+        data::Mnist mnist;
+        std::vector<arma::mat> images;
+        arma::colvec labels = arma::zeros<arma::colvec>(imgCnt);
+        mnist.readMnistI(std::string(datadir + "images_b1.mnist"), images);
+        mnist.readMnistL(std::string(datadir + "images_b2.mnist"), labels);
+        for (int setndx = 0; setndx < imgCnt/10; ++setndx) {
+            for (int starndx = 0; starndx < 10; ++starndx) {
+                arma::mat image = images[10*setndx + starndx];
+                labels(10*setndx + starndx) = (double) starndx;
+                images[10*setndx + starndx] = image;
+            }
+        }
+        mnist.writeMnistI(std::string(datadir + "new_images_b1.mnist"), images);
+        mnist.writeMnistL(std::string(datadir + "new_images_b2.mnist"), labels);
     }
 
     return 0;

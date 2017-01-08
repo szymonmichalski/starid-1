@@ -38,27 +38,7 @@ Eigen::Matrix<double, 28, 28> data::Mnist::readImage(int imgndx) {
     return image;
 }
 
-void data::Mnist::performYaw(arma::mat &img, double a) {
-    using namespace arma;
-    mat rm = { {cos(a), -sin(a)}, {sin(a), cos(a)} };
-    uvec ndxs = find(img); // pixel values are 0.0 to 255.0, find gives non empty, >0.0, pixels
-    mat pixels(ndxs.n_rows, 3, fill::zeros);
-    for (uint i = 0; i < ndxs.n_rows; ++i) {
-        uvec rowcol = ind2sub(size(img), ndxs(i));
-        pixels(i, 0) = rowcol(0) - 13.5;
-        pixels(i, 1) = rowcol(1) - 13.5;
-        pixels(i, 2) = img(ndxs(i));
-    }
-    pixels.cols(0,1) = trans(rm * trans(pixels.cols(0,1)));
-    img.zeros();
-    for (uint i = 0; i < pixels.n_rows; ++i) {
-        if (pixels(i,0) <= -14.0 || pixels(i,0) >= 14.0) continue;
-        if (pixels(i,1) <= -14.0 || pixels(i,1) >= 14.0) continue;
-        img(floor(pixels(i,0) + 14.0), floor(pixels(i,1) + 14.0)) = pixels(i,2);
-    }
-}
-
-void data::Mnist::writeMnistI(std::string filename, std::vector<arma::mat> &vec, bool yaw) {
+void data::Mnist::writeMnistI(std::string filename, std::vector<arma::mat> &vec) {
     std::ofstream file (filename, std::ios::binary);
     int rev_magic_number = reverseInt(magic_numberi);
     int rev_imgcnt = reverseInt(imgcnt);
@@ -71,12 +51,6 @@ void data::Mnist::writeMnistI(std::string filename, std::vector<arma::mat> &vec,
         file.write((char*) &rev_cols, sizeof(rev_cols));
         for (int i = 0; i < imgcnt; ++i) {
             arma::mat img = vec[i];
-
-            if (yaw) {
-                arma::vec angle = 2.0 * arma::datum::pi * arma::randu(1);
-                performYaw(img, angle(0));
-            }
-
             for(int r = 0; r < rows; ++r) {
                 for(int c = 0; c < cols; ++c) {
                     unsigned char temp = (unsigned char)img(r,c);
@@ -161,4 +135,25 @@ int data::Mnist::reverseInt (int i)
     ch3 = (i >> 16) & 255;
     ch4 = (i >> 24) & 255;
     return((int) ch1 << 24) + ((int)ch2 << 16) + ((int)ch3 << 8) + ch4;
+}
+
+// deprecated, do yaw in xy space
+void data::Mnist::doYawInPixelSpace(arma::mat &img, double a) {
+    using namespace arma;
+    mat rm = { {cos(a), -sin(a)}, {sin(a), cos(a)} };
+    uvec ndxs = find(img); // pixel values are 0.0 to 255.0, find gives non empty, >0.0, pixels
+    mat pixels(ndxs.n_rows, 3, fill::zeros);
+    for (uint i = 0; i < ndxs.n_rows; ++i) {
+        uvec rowcol = ind2sub(size(img), ndxs(i));
+        pixels(i, 0) = rowcol(0) - 13.5;
+        pixels(i, 1) = rowcol(1) - 13.5;
+        pixels(i, 2) = img(ndxs(i));
+    }
+    pixels.cols(0,1) = trans(rm * trans(pixels.cols(0,1)));
+    img.zeros();
+    for (uint i = 0; i < pixels.n_rows; ++i) {
+        if (pixels(i,0) <= -14.0 || pixels(i,0) >= 14.0) continue;
+        if (pixels(i,1) <= -14.0 || pixels(i,1) >= 14.0) continue;
+        img(floor(pixels(i,0) + 14.0), floor(pixels(i,1) + 14.0)) = pixels(i,2);
+    }
 }
