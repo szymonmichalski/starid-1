@@ -10,7 +10,7 @@ class Mnist {
 
 public:
 
-    static Eigen::Matrix<double, 28, 28> readImage(int imgndx);
+    static Eigen::Matrix<double, 28, 28> readImage(std::string& imgfile, int imgndx);
 
     void readMnistI(std::string filename, std::vector<arma::mat> &vec);
 
@@ -29,10 +29,6 @@ private:
     int rows;
     int cols;
     int imgcnt;
-
-    // deprecated, yaw should be in xy space
-    void doYawInPixelSpace(arma::mat &img, double angle);
-
 };
 
 }

@@ -79,7 +79,8 @@ int main(int argc, char* argv[])
     iarchive2(pairs);
 
     stars::Image image;
-    image.useMnistImage(imgndx);
+    std::string filename = datadir + imgfile;
+    image.useMnistImage(filename, imgndx);
     std::cout << "sky, pairs, image " << stopwatch.end() << std::endl;
 
     stopwatch.reset();

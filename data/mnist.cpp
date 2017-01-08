@@ -1,8 +1,8 @@
 #include "mnist.h"
 
-Eigen::Matrix<double, 28, 28> data::Mnist::readImage(int imgndx) {
+Eigen::Matrix<double, 28, 28> data::Mnist::readImage(std::string& imgfile, int imgndx) {
     Eigen::Matrix<double, 28, 28> image;
-    std::ifstream file ("/home/noah/dev/starid/data/images_b1.mnist", std::ios::binary);
+    std::ifstream file (imgfile, std::ios::binary);
     if (file.is_open())
     {
         int magic_number = 0;
@@ -135,25 +135,4 @@ int data::Mnist::reverseInt (int i)
     ch3 = (i >> 16) & 255;
     ch4 = (i >> 24) & 255;
     return((int) ch1 << 24) + ((int)ch2 << 16) + ((int)ch3 << 8) + ch4;
-}
-
-// deprecated, do yaw in xy space
-void data::Mnist::doYawInPixelSpace(arma::mat &img, double a) {
-    using namespace arma;
-    mat rm = { {cos(a), -sin(a)}, {sin(a), cos(a)} };
-    uvec ndxs = find(img); // pixel values are 0.0 to 255.0, find gives non empty, >0.0, pixels
-    mat pixels(ndxs.n_rows, 3, fill::zeros);
-    for (uint i = 0; i < ndxs.n_rows; ++i) {
-        uvec rowcol = ind2sub(size(img), ndxs(i));
-        pixels(i, 0) = rowcol(0) - 13.5;
-        pixels(i, 1) = rowcol(1) - 13.5;
-        pixels(i, 2) = img(ndxs(i));
-    }
-    pixels.cols(0,1) = trans(rm * trans(pixels.cols(0,1)));
-    img.zeros();
-    for (uint i = 0; i < pixels.n_rows; ++i) {
-        if (pixels(i,0) <= -14.0 || pixels(i,0) >= 14.0) continue;
-        if (pixels(i,1) <= -14.0 || pixels(i,1) >= 14.0) continue;
-        img(floor(pixels(i,0) + 14.0), floor(pixels(i,1) + 14.0)) = pixels(i,2);
-    }
 }
