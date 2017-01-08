@@ -22,18 +22,18 @@ public:
 
     Triangles(stars::Image& image,
               rules::PairsOverWholeSky& pairs,
-              double triangle_tol,
-              int max_triangles);
+              double triTol,
+              int triMaxCnt);
     int identifyCentralStar();
 
 private:
 
     rules::PairsOverWholeSky pairsOverWholeSky;
     stars::Image& image;
-    double triangle_tol;
-    uint max_triangles;
-    uint num_stars;
-    uint cur_triangle;
+    double triTol;
+    uint triMaxCnt;
+    uint starsCnt;
+    uint triCur;
 };
 
 }

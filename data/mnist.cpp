@@ -19,16 +19,16 @@ Eigen::Matrix<double, 28, 28> data::Mnist::readImage(int imgndx) {
         n_cols = reverseInt(n_cols);
         int i = 0;
         while (i < imgndx) {
-            for(int r = 0; r < 28; ++r) {
-                for(int c = 0; c < 28; ++c) {
+            for (int r = 0; r < 28; ++r) {
+                for (int c = 0; c < 28; ++c) {
                     unsigned char temp = 0;
                     file.read((char*) &temp, sizeof(temp));
                 }
             }
             ++i;
         }
-        for(int r = 0; r < 28; ++r) {
-            for(int c = 0; c < 28; ++c) {
+        for (int r = 0; r < 28; ++r) {
+            for (int c = 0; c < 28; ++c) {
                 unsigned char temp = 0;
                 file.read((char*) &temp, sizeof(temp));
                 image(r, c) = (double)temp;

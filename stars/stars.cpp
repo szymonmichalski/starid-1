@@ -7,7 +7,7 @@
 #include <fstream>
 #include "stopwatch.h"
 
-enum  optionIndex { UNKNOWN, HELP, DATADIR, SKY };
+enum  optionIndex { UNKNOWN, HELP, DATADIR, SKY, MNIST };
 struct Arg: public option::Arg {
     static void printError(const char* msg1, const option::Option& opt, const char* msg2) {
         fprintf(stderr, "ERROR: %s", msg1);
@@ -33,8 +33,13 @@ const option::Descriptor usage[] = {
     {HELP, 0, "h", "help", option::Arg::None, "  -h, --help  \tprint usage and exit" },
     {DATADIR, 0, "d", "data", Arg::Required, "  -d, --data  \tdata dir" },
     {SKY, 0, "s", "", Arg::None, "  -s  \tcreate sky and pair files" },
+    {MNIST, 0, "s", "", Arg::None, "  -m  \tcreate mnist files" },
     {0,0,0,0,0,0} // end of options
 };
+
+double mv = 6.5;
+double fov = 4.0 * arma::datum::pi / 180.0;
+std::string datadir = "/home/noah/dev/starid/data/";
 
 int main(int argc, char* argv[])
 {
@@ -50,31 +55,29 @@ int main(int argc, char* argv[])
         return 0;
     }
 
-    std::string datadir = "/home/noah/dev/starid/data/";
     if (options[DATADIR]) {
         datadir = options[DATADIR].arg;
     } else {
-        std::cout << "no data dir parameter - using default" << std::endl;
+        std::cout << "using default datadir " << datadir << std::endl;
     }
 
     if (options[SKY]) {
-        double mv = 6.5;
-        double fov = 4.0 * arma::datum::pi / 180.0;
         util::Stopwatch stopwatch;
-
         stars::Sky sky;
         sky.init(std::string(datadir + "skymap.txt"), mv);
         std::ofstream os1(std::string(datadir + "sky.cereal"));
         cereal::BinaryOutputArchive oarchive1(os1);
         oarchive1(sky);
-
         rules::PairsOverWholeSky pairs;
         pairs.init(sky, fov);
         std::ofstream os2(std::string(datadir + "pairs.cereal"));
         cereal::BinaryOutputArchive oarchive2(os2);
         oarchive2(pairs);
-
         std::cout << "sky and pairs " << stopwatch.end() << std::endl;
+    }
+
+    if (options[MNIST]) {
+
     }
 
     return 0;

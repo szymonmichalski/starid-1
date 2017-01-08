@@ -32,7 +32,7 @@ const option::Descriptor usage[] = {
     {HELP, 0, "h", "help", option::Arg::None, "  -h, --help  \tprint usage and exit" },
     {DATADIR, 0, "", "datadir", Arg::Required, "  --datadir  \tdata dir" },
     {IMGFILE, 0, "", "imgfile", Arg::Required, "  --imgfile  \timage file" },
-    {IMGNDX, 0, "", "imgndx", Arg::Numeric, "  --imgndx  \timage ndx" },
+    {IMGNDX, 0, "", "imgndx", Arg::Required, "  --imgndx  \timage ndx" },
     {0,0,0,0,0,0} // end of options
 };
 
@@ -72,16 +72,15 @@ int main(int argc, char* argv[])
     std::ifstream is1(std::string(datadir + "sky.cereal"));
     cereal::BinaryInputArchive iarchive1(is1);
     iarchive1(sky);
+
     rules::PairsOverWholeSky pairs;
     std::ifstream is2(std::string(datadir + "pairs.cereal"));
     cereal::BinaryInputArchive iarchive2(is2);
     iarchive2(pairs);
-    std::cout << "sky and pairs " << stopwatch.end() << std::endl;
 
-    stopwatch.reset();
     stars::Image image;
     image.useMnistImage(imgndx);
-    std::cout << "image " << stopwatch.end() << std::endl;
+    std::cout << "sky, pairs, image " << stopwatch.end() << std::endl;
 
     stopwatch.reset();
     double triTol = 100 * arma::datum::pi / 648e3;
