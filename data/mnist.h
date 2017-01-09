@@ -28,8 +28,9 @@ private:
     int magnumlab;
     int imgcnt;
 
-    // axj, axi plane
-    // (axj inverted-y-like row-like), (axi x-like col-like) plane
+    // axj, axi plane quantized to
+    // axjndx, axindx plane
+    // (axjndx inverted-y-like row-like), (axindx x-like col-like) plane
     int axjcnt; // 28
     int axicnt; // 28
 };

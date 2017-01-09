@@ -11,7 +11,7 @@ namespace stars {
 class Image {
 public:
 
-    void useMnistImage(std::string& imgfile, int imgndx);
+    void readMnistImage(std::string& imgfile, int imgndx);
 
     arma::mat uvecs;
 

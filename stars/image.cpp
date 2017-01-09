@@ -1,36 +1,31 @@
 #include "image.h"
+#include <cmath>
 
-void stars::Image::useMnistImage(std::string& imgfile, int imgndx) {
+void stars::Image::readMnistImage(std::string& imgfile, int imgndx) {
 
     Eigen::Matrix<double, 28, 28> image = data::Mnist::readImage(imgfile, imgndx);
-
-    double centerStarBound = 10 * (arma::datum::pi / 648e3); // ten arcseconds in radians
-    double fov = 4.0 * arma::datum::pi / 180.0;
-    double pixelAngle = fov / 14.0;
+    double fovLen = std::atan(4.0 * arma::datum::pi / 180.0);
+    double pixelLen = fovLen / 14.0;
     std::random_device r;
     std::default_random_engine e1(r());
-    std::uniform_real_distribution<double> uniform_dist(0, 1);
-
+    std::uniform_real_distribution<double> unitscatter(0, 1);
     uvecs.zeros(100,3);
-    int uvecsndx = 0;
-    for(int r = 0; r < 28; ++r) {
-        for(int c = 0; c < 28; ++c) {
-            if (image(r,c) > 0) {
-                double h = pixelAngle * (r - 14.0);
-                double v = pixelAngle * (c - 14.0);
-                if (abs(h) > centerStarBound || abs(v) > centerStarBound) { // don't scatter center star
-                    double dh = uniform_dist(e1) * pixelAngle;
-                    double dv = uniform_dist(e1) * pixelAngle;
-                    if (h < 0) h += -dh; else h += dh; // floor was used in creating image
-                    if (v < 0) v += -dv; else v += dv; // star could be anywhere in a pixel
-                }
-                double x = tan(h);
-                double y = tan(v);
-                double z = 1.0;
-                double len = std::sqrt( x*x + y*y + z*z );
-                uvecs(uvecsndx,0) = x/len;
-                uvecs(uvecsndx,1) = y/len;
-                uvecs(uvecsndx,2) = z/len;
+
+    // central star is implicit in the image
+    uvecs(0,0) = 0.0;
+    uvecs(0,1) = 0.0;
+    uvecs(0,2) = 1.0;
+
+    // get other stars from the image data
+    int uvecsndx = 1;
+    for (int axjndx = 0; axjndx < 28; ++axjndx) {
+        for (int axindx = 0; axindx < 28; ++axindx) {
+            if (image(axjndx, axindx) > 0) { // there's a star inside axjndx, axindx
+                double x = (-14.0 + (double)axindx + unitscatter(e1)) * pixelLen;
+                double y = (14.0 - (double)axjndx - unitscatter(e1)) * pixelLen;
+                uvecs(uvecsndx,0) = x;
+                uvecs(uvecsndx,1) = y;
+                uvecs(uvecsndx,2) = std::sqrt(1 - x*x - y*y);
                 ++uvecsndx;
             }
         }

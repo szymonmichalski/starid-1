@@ -10,7 +10,6 @@ Eigen::Matrix<double, 28, 28> data::Mnist::readImage(std::string& imgfile, int t
         magnumimg = reverseInt(magnumimg);
         file.read((char*) &imgcnt, sizeof(imgcnt));
         imgcnt = reverseInt(imgcnt);
-        // (axj inverted-y-like row-like), (axi x-like col-like) plane
         file.read((char*) &axjcnt, sizeof(axjcnt));
         axjcnt = reverseInt(axjcnt); // 28
         file.read((char*) &axicnt, sizeof(axicnt));
@@ -26,6 +25,7 @@ Eigen::Matrix<double, 28, 28> data::Mnist::readImage(std::string& imgfile, int t
             }
             ++imgndx;
         }
+        // (axjndx inverted-y-like row-like), (axindx x-like col-like) plane
         for (int axjndx = 0; axjndx < 28; ++axjndx) { // inverted-y-like, row-like
             for (int axindx = 0; axindx < 28; ++axindx) { // x-like, col-like
                 unsigned char temp = 0;
