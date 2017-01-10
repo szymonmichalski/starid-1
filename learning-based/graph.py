@@ -1,12 +1,5 @@
 import tensorflow as tf
 
-def variable_summaries(var, name):
-  mean = tf.reduce_mean(var)
-  stddev = tf.sqrt(tf.reduce_sum(tf.square(var - mean)))
-  tf.summary.scalar('mean/' + name, mean)
-  tf.summary.scalar('sttdev/' + name, stddev)
-  tf.summary.histogram(name, var)
-
 def weight_variable(shape):
   initial = tf.truncated_normal(shape, stddev=0.1)
   return tf.Variable(initial)
