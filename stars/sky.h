@@ -45,16 +45,15 @@ public:
     std::vector<stars::Star> stars;
     std::vector<std::string> catalogLines;
 
-    void init(std::string fcatalog, double mv);
+    void init(std::string fcatalog);
 
-    std::vector<int> starsNearPoint(double x, double y, double z, double radius);
+    std::vector<int> starsNearPoint(double x, double y, double z);
 
     void status();
 
 private:
 
     double t;
-    double mv;
     std::string fcatalog;
     util::FloatIntTable xtable;
     util::FloatIntTable ytable;

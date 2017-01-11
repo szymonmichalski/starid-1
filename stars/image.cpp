@@ -20,8 +20,8 @@ void stars::Image::readMnistImage(std::string& imgfile, int imgndx) {
     for (int axjndx = 0; axjndx < 28; ++axjndx) {
         for (int axindx = 0; axindx < 28; ++axindx) {
             if (image(axjndx, axindx) > 0) { // there's a star inside axjndx, axindx
-                double x = (-14.0 + (double)axindx + unitscatter(e1)) * pixelLen;
-                double y = (+14.0 - (double)axjndx - unitscatter(e1)) * pixelLen;
+                double x = (-14.0 + (double)axindx + unitscatter(e1)) * stars::pixelLen;
+                double y = (+14.0 - (double)axjndx - unitscatter(e1)) * stars::pixelLen;
                 uvecs(uvecsndx,0) = x;
                 uvecs(uvecsndx,1) = y;
                 uvecs(uvecsndx,2) = std::sqrt(1 - x*x - y*y);

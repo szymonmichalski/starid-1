@@ -1,15 +1,15 @@
 #include "sky.h"
 #include "skymap.h"
 #include <cassert>
+#include "globals.h"
 
-void stars::Sky::init(std::string fcatin, double mvin) {
+void stars::Sky::init(std::string fcatin) {
     arma::arma_rng::set_seed_random();
     fcatalog = fcatin;
-    mv = mvin;
     t = 0.0;
     Star star;
 
-    data::SkymapCatalog skymapCatalog(fcatalog, mv);
+    data::SkymapCatalog skymapCatalog(fcatalog);
     int starndx {0};
     for (auto r : skymapCatalog.skymapRecords) {
         star.starndx = starndx;
@@ -52,10 +52,10 @@ void stars::Sky::init(std::string fcatin, double mvin) {
     ztable.sort();
 }
 
-std::vector<int> stars::Sky::starsNearPoint(double x, double y, double z, double radius) {
-    std::vector<int> xring = starsInRing(x, radius, xtable);
-    std::vector<int> yring = starsInRing(y, radius, ytable);
-    std::vector<int> zring = starsInRing(z, radius, ztable);
+std::vector<int> stars::Sky::starsNearPoint(double x, double y, double z) {
+    std::vector<int> xring = starsInRing(x, stars::fov, xtable);
+    std::vector<int> yring = starsInRing(y, stars::fov, ytable);
+    std::vector<int> zring = starsInRing(z, stars::fov, ztable);
     std::vector<int> xy;
     std::set_intersection(xring.begin(), xring.end(), yring.begin(), yring.end(), std::back_inserter(xy));
     std::vector<int> xyz;

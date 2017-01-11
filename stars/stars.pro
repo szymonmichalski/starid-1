@@ -28,7 +28,7 @@ HEADERS += \
     ../rules-based/pairs_over_whole_sky.h \
     ../rules-based/triangles.h \
     image.h \
-    globals.h
+    globals.h \
 
 INCLUDEPATH += \
     ../rules-based \

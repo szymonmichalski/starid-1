@@ -1,10 +1,11 @@
 #include "pairs_over_whole_sky.h"
+#include "globals.h"
 
-void rules::PairsOverWholeSky::init(stars::Sky& sky, double fov)
+void rules::PairsOverWholeSky::init(stars::Sky& sky)
 {
     int pairndx = 0;
     for(auto star : sky.stars) {
-        std::vector<int> neighborndxs = sky.starsNearPoint(star.x, star.y, star.z, fov);
+        std::vector<int> neighborndxs = sky.starsNearPoint(star.x, star.y, star.z);
         for (auto neighborndx : neighborndxs) {
             if (star.starndx == neighborndx) continue;
             std::string key = pairsKey(star.starndx, sky.stars[neighborndx].starndx);
@@ -13,7 +14,7 @@ void rules::PairsOverWholeSky::init(stars::Sky& sky, double fov)
             double angle = acos( (star.x * sky.stars[neighborndx].x)
                                  + (star.y * sky.stars[neighborndx].y)
                                  + (star.z * sky.stars[neighborndx].z));
-            if (std::fabs(angle) > fov) continue;
+            if (std::fabs(angle) > stars::fov) continue;
             std::tuple<double, int, int> starpair {angle, star.starndx, neighborndx};
             starpairs.push_back(starpair);
             starpairs_map.insert({key, pairndx}); // update map of unique pairs

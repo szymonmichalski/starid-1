@@ -16,7 +16,7 @@ class PairsOverWholeSky {
 
 public:
 
-    void init(stars::Sky& sky, double fov);
+    void init(stars::Sky& sky);
 
     std::vector<int> starsFromPairs(double angle, double tolerance);
 

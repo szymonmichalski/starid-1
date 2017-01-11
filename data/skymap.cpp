@@ -1,6 +1,7 @@
 #include "skymap.h"
+#include "globals.h"
 
-data::SkymapCatalog::SkymapCatalog(std::string fcat, double mv) {
+data::SkymapCatalog::SkymapCatalog(std::string fcat) {
     std::ifstream catfile (fcat);
     if (catfile.is_open()) {
         std::string line;
@@ -8,7 +9,7 @@ data::SkymapCatalog::SkymapCatalog(std::string fcat, double mv) {
         while (std::getline(catfile, line)) {
             try {
                 try {skyrec.mv1 = std::stof(line.substr(232,6));} catch(...){}
-                if (skyrec.mv1 > mv) {
+                if (skyrec.mv1 > stars::mv) {
                     ++dimStars;
                     continue;
                 }

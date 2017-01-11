@@ -37,8 +37,6 @@ const option::Descriptor usage[] = {
     {0,0,0,0,0,0} // end of options
 };
 
-double mv = 6.5;
-double fov = 4.0 * arma::datum::pi / 180.0;
 std::string datadir = "/home/noah/dev/starid/data/";
 
 int main(int argc, char* argv[])
@@ -64,12 +62,12 @@ int main(int argc, char* argv[])
     if (options[SKY]) {
         util::Stopwatch stopwatch;
         stars::Sky sky;
-        sky.init(std::string(datadir + "skymap.txt"), mv);
+        sky.init(std::string(datadir + "skymap.txt"));
         std::ofstream os1(std::string(datadir + "sky.cereal"));
         cereal::BinaryOutputArchive oarchive1(os1);
         oarchive1(sky);
         rules::PairsOverWholeSky pairs;
-        pairs.init(sky, fov);
+        pairs.init(sky);
         std::ofstream os2(std::string(datadir + "pairs.cereal"));
         cereal::BinaryOutputArchive oarchive2(os2);
         oarchive2(pairs);
@@ -78,7 +76,7 @@ int main(int argc, char* argv[])
 
     if (options[MNIST]) {
         stars::Sky sky;
-        sky.init(std::string(datadir + "skymap.txt"), mv);
+        sky.init(std::string(datadir + "skymap.txt"));
         int imgCnt = 10000;
         data::Mnist mnist;
         std::vector<arma::mat> images;

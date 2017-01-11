@@ -16,6 +16,7 @@ SOURCES += \
     triangles.cpp \
     rb.cpp \
     ../data/mnist.cpp \
+    ../stars/globals.cpp \
 
 HEADERS += \
     pairs_over_whole_sky.h \
@@ -27,6 +28,7 @@ HEADERS += \
     triangles.h \
     ../util/stopwatch.h \
     ../data/mnist.h \
+    ../stars/globals.h \
 
 INCLUDEPATH += \
     ../stars \

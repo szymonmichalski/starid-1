@@ -1,6 +1,5 @@
 #ifndef SKYMAP_H
 #define SKYMAP_H
-
 #include <armadillo>
 
 namespace data {
@@ -35,7 +34,7 @@ class SkymapCatalog {
 
 public:
 
-    SkymapCatalog(std::string fcat, double mv);
+    SkymapCatalog(std::string fcat);
     std::vector<data::SkymapRecord> skymapRecords;
     int dimStars;
 
