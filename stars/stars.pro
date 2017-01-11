@@ -15,7 +15,8 @@ SOURCES += \
     ../data/skymap.cpp \
     ../rules-based/pairs_over_whole_sky.cpp \
     ../rules-based/triangles.cpp \
-    image.cpp
+    image.cpp \
+    globals.cpp
 
 HEADERS += \
     sky.h \
@@ -26,7 +27,8 @@ HEADERS += \
     ../util/stopwatch.h \
     ../rules-based/pairs_over_whole_sky.h \
     ../rules-based/triangles.h \
-    image.h
+    image.h \
+    globals.h
 
 INCLUDEPATH += \
     ../rules-based \
