@@ -1,6 +1,6 @@
 #include "globals.h"
 
-double stars::fov = 0.0698131700797732; // pi*4/180
-double stars::fovLen = 0.0697564737441253; // sin(pi*4/180)
-double stars::pixelLen = 0.00498260526743752; // fovlen/14
-double stars::mv = 6.5;
+double stars::imageRadiusRadians = 0.0698131700797732; // four degrees in radians
+double stars::imageRadiusUnitVectors = 0.0697564737441253; // sin(4*pi/180)
+double stars::imagePixelUnitVectors = 0.00498260526743752; // sin(4*pi/180)/14
+double stars::imageFaintnessLimit = 6.5; // star visual magnitude

@@ -9,7 +9,7 @@ data::SkymapCatalog::SkymapCatalog(std::string fcat) {
         while (std::getline(catfile, line)) {
             try {
                 try {skyrec.mv1 = std::stof(line.substr(232,6));} catch(...){}
-                if (skyrec.mv1 > stars::mv) {
+                if (skyrec.mv1 > stars::imageFaintnessLimit) {
                     ++dimStars;
                     continue;
                 }

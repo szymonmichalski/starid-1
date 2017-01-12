@@ -53,9 +53,9 @@ void stars::Sky::init(std::string fcatin) {
 }
 
 std::vector<int> stars::Sky::starsNearPoint(double x, double y, double z) {
-    std::vector<int> xring = starsInRing(x, stars::fov, xtable);
-    std::vector<int> yring = starsInRing(y, stars::fov, ytable);
-    std::vector<int> zring = starsInRing(z, stars::fov, ztable);
+    std::vector<int> xring = starsInRing(x, stars::imageRadiusRadians, xtable);
+    std::vector<int> yring = starsInRing(y, stars::imageRadiusRadians, ytable);
+    std::vector<int> zring = starsInRing(z, stars::imageRadiusRadians, ztable);
     std::vector<int> xy;
     std::set_intersection(xring.begin(), xring.end(), yring.begin(), yring.end(), std::back_inserter(xy));
     std::vector<int> xyz;

@@ -3,10 +3,10 @@
 
 namespace stars {
 
-extern double fov;
-extern double fovLen;
-extern double pixelLen;
-extern double mv;
+extern double imageRadiusRadians;
+extern double imageRadiusUnitVectors;
+extern double imagePixelUnitVectors;
+extern double imageFaintnessLimit;
 
 }
 
