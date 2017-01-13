@@ -1,15 +1,15 @@
-07.01.2017
+# 07.01.2017
 
-more automation
-with the the mnist style dataset
+more automation with the the mnist style dataset
 
 /usr/bin/python3.5 /home/noah/dev/starid/system.py
-n 100     ok      t
-   lb  0.500  0.548
-   rb  0.900  0.334
 
+n 100 | ok | t
+------ | ------ | -----
+lb | 0.500 | 0.548
+rb | 0.900 | 0.334
 
-05.01.2017
+# 05.01.2017
 
 serialized sky and pairs
 disk serialization of these two classes is now full integrated and performance delta is clear - here's on a six year old laptop
@@ -30,18 +30,11 @@ true identity 800
 learning-based identification 800
 rules-based identification 800
 
-04.01.2017
+# 04.01.2017
 
-cereal and optionparser
-with initial functionality in place, it's time for a round of refactoring
-and performance. two cpp header-only libraries have jumped in and they're
-giving a pretty good feeling about the state of modern cpp.
+cereal and optionparser. with initial functionality in place, it's time for a round of refactoring and performance. two cpp header-only libraries have jumped in and they're giving a pretty good feeling about the state of modern cpp.
 
-cereal has quickly allowed two classes, representing the complete
-sky and all star pairs, to be streamed to and from disk. this is an order
-of magnitude improvement over runtime generation - say
-from six seconds to half a second on a six year old laptop. optionparser
-has taken some pain out of command line handling.
+cereal has quickly allowed two classes, representing the complete sky and all star pairs, to be streamed to and from disk. this is an order of magnitude improvement over runtime generation - say from six seconds to half a second on a six year old laptop. optionparser has taken some pain out of command line handling.
 
 http://optionparser.sourceforge.net/
 
