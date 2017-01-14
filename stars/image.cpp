@@ -28,39 +28,49 @@ void stars::Image::axjAxiImageReadMnist(std::string& imgfile, int imgndx) {
 }
 
 void stars::Image::axjAxiImageUpdate(arma::mat& axjAxiImage, stars::Sky& sky, int starndx) {
-    double x, y, x2, y2, yaw, xcf, ycf, zcf;
-    // get uvec for centerstar
-    xcf = sky.stars[starndx].x;
-    ycf = sky.stars[starndx].y;
-    zcf = sky.stars[starndx].z;
-    // get uvecs of other stars in image
-    std::vector<int> starndxs = sky.starsNearPoint(xcf, ycf, zcf);
+    arma::vec pointing(3); // pointing vec to image center star
+    pointing(0) = sky.stars[starndx].x;
+    pointing(1) = sky.stars[starndx].y;
+    pointing(2) = sky.stars[starndx].z;
+    // get icrf uvecs of other stars
+    std::vector<int> starndxs = sky.starsNearPoint(pointing(0), pointing(1), pointing(2));
     uvecs.zeros(100,3);
     int uvecsndx = 0;
     for (auto ndx : starndxs) {
-        xcf = sky.stars[ndx].x;
-        ycf = sky.stars[ndx].y;
-        zcf = sky.stars[ndx].z;
-        x = 0.0; // todo
-        y = 0.0;
-        yaw = unitscatter(e1) * 360.0;
-        x2 = (std::cos(yaw) * x) - (std::sin(yaw) * y);
-        y2 = (std::sin(yaw) * x) + (std::cos(yaw) * y);
-        uvecs(uvecsndx,0) = x2;
-        uvecs(uvecsndx,1) = y2;
-        uvecs(uvecsndx,2) = std::sqrt(1 - x2*x2 - y2*y2);
+        uvecs(uvecsndx,0) = sky.stars[ndx].x;
+        uvecs(uvecsndx,1) = sky.stars[ndx].y;
+        uvecs(uvecsndx,2) = sky.stars[ndx].z;
         ++uvecsndx;
     }
     uvecs.shed_rows(uvecsndx, 99);
+    // rotate uvecs from icrf to image frame
+    double yaw = unitscatter(e1) * 2 * M_PI;
+    arma::mat attitude = rotationMatrix(pointing, yaw);
+    uvecs = arma::trans( arma::trans(attitude) * arma::trans(uvecs) );
     // update axjaxiimage
     axjAxiImage.zeros();
     for (int ndx = 0; ndx < uvecsndx; ++ndx) {
-        x = uvecs(ndx,0);
-        y = uvecs(ndx,1);
-        int axjndx = 0;
+        double x = uvecs(ndx,0);
+        double y = uvecs(ndx,1);
+        int axjndx = 0; //todo
         int axindx = 0;
         axjAxiImage(axjndx, axindx) = 255.0;
     }
 }
 
-
+arma::mat stars::Image::rotationMatrix(arma::vec& pointing, double yaw) {
+    arma::mat rm;
+    rm.eye(3,3);
+    arma::vec bz = pointing;
+    arma::vec iz = { 0.0, 0.0, 1.0 };
+    arma::vec b1x = arma::cross(bz,iz);
+    b1x = arma::normalise(b1x);
+    arma::vec b1y = arma::cross(bz,b1x);
+    b1y = arma::normalise(b1y);
+    arma::vec bx = std::cos(yaw) * b1x + std::sin(yaw) * b1y;
+    arma::vec by = std::sin(yaw) * b1x + std::cos(yaw) * b1y;
+    rm.col(0) = arma::normalise(bx);
+    rm.col(1) = arma::normalise(by);
+    rm.col(2) = bz;
+    return rm;
+}
