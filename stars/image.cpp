@@ -8,15 +8,13 @@ std::uniform_real_distribution<double> unitscatter(0, 1);
 
 void stars::Image::axjAxiImageReadMnist(std::string& imgfile, int imgndx) {
     Eigen::Matrix<double, 28, 28> axjAxiImage = data::Mnist::readImage(imgfile, imgndx);
-    // center star uvec is implicit in the image
-    // get other star uvecs from image data
     uvecs.zeros(100,3);
     int uvecsndx = 0;
     for (int axjndx = 0; axjndx < 28; ++axjndx) {
         for (int axindx = 0; axindx < 28; ++axindx) {
             if (axjAxiImage(axjndx, axindx) > 0) { // there's a star inside axjndx, axindx
-                double x = (-14.0 + (double)axindx + unitscatter(e1)) * stars::imagePixelUnitVectors;
-                double y = (+14.0 - (double)axjndx - unitscatter(e1)) * stars::imagePixelUnitVectors;
+                double x = stars::imagePixelUnitVectors * ( -14.0 + (double)axindx + unitscatter(e1) );
+                double y = stars::imagePixelUnitVectors * ( +14.0 - (double)axjndx - unitscatter(e1) );
                 uvecs(uvecsndx,0) = x;
                 uvecs(uvecsndx,1) = y;
                 uvecs(uvecsndx,2) = std::sqrt(1 - x*x - y*y);
@@ -28,11 +26,10 @@ void stars::Image::axjAxiImageReadMnist(std::string& imgfile, int imgndx) {
 }
 
 void stars::Image::axjAxiImageUpdate(arma::mat& axjAxiImage, stars::Sky& sky, int starndx) {
-    arma::vec pointing(3); // pointing vec to image center star
+    arma::vec pointing(3);
     pointing(0) = sky.stars[starndx].x;
     pointing(1) = sky.stars[starndx].y;
     pointing(2) = sky.stars[starndx].z;
-    // get icrf uvecs of other stars
     std::vector<int> starndxs = sky.starsNearPoint(pointing(0), pointing(1), pointing(2));
     uvecs.zeros(100,3);
     int uvecsndx = 0;
@@ -43,17 +40,17 @@ void stars::Image::axjAxiImageUpdate(arma::mat& axjAxiImage, stars::Sky& sky, in
         ++uvecsndx;
     }
     uvecs.shed_rows(uvecsndx, 99);
-    // rotate uvecs from icrf to image frame
     double yaw = unitscatter(e1) * 2 * M_PI;
     arma::mat attitude = rotationMatrix(pointing, yaw);
     uvecs = arma::trans( arma::trans(attitude) * arma::trans(uvecs) );
-    // update axjaxiimage
-    axjAxiImage.zeros();
+    axjAxiImage.zeros(); // update axjaxiimage
     for (int ndx = 0; ndx < uvecsndx; ++ndx) {
-        double x = uvecs(ndx,0);
-        double y = uvecs(ndx,1);
-        int axjndx = 0; //todo
-        int axindx = 0;
+        double axi = uvecs(ndx,0) + stars::imageRadiusUnitVectors;
+        double axj = -uvecs(ndx,1) + stars::imageRadiusUnitVectors;
+        int axindx = std::floor( axi / stars::imagePixelUnitVectors );
+        int axjndx = std::floor( axj / stars::imagePixelUnitVectors );
+        if (axjndx < 0 || axjndx > 27) continue;
+        if (axindx < 0 || axindx > 27) continue;
         axjAxiImage(axjndx, axindx) = 255.0;
     }
 }
