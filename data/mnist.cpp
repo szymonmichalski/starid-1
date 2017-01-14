@@ -60,7 +60,7 @@ void data::Mnist::writeImages(std::string filename, std::vector<arma::mat> &imag
     }
 }
 
-void data::Mnist::readImages(std::string filename, std::vector<arma::mat> &images) {
+void data::Mnist::readAxjAxiImages(std::string filename, std::vector<arma::mat> &images) {
     std::ifstream file (filename, std::ios::binary);
     if (file.is_open())
     {

@@ -80,7 +80,7 @@ int main(int argc, char* argv[])
 
     stars::Image image;
     std::string filename = datadir + imgfile;
-    image.readMnistImage(filename, imgndx);
+    image.readMnistAxjAxiImage(filename, imgndx);
     std::cout << "sky, pairs, image " << stopwatch.end() << std::endl;
 
     stopwatch.reset();

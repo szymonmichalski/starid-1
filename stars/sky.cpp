@@ -10,7 +10,7 @@ void stars::Sky::init(std::string fcatin) {
     Star star;
 
     data::SkymapCatalog skymapCatalog(fcatalog);
-    int starndx {0};
+    int starndx = 0;
     for (auto r : skymapCatalog.skymapRecords) {
         star.starndx = starndx;
         star.iau_identifier = r.iau_identifier;

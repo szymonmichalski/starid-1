@@ -1,3 +1,9 @@
+# 14.01.2017
+
+concept for image class. an image is a group of unit vectors clustered around the z axis. there is always a center star with unit vector 0, 0, 1 - this can be implicit - an image is always of a star. the explicit unit vectors are the nearby stars that happen to be in the image.
+
+when you talk about a star - say starndx 3 - you can can just as well talk about the image of star 3, with star 3 as its 0, 0, 1 axis.
+
 # 07.01.2017
 
 more automation with the the mnist style dataset

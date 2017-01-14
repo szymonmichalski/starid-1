@@ -12,7 +12,7 @@ public:
 
     static Eigen::Matrix<double, 28, 28> readImage(std::string& imgfile, int imgndx);
 
-    void readImages(std::string filename, std::vector<arma::mat> &images);
+    void readAxjAxiImages(std::string filename, std::vector<arma::mat> &images);
 
     void readLabels(std::string filename, arma::colvec &labels);
 

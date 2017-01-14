@@ -79,18 +79,20 @@ int main(int argc, char* argv[])
         sky.init(std::string(datadir + "skymap.txt"));
         int imgCnt = 10000;
         data::Mnist mnist;
-        std::vector<arma::mat> images;
+        std::vector<arma::mat> axjAxiImages;
         arma::colvec labels = arma::zeros<arma::colvec>(imgCnt);
-        mnist.readImages(std::string(datadir + "images_b1.mnist"), images);
-        mnist.readLabels(std::string(datadir + "images_b2.mnist"), labels);
-        for (int setndx = 0; setndx < imgCnt/10; ++setndx) {
+        mnist.readAxjAxiImages(std::string(datadir + "images_b1.mnist"), axjAxiImages); // 28x28ximgCnt images
+        mnist.readLabels(std::string(datadir + "images_b2.mnist"), labels); // imageCntx1 labels
+        for (int starSetNdx = 0; starSetNdx < imgCnt/10; ++starSetNdx) {
             for (int starndx = 0; starndx < 10; ++starndx) {
-                arma::mat image = images[10*setndx + starndx];
-                labels(10*setndx + starndx) = (double) starndx;
-                images[10*setndx + starndx] = image;
+                arma::mat axjAxiImage = axjAxiImages[10*starSetNdx + starndx]; // get current image
+                stars::Image image;
+                image.replaceAxjAxiImage(axjAxiImage, sky, starndx);
+                labels(10*starSetNdx + starndx) = (double) starndx; // update current label
+                axjAxiImages[10*starSetNdx + starndx] = axjAxiImage; // update current image
             }
         }
-        mnist.writeImages(std::string(datadir + "new_images_b1.mnist"), images);
+        mnist.writeImages(std::string(datadir + "new_images_b1.mnist"), axjAxiImages);
         mnist.writeLabels(std::string(datadir + "new_images_b2.mnist"), labels);
     }
 
