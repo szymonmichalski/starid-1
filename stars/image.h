@@ -11,9 +11,9 @@ namespace stars {
 class Image {
 public:
 
-    void readMnistAxjAxiImage(std::string& imgfile, int imgndx);
+    void axjAxiImageReadMnist(std::string& imgfile, int imgndx);
 
-    void replaceAxjAxiImage(arma::mat& axjAxiImage, stars::Sky& sky, int starndx);
+    void axjAxiImageUpdate(arma::mat& axjAxiImage, stars::Sky& sky, int starndx);
 
     arma::mat uvecs;
 

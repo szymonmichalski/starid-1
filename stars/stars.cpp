@@ -87,7 +87,7 @@ int main(int argc, char* argv[])
             for (int starndx = 0; starndx < 10; ++starndx) {
                 arma::mat axjAxiImage = axjAxiImages[10*starSetNdx + starndx]; // get current image
                 stars::Image image;
-                image.replaceAxjAxiImage(axjAxiImage, sky, starndx);
+                image.axjAxiImageUpdate(axjAxiImage, sky, starndx);
                 labels(10*starSetNdx + starndx) = (double) starndx; // update current label
                 axjAxiImages[10*starSetNdx + starndx] = axjAxiImage; // update current image
             }
