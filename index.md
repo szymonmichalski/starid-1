@@ -1,3 +1,12 @@
+# 15.01.2017
+
+new school images are now in mnist and tfrecords files, and learning is working. using the first ten skymap stars and a few minutes of trainging
+
+    /usr/bin/python3.5 /home/noah/dev/starid/learning-based/predict.py
+    precision 0.778
+
+almost 0.8 correct - this is a significant improvement and reason to suspect there was subtle bug in the old school mnist file - possibly a duplication of images that limited learning.
+
 # 14.01.2017
 
 concept for image class. an image is a group of unit vectors clustered around the z axis. there is always a center star with unit vector 0, 0, 1 - this can be implicit - an image is always of a star. the explicit unit vectors are the nearby stars that happen to be in the image.
