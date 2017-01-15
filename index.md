@@ -3,7 +3,7 @@
 new school images are now in mnist and tfrecords files, and learning is working. using the first ten skymap stars and a few minutes of trainging
 
     /usr/bin/python3.5 /home/noah/dev/starid/learning-based/predict.py
-    precision 0.778
+    0.778 correct
 
 almost 0.8 correct - this is a significant improvement and reason to suspect there was subtle bug in the old school mnist file - possibly a duplication of images that limited learning.
 
