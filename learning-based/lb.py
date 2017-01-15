@@ -1,5 +1,5 @@
 from optparse import OptionParser
-from data import mnist
+from data import mnist_to_tfrecords
 import tensorflow as tf
 import graph as gn
 import numpy as np
@@ -8,7 +8,7 @@ tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/dev/starid/models', '')
 
 def identifyCentralStar(imgndx):
   tf.reset_default_graph()
-  images = mnist.read_images('/home/noah/dev/starid/data/images_b1.mnist')
+  images = mnist_to_tfrecords.read_images('/home/noah/dev/starid/data/images_b1.mnist')
   image = images[imgndx,:,:,0]
   image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
   image = tf.reshape(image, [28, 28, 1])

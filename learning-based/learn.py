@@ -34,6 +34,6 @@ def learn():
       summary_str = sess.run(summary)
       summary_writer.add_summary(summary_str, batch)
       summary_writer.add_summary(img_summary)
-  # saver.save(sess, FLAGS.ckpt)
+  saver.save(sess, FLAGS.ckpt)
 learn()
 
