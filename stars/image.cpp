@@ -16,8 +16,10 @@ void stars::Image::axjAxiImageReadMnist(std::string& imgfile, int imgndx) {
     for (int axjndx = 0; axjndx < 28; ++axjndx) {
         for (int axindx = 0; axindx < 28; ++axindx) {
             if (axjAxiImage(axjndx, axindx) > 0) { // there's a star inside axjndx, axindx
-                double x = stars::imagePixelUnitVectors * ( -14.0 + (double)axindx + unitscatter(e1) );
-                double y = stars::imagePixelUnitVectors * ( +14.0 - (double)axjndx - unitscatter(e1) );
+//                double x = stars::imagePixelUnitVectors * ( -14.0 + (double)axindx + unitscatter(e1) );
+//                double y = stars::imagePixelUnitVectors * ( +14.0 - (double)axjndx - unitscatter(e1) );
+                double x = stars::imagePixelUnitVectors * ( -14.0 + (double)axindx );
+                double y = stars::imagePixelUnitVectors * ( +14.0 - (double)axjndx );
                 uvecs(uvecsndx,0) = x;
                 uvecs(uvecsndx,1) = y;
                 uvecs(uvecsndx,2) = std::sqrt(1 - x*x - y*y);

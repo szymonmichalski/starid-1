@@ -19,7 +19,7 @@ def identifyCentralStar(imgndx):
   saver.restore(sess, ckpt.model_checkpoint_path)
   softmaxval = sess.run(softmax)
   ndx = np.argmax(softmaxval)
-  return 800*(ndx+1)
+  return ndx
 
 def main():
   usage = "usage: %prog [options] arg"

@@ -4,31 +4,30 @@ import re
 import time
 import numpy as np
 
-resultscnt = 15
+resultscnt = 25
 results = np.zeros(shape=(resultscnt, 6), dtype=float)
 
-for resndx in range(0, resultscnt):
-  setndx = np.random.randint(0, 1000)
-  imgndx = 10*setndx + np.mod(resndx, 10)
-  starndx = 800 * (imgndx - 10*setndx + 1)
-  results[resndx, 0] = starndx
-  results[resndx, 1] = imgndx
+for resultsndx in range(0, resultscnt):
+  starndx = np.mod(resultsndx, 10)
+  starsetndx = np.random.randint(0, 1000)
+  imgndx = starndx + starsetndx*10
+  results[resultsndx, 0] = starndx
+  results[resultsndx, 1] = imgndx
 
   t1 = time.time()
   starndx1 = lb.identifyCentralStar(imgndx)
-  if starndx1 == results[resndx,0]:
-    results[resndx,2] = 1
-  results[resndx,3] = float(time.time() - t1)
+  if starndx1 == results[resultsndx, 0]:
+    results[resultsndx, 2] = 1
+  results[resultsndx, 3] = float(time.time() - t1)
 
   t2 = time.time()
   out = subprocess.check_output(['/home/noah/dev/starid/rules-based/rb', '--imgndx %d' % starndx])
   starndx2 = int(re.search(r'identification (\d+)', out.decode('utf-8')).group(1))
-  if starndx2 == results[resndx, 0]:
-    results[resndx, 4] = 1
-  results[resndx,5] = float(time.time() - t2)
+  if starndx2 == results[resultsndx, 0]:
+    results[resultsndx, 4] = 1
+  results[resultsndx, 5] = float(time.time() - t2)
 
-  print('%5.0f, %5.0f, %1.0f, %1.0f' % (results[resndx, 0], results[resndx, 1],
-                                                      results[resndx, 2], results[resndx, 4]))
+  # print('%5.0f, %5.0f, %1.0f, %1.0f' % (results[resultsndx, 0], results[resultsndx, 1], results[resultsndx, 2], results[resultsndx, 4]))
 
 print()
 print('%5s  %5s  %5s' % ('n %i' % resultscnt, 'ok', 't'))

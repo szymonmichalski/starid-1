@@ -47,7 +47,7 @@ int rules::Triangles::identifyCentralStar() {
         matb.shed_rows(triCur,triMaxCnt-1);
         matc.shed_rows(triCur,triMaxCnt-1);
     }
-    std::vector<int> centerStarNdxs;
+    std::vector<int> candidateNdxs;
     for (int triNdx = 0; triNdx < mata.n_rows; ++triNdx) {
         rules::Triangle triangle;
         triangle.uva = arma::trans(mata.row(triNdx));
@@ -73,20 +73,20 @@ int rules::Triangles::identifyCentralStar() {
         std::set_intersection(l1ab.begin(), l1ab.end(), l1bc.begin(), l1bc.end(), back_inserter(l2babc));
         std::set_intersection(l1ac.begin(), l1ac.end(), l1bc.begin(), l1bc.end(), back_inserter(l2cacb));
 
-        for (auto ndx : l2abac) centerStarNdxs.push_back(ndx);
+        for (auto ndx : l2abac) candidateNdxs.push_back(ndx);
     }
 
-    int max = 0;
-    int most_common = -1;
-    std::map<int,int> m;
-    for (auto it = centerStarNdxs.begin(); it != centerStarNdxs.end(); ++it) {
-      m[*it]++;
-      if (m[*it] > max) {
-        max = m[*it];
-        most_common = *it;
+    int maxCnts = 0;
+    int mostCommonNdx = -1;
+    std::map<int,int> candidateCnts;
+    for (auto it = candidateNdxs.begin(); it != candidateNdxs.end(); ++it) {
+      candidateCnts[*it]++;
+      if (candidateCnts[*it] > maxCnts) {
+        maxCnts = candidateCnts[*it];
+        mostCommonNdx = *it;
       }
     }
-    return most_common;
+    return mostCommonNdx;
 }
 
 
