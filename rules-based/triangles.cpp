@@ -58,10 +58,6 @@ int rules::Triangles::identifyCentralStar() {
         triangle.angac = std::acos( arma::dot(triangle.uva, triangle.uvc) );
         triangle.angbc = std::acos( arma::dot(triangle.uvb, triangle.uvc) );
 
-        if (std::abs(triangle.angab - triangle.angac) < triTol
-            || std::abs(triangle.angab - triangle.angbc) < triTol
-            || std::abs(triangle.angac - triangle.angbc) < triTol) continue; // triangle sides are too similar
-
         std::vector<int> l1ab = pairsOverWholeSky.starsFromPairs(triangle.angab, triTol);
         std::vector<int> l1ac = pairsOverWholeSky.starsFromPairs(triangle.angac, triTol);
         std::vector<int> l1bc = pairsOverWholeSky.starsFromPairs(triangle.angbc, triTol);
