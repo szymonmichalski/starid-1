@@ -7,7 +7,10 @@
 #include <fstream>
 #include "stopwatch.h"
 
+
+std::string datadir = "/home/noah/dev/starid/data/";
 void doMnist(int, std::string&, std::string&, stars::Sky&);
+
 enum  optionIndex { UNKNOWN, HELP, DATADIR, SKY, MNIST };
 struct Arg: public option::Arg {
     static void printError(const char* msg1, const option::Option& opt, const char* msg2) {
@@ -30,15 +33,13 @@ struct Arg: public option::Arg {
     }
 };
 const option::Descriptor usage[] = {
-    {UNKNOWN, 0, "", "", option::Arg::None, "\nusage: example [options]\n\noptions:" },
+    {UNKNOWN, 0, "", "", option::Arg::None, "\nusage: stars [options]\n\noptions:" },
     {HELP, 0, "h", "help", option::Arg::None, "  -h, --help  \tprint usage and exit" },
     {DATADIR, 0, "d", "data", Arg::Required, "  -d, --data  \tdata dir" },
     {SKY, 0, "s", "", Arg::None, "  -s  \tcreate sky and pair files" },
     {MNIST, 0, "m", "", Arg::None, "  -m  \tcreate mnist files" },
     {0,0,0,0,0,0} // end of options
 };
-
-std::string datadir = "/home/noah/dev/starid/data/";
 
 int main(int argc, char* argv[])
 {

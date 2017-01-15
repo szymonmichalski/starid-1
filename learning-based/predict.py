@@ -26,6 +26,6 @@ for step in range(FLAGS.max_steps):
   predictions = sess.run([prediction])
   goodcnt += np.sum(predictions)
 precision = goodcnt / FLAGS.num_examples
-print('precision %.3f' % precision)
+print('%.3f correct' % precision)
 coord.request_stop()
 coord.join(threads, stop_grace_period_secs=10)

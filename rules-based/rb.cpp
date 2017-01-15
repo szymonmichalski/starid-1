@@ -5,6 +5,11 @@
 #include "optionparser.h"
 #include "cereal/archives/binary.hpp"
 #include <fstream>
+#include <cmath>
+
+std::string datadir = "/home/noah/dev/starid/data/";
+std::string imgfile = "images_b1.mnist";
+int imgndx = 0;
 
 enum  optionIndex { UNKNOWN, HELP, DATADIR, IMGFILE, IMGNDX };
 struct Arg: public option::Arg {
@@ -28,7 +33,7 @@ struct Arg: public option::Arg {
     }
 };
 const option::Descriptor usage[] = {
-    {UNKNOWN, 0, "", "", option::Arg::None, "\nusage: example [options]\n\noptions:" },
+    {UNKNOWN, 0, "", "", option::Arg::None, "\nusage: rb [options]\n\noptions:" },
     {HELP, 0, "h", "help", option::Arg::None, "  -h, --help  \tprint usage and exit" },
     {DATADIR, 0, "", "datadir", Arg::Required, "  --datadir  \tdata dir" },
     {IMGFILE, 0, "", "imgfile", Arg::Required, "  --imgfile  \timage file" },
@@ -48,19 +53,16 @@ int main(int argc, char* argv[])
         option::printUsage(std::cout, usage);
         return 0;
     }
-    std::string datadir = "/home/noah/dev/starid/data/";
     if (options[DATADIR]) {
         datadir = options[DATADIR].arg;
     } else {
         std::cout << "using default datadir " << datadir << std::endl;
     }
-    std::string imgfile = "images_b1.mnist";
     if (options[IMGFILE]) {
         imgfile = options[IMGFILE].arg;
     } else {
         std::cout << "using default imgfile " << imgfile << std::endl;
     }
-    int imgndx = 0;
     if (options[IMGNDX]) {
         imgndx = atoi(options[IMGNDX].arg);
     } else {
@@ -72,20 +74,18 @@ int main(int argc, char* argv[])
     std::ifstream is1(std::string(datadir + "sky.cereal"));
     cereal::BinaryInputArchive iarchive1(is1);
     iarchive1(sky);
-
     rules::PairsOverWholeSky pairs;
     std::ifstream is2(std::string(datadir + "pairs.cereal"));
     cereal::BinaryInputArchive iarchive2(is2);
     iarchive2(pairs);
-
     stars::Image image;
     std::string filename = datadir + imgfile;
     image.axjAxiImageReadMnist(filename, imgndx);
     std::cout << "sky, pairs, image " << stopwatch.end() << std::endl;
 
     stopwatch.reset();
-    double triTol = 100 * arma::datum::pi / 648e3;
-    int triMaxCnt = 100;
+    double triTol = (100.0 / 648000.0) * M_PI;
+    int triMaxCnt = 1000;
     rules::Triangles triangles(image, pairs, triTol, triMaxCnt);
     int starndxIdentified = triangles.identifyCentralStar();
     std::cout << "triangles " << stopwatch.end() << std::endl;

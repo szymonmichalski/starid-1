@@ -9,7 +9,10 @@ std::uniform_real_distribution<double> unitscatter(0, 1);
 void stars::Image::axjAxiImageReadMnist(std::string& imgfile, int imgndx) {
     Eigen::Matrix<double, 28, 28> axjAxiImage = data::Mnist::readImage(imgfile, imgndx);
     uvecs.zeros(100,3);
-    int uvecsndx = 0;
+    uvecs(0,0) = 0.0; // center star, stars, is implicit in the image
+    uvecs(0,1) = 0.0;
+    uvecs(0,2) = 1.0;
+    int uvecsndx = 1;
     for (int axjndx = 0; axjndx < 28; ++axjndx) {
         for (int axindx = 0; axindx < 28; ++axindx) {
             if (axjAxiImage(axjndx, axindx) > 0) { // there's a star inside axjndx, axindx
