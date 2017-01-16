@@ -44,12 +44,14 @@ void stars::Image::axjAxiImageUpdate(arma::mat& axjAxiImage, stars::Sky& sky, in
     }
     uvecs.shed_rows(uvecsndx, 99);
     double yaw = unitscatter(e1) * 2 * M_PI;
-    arma::mat attitude = rotationMatrix(pointing, yaw);
+    arma::mat attitude = rotationMatrix(pointing);
     uvecs = arma::trans( arma::trans(attitude) * arma::trans(uvecs) );
     axjAxiImage.zeros(); // update axjaxiimage
     for (int ndx = 0; ndx < uvecsndx; ++ndx) {
-        double axi = uvecs(ndx,0) + stars::imageRadiusUnitVectors;
-        double axj = -uvecs(ndx,1) + stars::imageRadiusUnitVectors;
+        double x = std::cos(yaw) * uvecs(ndx,0) - std::sin(yaw) * uvecs(ndx,1);
+        double y = std::sin(yaw) * uvecs(ndx,0) + std::cos(yaw) * uvecs(ndx,1);
+        double axi = x + stars::imageRadiusUnitVectors;
+        double axj = -y + stars::imageRadiusUnitVectors;
         int axindx = std::floor( axi / stars::imagePixelUnitVectors );
         int axjndx = std::floor( axj / stars::imagePixelUnitVectors );
         if (axjndx < 0 || axjndx > 27) continue;
@@ -58,19 +60,15 @@ void stars::Image::axjAxiImageUpdate(arma::mat& axjAxiImage, stars::Sky& sky, in
     }
 }
 
-arma::mat stars::Image::rotationMatrix(arma::vec& pointing, double yaw) {
+arma::mat stars::Image::rotationMatrix(arma::vec& pointing) {
     arma::mat rm;
     rm.eye(3,3);
     arma::vec bz = pointing;
     arma::vec iz = { 0.0, 0.0, 1.0 };
     arma::vec b1x = arma::cross(bz,iz);
-    b1x = arma::normalise(b1x);
     arma::vec b1y = arma::cross(bz,b1x);
-    b1y = arma::normalise(b1y);
-    arma::vec bx = std::cos(yaw) * b1x + std::sin(yaw) * b1y;
-    arma::vec by = std::sin(yaw) * b1x + std::cos(yaw) * b1y;
-    rm.col(0) = arma::normalise(bx);
-    rm.col(1) = arma::normalise(by);
+    rm.col(0) = arma::normalise(b1x);
+    rm.col(1) = arma::normalise(b1y);
     rm.col(2) = bz;
     return rm;
 }

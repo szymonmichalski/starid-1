@@ -15,7 +15,7 @@ public:
 
     void axjAxiImageUpdate(arma::mat& axjAxiImage, stars::Sky& sky, int starndx);
 
-    arma::mat rotationMatrix(arma::vec& pointing, double yaw);
+    arma::mat rotationMatrix(arma::vec& pointing);
 
     arma::mat uvecs;
 

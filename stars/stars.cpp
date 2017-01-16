@@ -103,6 +103,6 @@ void doMnist(int imgCnt, std::string& datadir, std::string& filename, stars::Sky
             axjAxiImages[10*starSetNdx + starndx] = axjAxiImage; // update current image
         }
     }
-    mnist.writeImages(std::string(datadir + "new_" + filename + "1.mnist"), axjAxiImages);
-    mnist.writeLabels(std::string(datadir + "new_" + filename + "2.mnist"), labels);
+    mnist.writeImages(std::string(datadir + filename + "1.mnist"), axjAxiImages);
+    mnist.writeLabels(std::string(datadir + filename + "2.mnist"), labels);
 }
