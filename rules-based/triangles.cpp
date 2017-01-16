@@ -50,16 +50,16 @@ int rules::Triangles::identifyCentralStar() {
     std::vector<int> candidateNdxs;
     for (int triNdx = 0; triNdx < mata.n_rows; ++triNdx) {
 
-        double ang_ab = std::acos( arma::dot( arma::trans(mata.row(triNdx)) , arma::trans(matb.row(triNdx)) ) );
-        double ang_ac = std::acos( arma::dot( arma::trans(mata.row(triNdx)) , arma::trans(matc.row(triNdx)) ) );
-        double ang_bc = std::acos( arma::dot( arma::trans(matb.row(triNdx)) , arma::trans(matc.row(triNdx)) ) );
-        if ( std::abs( ang_ab - ang_ac ) < 5.0 * triTol ) continue;
-        if ( std::abs( ang_ab - ang_bc ) < 5.0 * triTol ) continue;
-        if ( std::abs( ang_ac - ang_bc ) < 5.0 * triTol ) continue;
+        double ab0 = std::acos( arma::dot( arma::trans(mata.row(triNdx)) , arma::trans(matb.row(triNdx)) ) );
+        double ac0 = std::acos( arma::dot( arma::trans(mata.row(triNdx)) , arma::trans(matc.row(triNdx)) ) );
+        double bc0 = std::acos( arma::dot( arma::trans(matb.row(triNdx)) , arma::trans(matc.row(triNdx)) ) );
+        if ( std::abs( ab0 - ac0 ) < 10.0 * triTol ) continue;
+        if ( std::abs( ab0 - bc0 ) < 10.0 * triTol ) continue;
+        if ( std::abs( ac0 - bc0 ) < 10.0 * triTol ) continue;
 
-        std::vector<int> ab = pairsOverWholeSky.starsFromPairs(ang_ab, triTol);
-        std::vector<int> ac = pairsOverWholeSky.starsFromPairs(ang_ac, triTol);
-        std::vector<int> bc = pairsOverWholeSky.starsFromPairs(ang_bc, triTol);
+        std::vector<int> ab = pairsOverWholeSky.starsFromPairs(ab0, 0.1 * triTol);
+        std::vector<int> ac = pairsOverWholeSky.starsFromPairs(ac0, 0.1 * triTol);
+        std::vector<int> bc = pairsOverWholeSky.starsFromPairs(bc0, 0.1 * triTol);
 
         std::vector<int> abac;
         std::set_intersection(ab.begin(), ab.end(), ac.begin(), ac.end(), back_inserter(abac));
@@ -67,11 +67,10 @@ int rules::Triangles::identifyCentralStar() {
         std::set_intersection(ab.begin(), ab.end(), bc.begin(), bc.end(), back_inserter(abbc));
         std::vector<int> acbc;
         std::set_intersection(ac.begin(), ac.end(), bc.begin(), bc.end(), back_inserter(acbc));
-
-        std::vector<int> abbc_acbc;
-        std::set_intersection(abbc.begin(), abbc.end(), acbc.begin(), acbc.end(), back_inserter(abbc_acbc));
+        std::vector<int> abbcacbc;
+        std::set_intersection(abbc.begin(), abbc.end(), acbc.begin(), acbc.end(), back_inserter(abbcacbc));
         std::vector<int> abaconly;
-        std::set_difference(abac.begin(), abac.end(), abbc_acbc.begin(), abbc_acbc.end(), back_inserter(abaconly));
+        std::set_difference(abac.begin(), abac.end(), abbcacbc.begin(), abbcacbc.end(), back_inserter(abaconly));
 
         for (auto ndx : abaconly) candidateNdxs.push_back(ndx);
     }
