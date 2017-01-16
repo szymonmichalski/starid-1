@@ -41,35 +41,28 @@ int rules::Triangles::identifyCentralStar() {
         }
         if (triCur == triMaxCnt-1) break;
     }
-
     if (triCur < triMaxCnt-1) {
         mata.shed_rows(triCur,triMaxCnt-1);
         matb.shed_rows(triCur,triMaxCnt-1);
         matc.shed_rows(triCur,triMaxCnt-1);
     }
+
     std::vector<int> candidateNdxs;
     for (int triNdx = 0; triNdx < mata.n_rows; ++triNdx) {
-        rules::Triangle triangle;
-        triangle.uva = arma::trans(mata.row(triNdx));
-        triangle.uvb = arma::trans(matb.row(triNdx));
-        triangle.uvc = arma::trans(matc.row(triNdx));
 
-        triangle.angab = std::acos( arma::dot(triangle.uva, triangle.uvb) );
-        triangle.angac = std::acos( arma::dot(triangle.uva, triangle.uvc) );
-        triangle.angbc = std::acos( arma::dot(triangle.uvb, triangle.uvc) );
+        double ang_ab = std::acos( arma::dot( arma::trans(mata.row(triNdx)) , arma::trans(matb.row(triNdx)) ) );
+        std::vector<int> ndxs_ab = pairsOverWholeSky.starsFromPairs(ang_ab, triTol);
 
-        std::vector<int> l1ab = pairsOverWholeSky.starsFromPairs(triangle.angab, triTol);
-        std::vector<int> l1ac = pairsOverWholeSky.starsFromPairs(triangle.angac, triTol);
-        std::vector<int> l1bc = pairsOverWholeSky.starsFromPairs(triangle.angbc, triTol);
+        double ang_ac = std::acos( arma::dot( arma::trans(mata.row(triNdx)) , arma::trans(matc.row(triNdx)) ) );
+        std::vector<int> ndxs_ac = pairsOverWholeSky.starsFromPairs(ang_ac, triTol);
 
-        std::vector<int> l2abac;
-        std::vector<int> l2babc;
-        std::vector<int> l2cacb;
-        std::set_intersection(l1ab.begin(), l1ab.end(), l1ac.begin(), l1ac.end(), back_inserter(l2abac));
-        std::set_intersection(l1ab.begin(), l1ab.end(), l1bc.begin(), l1bc.end(), back_inserter(l2babc));
-        std::set_intersection(l1ac.begin(), l1ac.end(), l1bc.begin(), l1bc.end(), back_inserter(l2cacb));
+        double ang_bc = std::acos( arma::dot( arma::trans(matb.row(triNdx)) , arma::trans(matc.row(triNdx)) ) );
+        std::vector<int> ndxs_bc = pairsOverWholeSky.starsFromPairs(ang_bc, triTol);
 
-        for (auto ndx : l2abac) candidateNdxs.push_back(ndx);
+        std::vector<int> ndxs_abac;
+        std::set_intersection(ndxs_ab.begin(), ndxs_ab.end(), ndxs_ac.begin(), ndxs_ac.end(), back_inserter(ndxs_abac));
+
+        for (auto ndx : ndxs_abac) candidateNdxs.push_back(ndx);
     }
 
     int maxCnts = 0;

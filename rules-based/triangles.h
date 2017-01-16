@@ -6,15 +6,6 @@
 
 namespace rules {
 
-struct Triangle {
-    arma::vec uva;
-    arma::vec uvb;
-    arma::vec uvc;
-    double angab;
-    double angac;
-    double angbc;
-};
-
 class Triangles
 {
 
