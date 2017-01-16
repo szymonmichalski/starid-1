@@ -51,18 +51,29 @@ int rules::Triangles::identifyCentralStar() {
     for (int triNdx = 0; triNdx < mata.n_rows; ++triNdx) {
 
         double ang_ab = std::acos( arma::dot( arma::trans(mata.row(triNdx)) , arma::trans(matb.row(triNdx)) ) );
-        std::vector<int> ndxs_ab = pairsOverWholeSky.starsFromPairs(ang_ab, triTol);
-
         double ang_ac = std::acos( arma::dot( arma::trans(mata.row(triNdx)) , arma::trans(matc.row(triNdx)) ) );
-        std::vector<int> ndxs_ac = pairsOverWholeSky.starsFromPairs(ang_ac, triTol);
-
         double ang_bc = std::acos( arma::dot( arma::trans(matb.row(triNdx)) , arma::trans(matc.row(triNdx)) ) );
-        std::vector<int> ndxs_bc = pairsOverWholeSky.starsFromPairs(ang_bc, triTol);
+        if ( std::abs( ang_ab - ang_ac ) < 5.0 * triTol ) continue;
+        if ( std::abs( ang_ab - ang_bc ) < 5.0 * triTol ) continue;
+        if ( std::abs( ang_ac - ang_bc ) < 5.0 * triTol ) continue;
 
-        std::vector<int> ndxs_abac;
-        std::set_intersection(ndxs_ab.begin(), ndxs_ab.end(), ndxs_ac.begin(), ndxs_ac.end(), back_inserter(ndxs_abac));
+        std::vector<int> ab = pairsOverWholeSky.starsFromPairs(ang_ab, triTol);
+        std::vector<int> ac = pairsOverWholeSky.starsFromPairs(ang_ac, triTol);
+        std::vector<int> bc = pairsOverWholeSky.starsFromPairs(ang_bc, triTol);
 
-        for (auto ndx : ndxs_abac) candidateNdxs.push_back(ndx);
+        std::vector<int> abac;
+        std::set_intersection(ab.begin(), ab.end(), ac.begin(), ac.end(), back_inserter(abac));
+        std::vector<int> abbc;
+        std::set_intersection(ab.begin(), ab.end(), bc.begin(), bc.end(), back_inserter(abbc));
+        std::vector<int> acbc;
+        std::set_intersection(ac.begin(), ac.end(), bc.begin(), bc.end(), back_inserter(acbc));
+
+        std::vector<int> abbc_acbc;
+        std::set_intersection(abbc.begin(), abbc.end(), acbc.begin(), acbc.end(), back_inserter(abbc_acbc));
+        std::vector<int> abaconly;
+        std::set_difference(abac.begin(), abac.end(), abbc_acbc.begin(), abbc_acbc.end(), back_inserter(abaconly));
+
+        for (auto ndx : abaconly) candidateNdxs.push_back(ndx);
     }
 
     int maxCnts = 0;
