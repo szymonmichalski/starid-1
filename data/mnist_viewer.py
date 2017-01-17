@@ -2,12 +2,10 @@ from data import mnist_to_tfrecords
 import numpy as np
 import matplotlib.pyplot as plt
 
-imgndx = 21
+imgndx = 1
 
 images = mnist_to_tfrecords.read_images('/home/noah/dev/starid/data/images_b1.mnist')
-image = images[imgndx,:,:,0]
-# image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
-# image = tf.reshape(image, [28, 28, 1])
+image = -1 * images[imgndx,:,:,0]
 
-plt.imshow(image)
+plt.matshow(image, cmap='Greys',  interpolation='nearest')
 plt.show()
