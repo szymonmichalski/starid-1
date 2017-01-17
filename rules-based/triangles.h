@@ -15,6 +15,7 @@ public:
               rules::PairsOverWholeSky& pairs,
               double triTol,
               int triMaxCnt);
+
     int identifyCentralStar();
 
 private:
@@ -22,9 +23,9 @@ private:
     rules::PairsOverWholeSky pairsOverWholeSky;
     stars::Image& image;
     double triTol;
-    uint triMaxCnt;
-    uint starsCnt;
-    uint triCur;
+    int triMaxCnt;
+    int starsCnt;
+    int triCur;
 };
 
 }

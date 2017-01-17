@@ -2,7 +2,7 @@ from data import mnist_to_tfrecords
 import numpy as np
 import matplotlib.pyplot as plt
 
-imgndx = 20
+imgndx = 21
 
 images = mnist_to_tfrecords.read_images('/home/noah/dev/starid/data/images_b1.mnist')
 image = images[imgndx,:,:,0]

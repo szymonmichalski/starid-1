@@ -24,7 +24,7 @@ int rules::Triangles::identifyCentralStar() {
     matc.zeros(triMaxCnt,3);
     triCur = 0;
 
-    uint i, j, k, dj, dk;
+    int i, j, k, dj, dk;
     for (dj = 1; dj <= starsCnt-2; ++dj) {
         for (dk = 1; dk <= starsCnt-dj-1; ++dk) {
             for (i = 1; i <= starsCnt-dj-dk; ++i) {
@@ -48,7 +48,7 @@ int rules::Triangles::identifyCentralStar() {
     }
 
     std::vector<int> candidateNdxs;
-    for (int triNdx = 0; triNdx < mata.n_rows; ++triNdx) {
+    for (int triNdx = 0; triNdx < (int)mata.n_rows; ++triNdx) {
 
         double ab0 = std::acos( arma::dot( arma::trans(mata.row(triNdx)) , arma::trans(matb.row(triNdx)) ) );
         double ac0 = std::acos( arma::dot( arma::trans(mata.row(triNdx)) , arma::trans(matc.row(triNdx)) ) );
