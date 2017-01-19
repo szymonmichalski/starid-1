@@ -1,10 +1,15 @@
+# 19.01.2017
+
+new concept for triangles class to be implemented using eigen is ready. concepts for both image class and triangles are sketched here
+[!concepts](https://github.com/noahhsmith/starid/tree/master/images/concepts.jpg)
+
 # 16.01.2017
 
 mnist viewer. a bit of python code in data/mnist_viewer to see what's in the mnist style data files. this is bare minimum functionality for now.
 
 # 15.01.2017
 
-new school images are now in mnist and tfrecords files, and learning is working. using the first ten skymap stars and a few minutes of trainging
+new school images are now in mnist and tfrecords files, and learning is working. using the first ten skymap stars and a few minutes of training
 
     /usr/bin/python3.5 /home/noah/dev/starid/learning-based/predict.py
     0.778 correct
