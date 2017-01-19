@@ -1,6 +1,6 @@
 # 19.01.2017
 
-concepts for triangles class to be implemented using eigen, and for image class
+concepts for image and triangle
 
 ![concepts](images/concepts.jpg)
 
