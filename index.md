@@ -6,7 +6,7 @@ new concept for triangles class to be implemented using eigen is ready. concepts
 
 # 16.01.2017
 
-mnist viewer. a bit of python code in data/mnist_viewer to see what's in the mnist style data files. this is bare minimum functionality for now. two examples for star 4. these demonstrate axjndx axindx plane
+mnist viewer. a bit of python code in data/mnist_viewer to see what's in the mnist style data files. this is bare minimum functionality for now. two examples for star 4. these demonstrate axjndx axindx plane. variations of relative positions because of quantization are clear - relative positions vibrate as yaw varies, creating inherent uncertainties in the mnist images...
 
 ![imgndx3](images/star4a.png)![imgndx13](images/star4b.png)
 
