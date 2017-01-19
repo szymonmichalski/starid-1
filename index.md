@@ -1,6 +1,6 @@
 # 19.01.2017
 
-new concept for triangles class to be implemented using eigen is ready. concepts for both image class and triangles are sketched here
+concepts for triangles class to be implemented using eigen, and for image class
 
 ![concepts](images/concepts.jpg)
 
@@ -347,112 +347,71 @@ current emphasis is on vectorized processing using blas. concurrency can follow.
 
 # 5.5.2016
 
-feature vector size
+feature vector size. first questions for knn seem to be feature vector size. for
 
-the first questions for knn seem to be feature vector size. for
+    case a - 10 by 10 grid so 100 features
+    case b - 100 by 100 grid so 10000 features
 
-case a - 10 by 10 grid so 100 features
-
-case b - 100 by 100 grid so 10000 features
-
-is case a good enough for distinguishing 8876 stars brighter than mv 6.5?
-
-is case b practical performance-wise?
+is case a good enough for distinguishing 8876 stars brighter than mv 6.5? is case b practical performance-wise?
 
 histograms of feature counts for 8876 feature vectors. bins are 0-5, 5-10, 10-15, etc.
 
-case a - 104 4081 3192 1142 297 58  2  0  0 0
-
-case b - 92  3565 3129 1365 407 190 91 30 5 2
+    case a - 104 4081 3192 1142 297 58  2  0  0 0
+    case b - 92  3565 3129 1365 407 190 91 30 5 2
 
 histograms of dot products between 8876 normalized feature vectors. bins are 0-0.1, 0.1-0.2, 0.2-0.3, etc.
 
-a - 6712609  14730674 12653854 4543313 694507 49639 2523 114 11 4
-
-b - 30004395 9117682  258869   5973    317    9     2    1   1  0
+    a - 6712609  14730674 12653854 4543313 694507 49639 2523 114 11 4
+    b - 30004395 9117682  258869   5973    317    9     2    1   1  0
 
 case b feature vectors are more distinct, as expected.
 
+# 1.5.2016
 
-1.5.2016
+levels 0, 1, 2. sensor data abstracts nicely as
 
-levels 0, 1, 2
-
-sensor data abstracts nicely as
-
-level 0 - unprocessed measurements, hardware level
-
-level 1 - pointing vectors
-
-level 2 - feature vectors
+    level 0 - unprocessed measurements, hardware level
+    level 1 - pointing vectors
+    level 2 - feature vectors
 
 we're interested in levels 1 and 2. mostly level 2...
 
+#27.4.2016
 
-27.4.2016
-
-feature vectors
-
-it makes sense to add feature vectors to the base as part of sensor obs. a feature vector can represent a grid over observation tangent plane coordinates. an n by n grid of zeros and ones means an n^2 feature vector and feature space.
+feature vectors. it makes sense to add feature vectors to the base as part of sensor obs. a feature vector can represent a grid over observation tangent plane coordinates. an n by n grid of zeros and ones means an n^2 feature vector and feature space.
 
 there's a tradeoff between resolution and dimensionality. for a four degree radius and magnitude limit around seven, so maybe 10 to 50 stars in the field of view, n = 10 or 100 seem possible...
 
+# 24.4.2016
 
-24.4.2016
-
-things to consider
-
-https://en.wikipedia.org/wiki/Feature_vector
-
-https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm
-
-https://en.wikipedia.org/wiki/Multilayer_perceptron
-
-https://en.wikipedia.org/wiki/Support_vector_machine
-
-pairs and triads are working
-
-pairs based triad identification is working. now to include quads for validation.
-
-serious thinking began yesterday for machine learning builds in patterns and neuralnets. one concept is a grid pattern representing the sky around a given star. a rule makes the grid independent of yaw. in physical terms this is about defining tangent planes on the sky. use the nearest neighbor star, the nearest bright star, etc.
+pairs and triads are working. pairs based triad identification is working. now to include quads for validation. serious thinking began yesterday for machine learning builds in patterns and neuralnets. one concept is a grid pattern representing the sky around a given star. a rule makes the grid independent of yaw. in physical terms this is about defining tangent planes on the sky. use the nearest neighbor star, the nearest bright star, etc.
 
 
-23.4.2016
+# 23.4.2016
 
-tolerance for triads
+tolerance for triads. things are simpler if the candidate sets id(ab), id(ac), id(bc) do not overlap. this is true if the angles ab, ac, and bc are sufficiently different. the current criteria is that they differ by an arcminute or more.
 
-things are simpler if the candidate sets id(ab), id(ac), id(bc) do not overlap. this is true if the angles ab, ac, and bc are sufficiently different. the current criteria is that they differ by an arcminute or more.
+# 20.4.2016
 
-
-20.4.2016
-
-pairs triplets quadruplets concept
-
-given three unit vectors a, b, c and a function id() that returns a list of candidate ids...
+pairs triplets quadruplets concept. given three unit vectors a, b, c and a function id() that returns a list of candidate ids...
 
 if
 
-id(ab) and id(ac) have id1
-
-id(ba) and id(bc) have id2
-
-id(ca) and id(cb) have id3
+    id(ab) and id(ac) have id1
+    id(ba) and id(bc) have id2
+    id(ca) and id(cb) have id3
 
 and for a fourth unit vector d
 
-id(ab) and id(ac) and id(ad) have id1
-
-id(ba) and id(bc) and id(bd) have id2
-
-id(ca) and id(cb) and id(cd) have id3
+    id(ab) and id(ac) and id(ad) have id1
+    id(ba) and id(bc) and id(bd) have id2
+    id(ca) and id(cb) and id(cd) have id3
 
 and for a fifth unit vector e
 
-id(ab) and id(ac) and id(ad) and id(ae) have id1
-
-id(ba) and id(bc) and id(bd) and id(be) have id2
-
-id(ca) and id(cb) and id(cd) and id(ce) have id3
+    id(ab) and id(ac) and id(ad) and id(ae) have id1
+    id(ba) and id(bc) and id(bd) and id(be) have id2
+    id(ca) and id(cb) and id(cd) and id(ce) have id3
 
 ... etc...
 
@@ -467,260 +426,115 @@ id(ae) and id(be) and id(ce) have id5...
 ... etc...
 
 
-18.4.2016
+# 18.4.2016
 
-triplets class
+triplets class. given an observation of n stars, what sequence of pairs or triplets best leads to a pairs based identification? mortari addresses this in his 2004 paper with a sequence of triplets that jump around the field of view, making a breadth first search rather than a depth first search. this can be represented as a triplets class. given n stars it returns a breadth first sequence of triplets.
 
-given an observation of n stars, what sequence of pairs or triplets best leads to a pairs based identification?
+# 16.4.2016
 
-mortari addresses this in his 2004 paper with a sequence of triplets that jump around the field of view, making a breadth first search rather than a depth first search.
+pairs method. ready to implement pairs based method. common terminology includes triangles for three stars, pyramids for four stars. a build for pairs is added alongside the builds for base and gtest. placeholder builds for patterns and neuralnets are also added.
 
-this can be represented as a triplets class. given n stars it returns a breadth first sequence of triplets.
+# 14.4.2016
 
+sensor class ready. onward to the first star identification implementation...
 
-16.4.2016
+# 9.4.2016
 
-pairs method
+sensor class and obs struct. sensor class now has a pointing vector and yaw constructor, a member attitude, and support for rotation vectors, rotation matrices, and quaternions. for observed stars, return an obs struct with both ideal values and measurement errors.
 
-ready to implement pairs based method. common terminology includes triangles for three stars, pyramids for four stars.
+# 5.4.2016
 
-a build for pairs is added alongside the builds for base and gtest. placeholder builds for patterns and neuralnets are also added.
+sensor class, geometry, cpp linear algebra library. a sensor class means multiple reference frames, rotations, and representations of unit vectors, so a linear algebra library becomes necessary here. i've mostly used armadillo and a bit of eigen and gnu scientific library. time for a quick review of the field.
 
+just glancing at the wikipedia page for linear algebra libraries, eigen and armadillo are the choices. the matlab orientation of armadillo decides it - continue with armadillo.
 
-14.4.2016
+# 3.4.2016
 
-sensor class ready
+sensor class. now that the sky is in place, time to create a sensor. sensor class is based on the pinhole camera model. first-order characteristics are attitude, sensitivity, and field-of-view.
 
-onward to the first star identification implementation...
+unit vectors are the representation for stars. unit vector point on the sky and a yaw rotation are a useful representation for attitude here, particularly in the constructor, and are reinterpreted as a rotation matrix or quaternion as needed.
 
+tangent plane coordinates are the representation for field-of-view. uncertainties will be modeled in the observation class. the sensor class models only the ideal truth.
 
-9.4.2016
+# 2.4.2016
 
-sensor class and obs struct
+star pairs class first results. star pairs class is now working and first results for mv = 6.5 and radius = 4 degrees are
 
-sensor class now has a pointing vector and yaw constructor, a member attitude, and support for rotation vectors, rotation matrices, and quaternions.
-
-for observed stars, return an obs struct with both ideal values and measurement errors.
-
-
-5.4.2016
-
-sensor class, geometry, cpp linear algebra library
-
-a sensor class means multiple reference frames, rotations, and representations of unit vectors, so a linear algebra library becomes necessary here. i've mostly used armadillo and a bit of eigen and gnu scientific library. time for a quick review of the field.
-
-just glancing at the wikipedia page for linear algebra libraries, eigen and armadillo are the choices.
-
-the matlab orientation of armadillo decides it - continue with armadillo.
-
-
-3.4.2016
-
-sensor class
-
-now that the sky is in place, time to create a sensor.
-
-sensor class is based on the pinhole camera model.
-
-first-order characteristics are attitude, sensitivity, and field-of-view.
-
-unit vectors are the representation for stars.
-
-unit vector point on the sky and a yaw rotation are a useful representation for attitude here, particularly in the constructor, and are reinterpreted as a rotation matrix or quaternion as needed.
-
-tangent plane coordinates are the representation for field-of-view.
-
-uncertainties will be modeled in the observation class. the sensor class models only the ideal truth.
-
-
-2.4.2016
-
-star pairs class first results
-
-star pairs class is now working and first results for mv = 6.5 and radius = 4 degrees are
-
-bright stars 8876 dim stars 290585
-
-atable size 56585 med 2.79 max 3.99
+    bright stars 8876 dim stars 290585
+    atable size 56585 med 2.79 max 3.99
 
 so for ~9k bright stars there are ~56k neighbor pairs, and the pair separations in degrees have median 2.8 and max 4
 
+# 31.3.2016
 
-31.3.2016
+star pairs class. the star pairs class can be based on the concept of a star and its neighbors, applied sequentially to each of the significant stars in the catalog... star pairs for the entire sky can be collected from these star objects into a main vector. as pairs stream towards the main vector, duplicates can be removed using a hash table with a key string composed from both pair members.
 
-star pairs class
+# 28.3.2016
 
-the star pairs class can be based on the concept of a star and its neighbors, applied sequentially to each of the significant stars in the catalog...
+stars near some point on the sky is working. results from asking what is near a point near cassiopeia, with a mag 6.5 cutoff
 
-star pairs for the entire sky can be collected from these star objects into a main vector.
+    2 AG+59 1670
+    8
+    20
+    23   9    Cas
+    34
+    37
+    49
+    56  11bet Cas
+    87
+    95
+    125  12    Cas
+    148
+    164  15kap Cas
+    8733
+    8788
+    8793
+    8811
+    8812   5tau Cas
+    8821
+    8822   6    Cas
+    8823
+    8825
+    8848   7rho Cas
+    8855
+    8865
 
-as pairs stream towards the main vector, duplicates can be removed using a hash table with a key string composed from both pair members.
+# 26.3.2016
 
+stars near some point on the sky. a function for the catalog class, the algorithm i've used for years came from a mortari paper. it uses lookup tables for the x, y, and z axes to create three rings or bands on the sky. here's some ring search matlab
 
-28.3.2016
-
-stars near some point on the sky is working
-
-results from asking what is near a point near cassiopeia, with a mag 6.5 cutoff
-
-2 AG+59 1670
-
-8
-
-20
-
-23   9    Cas
-
-34
-
-37
-
-49
-
-56  11bet Cas
-
-87
-
-95
-
-125  12    Cas
-
-148
-
-164  15kap Cas
-
-8733
-
-8788
-
-8793
-
-8811
-
-8812   5tau Cas
-
-8821
-
-8822   6    Cas
-
-8823
-
-8825
-
-8848   7rho Cas
-
-8855
-
-8865
-
-
-26.3.2016
-
-stars near some point on the sky
-
-a function for the catalog class, the algorithm i've used for years came from a mortari paper. it uses lookup tables for the x, y, and z axes to create three rings or bands on the sky. here's some ring search matlab
-
-
-25.3.2016
+# 25.3.2016
 
 unix and j2000 timestamps
 
-unix timestamp is seconds from Jan 1 00:00:00 1970
+    unix timestamp is seconds from Jan 1 00:00:00 1970
+    j2000 timestamp is seconds from Jan 1 00:00:00 2000
 
-j2000 timestamp is seconds from Jan 1 00:00:00 2000
+    #define J2000_EPOCH_OFFSET 946684800
+    /** Converts a j2000 timestamp to a unix timestamp. */
+    static inline time_t j2000_to_unix_epoch(time_t j2000) {
+     return j2000 + J2000_EPOCH_OFFSET;
+    }
+    /** Converts a unix timestamp to a j2000 timestamp. */
+    static inline time_t unix_epoch_to_j2000(time_t unix) {
+     return unix - J2000_EPOCH_OFFSET;
+    }
 
-#define J2000_EPOCH_OFFSET 946684800
+# 24.3.2016
 
-/** Converts a j2000 timestamp to a unix timestamp. */
+star pairs class and angle lookup. star pair angle lookup seems to be the clearest terminology for what is needed to search the star catalog. early objectives are a skymap star catalog class and a star pair class with angle lookup
 
-static inline time_t j2000_to_unix_epoch(time_t j2000) {
+# 20.3.2016
 
- return j2000 + J2000_EPOCH_OFFSET;
+catalog class and skymap records. a skymap record is 523 bytes long, including two control bytes at the end. this matlab code picks out certain useful values. more are available as shown in the skymap specification.
 
-}
+# 18.3.2016
 
-/** Converts a unix timestamp to a j2000 timestamp. */
+a nice statement of the problem. mortari 2004
 
-static inline time_t unix_epoch_to_j2000(time_t unix) {
+> The star polygon geometric structure is defined by the set of M = n! / (n − 2)! 2! interstar angles associated with a spherical polygon set of n stars, such as pairs (n = 2), triangles (n = 3), as well as pyramids (n = 4). The spherical polygon is closely related to the usual polygon, where the straight line sides are replaced by great circle arcs (angles) on the surface of a unit sphere connecting the neighboring pairs of stars in a set of p stars. More specifically, the star pattern geometric structure for the purpose of star identification is defined by the set of M interstar angles {ϑij = ϑji = cos−1 (b T i bj )} measured between each distinct pair of the p lineof-sight vectors {(bi , bj ) : (i, j) ∈ {1, 2, . . . p}} that point from the sensor toward the vertices of the star spherical polygon on the celestial sphere. Note we adopt the convention that the measured line-of-sight unit vectors with components in the sensor body axes are denoted bi , whereas the corresponding line of sight vectors based on cataloged information with components in the inertial reference frame of the star catalog are denoted rI . The whole objective of star identification can be boiled down to finding the correspondence between indices (i) of measured stars and the indices (I) of cataloged stars.
 
- return unix - J2000_EPOCH_OFFSET;
+# 16.3.2016
 
-}
+skymap catalog binary text file. a curious thing about the skymap catalog - it is a type of binary text file. each line contains a specified number of bytes per field, and each field has a type (int, string, etc). it's strongly-typed. it's exact memory layout is defined. it could be equated to serialized objects of a cpp class. probably the quicker approach for initial implementation is to view it just from a string handling perspective, but a later deserialization approach would be interesting.
 
-
-24.3.2016
-
-star pairs class and angle lookup
-
-star pair angle lookup seems to be the clearest terminology for what is needed to search the star catalog.
-
-early objectives are
-
-a skymap star catalog class
-
-a star pair class with angle lookup
-
-
-20.3.2016
-
-catalog class and skymap records
-
-a skymap record is 523 bytes long, including two control bytes at the end. this matlab code picks out certain useful values. more are available as shown in the skymap specification.
-
-
-19.3.2016
-
-index search
-
-some interesting comments from stackoverflow about lookup and hash tables
-
-No, it is not conceptually correct to call a lookup table a hash table: in your case a lookup table is a simple array. Calling something a hash table implies certain behavior in cases when the hash function is not perfect (i.e. in the presence of hash collisions); arrays have none of this behavior, so calling this a "hash lookup" would likely mislead your listeners or readers.
-
-In general, any kind of associative storage, including hash tables, various trees, and so on, can be used to perform lookup operations. In your case, the index of the array is associated with the value stored at that index, letting you look up the value in constant time.
-
-or
-
-Yes, if you accept Wikipedia's definition of hash table. Quoting from that definition:Ideally, the hash function should map each possible key to a unique slot index, but this ideal is rarely achievable in practice (unless the hash keys are fixed; i.e. new entries are never added to the table after it is created).
-
-and
-
-You can substitute all lookup tables by hash tables, but you can't substitute all hash tables by lookup tables. So yes, a lookup table can be considered to be a special form of a hash table, and a hash table can be considered to be a general form of a lookup table.
-
-In a similar way, a list can be considered to be a special form of a 2D table (with a single column).
-
-However, we are talking about software here. There are a gazillion different solutions to a given problem, and a gazillion different possibilities to build your data structures. For the example, with static size or dynamic growth, with required unique entries or with collision handling, with a fixed or a configurable hash function, etc. There are a lot of ways between a plain lookup table and a full hash table, without a clear border where you could say here it is this, but there it has become that.
-
-However (again), when a specific data structure proves to be useful, it usually gets its own name. As was said here, with such a name there are associated expectations about the functionality. There may even be a strict definition about the required minimum functionality. If you want your code to be readable by others, you better stick to the known terms. Thus you should call your lookup table a lookup table, even though technically it is a special form of a hash table.
-
-
-18.3.2016
-
-a nice statement of the problem
-
-mortari 2004
-
-The star polygon geometric structure is defined by the set of M = n! / (n − 2)! 2! interstar angles associated with a spherical polygon set of n stars, such as pairs (n = 2), triangles (n = 3), as well as pyramids (n = 4). The spherical polygon is closely related to the usual polygon, where the straight line sides are replaced by great circle arcs (angles) on the surface of a unit sphere connecting the neighboring pairs of stars in a set of p stars. More specifically, the star pattern geometric structure for the purpose of star identification is defined by the set of M interstar angles {ϑij = ϑji = cos−1 (b T i bj )} measured between each distinct pair of the p lineof-sight vectors {(bi , bj ) : (i, j) ∈ {1, 2, . . . p}} that point from the sensor toward the vertices of the star spherical polygon on the celestial sphere. Note we adopt the convention that the measured line-of-sight unit vectors with components in the sensor body axes are denoted bi , whereas the corresponding line of sight vectors based on cataloged information with components in the inertial reference frame of the star catalog are denoted rI . The whole objective of star identification can be boiled down to finding the correspondence between indices (i) of measured stars and the indices (I) of cataloged stars.
-
-
-16.3.2016
-
-skymap catalog binary text file
-
-a curious thing about the skymap catalog - it is a type of binary text file. each line contains a specified number of bytes per field, and each field has a type (int, string, etc). it's strongly-typed. it's exact memory layout is defined.
-
-it could be equated to serialized objects of a cpp class.
-
-probably the quicker approach for initial implementation is to view it just from a string handling perspective, but a later deserialization approach would be interesting.
-
-
-13.3.2016
-
-basic classes
-
-catalog class
-
-sensor class
-
-observations class
-
-identifications class
