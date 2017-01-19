@@ -64,15 +64,9 @@ cereal and optionparser. with initial functionality in place, it's time for a ro
 
 cereal has quickly allowed two classes, representing the complete sky and all star pairs, to be streamed to and from disk. this is an order of magnitude improvement over runtime generation - say from six seconds to half a second on a six year old laptop. optionparser has taken some pain out of command line handling.
 
-http://optionparser.sourceforge.net/
-
-https://github.com/USCiLab/cereal
-
 # 03.01.2017
 
-names matter
-
-cpp caused some unnecessary pain last night - working on serializing the pairs over whole sky object, things were going smoothly
+names matter. cpp caused some unnecessary pain last night - working on serializing the pairs over whole sky object, things were going smoothly
 
     #include <cereal/types/string.hpp> for strings
     #include <cereal/types/tuple.hpp> for tuples
