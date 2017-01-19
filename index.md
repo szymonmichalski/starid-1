@@ -2,7 +2,7 @@
 
 new concept for triangles class to be implemented using eigen is ready. concepts for both image class and triangles are sketched here
 
-![concepts](https://github.com/noahhsmith/starid/tree/master/images/concepts.jpg)
+![concepts](images/concepts.jpg)
 
 # 16.01.2017
 
