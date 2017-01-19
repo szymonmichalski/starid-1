@@ -376,7 +376,7 @@ levels 0, 1, 2. sensor data abstracts nicely as
 
 we're interested in levels 1 and 2. mostly level 2...
 
-#27.4.2016
+# 27.4.2016
 
 feature vectors. it makes sense to add feature vectors to the base as part of sensor obs. a feature vector can represent a grid over observation tangent plane coordinates. an n by n grid of zeros and ones means an n^2 feature vector and feature space.
 
@@ -415,16 +415,12 @@ and for a fifth unit vector e
 
 ... etc...
 
-and if
-
-id(ad) and id(bd) and id(cd) have id4...
-
-and if
-
-id(ae) and id(be) and id(ce) have id5...
+    and if
+    id(ad) and id(bd) and id(cd) have id4...
+    and if
+    id(ae) and id(be) and id(ce) have id5...
 
 ... etc...
-
 
 # 18.4.2016
 
