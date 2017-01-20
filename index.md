@@ -1,3 +1,9 @@
+# 20.01.2017
+
+triangle logic
+
+![triangle](images/triangle.jpg)
+
 # 19.01.2017
 
 concepts for image and triangle
