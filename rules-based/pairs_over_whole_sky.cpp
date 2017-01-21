@@ -34,6 +34,7 @@ Eigen::Matrix<int, 1000, 2> rules::PairsOverWholeSky::pairsMatrix(double angle, 
     for (auto ndx : intsFromTable) {
         pairs(pairsndx,0) = (std::get<1>(starpairs[ndx]));
         pairs(pairsndx,1) = (std::get<2>(starpairs[ndx]));
+        ++pairsndx;
     }
     return pairs;
 }

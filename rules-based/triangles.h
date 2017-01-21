@@ -3,6 +3,7 @@
 
 #include "image.h"
 #include "pairs_over_whole_sky.h"
+#include <eigen/Core>
 
 namespace rules {
 

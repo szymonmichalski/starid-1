@@ -40,21 +40,10 @@ int rules::Triangles::identifyCentralStar() {
                 if ( std::abs( ab0 - bc0 ) < 10.0 * triTol ) continue;
                 if ( std::abs( ac0 - bc0 ) < 10.0 * triTol ) continue;
 
-                std::vector<int> ab = pairsOverWholeSky.pairsVector(ab0, 0.1 * triTol);
-                std::vector<int> ac = pairsOverWholeSky.pairsVector(ac0, 0.1 * triTol);
-                std::vector<int> bc = pairsOverWholeSky.pairsVector(bc0, 0.1 * triTol);
-
-                std::vector<int> abac;
-                std::set_intersection(ab.begin(), ab.end(), ac.begin(), ac.end(), back_inserter(abac));
-                std::vector<int> abbc;
-                std::set_intersection(ab.begin(), ab.end(), bc.begin(), bc.end(), back_inserter(abbc));
-                std::vector<int> acbc;
-                std::set_intersection(ac.begin(), ac.end(), bc.begin(), bc.end(), back_inserter(acbc));
-                std::vector<int> abbcacbc;
-                std::set_intersection(abbc.begin(), abbc.end(), acbc.begin(), acbc.end(), back_inserter(abbcacbc));
-                std::vector<int> abaconly;
-                std::set_difference(abac.begin(), abac.end(), abbcacbc.begin(), abbcacbc.end(), back_inserter(abaconly));
-                for (auto ndx : abaconly) candidateNdxs.push_back(ndx);
+                Eigen::Matrix<int, 1000, 2> ab = pairsOverWholeSky.pairsMatrix(ab0, 0.1 * triTol);
+                Eigen::Matrix<int, 1000, 2> bc = pairsOverWholeSky.pairsMatrix(bc0, 0.1 * triTol);
+                Eigen::Matrix<int, 1000, 2> cb = bc;
+                Eigen::Matrix<int, 1000, 2> ac = pairsOverWholeSky.pairsMatrix(ac0, 0.1 * triTol);
 
                 ++triCur;
                 if (triCur == triMaxCnt-1) break;
@@ -64,16 +53,7 @@ int rules::Triangles::identifyCentralStar() {
         if (triCur == triMaxCnt-1) break;
     }
 
-    int maxCnts = 0;
     int topNdx = -1;
-    std::map<int,int> candidateCnts;
-    for (auto it = candidateNdxs.begin(); it != candidateNdxs.end(); ++it) {
-      candidateCnts[*it]++;
-      if (candidateCnts[*it] > maxCnts) {
-        maxCnts = candidateCnts[*it];
-        topNdx = *it;
-      }
-    }
     return topNdx;
 }
 
