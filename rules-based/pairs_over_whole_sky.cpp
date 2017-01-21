@@ -28,7 +28,13 @@ void rules::PairsOverWholeSky::init(stars::Sky& sky)
 Eigen::Matrix<int, 1000, 2> rules::PairsOverWholeSky::pairsMatrix(double angle, double tolerance) {
     Eigen::Matrix<int, 1000, 2> pairs;
     pairs.setZero();
-
+    std::vector<int> intsFromTable = angletable.findInts(angle-tolerance, angle+tolerance);
+    std::vector<int> starndxs; // list of stars from the pairs
+    int pairsndx = 0;
+    for (auto ndx : intsFromTable) {
+        pairs(pairsndx,0) = (std::get<1>(starpairs[ndx]));
+        pairs(pairsndx,1) = (std::get<2>(starpairs[ndx]));
+    }
     return pairs;
 }
 
