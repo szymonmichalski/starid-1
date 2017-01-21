@@ -9,6 +9,7 @@
 #include <cereal/types/tuple.hpp>
 #include <cereal/types/vector.hpp>
 #include <cereal/types/unordered_map.hpp>
+#include <eigen/Core>
 
 namespace rules {
 
@@ -18,7 +19,9 @@ public:
 
     void init(stars::Sky& sky);
 
-    std::vector<int> starsFromPairs(double angle, double tolerance);
+    std::vector<int> pairsVector(double angle, double tolerance);
+
+    Eigen::Matrix<int, 1000, 2> pairsMatrix(double angle, double tolerance);
 
     void Status();
 

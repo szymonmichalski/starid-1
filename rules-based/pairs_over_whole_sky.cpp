@@ -25,7 +25,15 @@ void rules::PairsOverWholeSky::init(stars::Sky& sky)
     angletable.sort();
 }
 
-std::vector<int> rules::PairsOverWholeSky::starsFromPairs(double angle, double tolerance)
+Eigen::Matrix<int, 1000, 2> rules::PairsOverWholeSky::pairsMatrix(double angle, double tolerance) {
+    Eigen::Matrix<int, 1000, 2> pairs;
+    pairs.setZero();
+
+    return pairs;
+}
+
+
+std::vector<int> rules::PairsOverWholeSky::pairsVector(double angle, double tolerance)
 {
     std::vector<int> intsFromTable = angletable.findInts(angle-tolerance, angle+tolerance);
     std::vector<int> starndxs; // list of stars from the pairs

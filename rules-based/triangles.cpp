@@ -40,9 +40,9 @@ int rules::Triangles::identifyCentralStar() {
                 if ( std::abs( ab0 - bc0 ) < 10.0 * triTol ) continue;
                 if ( std::abs( ac0 - bc0 ) < 10.0 * triTol ) continue;
 
-                std::vector<int> ab = pairsOverWholeSky.starsFromPairs(ab0, 0.1 * triTol);
-                std::vector<int> ac = pairsOverWholeSky.starsFromPairs(ac0, 0.1 * triTol);
-                std::vector<int> bc = pairsOverWholeSky.starsFromPairs(bc0, 0.1 * triTol);
+                std::vector<int> ab = pairsOverWholeSky.pairsVector(ab0, 0.1 * triTol);
+                std::vector<int> ac = pairsOverWholeSky.pairsVector(ac0, 0.1 * triTol);
+                std::vector<int> bc = pairsOverWholeSky.pairsVector(bc0, 0.1 * triTol);
 
                 std::vector<int> abac;
                 std::set_intersection(ab.begin(), ab.end(), ac.begin(), ac.end(), back_inserter(abac));
