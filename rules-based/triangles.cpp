@@ -46,6 +46,18 @@ int rules::Triangles::identifyCentralStar() {
 
                 Eigen::Matrix<int, 1000, 2> abbc = findRelatedPairs(tmp1, tmp2);
                 Eigen::Matrix<int, 1000, 2> accb = findRelatedPairs(tmp3, tmp2);
+                if (abbc(0,0) == 0 || accb(0,0) == 0) continue;
+
+                Eigen::Matrix<int, 1000, 2> constraint = findRelatedPairs(abbc, accb);
+                if (constraint(0,0) == 0) continue;
+
+                Eigen::Matrix<int, 1000, 2> bc = findRelatedPairs(abbc, constraint); // constrained
+                Eigen::Matrix<int, 1000, 2> cb = findRelatedPairs(accb, constraint); // constrained
+                if (bc(0,0) == 0 || cb(0,0) == 0) continue;
+
+                Eigen::Matrix<int, 1000, 1> canb = findCandidates(bc, abbc);
+                Eigen::Matrix<int, 1000, 1> canc = findCandidates(cb, accb);
+                if (canb(0,0) == 0 || canc(0,0) == 0) continue;
 
                 ++triCur;
                 if (triCur == triMaxCnt-1) break;
@@ -59,15 +71,12 @@ int rules::Triangles::identifyCentralStar() {
     return topNdx;
 }
 
-Eigen::Matrix<int, 1000, 2> rules::Triangles::findRelatedPairs(Eigen::Matrix<int, 1000, 2>& pairsa,
-                                                               Eigen::Matrix<int, 1000, 2>& pairsb)
-{
+Eigen::Matrix<int, 1000, 2> rules::Triangles::findRelatedPairs(Eigen::Matrix<int, 1000, 2>& pairsa, Eigen::Matrix<int, 1000, 2>& pairsb) {
     Eigen::Matrix<int, 1000, 2> pairsc;
     pairsc.setZero();
     int ndxc = 0;
     for (int ndxa = 0; ndxa < 1000; ++ndxa) {
         if (pairsa(ndxa,0) == 0) break;
-        // if either star from apair is in a bpair, add unique pairs to pairsc
         for (int ndxb = 0; ndxb < 1000; ++ndxb) {
             if (pairsb(ndxb,0) == 0) break;
             bool pairsAreRelated = false;
@@ -104,6 +113,29 @@ Eigen::Matrix<int, 1000, 2> rules::Triangles::findRelatedPairs(Eigen::Matrix<int
         }
     }
     return pairsc;
+}
+
+Eigen::Matrix<int, 1000, 1> rules::Triangles::findCandidates(Eigen::Matrix<int, 1000, 2>& pairsa, Eigen::Matrix<int, 1000, 2>& pairsb) {
+    Eigen::Matrix<int, 1000, 1> cans;
+    cans.setZero();
+    int ndxc = 0;
+    for (int ndxa = 0; ndxa < 1000; ++ndxa) {
+        if (pairsa(ndxa,0) == 0) break;
+        for (int ndxb = 0; ndxb < 1000; ++ndxb) {
+            if (pairsb(ndxb,0) == 0) break;
+            bool pairsAreTheSame = false;
+            bool pairsAreHalfRelated = false;
+            if (pairsa(ndxa,0) == pairsb(ndxb,0) && pairsa(ndxa,1) == pairsb(ndxb,1))
+                pairsAreTheSame = true;
+            if (pairsa(ndxa,1) == pairsb(ndxb,0) && pairsa(ndxa,0) == pairsb(ndxb,1))
+                pairsAreTheSame = true;
+            if (pairsa(ndxa,0) == pairsb(ndxb,0) || pairsa(ndxa,0) == pairsb(ndxb,1))
+                pairsAreHalfRelated = true;
+            if (pairsa(ndxa,1) == pairsb(ndxb,0) || pairsa(ndxa,1) == pairsb(ndxb,1))
+                pairsAreHalfRelated = true;
+        }
+    }
+    return cans;
 }
 
 bool rules::Triangles::isPairNew(int int1, int int2, Eigen::Matrix<int, 1000, 2>& mat) {

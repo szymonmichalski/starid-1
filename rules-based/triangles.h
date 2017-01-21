@@ -21,8 +21,9 @@ public:
 
 private:
 
-    Eigen::Matrix<int, 1000, 2> findRelatedPairs(Eigen::Matrix<int, 1000, 2>&,
-                                                 Eigen::Matrix<int, 1000, 2>&);
+    Eigen::Matrix<int, 1000, 2> findRelatedPairs(Eigen::Matrix<int, 1000, 2>&, Eigen::Matrix<int, 1000, 2>&);
+
+    Eigen::Matrix<int, 1000, 1> findCandidates(Eigen::Matrix<int, 1000, 2>&, Eigen::Matrix<int, 1000, 2>&);
 
     bool isPairNew(int, int, Eigen::Matrix<int, 1000, 2>&);
 
