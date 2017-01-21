@@ -27,6 +27,8 @@ private:
 
     bool isPairNew(int, int, Eigen::Matrix<int, 1000, 2>&);
 
+    bool isCanNew(int, Eigen::Matrix<int, 1000, 1>&);
+
     rules::PairsOverWholeSky pairsOverWholeSky;
     stars::Image& image;
     double triTol;
