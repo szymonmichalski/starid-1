@@ -21,6 +21,11 @@ public:
 
 private:
 
+    Eigen::Matrix<int, 1000, 2> findRelatedPairs(Eigen::Matrix<int, 1000, 2>&,
+                                                 Eigen::Matrix<int, 1000, 2>&);
+
+    bool isPairNew(int, int, Eigen::Matrix<int, 1000, 2>&);
+
     rules::PairsOverWholeSky pairsOverWholeSky;
     stars::Image& image;
     double triTol;
