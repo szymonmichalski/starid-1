@@ -21,7 +21,7 @@ public:
 
     std::vector<int> pairsVector(double angle, double tolerance);
 
-    Eigen::Matrix<int, 1000, 2> pairsMatrix(double angle, double tolerance);
+    Eigen::Matrix<int, Eigen::Dynamic, 2> pairsMatrix(double angle, double tolerance);
 
     void Status();
 

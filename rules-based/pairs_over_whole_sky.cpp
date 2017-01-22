@@ -25,18 +25,29 @@ void rules::PairsOverWholeSky::init(stars::Sky& sky)
     angletable.sort();
 }
 
-Eigen::Matrix<int, 1000, 2> rules::PairsOverWholeSky::pairsMatrix(double angle, double tolerance) {
-    Eigen::Matrix<int, 1000, 2> pairs;
-    pairs.setZero();
-    std::vector<int> intsFromTable = angletable.findInts(angle-tolerance, angle+tolerance);
-    std::vector<int> starndxs; // list of stars from the pairs
+Eigen::Matrix<int, Eigen::Dynamic, 2> rules::PairsOverWholeSky::pairsMatrix(double angle, double tolerance) {
+
+    Eigen::Matrix<int, Eigen::Dynamic, 2> pairsMat;
+    pairsMat.setZero();
+
+    double ang1 = angle - tolerance;
+    if (ang1 <= 0) ang1 = 0;
+    if (ang1 >= stars::imageRadiusRadians) ang1 = stars::imageRadiusRadians - (stars::imageRadiusRadians/28);
+
+    double ang2 = angle + tolerance;
+    if (ang2 <= 0) ang2 = 0 + (stars::imageRadiusRadians/28);
+    if (ang2 >= stars::imageRadiusRadians) ang2 = stars::imageRadiusRadians;
+
+    if (ang1 >= ang2) ang1 = ang2 - (stars::imageRadiusRadians/28);
+
+    std::vector<int> intsFromTable = angletable.findInts(ang1, ang2);
     int pairsndx = 0;
     for (auto ndx : intsFromTable) {
-        pairs(pairsndx,0) = (std::get<1>(starpairs[ndx]));
-        pairs(pairsndx,1) = (std::get<2>(starpairs[ndx]));
+        pairsMat(pairsndx,0) = (std::get<1>(starpairs[ndx]));
+        pairsMat(pairsndx,1) = (std::get<2>(starpairs[ndx]));
         ++pairsndx;
     }
-    return pairs;
+    return pairsMat;
 }
 
 

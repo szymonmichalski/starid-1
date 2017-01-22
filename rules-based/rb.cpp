@@ -84,7 +84,7 @@ int main(int argc, char* argv[])
     std::cout << "sky, pairs, image " << stopwatch.end() << std::endl;
 
     stopwatch.reset();
-    double triTol = (100.0 / 648000.0) * M_PI;
+    double triTol = (100.0 / 648000.0) * M_PI; // 100 arcseconds
     int triMaxCnt = 1000;
     rules::Triangles triangles(image, pairs, triTol, triMaxCnt);
     int starndxIdentified = triangles.identifyCentralStar();

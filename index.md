@@ -5,7 +5,7 @@ with mnist style images and a four degree radius field of view, each star positi
     >> (sin(4*pi/180)/14/2)*64e3/pi
     ans =  50.752
 
-arcseconds. the rough scale of tolerance needed in triangle side length, the distance between two stars, is twice this - a hundred arcseconds...
+tolerance needed in triangle side length is twice this - one hundred arcseconds.
 
 # 20.01.2017
 

@@ -21,13 +21,13 @@ public:
 
 private:
 
-    Eigen::Matrix<int, 1000, 2> findRelatedPairs(Eigen::Matrix<int, 1000, 2>&, Eigen::Matrix<int, 1000, 2>&);
+    Eigen::Matrix<int, Eigen::Dynamic, 2> findRelatedPairs(Eigen::Matrix<int, Eigen::Dynamic, 2>&, Eigen::Matrix<int, Eigen::Dynamic, 2>&);
 
-    Eigen::Matrix<int, 1000, 1> findCandidates(Eigen::Matrix<int, 1000, 2>&, Eigen::Matrix<int, 1000, 2>&);
+    Eigen::Matrix<int, Eigen::Dynamic, 1> findCandidates(Eigen::Matrix<int, Eigen::Dynamic, 2>&, Eigen::Matrix<int, Eigen::Dynamic, 2>&);
 
-    bool isPairNew(int, int, Eigen::Matrix<int, 1000, 2>&);
+    bool isPairNew(int, int, Eigen::Matrix<int, Eigen::Dynamic, 2>&);
 
-    bool isCanNew(int, Eigen::Matrix<int, 1000, 1>&);
+    bool isCanNew(int, Eigen::Matrix<int, Eigen::Dynamic, 1>&);
 
     rules::PairsOverWholeSky pairsOverWholeSky;
     stars::Image& image;
