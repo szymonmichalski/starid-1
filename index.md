@@ -2,10 +2,10 @@
 
 with mnist style images and a four degree radius field of view, each star position has inherent uncertainty due to quantization on the order of
 
-    >> (sin(4*pi/180)/14/2)*64e3/pi
-    ans =  50.752
+    >> ((4*pi/180)/14/2)*64e3/pi
+    ans =  50.794
 
-tolerance needed in triangle side length is twice this - one hundred arcseconds.
+tolerance needed in triangle side length is on the scale of tens to hundreds of arcseconds...
 
 # 20.01.2017
 
