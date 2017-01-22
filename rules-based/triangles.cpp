@@ -58,6 +58,14 @@ int rules::Triangles::identifyCentralStar() {
                 Eigen::Matrix<int, 1000, 1> cans1 = findCandidates(abbc, bc); // constrained by bc
                 Eigen::Matrix<int, 1000, 1> cans2 = findCandidates(accb, cb); // constrained by cb
                 if (cans1(0,0) == 0 || cans2(0,0) == 0) continue;
+                for (int ndx = 0; ndx < 1000; ++ndx) {
+                    if (cans1(ndx,0) == 0) break;
+                    candidateNdxs.push_back(cans1(ndx,0));
+                }
+                for (int ndx = 0; ndx < 1000; ++ndx) {
+                    if (cans2(ndx,0) == 0) break;
+                    candidateNdxs.push_back(cans2(ndx,0));
+                }
 
                 ++triCur;
                 if (triCur == triMaxCnt-1) break;
@@ -67,7 +75,16 @@ int rules::Triangles::identifyCentralStar() {
         if (triCur == triMaxCnt-1) break;
     }
 
+    int maxCnts = 0;
     int topNdx = -1;
+    std::map<int,int> candidateCnts;
+    for (auto it = candidateNdxs.begin(); it != candidateNdxs.end(); ++it) {
+        candidateCnts[*it]++;
+        if (candidateCnts[*it] > maxCnts) {
+            maxCnts = candidateCnts[*it];
+            topNdx = *it;
+        }
+    }
     return topNdx;
 }
 
@@ -132,8 +149,8 @@ Eigen::Matrix<int, 1000, 1> rules::Triangles::findCandidates(Eigen::Matrix<int, 
                 continue;
             }
             if (isCanNew(can, cans)) {
-               cans(cansndx,0) = can;
-               ++cansndx;
+                cans(cansndx,0) = can;
+                ++cansndx;
             }
         }
     }
