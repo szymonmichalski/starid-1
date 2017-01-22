@@ -58,13 +58,12 @@ int rules::Triangles::identifyCentralStar() {
                 Eigen::Matrix<int, 1000, 1> cans1 = findCandidates(abbc, bc); // constrained by bc
                 Eigen::Matrix<int, 1000, 1> cans2 = findCandidates(accb, cb); // constrained by cb
                 if (cans1(0,0) == 0 || cans2(0,0) == 0) continue;
-                for (int ndx = 0; ndx < 1000; ++ndx) {
-                    if (cans1(ndx,0) == 0) break;
-                    candidateNdxs.push_back(cans1(ndx,0));
-                }
-                for (int ndx = 0; ndx < 1000; ++ndx) {
-                    if (cans2(ndx,0) == 0) break;
-                    candidateNdxs.push_back(cans2(ndx,0));
+                for (int ndx1 = 0; ndx1 < 1000; ++ndx1) {
+                    if (cans1(ndx1,0) == 0) break;
+                    for (int ndx2 = 0; ndx2 < 1000; ++ndx2) {
+                        if (cans2(ndx2,0) == 0) break;
+                        if (cans1(ndx1,0) == cans2(ndx2,0)) candidateNdxs.push_back(cans1(ndx1,0));
+                    }
                 }
 
                 ++triCur;
