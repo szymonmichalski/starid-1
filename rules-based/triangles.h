@@ -25,8 +25,8 @@ private:
                                                            Eigen::Matrix<int, Eigen::Dynamic, 2>&,
                                                            bool strict = false);
 
-    Eigen::Matrix<int, Eigen::Dynamic, 1> findCandidates(Eigen::Matrix<int, Eigen::Dynamic, 2>&,
-                                                         Eigen::Matrix<int, Eigen::Dynamic, 2>&);
+    Eigen::Matrix<int, Eigen::Dynamic, 1> findCans(Eigen::Matrix<int, Eigen::Dynamic, 2>& ab,
+                                                   Eigen::Matrix<int, Eigen::Dynamic, 2>& bc);
 
     bool isPairNew(int, int, Eigen::Matrix<int, Eigen::Dynamic, 2>&);
 
