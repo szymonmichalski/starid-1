@@ -1,18 +1,11 @@
 # 22.01.2017
 
-with mnist style images and a four degree radius field of view, each star position has inherent uncertainty due to quantization on the order of
+with mnist style images and a four degree radius field of view, a pixel is roughly
 
-    >> ((4*pi/180)/14/2)*64e3/pi
-    ans =  50.794
+    >> ((4*pi/180)*648e3/pi)/14
+    ans =  1028.6
 
-tolerance needed in triangle side length is on the scale of tens to hundreds of arcseconds...
-
-another perspective. at the center of the field of view an mnist pixel is
-
-    >> ((4*pi/180)/14) * 64e3/pi
-    ans =  101.59
-
-arcseconds.
+arcseconds. the position uncertainty of a star is half of this, and triangle side tolerance should be on this order of magnitude.
 
 # 20.01.2017
 
