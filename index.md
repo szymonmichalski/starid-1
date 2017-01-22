@@ -5,7 +5,7 @@ with mnist style images and a four degree radius field of view, a pixel is rough
     >> ((4*pi/180)*648e3/pi)/14
     ans =  1028.6
 
-arcseconds. the position uncertainty of a star is half of this, and triangle side tolerance should be on this order of magnitude.
+arcseconds. the position uncertainty of a star is half this, and triangle side tolerance should be on this order of magnitude. early stopping methods are needed to reduce the number of pairs and stars in triangle processing.
 
 # 20.01.2017
 
