@@ -7,6 +7,13 @@ with mnist style images and a four degree radius field of view, each star positi
 
 tolerance needed in triangle side length is on the scale of tens to hundreds of arcseconds...
 
+another perspective. at the center of the field of view an mnist pixel is
+
+    >> ((4*pi/180)/14) * 64e3/pi
+    ans =  101.59
+
+arcseconds.
+
 # 20.01.2017
 
 triangle logic
