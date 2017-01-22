@@ -70,17 +70,17 @@ int rules::Triangles::identifyCentralStar() {
         if (triCur == triMaxCnt-1) break;
     }
 
-    int maxCnts = 0;
-    int topNdx = -1;
-    std::map<int,int> candidateCnts;
+    int maxcnt = 0;
+    int topcan = -1;
+    std::map<int,int> cancnts;
     for (auto it = cans.begin(); it != cans.end(); ++it) {
-        candidateCnts[*it]++;
-        if (candidateCnts[*it] > maxCnts) {
-            maxCnts = candidateCnts[*it];
-            topNdx = *it;
+        cancnts[*it]++;
+        if (cancnts[*it] > maxcnt) {
+            maxcnt = cancnts[*it];
+            topcan = *it;
         }
     }
-    return topNdx;
+    return topcan;
 }
 
 Eigen::Matrix<int, Eigen::Dynamic, 2> rules::Triangles::findRelatedPairs(Eigen::Matrix<int, Eigen::Dynamic, 2>& pairsa,
