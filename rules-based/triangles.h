@@ -21,9 +21,12 @@ public:
 
 private:
 
-    Eigen::Matrix<int, Eigen::Dynamic, 2> findRelatedPairs(Eigen::Matrix<int, Eigen::Dynamic, 2>&, Eigen::Matrix<int, Eigen::Dynamic, 2>&);
+    Eigen::Matrix<int, Eigen::Dynamic, 2> findRelatedPairs(Eigen::Matrix<int, Eigen::Dynamic, 2>&,
+                                                           Eigen::Matrix<int, Eigen::Dynamic, 2>&,
+                                                           bool strict = false);
 
-    Eigen::Matrix<int, Eigen::Dynamic, 1> findCandidates(Eigen::Matrix<int, Eigen::Dynamic, 2>&, Eigen::Matrix<int, Eigen::Dynamic, 2>&);
+    Eigen::Matrix<int, Eigen::Dynamic, 1> findCandidates(Eigen::Matrix<int, Eigen::Dynamic, 2>&,
+                                                         Eigen::Matrix<int, Eigen::Dynamic, 2>&);
 
     bool isPairNew(int, int, Eigen::Matrix<int, Eigen::Dynamic, 2>&);
 

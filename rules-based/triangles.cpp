@@ -17,6 +17,7 @@ rules::Triangles::Triangles(stars::Image& image,
 {}
 
 int rules::Triangles::identifyCentralStar() {
+    using namespace Eigen;
     arma::mat mata;
     arma::mat matb;
     arma::mat matc;
@@ -43,28 +44,19 @@ int rules::Triangles::identifyCentralStar() {
                 if ( std::abs( angab - angac ) < 10.0 * triTol ) continue;
                 if ( std::abs( angab - angbc ) < 10.0 * triTol ) continue;
                 if ( std::abs( angac - angbc ) < 10.0 * triTol ) continue;
+                Matrix<int, Dynamic, 2> tmp1 = pairsOverWholeSky.pairsMatrix(angab, triTol);
+                Matrix<int, Dynamic, 2> tmp2 = pairsOverWholeSky.pairsMatrix(angbc, triTol);
+                Matrix<int, Dynamic, 2> tmp3 = pairsOverWholeSky.pairsMatrix(angac, triTol);
 
-                Eigen::Matrix<int, Eigen::Dynamic, 2> tmp1 = pairsOverWholeSky.pairsMatrix(angab, triTol);
-                Eigen::Matrix<int, Eigen::Dynamic, 2> tmp2 = pairsOverWholeSky.pairsMatrix(angbc, triTol);
-                Eigen::Matrix<int, Eigen::Dynamic, 2> tmp3 = pairsOverWholeSky.pairsMatrix(angac, triTol);
+                Matrix<int, Dynamic, 2> abbc  = findRelatedPairs(tmp1, tmp2);
+                Matrix<int, Dynamic, 2> accb  = findRelatedPairs(tmp3, tmp2);
+                Matrix<int, Dynamic, 2> bc    = findRelatedPairs(abbc, accb, true);
+                Matrix<int, Dynamic, 1> cans1 = findCandidates(abbc, bc);
+                Matrix<int, Dynamic, 1> cans2 = findCandidates(accb, bc);
 
-                Eigen::Matrix<int, Eigen::Dynamic, 2> abbc = findRelatedPairs(tmp1, tmp2);
-                Eigen::Matrix<int, Eigen::Dynamic, 2> accb = findRelatedPairs(tmp3, tmp2);
-                if (abbc(0,0) == 0 || accb(0,0) == 0) continue;
-
-                Eigen::Matrix<int, Eigen::Dynamic, 2> constraint = findRelatedPairs(abbc, accb);
-                if (constraint(0,0) == 0) continue;
-
-                Eigen::Matrix<int, Eigen::Dynamic, 2> bc = findRelatedPairs(abbc, constraint); // constrained
-                Eigen::Matrix<int, Eigen::Dynamic, 2> cb = findRelatedPairs(accb, constraint); // constrained
-                if (bc(0,0) == 0 || cb(0,0) == 0) continue;
-
-                Eigen::Matrix<int, Eigen::Dynamic, 1> cans1 = findCandidates(abbc, bc); // constrained by bc
-                Eigen::Matrix<int, Eigen::Dynamic, 1> cans2 = findCandidates(accb, cb); // constrained by cb
-                if (cans1(0,0) == 0 || cans2(0,0) == 0) continue;
-                for (int ndx1 = 0; ndx1 < Eigen::Dynamic; ++ndx1) {
+                for (int ndx1 = 0; ndx1 < cans1.rows(); ++ndx1) {
                     if (cans1(ndx1,0) == 0) break;
-                    for (int ndx2 = 0; ndx2 < Eigen::Dynamic; ++ndx2) {
+                    for (int ndx2 = 0; ndx2 < cans2.rows(); ++ndx2) {
                         if (cans2(ndx2,0) == 0) break;
                         if (cans1(ndx1,0) == cans2(ndx2,0)) candidateNdxs.push_back(cans1(ndx1,0));
                     }
@@ -91,13 +83,18 @@ int rules::Triangles::identifyCentralStar() {
     return topNdx;
 }
 
-Eigen::Matrix<int, Eigen::Dynamic, 2> rules::Triangles::findRelatedPairs(Eigen::Matrix<int, Eigen::Dynamic, 2>& pairsa, Eigen::Matrix<int, Eigen::Dynamic, 2>& pairsb) {
-    Eigen::Matrix<int, Eigen::Dynamic, 2> pairsc;
-    pairsc.setZero();
-    int ndxc = 0;
-    for (int ndxa = 0; ndxa < Eigen::Dynamic; ++ndxa) {
+Eigen::Matrix<int, Eigen::Dynamic, 2> rules::Triangles::findRelatedPairs(Eigen::Matrix<int, Eigen::Dynamic, 2>& pairsa,
+                                                                         Eigen::Matrix<int, Eigen::Dynamic, 2>& pairsb,
+                                                                         bool strict) {
+    using namespace Eigen;
+    Matrix<int, Dynamic, 2> pairs;
+    pairs.resize(1000,2);
+    pairs.setZero();
+
+    int pairsndx = 0;
+    for (int ndxa = 0; ndxa < pairsa.rows(); ++ndxa) {
         if (pairsa(ndxa,0) == 0) break;
-        for (int ndxb = 0; ndxb < Eigen::Dynamic; ++ndxb) {
+        for (int ndxb = 0; ndxb < pairsb.rows(); ++ndxb) {
             if (pairsb(ndxb,0) == 0) break;
             bool pairsAreRelated = false;
             bool pairsAreTheSame = false;
@@ -107,37 +104,62 @@ Eigen::Matrix<int, Eigen::Dynamic, 2> rules::Triangles::findRelatedPairs(Eigen::
             if (pairsa(ndxa,1) == pairsb(ndxb,0) || pairsa(ndxa,1) == pairsb(ndxb,1)) pairsAreRelated = true;
             if (pairsa(ndxa,0) == pairsb(ndxb,0) && pairsa(ndxa,1) == pairsb(ndxb,1)) pairsAreTheSame = true;
             if (pairsa(ndxa,1) == pairsb(ndxb,0) && pairsa(ndxa,0) == pairsb(ndxb,1)) pairsAreTheSame = true;
+            if (strict == true && !pairsAreTheSame) continue;
             if (pairsAreRelated)
-                apairIsNew = isPairNew(pairsa(ndxa,0), pairsa(ndxa,1), pairsc);
+                apairIsNew = isPairNew(pairsa(ndxa,0), pairsa(ndxa,1), pairs);
             if (pairsAreRelated && !pairsAreTheSame)
-                bpairIsNew = isPairNew(pairsb(ndxb,0), pairsb(ndxb,1), pairsc);
+                bpairIsNew = isPairNew(pairsb(ndxb,0), pairsb(ndxb,1), pairs);
             if (pairsAreRelated && pairsAreTheSame && apairIsNew) {
-                pairsc(ndxc,0) = pairsa(ndxa,0);
-                pairsc(ndxc,1) = pairsa(ndxa,1);
-                ++ndxc;
+                if (pairs.rows() < pairsndx+1) {
+                    pairs.conservativeResize(pairs.rows()+1000, pairs.cols());
+                    for (int i = pairs.rows() - 1000; i < pairs.rows(); ++i) {
+                        pairs(i,0) = 0;
+                        pairs(i,1) = 0;
+                    }
+                }
+                pairs(pairsndx,0) = pairsa(ndxa,0);
+                pairs(pairsndx,1) = pairsa(ndxa,1);
+                ++pairsndx;
             }
             if (pairsAreRelated && !pairsAreTheSame && apairIsNew) {
-                pairsc(ndxc,0) = pairsa(ndxa,0);
-                pairsc(ndxc,1) = pairsa(ndxa,1);
-                ++ndxc;
+                if (pairs.rows() < pairsndx+1) {
+                    pairs.conservativeResize(pairs.rows()+1000, pairs.cols());
+                    for (int i = pairs.rows() - 1000; i < pairs.rows(); ++i) {
+                        pairs(i,0) = 0;
+                        pairs(i,1) = 0;
+                    }
+                }
+                pairs(pairsndx,0) = pairsa(ndxa,0);
+                pairs(pairsndx,1) = pairsa(ndxa,1);
+                ++pairsndx;
             }
             if (pairsAreRelated && !pairsAreTheSame && bpairIsNew) {
-                pairsc(ndxc,0) = pairsb(ndxb,0);
-                pairsc(ndxc,1) = pairsb(ndxb,1);
-                ++ndxc;
+                if (pairs.rows() < pairsndx+1) {
+                    pairs.conservativeResize(pairs.rows()+1000, pairs.cols());
+                    for (int i = pairs.rows() - 1000; i < pairs.rows(); ++i) {
+                        pairs(i,0) = 0;
+                        pairs(i,1) = 0;
+                    }
+                }
+                pairs(pairsndx,0) = pairsb(ndxb,0);
+                pairs(pairsndx,1) = pairsb(ndxb,1);
+                ++pairsndx;
             }
         }
     }
-    return pairsc;
+    return pairs;
 }
 
 Eigen::Matrix<int, Eigen::Dynamic, 1> rules::Triangles::findCandidates(Eigen::Matrix<int, Eigen::Dynamic, 2>& pairsa, Eigen::Matrix<int, Eigen::Dynamic, 2>& constraint) {
-    Eigen::Matrix<int, Eigen::Dynamic, 1> cans;
+    using namespace Eigen;
+    Matrix<int, Dynamic, 1> cans;
+    cans.resize(1000,1);
     cans.setZero();
+
     int cansndx = 0;
-    for (int ndxa = 0; ndxa < Eigen::Dynamic; ++ndxa) {
+    for (int ndxa = 0; ndxa < Dynamic; ++ndxa) {
         if (pairsa(ndxa,0) == 0) break;
-        for (int ndxb = 0; ndxb < Eigen::Dynamic; ++ndxb) {
+        for (int ndxb = 0; ndxb < Dynamic; ++ndxb) {
             if (constraint(ndxb,0) == 0) break;
             int can = 0;
             if (pairsa(ndxa,0) == constraint(ndxb,0) && pairsa(ndxa,1) != constraint(ndxb,1)) {
@@ -148,6 +170,13 @@ Eigen::Matrix<int, Eigen::Dynamic, 1> rules::Triangles::findCandidates(Eigen::Ma
                 continue;
             }
             if (isCanNew(can, cans)) {
+                if (cans.rows() < cansndx+1) {
+                    cans.conservativeResize(cans.rows()+1000, cans.cols());
+                    for (int i = cans.rows() - 1000; i < cans.rows(); ++i) {
+                        cans(i,0) = 0;
+                        cans(i,1) = 0;
+                    }
+                }
                 cans(cansndx,0) = can;
                 ++cansndx;
             }
@@ -157,7 +186,8 @@ Eigen::Matrix<int, Eigen::Dynamic, 1> rules::Triangles::findCandidates(Eigen::Ma
 }
 
 bool rules::Triangles::isPairNew(int int1, int int2, Eigen::Matrix<int, Eigen::Dynamic, 2>& mat) {
-    for (int ndx = 0; ndx < Eigen::Dynamic; ++ndx) {
+    using namespace Eigen;
+    for (int ndx = 0; ndx < Dynamic; ++ndx) {
         if (mat(ndx,0) == 0) break;
         if (mat(ndx,0) == int1 && mat(ndx,1) == int2) return false;
         if (mat(ndx,1) == int1 && mat(ndx,0) == int2) return false;
@@ -166,7 +196,8 @@ bool rules::Triangles::isPairNew(int int1, int int2, Eigen::Matrix<int, Eigen::D
 }
 
 bool rules::Triangles::isCanNew(int int1, Eigen::Matrix<int, Eigen::Dynamic, 1>& mat) {
-    for (int ndx = 0; ndx < Eigen::Dynamic; ++ndx) {
+    using namespace Eigen;
+    for (int ndx = 0; ndx < Dynamic; ++ndx) {
         if (mat(ndx,0) == 0) break;
         if (mat(ndx,0) == int1) return false;
     }

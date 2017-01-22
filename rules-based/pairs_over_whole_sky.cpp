@@ -26,8 +26,9 @@ void rules::PairsOverWholeSky::init(stars::Sky& sky)
 }
 
 Eigen::Matrix<int, Eigen::Dynamic, 2> rules::PairsOverWholeSky::pairsMatrix(double angle, double tolerance) {
-
-    Eigen::Matrix<int, Eigen::Dynamic, 2> pairsMat;
+    using namespace Eigen;
+    Matrix<int, Dynamic, 2> pairsMat;
+    pairsMat.resize(1000,2);
     pairsMat.setZero();
 
     double ang1 = angle - tolerance;
@@ -43,6 +44,13 @@ Eigen::Matrix<int, Eigen::Dynamic, 2> rules::PairsOverWholeSky::pairsMatrix(doub
     std::vector<int> intsFromTable = angletable.findInts(ang1, ang2);
     int pairsndx = 0;
     for (auto ndx : intsFromTable) {
+        if (pairsMat.rows() < pairsndx+1) {
+            pairsMat.conservativeResize(pairsMat.rows()+1000, pairsMat.cols());
+            for (int i = pairsMat.rows() - 1000; i < pairsMat.rows(); ++i) {
+                pairsMat(i,0) = 0;
+                pairsMat(i,1) = 0;
+            }
+        }
         pairsMat(pairsndx,0) = (std::get<1>(starpairs[ndx]));
         pairsMat(pairsndx,1) = (std::get<2>(starpairs[ndx]));
         ++pairsndx;
