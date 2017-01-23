@@ -1,8 +1,4 @@
 #include "triangles.h"
-#include "stopwatch.h"
-#include <map>
-#include <cmath>
-#include "globals.h"
 
 rules::Triangles::Triangles(stars::Image& image,
                             rules::PairsOverWholeSky& pairs,
@@ -46,10 +42,9 @@ int rules::Triangles::identifyCentralStar() {
                 if ( std::abs( angac - angbc ) < 2.0 * tol_radius ) continue;
                 Matrix<int, Dynamic, 2> ab = pairsOverWholeSky.pairsMatrix(angab, tol_radius);
                 Matrix<int, Dynamic, 2> ac = pairsOverWholeSky.pairsMatrix(angac, tol_radius);
-                //                Matrix<int, Dynamic, 2> bc = pairsOverWholeSky.pairsMatrix(angbc, tol_radius);
                 std::unordered_multimap<int, int> bc = pairsOverWholeSky.pairsMap(angbc, tol_radius);
-                Matrix<int, Dynamic, 1> cans1 = findCans(ab, bc);
-                Matrix<int, Dynamic, 1> cans2 = findCans(ac, bc);
+                std::unordered_map<int, int> cans1 = findCans2(ab, bc);
+                std::unordered_map<int, int> cans2 = findCans2(ac, bc);
 
                 ++triCur;
                 if (triCur == triMaxCnt-1) break;
@@ -59,6 +54,33 @@ int rules::Triangles::identifyCentralStar() {
         if (triCur == triMaxCnt-1) break;
     }
     return 0;
+}
+
+std::unordered_map<int,int> rules::Triangles::findCans2(Eigen::Matrix<int, Eigen::Dynamic, 2>& ab,
+                                     std::unordered_multimap<int, int>& bc) {
+    std::unordered_map<int, int> cans;
+    bool okab = false; // ok to break on 0
+    for (int ndxab = 0; ndxab < ab.rows(); ++ndxab) {
+        if (okab && ab(ndxab,0) == 0) break;
+        if (!okab && ab(ndxab,0) > 0) okab = true;
+        int can = 0;
+        auto it1 = bc.find(ab(ndxab,0));
+        auto it2 = bc.find(ab(ndxab,1));
+        if (it1 != bc.end() && it2 == bc.end()) {
+            can = ab(ndxab,1);
+        }
+        else if (it1 == bc.end() && it2 != bc.end()) {
+            can = ab(ndxab,0);
+        }
+        else continue;
+        auto it3 = cans.find(can);
+        if (it3 != cans.end()) {
+            ++it3->second;
+            continue;
+        }
+        cans.emplace(can, 1);
+    }
+    return cans;
 }
 
 Eigen::Matrix<int, Eigen::Dynamic, 1> rules::Triangles::findCans(Eigen::Matrix<int, Eigen::Dynamic, 2>& ab,

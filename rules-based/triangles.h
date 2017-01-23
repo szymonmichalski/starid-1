@@ -1,6 +1,7 @@
 #ifndef TRIPLETS_H
 #define TRIPLETS_H
 
+#include "globals.h"
 #include "image.h"
 #include "pairs_over_whole_sky.h"
 #include <eigen/Core>
@@ -31,6 +32,9 @@ private:
 
     Eigen::Matrix<int, Eigen::Dynamic, 1> findCans(Eigen::Matrix<int, Eigen::Dynamic, 2>& ab,
                                                    std::unordered_multimap<int, int>& bc);
+
+    std::unordered_map<int,int> findCans2(Eigen::Matrix<int, Eigen::Dynamic, 2>& ab,
+                                         std::unordered_multimap<int, int>& bc);
 
     bool isPairNew(int, int, Eigen::Matrix<int, Eigen::Dynamic, 2>&);
 
