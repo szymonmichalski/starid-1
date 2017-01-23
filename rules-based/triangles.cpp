@@ -10,7 +10,7 @@ rules::Triangles::Triangles(stars::Image& image,
                             int triMaxCnt) :
     pairsOverWholeSky(pairs),
     image(image),
-    triTol(triTol),
+    tol_radius(triTol),
     triMaxCnt(triMaxCnt),
     starsCnt(image.uvecs.n_rows),
     triCur(0)
@@ -41,12 +41,13 @@ int rules::Triangles::identifyCentralStar() {
                 if (angab >= stars::imageRadiusRadians) continue;
                 if (angac >= stars::imageRadiusRadians) continue;
                 if (angbc >= stars::imageRadiusRadians) continue;
-                if ( std::abs( angab - angac ) < 2.0 * triTol ) continue;
-                if ( std::abs( angab - angbc ) < 2.0 * triTol ) continue;
-                if ( std::abs( angac - angbc ) < 2.0 * triTol ) continue;
-                Matrix<int, Dynamic, 2> ab = pairsOverWholeSky.pairsMatrix(angab, triTol);
-                Matrix<int, Dynamic, 2> ac = pairsOverWholeSky.pairsMatrix(angac, triTol);
-                Matrix<int, Dynamic, 2> bc = pairsOverWholeSky.pairsMatrix(angbc, triTol);
+                if ( std::abs( angab - angac ) < 2.0 * tol_radius ) continue;
+                if ( std::abs( angab - angbc ) < 2.0 * tol_radius ) continue;
+                if ( std::abs( angac - angbc ) < 2.0 * tol_radius ) continue;
+                Matrix<int, Dynamic, 2> ab = pairsOverWholeSky.pairsMatrix(angab, tol_radius);
+                Matrix<int, Dynamic, 2> ac = pairsOverWholeSky.pairsMatrix(angac, tol_radius);
+                //                Matrix<int, Dynamic, 2> bc = pairsOverWholeSky.pairsMatrix(angbc, tol_radius);
+                std::unordered_multimap<int, int> bc = pairsOverWholeSky.pairsMap(angbc, tol_radius);
                 Matrix<int, Dynamic, 1> cans1 = findCans(ab, bc);
                 Matrix<int, Dynamic, 1> cans2 = findCans(ac, bc);
 
@@ -58,6 +59,43 @@ int rules::Triangles::identifyCentralStar() {
         if (triCur == triMaxCnt-1) break;
     }
     return 0;
+}
+
+Eigen::Matrix<int, Eigen::Dynamic, 1> rules::Triangles::findCans(Eigen::Matrix<int, Eigen::Dynamic, 2>& ab,
+                                                                 std::unordered_multimap<int, int>& bc) {
+    using namespace Eigen;
+    Matrix<int, Dynamic, 1> cans;
+    cans.resize(1000,1);
+    cans.setZero();
+    int cansndx = 0;
+    bool okab = false; // ok to break on 0
+    for (int ndxab = 0; ndxab < ab.rows(); ++ndxab) {
+        if (okab && ab(ndxab,0) == 0) break;
+        if (!okab && ab(ndxab,0) > 0) okab = true;
+
+        int can = 0;
+        auto it1 = bc.find(ab(ndxab,0));
+        auto it2 = bc.find(ab(ndxab,1));
+        if (it1 != bc.end() && it2 == bc.end()) {
+            can = ab(ndxab,1);
+        }
+        else if (it1 == bc.end() && it2 != bc.end()) {
+            can = ab(ndxab,0);
+        }
+        else continue;
+
+        if (isCanNew(can, cans)) {
+            if (cans.rows() < cansndx+1) {
+                cans.conservativeResize(cans.rows()+1000, cans.cols());
+                for (int i = cans.rows() - 1000; i < cans.rows(); ++i) {
+                    cans(i,0) = 0;
+                }
+            }
+            cans(cansndx,0) = can;
+            ++cansndx;
+        }
+    }
+    return cans;
 }
 
 Eigen::Matrix<int, Eigen::Dynamic, 1> rules::Triangles::findCans(Eigen::Matrix<int, Eigen::Dynamic, 2>& ab,

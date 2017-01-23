@@ -4,6 +4,7 @@
 #include "image.h"
 #include "pairs_over_whole_sky.h"
 #include <eigen/Core>
+#include <unordered_map>
 
 namespace rules {
 
@@ -14,7 +15,7 @@ public:
 
     Triangles(stars::Image& image,
               rules::PairsOverWholeSky& pairs,
-              double triTol,
+              double tol_radius,
               int triMaxCnt);
 
     int identifyCentralStar();
@@ -28,13 +29,16 @@ private:
     Eigen::Matrix<int, Eigen::Dynamic, 1> findCans(Eigen::Matrix<int, Eigen::Dynamic, 2>& ab,
                                                    Eigen::Matrix<int, Eigen::Dynamic, 2>& bc);
 
+    Eigen::Matrix<int, Eigen::Dynamic, 1> findCans(Eigen::Matrix<int, Eigen::Dynamic, 2>& ab,
+                                                   std::unordered_multimap<int, int>& bc);
+
     bool isPairNew(int, int, Eigen::Matrix<int, Eigen::Dynamic, 2>&);
 
     bool isCanNew(int, Eigen::Matrix<int, Eigen::Dynamic, 1>&);
 
     rules::PairsOverWholeSky pairsOverWholeSky;
     stars::Image& image;
-    double triTol;
+    double tol_radius;
     int triMaxCnt;
     int starsCnt;
     int triCur;

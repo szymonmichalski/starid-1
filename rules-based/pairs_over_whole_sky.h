@@ -19,9 +19,11 @@ public:
 
     void init(stars::Sky& sky);
 
-    std::vector<int> pairsVector(double angle, double tolerance);
+    std::vector<int> pairsVector(double angle, double tol_radius);
 
-    Eigen::Matrix<int, Eigen::Dynamic, 2> pairsMatrix(double angle, double tolerance);
+    Eigen::Matrix<int, Eigen::Dynamic, 2> pairsMatrix(double angle, double tol_radius);
+
+    std::unordered_multimap<int, int> pairsMap(double angle, double tol_radius);
 
     void Status();
 
