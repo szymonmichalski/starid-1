@@ -1,6 +1,8 @@
 # 23.01.2017
 
-the point in this discussion of uncertainty and triangle methods - with mnist style images a rules based approach becomes harder. the basic picture was a spacecraft grade sensor. now it's a childrens toy...
+the point in this discussion of uncertainty and triangle methods - with mnist style images a rules based approach becomes harder. previously the image was from a spacecraft grade sensor. now it's from a childrens toy...
+
+it's a really useful challenge...
 
 # 22.01.2017
 
