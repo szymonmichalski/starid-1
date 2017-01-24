@@ -21,7 +21,7 @@ int rules::Triangles::identifyCentralStar() {
     matb.zeros(triMaxCnt,3);
     matc.zeros(triMaxCnt,3);
 
-    //    std::vector<int> cans;
+    std::unordered_map<int, int> cans;
     int i, j, k, dj, dk;
     triCur = 0;
     for (dj = 1; dj <= starsCnt-2; ++dj) {
@@ -52,7 +52,14 @@ int rules::Triangles::identifyCentralStar() {
                             cans3.emplace(it1->first, it1->second + it2->second);
                         }
                 }
-
+                for (auto it3 = cans3.begin(), end = cans3.end(); it3 != end; ++it3) {
+                        auto it = cans.find(it3->first);
+                        if (it == cans.end()) {
+                            cans.emplace(it3->first, 1);
+                        } else {
+                            ++it->second;
+                        }
+                }
 
                 ++triCur;
                 if (triCur == triMaxCnt-1) break;
@@ -61,7 +68,15 @@ int rules::Triangles::identifyCentralStar() {
         }
         if (triCur == triMaxCnt-1) break;
     }
-    return 0;
+    int starndx = 0;
+    int maxcnt = 0;
+    for (auto it = cans.begin(), end = cans.end(); it != end; ++it) {
+        if (it->second > maxcnt) {
+            starndx = it->first;
+            maxcnt = it->second;
+        }
+    }
+    return starndx;
 }
 
 std::unordered_map<int,int> rules::Triangles::findCans2(Eigen::Matrix<int, Eigen::Dynamic, 2>& ab,
