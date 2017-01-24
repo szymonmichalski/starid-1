@@ -45,6 +45,14 @@ int rules::Triangles::identifyCentralStar() {
                 std::unordered_multimap<int, int> bc = pairsOverWholeSky.pairsMap(angbc, tol_radius);
                 std::unordered_map<int, int> cans1 = findCans2(ab, bc);
                 std::unordered_map<int, int> cans2 = findCans2(ac, bc);
+                std::unordered_map<int, int> cans3;
+                for (auto it1 = cans1.begin(), end = cans1.end(); it1 != end; ++it1) {
+                        auto it2 = cans2.find(it1->first);
+                        if (it2 != cans2.end()) {
+                            cans3.emplace(it1->first, it1->second + it2->second);
+                        }
+                }
+
 
                 ++triCur;
                 if (triCur == triMaxCnt-1) break;
