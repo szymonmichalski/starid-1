@@ -40,25 +40,25 @@ int rules::Triangles::identifyCentralStar() {
                 if ( std::abs( angab - angac ) < 2.0 * tol_radius ) continue;
                 if ( std::abs( angab - angbc ) < 2.0 * tol_radius ) continue;
                 if ( std::abs( angac - angbc ) < 2.0 * tol_radius ) continue;
-                Matrix<int, Dynamic, 2> ab = pairsOverWholeSky.pairsMatrix(angab, tol_radius);
-                Matrix<int, Dynamic, 2> ac = pairsOverWholeSky.pairsMatrix(angac, tol_radius);
+                std::unordered_multimap<int, int> ab = pairsOverWholeSky.pairsMap(angab, tol_radius);
+                std::unordered_multimap<int, int> ac = pairsOverWholeSky.pairsMap(angac, tol_radius);
                 std::unordered_multimap<int, int> bc = pairsOverWholeSky.pairsMap(angbc, tol_radius);
-                std::unordered_map<int, int> cans1 = findCans2(ab, bc);
-                std::unordered_map<int, int> cans2 = findCans2(ac, bc);
-                std::unordered_map<int, int> cans3;
-                for (auto it1 = cans1.begin(), end = cans1.end(); it1 != end; ++it1) {
-                        auto it2 = cans2.find(it1->first);
-                        if (it2 != cans2.end()) {
-                            cans3.emplace(it1->first, it1->second + it2->second);
-                        }
+                std::unordered_map<int, int> cansab = matchMaps(ab, bc);
+                std::unordered_map<int, int> cansac = matchMaps(ac, bc);
+                std::unordered_map<int, int> cansmerge;
+                for (auto itab = cansab.begin(), end = cansab.end(); itab != end; ++itab) {
+                    auto itac = cansac.find(itab->first);
+                    if (itac != cansac.end()) {
+                        cansmerge.emplace(itab->first, itab->second + itac->second);
+                    }
                 }
-                for (auto it3 = cans3.begin(), end = cans3.end(); it3 != end; ++it3) {
-                        auto it = cans.find(it3->first);
-                        if (it == cans.end()) {
-                            cans.emplace(it3->first, 1);
-                        } else {
-                            ++it->second;
-                        }
+                for (auto itmerge = cansmerge.begin(), end = cansmerge.end(); itmerge != end; ++itmerge) {
+                    auto itcan = cans.find(itmerge->first);
+                    if (itcan == cans.end()) {
+                        cans.emplace(itmerge->first, itmerge->second);
+                    } else {
+                        itcan->second += itmerge->second;
+                    }
                 }
 
                 ++triCur;
@@ -70,38 +70,29 @@ int rules::Triangles::identifyCentralStar() {
     }
     int starndx = 0;
     int maxcnt = 0;
-    for (auto it = cans.begin(), end = cans.end(); it != end; ++it) {
-        if (it->second > maxcnt) {
-            starndx = it->first;
-            maxcnt = it->second;
+    for (auto itcan = cans.begin(), end = cans.end(); itcan != end; ++itcan) {
+        if (itcan->second > maxcnt) {
+            starndx = itcan->first;
+            maxcnt = itcan->second;
         }
     }
     return starndx;
 }
 
-std::unordered_map<int,int> rules::Triangles::findCans2(Eigen::Matrix<int, Eigen::Dynamic, 2>& ab,
-                                     std::unordered_multimap<int, int>& bc) {
+std::unordered_map<int,int> rules::Triangles::matchMaps(std::unordered_multimap<int, int>& ab,
+                                                        std::unordered_multimap<int, int>& bc) {
     std::unordered_map<int, int> cans;
-    bool okab = false; // ok to break on 0
-    for (int ndxab = 0; ndxab < ab.rows(); ++ndxab) {
-        if (okab && ab(ndxab,0) == 0) break;
-        if (!okab && ab(ndxab,0) > 0) okab = true;
-        int can = 0;
-        auto it1 = bc.find(ab(ndxab,0));
-        auto it2 = bc.find(ab(ndxab,1));
-        if (it1 != bc.end() && it2 == bc.end()) {
-            can = ab(ndxab,1);
+    for (auto itab = ab.begin(), end = ab.end(); itab != end; ++itab) {
+        auto itbc = bc.find(itab->first);
+        if (itbc != bc.end() && itbc->second != itab->second) {
+            int can = itab->second;
+            auto itcans = cans.find(can);
+            if (itcans != cans.end()) {
+                ++itcans->second;
+                continue;
+            }
+            cans.emplace(can, 1);
         }
-        else if (it1 == bc.end() && it2 != bc.end()) {
-            can = ab(ndxab,0);
-        }
-        else continue;
-        auto it3 = cans.find(can);
-        if (it3 != cans.end()) {
-            ++it3->second;
-            continue;
-        }
-        cans.emplace(can, 1);
     }
     return cans;
 }
