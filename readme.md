@@ -1,8 +1,8 @@
-projects | description
+subsystem | description
 -------- | -----------
-stars | c++ images, data, etc for rb and lb
-rules-based | c++ star pattern heuristics
-learning-based |tensorflow star pattern learning
+stars | star image and data handling in c++
+rules-based | star pattern heuristics in c++
+learning-based |star pattern learning in tensorflow
 
 related | link
 ----- | ---
@@ -11,7 +11,7 @@ blog | http://noahhsmith.github.io/starid/
 discussion | http://stackoverflow.com/users/5716954/noah-smith
 
 thanks to | link
---------- | ---
+----- | ---
 tensorflow | http://github.com/tensorflow/tensorflow
 armadillo | http://arma.sourceforge.net
 eigen | http://eigen.tuxfamily.org/index.php
