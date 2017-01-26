@@ -28,8 +28,8 @@
 
 1993 - pattern recognition of star constellations for spacecraft applications - liebe - ieee aerospace and electronic systems magazine - [pdf](1993 liebe.pdf)
 
-1999 - skymap specification - sande, ottenstein - nasa technical report - [pdf](1999 skymap_sky2000_v5r4_sources_and_data_representation.pdf)
+1999 - skymap specification - sande, ottenstein - nasa technical report - [pdf](1999 skymap_sky2000_v5r4_specifications.pdf)
 
-2004 - the pyramid star identification technique - mortari, samaan, bruccoleri, junkins - advances in the astronautical sciences - [pdf](2004 mortari)
+2004 - the pyramid star identification technique - mortari, samaan, bruccoleri, junkins - advances in the astronautical sciences - [pdf](2004 mortari.pdf)
 
-
+2009 - a survey on star identification algorithms - spratling, mortari - algorithms - [pdf](2009 spratling.pdf)
