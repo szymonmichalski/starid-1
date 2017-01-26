@@ -17,12 +17,26 @@ class PairsOverWholeSky {
 
 public:
 
+    ///
+    /// \brief init
+    /// \param sky
+    ///
     void init(stars::Sky& sky);
 
-    std::vector<int> pairsVector(double angle, double tol_radius);
-
+    ///
+    /// \brief pairsMatrix
+    /// \param angle
+    /// \param tol_radius
+    /// \return
+    ///
     Eigen::Matrix<int, Eigen::Dynamic, 2> pairsMatrix(double angle, double tol_radius);
 
+    ///
+    /// \brief pairsMap
+    /// \param angle
+    /// \param tol_radius
+    /// \return
+    ///
     std::unordered_multimap<int, int> pairsMap(double angle, double tol_radius);
 
     void Status();

@@ -45,8 +45,19 @@ public:
     std::vector<stars::Star> stars;
     std::vector<std::string> catalogLines;
 
+    ///
+    /// \brief init
+    /// \param fcatalog
+    ///
     void init(std::string fcatalog);
 
+    ///
+    /// \brief starsNearPoint
+    /// \param x
+    /// \param y
+    /// \param z
+    /// \return
+    ///
     std::vector<int> starsNearPoint(double x, double y, double z);
 
     void status();

@@ -80,19 +80,6 @@ Eigen::Matrix<int, Eigen::Dynamic, 2> rules::PairsOverWholeSky::pairsMatrix(doub
     return pairsMat;
 }
 
-
-std::vector<int> rules::PairsOverWholeSky::pairsVector(double angle, double tol_radius)
-{
-    std::vector<int> intsFromTable = angletable.findInts(angle-tol_radius, angle+tol_radius);
-    std::vector<int> starndxs; // list of stars from the pairs
-    for (auto pairndx : intsFromTable) {
-        starndxs.push_back(std::get<1>(starpairs[pairndx]));
-        starndxs.push_back(std::get<2>(starpairs[pairndx]));
-    }
-    std::sort(starndxs.begin(), starndxs.end());
-    return starndxs;
-}
-
 std::string rules::PairsOverWholeSky::pairsKey(int catndx1, int catndx2) {
     if (catndx1 > catndx2) {
         int tmp = catndx1;
