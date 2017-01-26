@@ -1,6 +1,6 @@
 projects | description
 -------- | -----------
-stars | images and data for rb and lb in c++
+stars | image and data handling in c++
 rules-based | star pattern heuristics in c++
 learning-based |star pattern learning in tensorflow
 
