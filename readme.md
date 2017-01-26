@@ -6,8 +6,8 @@ learning-based |tensorflow star pattern learning
 
 related | link
 ----- | ---
-docs | https://github.com/noahhsmith/starid/docs
-notes | http://noahhsmith.github.io/starid/
+references | http://noahhsmith.github.io/starid/refs
+blog | http://noahhsmith.github.io/starid/
 discussion | http://stackoverflow.com/users/5716954/noah-smith
 
 thanks to | link
