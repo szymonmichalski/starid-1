@@ -1,6 +1,6 @@
-projects | description
+subsystem | description
 -------- | -----------
-stars | image and data handling in c++
+stars | star image and data handling in c++
 rules-based | star pattern heuristics in c++
 learning-based |star pattern learning in tensorflow
 
