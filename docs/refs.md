@@ -14,3 +14,14 @@ tmp [pdf](2014 nasa icesat a.pdf)
 
 tmp [pdf](2011 aas.pdf)
 
+tmp [pdf](2010 jsr.pdf)
+
+tmp [pdf](2010 aas b.pdf)
+
+tmp [pdf](2010 aas a.pdf)
+
+tmp [pdf](2009 aas b.pdf)
+
+tmp [pdf](2009 aas a.pdf)
+
+tmp [pdf](2008 aas.pdf)
