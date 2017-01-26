@@ -1,8 +1,8 @@
 projects | description
 -------- | -----------
-stars | c++ images, data, etc for rb and lb
-rules-based | c++ star pattern heuristics
-learning-based |tensorflow star pattern learning
+stars | images and data for rb and lb in c++
+rules-based | star pattern heuristics in c++
+learning-based |star pattern learning in tensorflow
 
 related | link
 ----- | ---
