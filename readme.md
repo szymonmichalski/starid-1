@@ -17,3 +17,4 @@ armadillo | http://arma.sourceforge.net
 eigen | http://eigen.tuxfamily.org/index.php
 cereal| http://github.com/USCiLab/cereal
 optionparser | http://optionparser.sourceforge.net
+moxygen | https://github.com/sourcey/moxygen
