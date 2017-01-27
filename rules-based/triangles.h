@@ -14,30 +14,19 @@ class Triangles
 
 public:
 
-    ///
-    /// \brief Triangles
-    /// \param image
-    /// \param pairs
-    /// \param tol_radius
-    /// \param triMaxCnt
-    ///
+    /// # Triangles contructor
+    /// most important job is to initialize the pairs member
     Triangles(stars::Image& image, rules::PairsOverWholeSky& pairs,
               double tol_radius, int triMaxCnt);
 
-    ///
-    /// \brief identifyCentralStar
-    /// \return
-    ///
+    /// # identifyCentralStar
+    /// predicts the starndx of the star at the center of the image
     int identifyCentralStar();
 
 private:
 
-    ///
-    /// \brief updateCans
-    /// \param ab
-    /// \param bc
-    /// \return
-    ///
+    /// # updateCans
+    /// update a group of candiate starndxs
     std::unordered_map<int,int> updateCans(std::unordered_multimap<int, int>& ab,
                                           std::unordered_multimap<int, int>& bc);
 
