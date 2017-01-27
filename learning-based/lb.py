@@ -21,7 +21,6 @@ def identifyCentralStar(imgndx):
   ndx = np.argmax(softmaxval)
   return ndx
 
-## lb learning-based app
 def main():
   usage = "usage: %prog [options] arg"
   parser = OptionParser(usage)

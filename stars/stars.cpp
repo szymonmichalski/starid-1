@@ -41,12 +41,6 @@ const option::Descriptor usage[] = {
     {0,0,0,0,0,0} // end of options
 };
 
-///
-/// \brief main
-/// \param argc
-/// \param argv
-/// \return
-///
 int main(int argc, char* argv[])
 {
     argc-=(argc>0); argv+=(argc>0); // skip program name argv[0] if present
@@ -94,13 +88,6 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-///
-/// \brief doMnist
-/// \param imgCnt
-/// \param datadir
-/// \param filename
-/// \param sky
-///
 void doMnist(int imgCnt, std::string& datadir, std::string& filename, stars::Sky& sky) {
     data::Mnist mnist;
     std::vector<arma::mat> axjAxiImages;

@@ -7,7 +7,6 @@ import numpy as np
 resultscnt = 25
 results = np.zeros(shape=(resultscnt, 6), dtype=float)
 
-## system script
 for resultsndx in range(0, resultscnt):
   starndx = np.mod(resultsndx, 10)
   starsetndx = np.random.randint(0, 1000)

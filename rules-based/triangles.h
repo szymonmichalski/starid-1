@@ -15,7 +15,7 @@ class Triangles
 public:
 
     /// # Triangles contructor
-    /// most important job is to initialize the pairs member
+    /// initialize the pairs member
     Triangles(stars::Image& image, rules::PairsOverWholeSky& pairs,
               double tol_radius, int triMaxCnt);
 

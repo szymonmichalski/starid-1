@@ -41,12 +41,6 @@ const option::Descriptor usage[] = {
     {0,0,0,0,0,0} // end of options
 };
 
-///
-/// \brief main
-/// \param argc
-/// \param argv
-/// \return
-///
 int main(int argc, char* argv[])
 {
     argc-=(argc>0); argv+=(argc>0); // skip program name argv[0] if present
