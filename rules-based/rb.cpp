@@ -1,4 +1,7 @@
-﻿#include "triangles.h"
+﻿/// # rb - star pattern heuristics
+///
+
+#include "triangles.h"
 #include "image.h"
 #include "stopwatch.h"
 #include <armadillo>
