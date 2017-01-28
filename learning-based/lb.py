@@ -6,6 +6,10 @@ import numpy as np
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/dev/starid/models', '')
 
+### **identify central star**
+###
+### predicts the starndx of the star at the center of the image
+###
 def identifyCentralStar(imgndx):
   tf.reset_default_graph()
   images = mnist_to_tfrecords.read_images('/home/noah/dev/starid/data/images_b1.mnist')
@@ -22,7 +26,7 @@ def identifyCentralStar(imgndx):
   return ndx
 
 def main():
-  usage = "usage: %prog [options] arg"
+  usage = "usage: %lb [options] arg"
   parser = OptionParser(usage)
   parser.add_option('-s', '--starndx', dest='starndx', help='')
   (options, args) = parser.parse_args()

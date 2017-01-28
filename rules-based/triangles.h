@@ -14,19 +14,25 @@ class Triangles
 
 public:
 
-    /// # Triangles contructor
+    /// **triangles contructor**
+    ///
     /// initialize the pairs member
+    ///
     Triangles(stars::Image& image, rules::PairsOverWholeSky& pairs,
               double tol_radius, int triMaxCnt);
 
-    /// # identifyCentralStar
+    /// **identify central star**
+    ///
     /// predicts the starndx of the star at the center of the image
+    ///
     int identifyCentralStar();
 
 private:
 
-    /// # updateCans
+    /// **update cans**
+    ///
     /// update a group of candiate starndxs
+    ///
     std::unordered_map<int,int> findCansFromTwoSides(std::unordered_multimap<int, int>& ab,
                                           std::unordered_multimap<int, int>& bc);
 
