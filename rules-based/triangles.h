@@ -27,7 +27,7 @@ private:
 
     /// # updateCans
     /// update a group of candiate starndxs
-    std::unordered_map<int,int> updateCans(std::unordered_multimap<int, int>& ab,
+    std::unordered_map<int,int> findCansFromTwoSides(std::unordered_multimap<int, int>& ab,
                                           std::unordered_multimap<int, int>& bc);
 
     rules::PairsOverWholeSky pairsOverWholeSky;

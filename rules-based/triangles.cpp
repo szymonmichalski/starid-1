@@ -43,22 +43,27 @@ int rules::Triangles::identifyCentralStar() {
                 std::unordered_multimap<int, int> ab = pairsOverWholeSky.pairsMap(angab, tol_radius);
                 std::unordered_multimap<int, int> ac = pairsOverWholeSky.pairsMap(angac, tol_radius);
                 std::unordered_multimap<int, int> bc = pairsOverWholeSky.pairsMap(angbc, tol_radius);
-                std::unordered_map<int, int> cansab = updateCans(ab, bc);
-                std::unordered_map<int, int> cansac = updateCans(ac, bc);
-                std::unordered_map<int, int> cansmerge;
+                std::unordered_map<int, int> cansab = findCansFromTwoSides(ab, bc);
+                std::unordered_map<int, int> cansac = findCansFromTwoSides(ac, bc);
+                std::unordered_map<int, int> cansFromTwoSides;
                 for (auto itab = cansab.begin(), end = cansab.end(); itab != end; ++itab) {
                     auto itac = cansac.find(itab->first);
                     if (itac != cansac.end()) {
-                        cansmerge.emplace(itab->first, itab->second + itac->second);
+                        cansFromTwoSides.emplace(itab->first, 1);
                     }
                 }
-                for (auto itmerge = cansmerge.begin(), end = cansmerge.end(); itmerge != end; ++itmerge) {
-                    auto itcan = cans.find(itmerge->first);
-                    if (itcan == cans.end()) {
-                        cans.emplace(itmerge->first, itmerge->second);
-                    } else {
-                        itcan->second += itmerge->second;
+
+                if (cans.empty()) {
+                    cans = cansFromTwoSides;
+                } else {
+                    std::unordered_map<int, int> tmpcans;
+                    for (auto it1 = cansFromTwoSides.begin(), end = cansFromTwoSides.end(); it1 != end; ++it1) {
+                        auto itcan = cans.find(it1->first);
+                        if (itcan != cans.end()) {
+                            tmpcans.emplace(it1->first, itcan->second+1);
+                        }
                     }
+                    cans = tmpcans;
                 }
 
                 ++triCur;
@@ -79,8 +84,8 @@ int rules::Triangles::identifyCentralStar() {
     return starndx;
 }
 
-std::unordered_map<int,int> rules::Triangles::updateCans(std::unordered_multimap<int, int>& ab,
-                                                        std::unordered_multimap<int, int>& bc) {
+std::unordered_map<int,int> rules::Triangles::findCansFromTwoSides(std::unordered_multimap<int, int>& ab,
+                                                                   std::unordered_multimap<int, int>& bc) {
     std::unordered_map<int, int> cans;
     for (auto itab = ab.begin(), end = ab.end(); itab != end; ++itab) {
         auto itbc = bc.find(itab->first);
