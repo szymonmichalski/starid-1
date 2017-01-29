@@ -1,6 +1,9 @@
+/// **pairs over whole sky**
+///
+/// provides quick access to all of the star pairs within a given radius. the underlying data structure is a form of map or hash map for efficient searching.
+///
 #ifndef PAIRS_H
 #define PAIRS_H
-
 #include "image.h"
 #include "float_int_table.h"
 #include <unordered_map>

@@ -2,14 +2,17 @@ import commenter as co
 import datetime
 
 outfile     = 'comments.md'
+
 lbroot      = '../learning-based/'
 lb          = 'lb.py'
 model       = 'model.py'
 learning    = 'learning.py'
 testing     = 'testing.py'
+
 rbroot      = '../rules-based/'
 rb          = 'rb.cpp'
 triangles   = 'triangles.h'
+pairs       = 'pairs_over_whole_sky.h'
 
 with open(outfile, 'w') as f:
 
@@ -22,4 +25,5 @@ with open(outfile, 'w') as f:
   f.write('# heuristics\n')
   f.write('%s' % co.commenter(rbroot + rb))
   f.write('%s' % co.commenter(rbroot + triangles))
+  f.write('%s' % co.commenter(rbroot + pairs))
 

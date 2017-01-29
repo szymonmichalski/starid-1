@@ -24,3 +24,7 @@ given an input image of a star pattern, output an integer identifying the star a
 
 find star triangles in the image, and candidate stars that meet the constraints implicit within the triangle. these constraints are effectively the rules for candidate stars. for example, if a triangle consists of star pairs ab and bc, then the third side is ac.
 
+**pairs over whole sky**
+
+provides quick access to all of the star pairs within a given radius. the underlying data structure is a form of map or hash map for efficient searching.
+
