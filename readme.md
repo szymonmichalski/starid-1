@@ -6,6 +6,8 @@ given an input image of a star pattern, output an integer identifying the star a
 
 use methods based on geometry, pairs, triangles, etc. the transformation from x to y can be direct and deterministic. noise complicates things. in particular, loss of angular resolution due to position quantization creates significant noise.
 
+<br>
+
 related | link
 ----- | ---
 comments | http://noahhsmith.github.io/starid/comments
