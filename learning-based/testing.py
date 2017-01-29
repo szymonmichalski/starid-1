@@ -1,7 +1,11 @@
+### **testing**
+###
+### performs testing of the model. star identification is performed on a group of images and the results are scored.
+###
 import numpy as np
 import tensorflow as tf
 import tfrecords as tr
-import graph as gn
+import model as gn
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/dev/starid/models', '')
 tf.app.flags.DEFINE_string('examples', '/home/noah/dev/starid/data/images_b.tfrecords', '')

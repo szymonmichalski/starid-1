@@ -1,6 +1,6 @@
-### **graph**
+### **model**
 ###
-### tensorflow graph implementing inference for star identification.
+### tensorflow graph implementing inference for star identification. it's kept separate and independent since it's used by multiple scripts, for example lb, learn, and testing.
 ###
 import tensorflow as tf
 
