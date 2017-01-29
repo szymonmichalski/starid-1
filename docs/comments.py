@@ -1,25 +1,25 @@
 import commenter as co
 import datetime
 
-outfile = 'comments.md'
-root = '../'
-
-lb = 'learning-based/lb.py'
-model = 'learning-based/model.py'
-learning = 'learning-based/learning.py'
-testing = 'learning-based/testing.py'
-
-rb = 'rules-based/rb.cpp'
+outfile     = 'comments.md'
+lbroot      = '../learning-based/'
+lb          = 'lb.py'
+model       = 'model.py'
+learning    = 'learning.py'
+testing     = 'testing.py'
+rbroot      = '../rules-based/'
+rb          = 'rb.cpp'
+triangles   = 'triangles.h'
 
 with open(outfile, 'w') as f:
 
   f.write('# learning\n')
-  f.write('%s' % co.commenter(root + lb))
-  f.write('%s' % co.commenter(root + model))
-  f.write('%s' % co.commenter(root + learning))
-  f.write('%s' % co.commenter(root + testing))
+  f.write('%s' % co.commenter(lbroot + lb))
+  f.write('%s' % co.commenter(lbroot + model))
+  f.write('%s' % co.commenter(lbroot + learning))
+  f.write('%s' % co.commenter(lbroot + testing))
 
   f.write('# heuristics\n')
-  p = co.commenter(root + rb)
-  f.write('%s' % p)
+  f.write('%s' % co.commenter(rbroot + rb))
+  f.write('%s' % co.commenter(rbroot + triangles))
 
