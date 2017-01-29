@@ -33,3 +33,11 @@
 2004 - the pyramid star identification technique - mortari, samaan, bruccoleri, junkins - advances in the astronautical sciences - [pdf](2004 mortari.pdf)
 
 2009 - a survey on star identification algorithms - spratling, mortari - algorithms - [pdf](2009 spratling.pdf)
+
+# texas minor planet project
+
+1986 - tmpp - [pdf](1986 tmpp.pdf)
+
+1987 - tmpp - [pdf](1987 tmpp a.pdf)
+
+1987 - tmpp - [pdf](1987 tmpp b.pdf)
