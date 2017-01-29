@@ -1,6 +1,7 @@
-﻿/// # rb - star pattern heuristics
+/// ##rb.cpp - rule based heuristic star identification##
 ///
-
+/// given an input image of a star pattern, output an integer identifying the star at the center using methods based on geometry, pairs, triangles, etc. the transformation from the input x to the output y is rather direct and deterministic, but noise in the input complicates things. in particular, loss of angular resolution due to position quantization is effectively a large noise source.
+///
 #include "triangles.h"
 #include "image.h"
 #include "stopwatch.h"
