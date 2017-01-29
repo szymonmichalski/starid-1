@@ -8,7 +8,7 @@ uses methods based on geometry, pairs, triangles, pyramids, etc. the transformat
 
 **further discussion**
 
-comments linked below are generated from project source code.
+comments link below is generated from source code.
 
 related | link
 ----- | ---
