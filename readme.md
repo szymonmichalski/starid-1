@@ -1,6 +1,6 @@
 **learning based star identification**
 
-given an image of a star pattern, identify the star at the center, using methods based on convolutional networks, support vector machines, etc. these require learning a model, and the transformation from the input x to the output y is complex compared to for example a matrix transformation y = Hx.
+given an image of a star pattern, identify the star at the center, using methods based on convolutional networks, support vector machines, etc. 
 
 **rules based heuristic star identification**
 
