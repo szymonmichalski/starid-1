@@ -1,3 +1,7 @@
+### **graph**
+###
+### tensorflow graph implementing inference for star identification.
+###
 import tensorflow as tf
 
 def weight_variable(shape):

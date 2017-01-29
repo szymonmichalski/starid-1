@@ -8,7 +8,7 @@ use methods based on geometry, pairs, triangles, etc. the transformation from x 
 
 **further discussion**
 
-the comments link below is auto generated from project source code.
+comments linked below are generated from project source code.
 
 related | link
 ----- | ---
