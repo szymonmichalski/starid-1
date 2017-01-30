@@ -1,6 +1,6 @@
 # 30.01.2017
 
-source code comments beginning with /// and ### are now extracted into markdown available ![here](comments.md). the python app performing this is a new project ![here](https://github.com/noahhsmith/commenter).
+source code comments beginning with /// and ### are now extracted into markdown available [here](comments.md). the python app performing this is a new project [here](https://github.com/noahhsmith/commenter).
 
 # 23.01.2017
 
