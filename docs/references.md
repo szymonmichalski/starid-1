@@ -36,7 +36,7 @@
 
 # texas minor planet project
 
-1986 - the use space telescope to tie the hipparcos reference frame to an extragalactic reference frame - hemenway, duncombe - astrometric techniques - [pdf](1986 hemenway.pdf)
+1986 - the use of space telescope to tie the hipparcos reference frame to an extragalactic reference frame - hemenway, duncombe - astrometric techniques - [pdf](1986 hemenway.pdf)
 
 1986 - apparent close encounters of minor planets - pierce, whipple - the astronomical journal - [pdf](1986 pierce.pdf)
 
