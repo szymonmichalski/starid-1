@@ -36,8 +36,6 @@
 
 # texas minor planet project
 
-1986 - tmpp - [pdf](1986 tmpp.pdf)
+1986 - apparent close encounters of minor planets - pierce, whipple - the astronomical journal - [pdf](1986 tmpp.pdf)
 
-1987 - tmpp - [pdf](1987 tmpp a.pdf)
-
-1987 - tmpp - [pdf](1987 tmpp b.pdf)
+1987 - current developments in the texas minor planet project - hemenway, whipple, duncombe - abstract - [pdf](1987 tmpp.pdf)
