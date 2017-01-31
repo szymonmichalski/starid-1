@@ -3,9 +3,12 @@
 ### performs training of the model.
 ###
 import time
+
 import tensorflow as tf
-import tfrecords as tr
+
 import model as gn
+import tfrecords as tr
+
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/dev/starid/models', '')
 tf.app.flags.DEFINE_string('ckpt', '/home/noah/dev/starid/models/model.ckpt', '')
