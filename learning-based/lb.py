@@ -3,10 +3,13 @@
 ### given an input image of a star pattern, output an integer identifying the star at the center using methods based on convolutional networks, support vector machines, etc. these methods require learning a model and the transformation from the input x to the output y is a rather opaque black box compared to, for example, a matrix multiplication y = Hx.
 ###
 from optparse import OptionParser
-from data import mnist_to_tfrecords
-import tensorflow as tf
-import model as gn
+
 import numpy as np
+import tensorflow as tf
+
+import mnist_to_tfrecords
+import model as gn
+
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/dev/starid/models', '')
 
