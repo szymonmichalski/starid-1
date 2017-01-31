@@ -1,3 +1,7 @@
+**stars**
+
+interfaces to star images, sky catalogs, serialized data structures, etc.
+
 **learning based star identification**
 
 identify the star at the center of an image using methods based on convolutional networks, support vector machines, etc. a model is trained to transform the input x into the output y.
@@ -5,10 +9,6 @@ identify the star at the center of an image using methods based on convolutional
 **rules based heuristic star identification**
 
 uses methods based on geometry, pairs, triangles, pyramids, etc. the transformation from x to y can be as direct as y = Hx. noise due to quantization of image star positions complicates matters.
-
-**stars**
-
-interfaces to star images, sky catalogs, serialized data structures, etc.
 
 **further discussion**
 
