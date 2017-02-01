@@ -7,8 +7,8 @@ from optparse import OptionParser
 import numpy as np
 import tensorflow as tf
 
-import mnist_to_tfrecords
 import model as gn
+from stars import mnist_to_tfrecords
 
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/dev/starid/models', '')

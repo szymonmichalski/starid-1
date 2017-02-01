@@ -1,45 +1,36 @@
 #TEMPLATE = subdirs
-#SUBDIRS += \
-#    stars \
-#    rules-based \
+#SUBDIRS = stars rules-based
 TEMPLATE = app
-CONFIG += console c++14
-CONFIG -= app_bundle
-CONFIG -= qt
-CONFIG += c++14
-CONFIG -= warn_off
-
+CONFIG = console c++14
 TARGET = stars
 
 SOURCES += \
     stars.cpp \
+    globals.cpp \
     sky.cpp \
-    ../util/float_int_table.cpp \
-    ../data/mnist.cpp \
-    ../data/skymap.cpp \
+    image.cpp \
+    float_int_table.cpp \
+    mnist.cpp \
+    skymap.cpp \
     ../rules-based/pairs_over_whole_sky.cpp \
     ../rules-based/triangles.cpp \
-    image.cpp \
-    globals.cpp
 
 HEADERS += \
+    globals.h \
     sky.h \
-    ../util/float_int_table.h \
-    ../data/mnist.h \
-    ../data/skymap.h \
-    ../util/optionparser.h \
-    ../util/stopwatch.h \
+    image.h \
+    float_int_table.h \
+    mnist.h \
+    skymap.h \
+    stopwatch.h \
+    optionparser.h \
     ../rules-based/pairs_over_whole_sky.h \
     ../rules-based/triangles.h \
-    image.h \
-    globals.h \
 
 INCLUDEPATH += \
     ../rules-based \
-    ../data \
-    ../util \
-    ../util/cereal \
-    ../util/eigen \
+    cereal \
+    eigen \
 
 INCLUDEPATH += /usr/include/armadillo_bits
 LIBS += -L"/usr/lib" -larmadillo

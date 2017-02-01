@@ -1,41 +1,34 @@
 TEMPLATE = app
-CONFIG += console c++14
-CONFIG -= app_bundle
-CONFIG -= qt
-CONFIG += c++14
-CONFIG += warn_off
-
+CONFIG = console c++14
 TARGET = rb
 
 SOURCES += \
+    rb.cpp \
+    triangles.cpp \
     pairs_over_whole_sky.cpp \
+    ../stars/globals.cpp \
     ../stars/image.cpp \
     ../stars/sky.cpp \
-    ../util/float_int_table.cpp \
-    ../data/skymap.cpp \
-    triangles.cpp \
-    rb.cpp \
-    ../data/mnist.cpp \
-    ../stars/globals.cpp \
+    ../stars/float_int_table.cpp \
+    ../stars/skymap.cpp \
+    ../stars/mnist.cpp \
 
 HEADERS += \
+    triangles.h \
     pairs_over_whole_sky.h \
+    ../stars/globals.h \
     ../stars/image.h \
     ../stars/sky.h \
-    ../util/float_int_table.h \
-    ../data/skymap.h \
-    ../util/optionparser.h \
-    triangles.h \
-    ../util/stopwatch.h \
-    ../data/mnist.h \
-    ../stars/globals.h \
+    ../stars/float_int_table.h \
+    ../stars/skymap.h \
+    ../stars/stopwatch.h \
+    ../stars/mnist.h \
+    ../stars/optionparser.h \
 
 INCLUDEPATH += \
     ../stars \
-    ../util \
-    ../data \
-    ../util/cereal \
-    ../util/eigen \
+    ../stars/cereal \
+    ../stars/eigen \
 
 INCLUDEPATH += /usr/include/armadillo_bits
 LIBS += -L"/usr/lib" -larmadillo
