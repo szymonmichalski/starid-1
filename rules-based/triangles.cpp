@@ -27,7 +27,6 @@ int rules::Triangles::identifyCentralStar() {
     for (dj = 1; dj <= starsCnt-2; ++dj) {
         for (dk = 1; dk <= starsCnt-dj-1; ++dk) {
             for (i = 1; i <= starsCnt-dj-dk; ++i) {
-                if (i != 1) continue; // center star
                 j = i + dj;
                 k = j + dk;
 
