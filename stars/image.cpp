@@ -29,11 +29,13 @@ void stars::Image::axjAxiImageReadMnist(std::string& imgfile, int imgndx) {
 }
 
 void stars::Image::axjAxiImageUpdate(arma::mat& axjAxiImage, stars::Sky& sky, int starndx) {
+
     arma::vec pointing(3);
     pointing(0) = sky.stars[starndx].x;
     pointing(1) = sky.stars[starndx].y;
     pointing(2) = sky.stars[starndx].z;
     std::vector<int> starndxs = sky.starsNearPoint(pointing(0), pointing(1), pointing(2));
+
     uvecs.zeros(100,3);
     int uvecsndx = 0;
     for (auto ndx : starndxs) {
@@ -43,9 +45,11 @@ void stars::Image::axjAxiImageUpdate(arma::mat& axjAxiImage, stars::Sky& sky, in
         ++uvecsndx;
     }
     uvecs.shed_rows(uvecsndx, 99);
+
     double yaw = unitscatter(e1) * 2 * M_PI;
     arma::mat attitude = rotationMatrix(pointing);
     uvecs = arma::trans( arma::trans(attitude) * arma::trans(uvecs) );
+
     axjAxiImage.zeros(); // update axjaxiimage
     for (int ndx = 0; ndx < uvecsndx; ++ndx) {
         double x = std::cos(yaw) * uvecs(ndx,0) - std::sin(yaw) * uvecs(ndx,1);

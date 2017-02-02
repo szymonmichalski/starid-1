@@ -14,13 +14,6 @@ rules::Triangles::Triangles(stars::Image& image,
 
 int rules::Triangles::identifyCentralStar() {
     using namespace Eigen;
-    arma::mat mata;
-    arma::mat matb;
-    arma::mat matc;
-    mata.zeros(triMaxCnt,3);
-    matb.zeros(triMaxCnt,3);
-    matc.zeros(triMaxCnt,3);
-
     std::unordered_map<int, int> cans;
     int i, j, k, dj, dk;
     triCur = 0;
@@ -33,12 +26,14 @@ int rules::Triangles::identifyCentralStar() {
                 double angab = std::acos( arma::dot( arma::trans( image.uvecs.row(i-1) ) , arma::trans( image.uvecs.row(j-1) ) ) );
                 double angac = std::acos( arma::dot( arma::trans( image.uvecs.row(i-1) ) , arma::trans( image.uvecs.row(k-1) ) ) );
                 double angbc = std::acos( arma::dot( arma::trans( image.uvecs.row(j-1) ) , arma::trans( image.uvecs.row(k-1) ) ) );
+
                 if (angab >= stars::imageRadiusRadians) continue;
                 if (angac >= stars::imageRadiusRadians) continue;
                 if (angbc >= stars::imageRadiusRadians) continue;
                 if ( std::abs( angab - angac ) < 2.0 * tol_radius ) continue;
                 if ( std::abs( angab - angbc ) < 2.0 * tol_radius ) continue;
                 if ( std::abs( angac - angbc ) < 2.0 * tol_radius ) continue;
+
                 std::unordered_multimap<int, int> ab = pairsOverWholeSky.pairsMap(angab, tol_radius);
                 std::unordered_multimap<int, int> ac = pairsOverWholeSky.pairsMap(angac, tol_radius);
                 std::unordered_multimap<int, int> bc = pairsOverWholeSky.pairsMap(angbc, tol_radius);
