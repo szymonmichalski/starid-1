@@ -17,15 +17,19 @@ int rules::Triangles::identifyCentralStar() {
     std::unordered_map<int, int> cans;
     int i, j, k, dj, dk;
     triCur = 0;
-    for (dj = 1; dj <= starsCnt-2; ++dj) {
-        for (dk = 1; dk <= starsCnt-dj-1; ++dk) {
-            for (i = 1; i <= starsCnt-dj-dk; ++i) {
+    for (dj = 2; dj <= starsCnt-2; ++dj) {
+        for (dk = 2; dk <= starsCnt-dj-1; ++dk) {
+            for (i = 2; i <= starsCnt-dj-dk; ++i) {
                 j = i + dj;
                 k = j + dk;
 
-                double angab = std::acos( arma::dot( arma::trans( image.uvecs.row(i-1) ) , arma::trans( image.uvecs.row(j-1) ) ) );
-                double angac = std::acos( arma::dot( arma::trans( image.uvecs.row(i-1) ) , arma::trans( image.uvecs.row(k-1) ) ) );
-                double angbc = std::acos( arma::dot( arma::trans( image.uvecs.row(j-1) ) , arma::trans( image.uvecs.row(k-1) ) ) );
+                arma::vec uveca = arma::trans(image.uvecs.row(0));
+                arma::vec uvecb = arma::trans(image.uvecs.row(i-1));
+                arma::vec uvecc = arma::trans(image.uvecs.row(j-1));
+                arma::vec uvecd = arma::trans(image.uvecs.row(k-1));
+                double angab = std::acos(arma::dot(uvecb, uvecc));
+                double angac = std::acos(arma::dot(uvecb, uvecd));
+                double angbc = std::acos(arma::dot(uvecc, uvecd));
 
                 if (angab >= stars::imageRadiusRadians) continue;
                 if (angac >= stars::imageRadiusRadians) continue;

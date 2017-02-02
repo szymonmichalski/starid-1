@@ -8,7 +8,7 @@
 #include "stopwatch.h"
 
 
-std::string datadir = "/home/noah/dev/starid/data/";
+std::string datadir = "/home/noah/dev/starid/stars/data/";
 void doMnist(int, std::string&, std::string&, stars::Sky&);
 
 enum  optionIndex { UNKNOWN, HELP, DATADIR, SKY, MNIST };

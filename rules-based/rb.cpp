@@ -11,7 +11,7 @@
 #include <fstream>
 #include <cmath>
 
-std::string datadir = "/home/noah/dev/starid/data/";
+std::string datadir = "/home/noah/dev/starid/stars/data/";
 std::string imgfile = "images_b1.mnist";
 int imgndx = 0;
 
