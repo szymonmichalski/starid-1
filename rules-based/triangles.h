@@ -18,7 +18,7 @@ class Triangles
 public:
 
     Triangles(stars::Image& image, rules::PairsOverWholeSky& pairs,
-              double tol_radius, int triMaxCnt);
+              double tri_tol, int triMaxCnt);
 
     int identifyCentralStar();
 
@@ -29,7 +29,7 @@ private:
 
     rules::PairsOverWholeSky pairsOverWholeSky;
     stars::Image& image;
-    double tol_radius;
+    double tri_tol;
     int triMaxCnt;
     int starsCnt;
     int triCur;
