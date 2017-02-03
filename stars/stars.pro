@@ -1,11 +1,7 @@
 #TEMPLATE = subdirs
 #SUBDIRS = stars rules-based
 TEMPLATE = app
-CONFIG = console c++14
-CONFIG -= app_bundle
-CONFIG -= qt
-CONFIG += c++14
-CONFIG += warn_off
+CONFIG = c++14 warn_on debug
 TARGET = stars
 
 SOURCES += \

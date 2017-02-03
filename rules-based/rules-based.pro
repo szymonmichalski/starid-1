@@ -1,5 +1,5 @@
 TEMPLATE = app
-CONFIG = console c++14 warn_on
+CONFIG = c++14 warn_on debug
 TARGET = rb
 
 SOURCES += \
