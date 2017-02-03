@@ -1,9 +1,5 @@
 TEMPLATE = app
-CONFIG = console c++14
-CONFIG -= app_bundle
-CONFIG -= qt
-CONFIG += c++14
-CONFIG += warn_off
+CONFIG = console c++14 warn_on
 TARGET = rb
 
 SOURCES += \
