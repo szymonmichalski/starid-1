@@ -61,7 +61,11 @@ int rules::Triangles::identifyCentralStar() {
 
     std::map<int, int> cans1;
     std::multimap<int, int, std::greater<int>> cans2;
-    return cans2[0];
+    for (auto it = cans.begin(), end = cans.end(); it != end; ++it) {
+        cans1.emplace(it->first, it->second);
+        cans2.emplace(it->second, it->first);
+    }
+    return 0;
 }
 
 void rules::Triangles::mergeStars(std::unordered_map<int, int>& stars1, const std::unordered_map<int, int>& stars2){
