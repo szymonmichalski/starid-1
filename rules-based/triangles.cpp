@@ -32,12 +32,14 @@ int rules::Triangles::identifyCentralStar() {
                 angs.push_back(std::acos(arma::dot(uvecb, uvecc)));
                 angs.push_back(std::acos(arma::dot(uvecd, uvecb)));
                 angs.push_back(std::acos(arma::dot(uvecd, uvecc)));
+                bool skipThisTriangle = false;
                 for (int ndx1 = 0; ndx1 < 5; ++ndx1) {
                     if (angs[ndx1] > stars::imageRadiusRadians) continue;
                     for (int ndx2 = ndx1+1; ndx2 < 5; ++ndx2) {
-                        if (std::abs(angs[ndx1]-angs[ndx2]) < 4.0*tol_radius) continue;
+                        if (std::abs(angs[ndx1]-angs[ndx2]) < 6.0*tol_radius) skipThisTriangle = true;
                     }
                 }
+                if (skipThisTriangle) continue;
                 std::unordered_multimap<int, int> ab = pairsOverWholeSky.pairsMap(angs[0], tol_radius);
                 std::unordered_multimap<int, int> ac = pairsOverWholeSky.pairsMap(angs[1], tol_radius);
                 std::unordered_multimap<int, int> bc = pairsOverWholeSky.pairsMap(angs[2], tol_radius);
