@@ -24,17 +24,21 @@ public:
 
 private:
 
-    /// *constrain side* the length of a triangle side is constrained by the lengths of the other two sides. star pairs in the side must have one member in constraint side a, and the other member in constraint side b.
+    /// *constrain side* the length of a triangle side is constrained by the lengths of the other two sides. star pairs in the side must have one member in constraint side a, and the other member in constraint side b. our constraint here is stronger. star pairs in the side must have one member that is both constraint sides.
     ///
     void constrainSide(std::unordered_multimap<int, int>& side,
-                       const std::unordered_multimap<int, int>& cona,
-                       const std::unordered_multimap<int, int>& conb);
+                       const std::unordered_multimap<int, int>& constra,
+                       const std::unordered_multimap<int, int>& constrb);
 
-    /// *find candidates using constrained side* candidate stars are members of pairs where the other member is in the constrained side. they also must be present in both sidea and sideb.
+    /// *reduce side* remove all pairs that don't have a member in the other side. this immediately reduces that possible contents of the side.
+    void reduceSide(std::unordered_multimap<int, int>& side,
+                    const std::unordered_multimap<int, int>& constr);
+
+
+    /// *find stars in both sides* find stars that are present in both sidea and sideb.
     ///
-    std::unordered_map<int,int> findCansUsingConstrainedSide(const std::unordered_multimap<int, int>& con,
-                                                             const std::unordered_multimap<int, int>& sidea,
-                                                             const std::unordered_multimap<int, int>& sideb);
+    std::unordered_map<int,int> findStarsInBothSides(const std::unordered_multimap<int, int>& sidea,
+                                                     const std::unordered_multimap<int, int>& sideb);
 
     rules::PairsOverWholeSky pairsOverWholeSky;
     stars::Image& image;

@@ -15,27 +15,27 @@ rules::Triangles::Triangles(stars::Image& image,
 int rules::Triangles::identifyCentralStar() {
     using namespace Eigen;
     std::unordered_map<int, int> cans;
-    int i, j, k, dj, dk;
+    int ndxi, ndxj, ndxk, dj, dk;
     triCur = 0;
     for (dj = 2; dj <= starsCnt-2; ++dj) {
         for (dk = 2; dk <= starsCnt-dj-1; ++dk) {
-            for (i = 2; i <= starsCnt-dj-dk; ++i) {
-                j = i + dj;
-                k = j + dk;
+            for (ndxi = 2; ndxi <= starsCnt-dj-dk; ++ndxi) {
+                ndxj = ndxi + dj;
+                ndxk = ndxj + dk;
                 arma::vec uveca = arma::trans(image.uvecs.row(0));
-                arma::vec uvecb = arma::trans(image.uvecs.row(i-1));
-                arma::vec uvecc = arma::trans(image.uvecs.row(j-1));
-                arma::vec uvecd = arma::trans(image.uvecs.row(k-1));
+                arma::vec uvecb = arma::trans(image.uvecs.row(ndxi-1));
+                arma::vec uvecc = arma::trans(image.uvecs.row(ndxj-1));
+                arma::vec uvecd = arma::trans(image.uvecs.row(ndxk-1));
                 std::vector<double> angs;
                 angs.push_back(std::acos(arma::dot(uveca, uvecb)));
                 angs.push_back(std::acos(arma::dot(uveca, uvecc)));
                 angs.push_back(std::acos(arma::dot(uvecb, uvecc)));
                 angs.push_back(std::acos(arma::dot(uvecd, uvecb)));
                 angs.push_back(std::acos(arma::dot(uvecd, uvecc)));
-                for (int i = 0; i < 5; ++i) {
-                    if (angs[i] > stars::imageRadiusRadians) continue;
-                    for (int j = i+1; j < 5; ++j) {
-                        if (std::abs(angs[i]-angs[j]) < 4.0*tol_radius) continue;
+                for (int ndx1 = 0; ndx1 < 5; ++ndx1) {
+                    if (angs[ndx1] > stars::imageRadiusRadians) continue;
+                    for (int ndx2 = ndx1+1; ndx2 < 5; ++ndx2) {
+                        if (std::abs(angs[ndx1]-angs[ndx2]) < 4.0*tol_radius) continue;
                     }
                 }
                 std::unordered_multimap<int, int> ab = pairsOverWholeSky.pairsMap(angs[0], tol_radius);
@@ -45,29 +45,9 @@ int rules::Triangles::identifyCentralStar() {
                 std::unordered_multimap<int, int> dc = pairsOverWholeSky.pairsMap(angs[4], tol_radius);
                 constrainSide(bc, db, dc);
                 constrainSide(bc, ab, ac);
-                std::unordered_map<int, int> cans1 = findCansUsingConstrainedSide(bc, ab, ac);
-
-//                std::unordered_map<int, int> cansac = findCansFromTwoSides(ac, bc);
-//                std::unordered_map<int, int> cansFromTwoSides;
-//                for (auto itab = cansab.begin(), end = cansab.end(); itab != end; ++itab) {
-//                    auto itac = cansac.find(itab->first);
-//                    if (itac != cansac.end()) {
-//                        cansFromTwoSides.emplace(itab->first, 1);
-//                    }
-//                }
-
-//                if (cans.empty()) {
-//                    cans = cansFromTwoSides;
-//                } else {
-//                    std::unordered_map<int, int> tmpcans;
-//                    for (auto it1 = cansFromTwoSides.begin(), end = cansFromTwoSides.end(); it1 != end; ++it1) {
-//                        auto itcan = cans.find(it1->first);
-//                        if (itcan != cans.end()) {
-//                            tmpcans.emplace(it1->first, itcan->second+1);
-//                        }
-//                    }
-//                    cans = tmpcans;
-//                }
+                reduceSide(ab, bc);
+                reduceSide(ac, bc);
+                std::unordered_map<int, int> cans1 = findStarsInBothSides(ab, ac);
 
                 ++triCur;
                 if (triCur == triMaxCnt-1) break;
@@ -88,29 +68,41 @@ int rules::Triangles::identifyCentralStar() {
     return starndx;
 }
 
-void rules::Triangles::constrainSide(std::unordered_multimap<int, int>& side,
-                                     const std::unordered_multimap<int, int>& cona,
-                                     const std::unordered_multimap<int, int>& conb) {
-
+void rules::Triangles::reduceSide(std::unordered_multimap<int, int>& side,
+                                  const std::unordered_multimap<int, int>& constr) {
+    for (auto it1 = side.begin(); it1 != side.end(); ) {
+        auto it2 = constr.find(it1->first);
+        if (it2 == constr.end())
+            it1 = side.erase(it1);
+        else
+            ++it1;
+    }
 }
 
 
-std::unordered_map<int,int> rules::Triangles::findCansUsingConstrainedSide(const std::unordered_multimap<int, int>& con,
-                                                                           const std::unordered_multimap<int, int>& sidea,
-                                                                           const std::unordered_multimap<int, int>& sideb) {
+void rules::Triangles::constrainSide(std::unordered_multimap<int, int>& side,
+                                     const std::unordered_multimap<int, int>& constra,
+                                     const std::unordered_multimap<int, int>& constrb) {
+    for (auto it = side.begin(); it != side.end(); ) {
+        auto ita = constra.find(it->first);
+        auto itb = constrb.find(it->first);
+        if (ita == constra.end() || itb == constrb.end())
+            it = side.erase(it);
+        else
+            ++it;
+    }
+}
+
+
+std::unordered_map<int,int> rules::Triangles::findStarsInBothSides(const std::unordered_multimap<int, int>& sidea,
+                                                                   const std::unordered_multimap<int, int>& sideb) {
     std::unordered_map<int, int> cans;
-//    for (auto itab = ab.begin(), end = ab.end(); itab != end; ++itab) {
-//        auto itbc = bc.find(itab->first);
-//        if (itbc != bc.end() && itbc->second != itab->second) {
-//            int can = itab->second;
-//            auto itcans = cans.find(can);
-//            if (itcans != cans.end()) {
-//                ++itcans->second;
-//                continue;
-//            }
-//            cans.emplace(can, 1);
-//        }
-//    }
+    for (auto it = sidea.begin(), end = sidea.end(); it != end; ++it) {
+        auto it2 = sideb.find(it->first);
+        if (it2 != sideb.end()) {
+            cans.emplace(it->first, 1);
+        }
+    }
     return cans;
 }
 
