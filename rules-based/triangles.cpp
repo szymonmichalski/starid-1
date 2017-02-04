@@ -47,7 +47,10 @@ int rules::Triangles::identifyCentralStar() {
                 std::unordered_multimap<int, int> db = pairsOverWholeSky.pairsMap(angs[3], tol_radius);
                 std::unordered_multimap<int, int> dc = pairsOverWholeSky.pairsMap(angs[4], tol_radius);
 
-                std::unordered_map<int, int> cansdb = findCansFromTwoSides(db, bc); // constrain bc
+                constrainSide(bc, ab, ac);
+                constrainSide(bc, db, dc);
+
+                std::unordered_map<int, int> cansdb = findCansFromTwoSides(db, bc);
                 std::unordered_map<int, int> cansdc = findCansFromTwoSides(dc, bc);
 
                 std::unordered_map<int, int> cansab = findCansFromTwoSides(ab, bc);
@@ -92,6 +95,13 @@ int rules::Triangles::identifyCentralStar() {
     }
     return starndx;
 }
+
+void rules::Triangles::constrainSide(std::unordered_multimap<int, int>& side,
+                                     const std::unordered_multimap<int, int>& cona,
+                                     const std::unordered_multimap<int, int>& conb) {
+
+}
+
 
 std::unordered_map<int,int> rules::Triangles::findCansFromTwoSides(std::unordered_multimap<int, int>& ab,
                                                                    std::unordered_multimap<int, int>& bc) {

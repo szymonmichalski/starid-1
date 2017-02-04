@@ -24,8 +24,14 @@ public:
 
 private:
 
+    /// *constrain side* the length of a triangle side is constrained by the lengths of the other two sides. star pairs in the side must have one member in constraint side a, and the other member in constraint side b.
+    ///
+    void constrainSide(std::unordered_multimap<int, int>& side,
+                       const std::unordered_multimap<int, int>& cona,
+                       const std::unordered_multimap<int, int>& conb);
+
     std::unordered_map<int,int> findCansFromTwoSides(std::unordered_multimap<int, int>& ab,
-                                          std::unordered_multimap<int, int>& bc);
+                                                     std::unordered_multimap<int, int>& bc);
 
     rules::PairsOverWholeSky pairsOverWholeSky;
     stars::Image& image;
