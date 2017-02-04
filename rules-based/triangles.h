@@ -30,8 +30,11 @@ private:
                        const std::unordered_multimap<int, int>& cona,
                        const std::unordered_multimap<int, int>& conb);
 
-    std::unordered_map<int,int> findCansFromTwoSides(std::unordered_multimap<int, int>& ab,
-                                                     std::unordered_multimap<int, int>& bc);
+    /// *find candidates using constrained side* candidate stars are members of pairs where the other member is in the constrained side. they also must be present in both sidea and sideb.
+    ///
+    std::unordered_map<int,int> findCansUsingConstrainedSide(const std::unordered_multimap<int, int>& con,
+                                                             const std::unordered_multimap<int, int>& sidea,
+                                                             const std::unordered_multimap<int, int>& sideb);
 
     rules::PairsOverWholeSky pairsOverWholeSky;
     stars::Image& image;
