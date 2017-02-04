@@ -44,19 +44,14 @@ int rules::Triangles::identifyCentralStar() {
                 std::unordered_multimap<int, int> bc = pairsOverWholeSky.pairsMap(angs[4], tol_radius);
                 std::unordered_multimap<int, int> ad = pairsOverWholeSky.pairsMap(angs[5], tol_radius);
 
-                twoConstraint(ad, ab, db);
-                twoConstraint(ad, ac, dc);
-                oneConstraint(ab, ad);
-                oneConstraint(db, ad);
-                oneConstraint(ac, ad);
-                oneConstraint(dc, ad);
-
-                twoConstraint(bc, db, dc);
-                twoConstraint(bc, ab, ac);
-                oneConstraint(ab, bc);
-                oneConstraint(db, bc);
-                oneConstraint(ac, bc);
-                oneConstraint(dc, bc);
+                reduce(bc, ab, db, ac, dc);
+                reduce(ab, bc);
+                reduce(ac, bc);
+                reduce(db, bc);
+                reduce(dc, bc);
+                reduce(ad, db, dc, ab, ac);
+                reduce(ab, ad);
+                reduce(ac, ad);
 
                 std::unordered_map<int, int> stars = starsInThreeSides(ab, ac, ad);
                 mergeStars(cans, stars);
@@ -73,30 +68,39 @@ int rules::Triangles::identifyCentralStar() {
     return 0;
 }
 
-void rules::Triangles::twoConstraint(std::unordered_multimap<int, int>& side,
-                                     const std::unordered_multimap<int, int>& constra,
-                                     const std::unordered_multimap<int, int>& constrb) {
+void rules::Triangles::reduce(std::unordered_multimap<int, int>& side, // picture bc case
+                              const std::unordered_multimap<int, int>& ll, // left lower
+                              const std::unordered_multimap<int, int>& lu, // left upper
+                              const std::unordered_multimap<int, int>& rl, // right lower
+                              const std::unordered_multimap<int, int>& ru // right upper
+                              ) {
     for (auto it = side.begin(); it != side.end(); ) {
-        auto ita1 = constra.find(it->first);
-        auto ita2 = constra.find(it->second);
-        auto itb1 = constrb.find(it->first);
-        auto itb2 = constrb.find(it->second);
-        if ((ita1 == constra.end() || itb1 == constrb.end()) && (ita2 == constra.end() || itb2 == constrb.end()))
-            it = side.erase(it);
-        else
+        auto ll1 = ll.find(it->first);
+        auto lu1 = lu.find(it->first);
+        auto rl1 = rl.find(it->first);
+        auto ru1 = ru.find(it->first);
+        auto ll2 = ll.find(it->second);
+        auto lu2 = lu.find(it->second);
+        auto rl2 = rl.find(it->second);
+        auto ru2 = ru.find(it->second);
+        if ( ((ll1 != ll.end() && lu1 != lu.end()) && (rl2 != rl.end() && ru2 != ru.end())) ||
+             ((ll2 != ll.end() && lu2 != lu.end()) && (rl1 != rl.end() && ru1 != ru.end())) )
             ++it;
+        else
+            it = side.erase(it);
     }
 }
 
-void rules::Triangles::oneConstraint(std::unordered_multimap<int, int>& side,
-                                     const std::unordered_multimap<int, int>& constra) {
+void rules::Triangles::reduce(std::unordered_multimap<int, int>& side, // picture bc case
+                              const std::unordered_multimap<int, int>& ll) {
     for (auto it = side.begin(); it != side.end(); ) {
-        auto ita1 = constra.find(it->first);
-        auto ita2 = constra.find(it->second);
-        if (ita1 == constra.end() && ita2 == constra.end())
-            it = side.erase(it);
-        else
+        auto ll1 = ll.find(it->first);
+        auto ll2 = ll.find(it->second);
+        if ( (ll1 != ll.end() && ll1->second == it->second) ||
+             (ll2 != ll.end() && ll2->second == it->first) )
             ++it;
+        else
+            it = side.erase(it);
     }
 }
 

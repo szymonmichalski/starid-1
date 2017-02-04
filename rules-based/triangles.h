@@ -24,16 +24,16 @@ public:
 
 private:
 
-    /// *two constraint* remove star pairs that don't have a member that is in both constraint sides.
+    /// *reduce* remove star pairs that don't agree with constraint sides.
     ///
-    void twoConstraint(std::unordered_multimap<int, int>& side,
-                       const std::unordered_multimap<int, int>& constra,
-                       const std::unordered_multimap<int, int>& constrb);
+    void reduce(std::unordered_multimap<int, int>&,
+                const std::unordered_multimap<int, int>&,
+                const std::unordered_multimap<int, int>&,
+                const std::unordered_multimap<int, int>&,
+                const std::unordered_multimap<int, int>&);
 
-    /// *one constraint* remove star pairs that don't have a member that is in the constraint side.
-    ///
-    void oneConstraint(std::unordered_multimap<int, int>& side,
-                       const std::unordered_multimap<int, int>& constr);
+    void reduce(std::unordered_multimap<int, int>&,
+                const std::unordered_multimap<int, int>&);
 
     /// *stars in three sides* find stars that are present in sidea, sideb, and sidec.
     ///
