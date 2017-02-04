@@ -9,6 +9,7 @@
 #include "pairs_over_whole_sky.h"
 #include <eigen/Core>
 #include <unordered_map>
+#include <map>
 
 namespace rules {
 
@@ -37,8 +38,12 @@ private:
 
     /// *find stars in both sides* find stars that are present in both sidea and sideb.
     ///
-    std::unordered_map<int,int> findStarsInBothSides(const std::unordered_multimap<int, int>& sidea,
+    std::unordered_map<int,int> starsInBothSides(const std::unordered_multimap<int, int>& sidea,
                                                      const std::unordered_multimap<int, int>& sideb);
+
+    /// *merge stars* merge a group of stars into another group of stars
+    ///
+    void mergeStars(std::unordered_map<int, int>& stars1, const std::unordered_map<int, int>& stars2);
 
     rules::PairsOverWholeSky pairsOverWholeSky;
     stars::Image& image;

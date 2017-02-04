@@ -43,11 +43,13 @@ int rules::Triangles::identifyCentralStar() {
                 std::unordered_multimap<int, int> bc = pairsOverWholeSky.pairsMap(angs[2], tol_radius);
                 std::unordered_multimap<int, int> db = pairsOverWholeSky.pairsMap(angs[3], tol_radius);
                 std::unordered_multimap<int, int> dc = pairsOverWholeSky.pairsMap(angs[4], tol_radius);
+
                 constrainSide(bc, db, dc);
                 constrainSide(bc, ab, ac);
                 reduceSide(ab, bc);
                 reduceSide(ac, bc);
-                std::unordered_map<int, int> cans1 = findStarsInBothSides(ab, ac);
+                std::unordered_map<int, int> stars = starsInBothSides(ab, ac);
+                mergeStars(cans, stars);
 
                 ++triCur;
                 if (triCur == triMaxCnt-1) break;
@@ -57,15 +59,20 @@ int rules::Triangles::identifyCentralStar() {
         if (triCur == triMaxCnt-1) break;
     }
 
-    int starndx = 0;
-    int maxcnt = 0;
-    for (auto itcan = cans.begin(), end = cans.end(); itcan != end; ++itcan) {
-        if (itcan->second > maxcnt) {
-            starndx = itcan->first;
-            maxcnt = itcan->second;
+    std::map<int, int> cans1;
+    std::multimap<int, int, std::greater<int>> cans2;
+    return cans2[0];
+}
+
+void rules::Triangles::mergeStars(std::unordered_map<int, int>& stars1, const std::unordered_map<int, int>& stars2){
+    for (auto it2 = stars2.begin(), end = stars2.end(); it2 != end; ++it2) {
+        auto it1 = stars1.find(it2->first);
+        if (it1 != stars1.end()) {
+            ++it1->second;
+        } else {
+            stars1.emplace(it2->first, 1);
         }
     }
-    return starndx;
 }
 
 void rules::Triangles::reduceSide(std::unordered_multimap<int, int>& side,
@@ -94,7 +101,7 @@ void rules::Triangles::constrainSide(std::unordered_multimap<int, int>& side,
 }
 
 
-std::unordered_map<int,int> rules::Triangles::findStarsInBothSides(const std::unordered_multimap<int, int>& sidea,
+std::unordered_map<int,int> rules::Triangles::starsInBothSides(const std::unordered_multimap<int, int>& sidea,
                                                                    const std::unordered_multimap<int, int>& sideb) {
     std::unordered_map<int, int> cans;
     for (auto it = sidea.begin(), end = sidea.end(); it != end; ++it) {
