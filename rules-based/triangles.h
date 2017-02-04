@@ -35,11 +35,16 @@ private:
     void reduceSide(std::unordered_multimap<int, int>& side,
                     const std::unordered_multimap<int, int>& constr);
 
-
-    /// *find stars in both sides* find stars that are present in both sidea and sideb.
+    /// *find stars in three sides* find stars that are present in sidea, sideb, and sidec.
     ///
-    std::unordered_map<int,int> starsInBothSides(const std::unordered_multimap<int, int>& sidea,
-                                                     const std::unordered_multimap<int, int>& sideb);
+    std::unordered_map<int,int> starsInThreeSides(const std::unordered_multimap<int, int>& sidea,
+                                                  const std::unordered_multimap<int, int>& sideb,
+                                                  const std::unordered_multimap<int, int>& sidec);
+
+    /// *find stars in two sides* find stars that are present in both sidea and sideb.
+    ///
+    std::unordered_map<int,int> starsInTwoSides(const std::unordered_multimap<int, int>& sidea,
+                                                const std::unordered_multimap<int, int>& sideb);
 
     /// *merge stars* merge a group of stars into another group of stars
     ///
@@ -49,8 +54,6 @@ private:
     stars::Image& image;
     double tol_radius;
     int triMaxCnt;
-    int starsCnt;
-    int triCur;
 };
 
 }

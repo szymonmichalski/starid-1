@@ -1,22 +1,14 @@
 #include "triangles.h"
 
-rules::Triangles::Triangles(stars::Image& image,
-                            rules::PairsOverWholeSky& pairs,
-                            double tolrad,
-                            int triMaxCnt) :
-    pairsOverWholeSky(pairs),
-    image(image),
-    tol_radius(tolrad),
-    triMaxCnt(triMaxCnt),
-    starsCnt(image.uvecs.n_rows),
-    triCur(0)
-{}
+rules::Triangles::Triangles(stars::Image& image, rules::PairsOverWholeSky& pairs, double tolrad, int triMaxCnt) :
+    pairsOverWholeSky(pairs), image(image), tol_radius(tolrad), triMaxCnt(triMaxCnt) {
+}
 
 int rules::Triangles::identifyCentralStar() {
     using namespace Eigen;
     std::unordered_map<int, int> cans;
+    int starsCnt = image.uvecs.n_rows;
     int ndxi, ndxj, ndxk, dj, dk;
-    triCur = 0;
     for (dj = 2; dj <= starsCnt-2; ++dj) {
         for (dk = 2; dk <= starsCnt-dj-1; ++dk) {
             for (ndxi = 2; ndxi <= starsCnt-dj-dk; ++ndxi) {
@@ -29,10 +21,11 @@ int rules::Triangles::identifyCentralStar() {
                 std::vector<double> angs;
                 angs.push_back(std::acos(arma::dot(uveca, uvecb)));
                 angs.push_back(std::acos(arma::dot(uveca, uvecc)));
-                angs.push_back(std::acos(arma::dot(uvecb, uvecc)));
                 angs.push_back(std::acos(arma::dot(uvecd, uvecb)));
                 angs.push_back(std::acos(arma::dot(uvecd, uvecc)));
+                angs.push_back(std::acos(arma::dot(uvecb, uvecc)));
                 angs.push_back(std::acos(arma::dot(uveca, uvecd)));
+
                 bool skipThisTriangle = false;
                 for (int ndx1 = 0; ndx1 < 6; ++ndx1) {
                     if (angs[ndx1] > stars::imageRadiusRadians) continue;
@@ -41,25 +34,32 @@ int rules::Triangles::identifyCentralStar() {
                     }
                 }
                 if (skipThisTriangle) continue;
+
                 std::unordered_multimap<int, int> ab = pairsOverWholeSky.pairsMap(angs[0], tol_radius);
                 std::unordered_multimap<int, int> ac = pairsOverWholeSky.pairsMap(angs[1], tol_radius);
-                std::unordered_multimap<int, int> bc = pairsOverWholeSky.pairsMap(angs[2], tol_radius);
-                std::unordered_multimap<int, int> db = pairsOverWholeSky.pairsMap(angs[3], tol_radius);
-                std::unordered_multimap<int, int> dc = pairsOverWholeSky.pairsMap(angs[4], tol_radius);
+                std::unordered_multimap<int, int> db = pairsOverWholeSky.pairsMap(angs[2], tol_radius);
+                std::unordered_multimap<int, int> dc = pairsOverWholeSky.pairsMap(angs[3], tol_radius);
+                std::unordered_multimap<int, int> bc = pairsOverWholeSky.pairsMap(angs[4], tol_radius);
+                std::unordered_multimap<int, int> ad = pairsOverWholeSky.pairsMap(angs[5], tol_radius);
+
+                constrainSide(ad, ab, db);
+                constrainSide(ad, ac, dc);
+                reduceSide(ab, ad);
+                reduceSide(db, ad);
+                reduceSide(ac, ad);
+                reduceSide(dc, ad);
 
                 constrainSide(bc, db, dc);
                 constrainSide(bc, ab, ac);
                 reduceSide(ab, bc);
+                reduceSide(db, bc);
                 reduceSide(ac, bc);
-                std::unordered_map<int, int> stars = starsInBothSides(ab, ac);
-                mergeStars(cans, stars);
+                reduceSide(dc, bc);
 
-                ++triCur;
-                if (triCur == triMaxCnt-1) break;
+                std::unordered_map<int, int> stars = starsInThreeSides(ab, ac, ad);
+                mergeStars(cans, stars);
             }
-            if (triCur == triMaxCnt-1) break;
         }
-        if (triCur == triMaxCnt-1) break;
     }
 
     std::map<int, int> cans1;
@@ -107,17 +107,30 @@ void rules::Triangles::constrainSide(std::unordered_multimap<int, int>& side,
     }
 }
 
-
-std::unordered_map<int,int> rules::Triangles::starsInBothSides(const std::unordered_multimap<int, int>& sidea,
-                                                                   const std::unordered_multimap<int, int>& sideb) {
-    std::unordered_map<int, int> cans;
+std::unordered_map<int,int> rules::Triangles::starsInThreeSides(const std::unordered_multimap<int, int>& sidea,
+                                                                const std::unordered_multimap<int, int>& sideb,
+                                                                const std::unordered_multimap<int, int>& sidec) {
+    std::unordered_map<int, int> stars;
     for (auto it = sidea.begin(), end = sidea.end(); it != end; ++it) {
         auto it2 = sideb.find(it->first);
-        if (it2 != sideb.end()) {
-            cans.emplace(it->first, 1);
-        }
+        if (it2 == sideb.end()) continue;
+        auto it3 = sidec.find(it->first);
+        if (it3 == sidec.end()) continue;
+        stars.emplace(it->first, 1);
     }
-    return cans;
+    return stars;
+}
+
+
+std::unordered_map<int,int> rules::Triangles::starsInTwoSides(const std::unordered_multimap<int, int>& sidea,
+                                                              const std::unordered_multimap<int, int>& sideb) {
+    std::unordered_map<int, int> stars;
+    for (auto it = sidea.begin(), end = sidea.end(); it != end; ++it) {
+        auto it2 = sideb.find(it->first);
+        if (it2 == sideb.end()) continue;
+        stars.emplace(it->first, 1);
+    }
+    return stars;
 }
 
 
