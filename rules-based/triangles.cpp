@@ -32,11 +32,12 @@ int rules::Triangles::identifyCentralStar() {
                 angs.push_back(std::acos(arma::dot(uvecb, uvecc)));
                 angs.push_back(std::acos(arma::dot(uvecd, uvecb)));
                 angs.push_back(std::acos(arma::dot(uvecd, uvecc)));
+                angs.push_back(std::acos(arma::dot(uveca, uvecd)));
                 bool skipThisTriangle = false;
-                for (int ndx1 = 0; ndx1 < 5; ++ndx1) {
+                for (int ndx1 = 0; ndx1 < 6; ++ndx1) {
                     if (angs[ndx1] > stars::imageRadiusRadians) continue;
-                    for (int ndx2 = ndx1+1; ndx2 < 5; ++ndx2) {
-                        if (std::abs(angs[ndx1]-angs[ndx2]) < 6.0*tol_radius) skipThisTriangle = true;
+                    for (int ndx2 = ndx1+1; ndx2 < 6; ++ndx2) {
+                        if (std::abs(angs[ndx1]-angs[ndx2]) < 4000.0 * (M_PI / 648000.0)) skipThisTriangle = true;
                     }
                 }
                 if (skipThisTriangle) continue;
