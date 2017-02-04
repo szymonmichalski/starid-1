@@ -89,8 +89,7 @@ int main(int argc, char* argv[])
 
     stopwatch.reset();
     double tolrad = 500.0 * (M_PI / 648000.0);
-    int triMaxCnt = 1000;
-    rules::Triangles triangles(image, pairs, tolrad, triMaxCnt);
+    rules::Triangles triangles(image, pairs, tolrad);
     int starndxIdentified = triangles.identifyCentralStar();
     std::cout << "triangles " << stopwatch.end() << std::endl;
 

@@ -18,30 +18,30 @@ class Triangles
 
 public:
 
-    Triangles(stars::Image& image, rules::PairsOverWholeSky& pairs,
-              double tol_radius, int triMaxCnt);
+    Triangles(stars::Image& image, rules::PairsOverWholeSky& pairs, double tol_radius);
 
     int identifyCentralStar();
 
 private:
 
-    /// *constrain side* the length of a triangle side is constrained by the lengths of the other two sides. star pairs in the side must have one member in constraint side a, and the other member in constraint side b. our constraint here is stronger. star pairs in the side must have one member that is both constraint sides.
+    /// *two constraint* remove star pairs that don't have a member that is in both constraint sides.
     ///
-    void constrainSide(std::unordered_multimap<int, int>& side,
+    void twoConstraint(std::unordered_multimap<int, int>& side,
                        const std::unordered_multimap<int, int>& constra,
                        const std::unordered_multimap<int, int>& constrb);
 
-    /// *reduce side* remove all pairs that don't have a member in the other side. this immediately reduces that possible contents of the side.
-    void reduceSide(std::unordered_multimap<int, int>& side,
-                    const std::unordered_multimap<int, int>& constr);
+    /// *one constraint* remove star pairs that don't have a member that is in the constraint side.
+    ///
+    void oneConstraint(std::unordered_multimap<int, int>& side,
+                       const std::unordered_multimap<int, int>& constr);
 
-    /// *find stars in three sides* find stars that are present in sidea, sideb, and sidec.
+    /// *stars in three sides* find stars that are present in sidea, sideb, and sidec.
     ///
     std::unordered_map<int,int> starsInThreeSides(const std::unordered_multimap<int, int>& sidea,
                                                   const std::unordered_multimap<int, int>& sideb,
                                                   const std::unordered_multimap<int, int>& sidec);
 
-    /// *find stars in two sides* find stars that are present in both sidea and sideb.
+    /// *stars in two sides* find stars that are present in both sidea and sideb.
     ///
     std::unordered_map<int,int> starsInTwoSides(const std::unordered_multimap<int, int>& sidea,
                                                 const std::unordered_multimap<int, int>& sideb);
@@ -53,7 +53,6 @@ private:
     rules::PairsOverWholeSky pairsOverWholeSky;
     stars::Image& image;
     double tol_radius;
-    int triMaxCnt;
 };
 
 }
