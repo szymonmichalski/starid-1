@@ -4,7 +4,7 @@ identifies a star using convolutional networks, support vector machines, etc. a 
 
 **rules based heuristic star identification**
 
-uses geometric constraints inherent to star pairs and triangles. transforming from x to y can be as direct as y = Hx. quantization of positions introduces significant uncertainty.
+uses geometric constraints inherent to star pairs and triangles. transforming from x to y can be as direct as y = Hx. position quantization introduces significant uncertainty.
 
 **stars**
 
