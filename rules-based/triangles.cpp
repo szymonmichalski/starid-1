@@ -52,17 +52,17 @@ int rules::Triangles::identifyCentralStar() {
                 cntad.push_back(ad.size());
                 cntab.push_back(ab.size());
                 cntac.push_back(ac.size());
-                for (int rendx = 1; rendx < 5; ++rendx) {
-                    reduce(bc, ab, db, ac, dc);
-                    reduce(ab, bc);
-                    reduce(ac, bc);
-                    reduce(db, bc);
-                    reduce(dc, bc);
-                    reduce(ad, db, dc, ab, ac);
-                    reduce(ab, ad);
-                    reduce(ac, ad);
-                    reduce(db, ad);
-                    reduce(dc, ad);
+                for (int redndx = 1; redndx < 5; ++redndx) {
+                    constraint(bc, ab, db, ac, dc);
+                    reduce2(ab, ac, bc);
+                    reduce2(ac, ab, bc);
+                    reduce2(db, dc, bc);
+                    reduce2(dc, db, bc);
+                    constraint(ad, db, dc, ab, ac);
+                    reduce2(db, ab, ad);
+                    reduce2(ac, db, ad);
+                    reduce2(dc, ac, ad);
+                    reduce2(ac, dc, ad);
                     cntbc.push_back(bc.size());
                     cntad.push_back(ad.size());
                     cntab.push_back(ab.size());
@@ -84,12 +84,21 @@ int rules::Triangles::identifyCentralStar() {
     return -1;
 }
 
-void rules::Triangles::reduce(std::unordered_multimap<int, int>& side, // picture bc case
-                              const std::unordered_multimap<int, int>& ll, // left lower
-                              const std::unordered_multimap<int, int>& lu, // left upper
-                              const std::unordered_multimap<int, int>& rl, // right lower
-                              const std::unordered_multimap<int, int>& ru // right upper
-                              ) {
+void rules::Triangles::reduce2(
+        std::unordered_multimap<int, int>& side,
+        const std::unordered_multimap<int, int>& side2,
+        const std::unordered_multimap<int, int>& con) {
+    for (auto it = side.begin(); it != side.end(); ) {
+        ++it;
+    }
+}
+
+void rules::Triangles::constraint(std::unordered_multimap<int, int>& side, // picture bc case
+                                  const std::unordered_multimap<int, int>& ll, // left lower
+                                  const std::unordered_multimap<int, int>& lu, // left upper
+                                  const std::unordered_multimap<int, int>& rl, // right lower
+                                  const std::unordered_multimap<int, int>& ru // right upper
+                                  ) {
     for (auto it = side.begin(); it != side.end(); ) {
         auto ll1 = ll.find(it->first);
         auto lu1 = lu.find(it->first);
@@ -107,8 +116,8 @@ void rules::Triangles::reduce(std::unordered_multimap<int, int>& side, // pictur
     }
 }
 
-void rules::Triangles::reduce(std::unordered_multimap<int, int>& side,
-                              const std::unordered_multimap<int, int>& side2) {
+void rules::Triangles::reduce1(std::unordered_multimap<int, int>& side,
+                               const std::unordered_multimap<int, int>& side2) {
     for (auto it = side.begin(); it != side.end(); ) {
         auto it2a = side2.find(it->first);
         auto it2b = side2.find(it->second);

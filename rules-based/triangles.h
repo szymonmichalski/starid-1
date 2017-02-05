@@ -24,15 +24,22 @@ public:
 
 private:
 
-    /// *reduce* remove star pairs that don't agree with other sides.
-    ///
-    void reduce(std::unordered_multimap<int, int>&,
+    /// *constraint* remove pairs from constraint sides. these are sides shared by two triangles.
+    void constraint(std::unordered_multimap<int, int>&,
                 const std::unordered_multimap<int, int>&,
                 const std::unordered_multimap<int, int>&,
                 const std::unordered_multimap<int, int>&,
                 const std::unordered_multimap<int, int>&);
 
-    void reduce(std::unordered_multimap<int, int>&,
+    /// *reduce2* remove star pairs that don't agree with both a constraint side and another side.
+    ///
+    void reduce2(std::unordered_multimap<int, int>&,
+                const std::unordered_multimap<int, int>&,
+                const std::unordered_multimap<int, int>&);
+
+    /// *reduce1* remove star pairs that don't agree with another side.
+    ///
+    void reduce1(std::unordered_multimap<int, int>&,
                 const std::unordered_multimap<int, int>&);
 
     /// *stars in three sides* find stars that are present in sidea, sideb, and sidec.
