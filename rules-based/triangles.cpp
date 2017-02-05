@@ -6,7 +6,7 @@ rules::Triangles::Triangles(stars::Image& image, rules::PairsOverWholeSky& pairs
 
 int rules::Triangles::identifyCentralStar() {
     using namespace Eigen;
-    std::unordered_map<int, int> cans;
+    std::unordered_map<int, int> stars;
     int starsCnt = image.uvecs.n_rows;
     int ndxi, ndxj, ndxk, dj, dk;
     arma::vec uveca = arma::trans(image.uvecs.row(0));
@@ -30,9 +30,9 @@ int rules::Triangles::identifyCentralStar() {
 
                 bool skipThisTriangle = false;
                 for (int ndx1 = 0; ndx1 < 6; ++ndx1) {
-                    if (angs[ndx1] > stars::imageRadiusRadians) continue;
+                    if (angs[ndx1] > stars::imageRadiusRadians) skipThisTriangle = true;
                     for (int ndx2 = ndx1+1; ndx2 < 6; ++ndx2) {
-                        if (std::abs(angs[ndx1]-angs[ndx2]) < 3000.0 * (M_PI / 648000.0)) skipThisTriangle = true;
+                        if (std::abs(angs[ndx1]-angs[ndx2]) < 500.0 * M_PI / 648000.0) skipThisTriangle = true;
                     }
                 }
                 if (skipThisTriangle) continue;
@@ -69,17 +69,17 @@ int rules::Triangles::identifyCentralStar() {
                     cntac.push_back(ac.size());
                 }
 
-                std::unordered_map<int, int> stars = starsInThreeSides(ab, ac, ad);
-                mergeStars(cans, stars);
+                std::unordered_map<int, int> starstmp = starsInThreeSides(ab, ac, ad);
+                mergeStars(stars, starstmp);
             }
         }
     }
 
-    std::map<int, int> cans1;
-    std::multimap<int, int, std::greater<int>> cans2;
-    for (auto it = cans.begin(), end = cans.end(); it != end; ++it) {
-        cans1.emplace(it->first, it->second);
-        cans2.emplace(it->second, it->first);
+    std::map<int, int> starsa;
+    std::multimap<int, int, std::greater<int>> starsb;
+    for (auto it = stars.begin(), end = stars.end(); it != end; ++it) {
+        starsa.emplace(it->first, it->second);
+        starsb.emplace(it->second, it->first);
     }
     return -1;
 }
@@ -112,8 +112,7 @@ void rules::Triangles::reduce(std::unordered_multimap<int, int>& side,
     for (auto it = side.begin(); it != side.end(); ) {
         auto it2a = side2.find(it->first);
         auto it2b = side2.find(it->second);
-        if ( (it2a != side2.end() && it2a->second != it->second) ||
-             (it2b != side2.end() && it2b->second != it->first) )
+        if ( it2a != side2.end() || it2b != side2.end() )
             ++it;
         else
             it = side.erase(it);

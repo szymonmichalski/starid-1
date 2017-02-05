@@ -24,7 +24,7 @@ public:
 
 private:
 
-    /// *reduce* remove star pairs that don't agree with constraint sides.
+    /// *reduce* remove star pairs that don't agree with other sides.
     ///
     void reduce(std::unordered_multimap<int, int>&,
                 const std::unordered_multimap<int, int>&,
