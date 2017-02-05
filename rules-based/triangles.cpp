@@ -32,7 +32,7 @@ int rules::Triangles::identifyCentralStar() {
                 for (int ndx1 = 0; ndx1 < 6; ++ndx1) {
                     if (angs[ndx1] > stars::imageRadiusRadians) continue;
                     for (int ndx2 = ndx1+1; ndx2 < 6; ++ndx2) {
-                        if (std::abs(angs[ndx1]-angs[ndx2]) < 4000.0 * (M_PI / 648000.0)) skipThisTriangle = true;
+                        if (std::abs(angs[ndx1]-angs[ndx2]) < 3000.0 * (M_PI / 648000.0)) skipThisTriangle = true;
                     }
                 }
                 if (skipThisTriangle) continue;
@@ -44,14 +44,30 @@ int rules::Triangles::identifyCentralStar() {
                 std::unordered_multimap<int, int> bc = pairsOverWholeSky.pairsMap(angs[4], tol_radius);
                 std::unordered_multimap<int, int> ad = pairsOverWholeSky.pairsMap(angs[5], tol_radius);
 
-                reduce(bc, ab, db, ac, dc);
-                reduce(ab, bc);
-                reduce(ac, bc);
-                reduce(db, bc);
-                reduce(dc, bc);
-                reduce(ad, db, dc, ab, ac);
-                reduce(ab, ad);
-                reduce(ac, ad);
+                std::vector<int> cntbc;
+                std::vector<int> cntad;
+                std::vector<int> cntab;
+                std::vector<int> cntac;
+                cntbc.push_back(bc.size());
+                cntad.push_back(ad.size());
+                cntab.push_back(ab.size());
+                cntac.push_back(ac.size());
+                for (int rendx = 1; rendx < 5; ++rendx) {
+                    reduce(bc, ab, db, ac, dc);
+                    reduce(ab, bc);
+                    reduce(ac, bc);
+                    reduce(db, bc);
+                    reduce(dc, bc);
+                    reduce(ad, db, dc, ab, ac);
+                    reduce(ab, ad);
+                    reduce(ac, ad);
+                    reduce(db, ad);
+                    reduce(dc, ad);
+                    cntbc.push_back(bc.size());
+                    cntad.push_back(ad.size());
+                    cntab.push_back(ab.size());
+                    cntac.push_back(ac.size());
+                }
 
                 std::unordered_map<int, int> stars = starsInThreeSides(ab, ac, ad);
                 mergeStars(cans, stars);
@@ -65,7 +81,7 @@ int rules::Triangles::identifyCentralStar() {
         cans1.emplace(it->first, it->second);
         cans2.emplace(it->second, it->first);
     }
-    return 0;
+    return -1;
 }
 
 void rules::Triangles::reduce(std::unordered_multimap<int, int>& side, // picture bc case
@@ -91,13 +107,13 @@ void rules::Triangles::reduce(std::unordered_multimap<int, int>& side, // pictur
     }
 }
 
-void rules::Triangles::reduce(std::unordered_multimap<int, int>& side, // picture bc case
-                              const std::unordered_multimap<int, int>& ll) {
+void rules::Triangles::reduce(std::unordered_multimap<int, int>& side,
+                              const std::unordered_multimap<int, int>& side2) {
     for (auto it = side.begin(); it != side.end(); ) {
-        auto ll1 = ll.find(it->first);
-        auto ll2 = ll.find(it->second);
-        if ( (ll1 != ll.end() && ll1->second == it->second) ||
-             (ll2 != ll.end() && ll2->second == it->first) )
+        auto it2a = side2.find(it->first);
+        auto it2b = side2.find(it->second);
+        if ( (it2a != side2.end() && it2a->second != it->second) ||
+             (it2b != side2.end() && it2b->second != it->first) )
             ++it;
         else
             it = side.erase(it);
