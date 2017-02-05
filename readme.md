@@ -1,14 +1,14 @@
 **learning based star identification**
 
-identify the star at the center of an image using methods based on convolutional networks, support vector machines, etc. a model is trained to transform the input x into the output y.
+identifies a star using convolutional networks, support vector machines, etc. a model transforms the input x into the output y.
 
 **rules based heuristic star identification**
 
-uses methods based on geometry, pairs, triangles, pyramids, etc. the transformation from x to y can be as direct as y = Hx. noise due to quantization of image star positions complicates matters.
+uses geometric constraints inherent to star pairs and triangles. transforming from x to y can be as direct as y = Hx. quantization of positions introduces significant uncertainty.
 
 **stars**
 
-interfaces to star images, sky catalogs, serialized data structures, etc.
+star images, sky catalogs, serialized data structures, etc.
 
 **further discussion**
 
