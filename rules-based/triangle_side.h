@@ -5,10 +5,15 @@
 #ifndef TRIANGLE_SIDE_H
 #define TRIANGLE_SIDE_H
 
+namespace rules {
+
+}
 class TriangleSide
 {
 public:
     TriangleSide();
 };
+
+}
 
 #endif // TRIANGLE_SIDE_H
