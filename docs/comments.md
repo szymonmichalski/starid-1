@@ -25,6 +25,7 @@ given an input image of a star pattern, output an integer identifying the star a
 find star triangles in the image, and candidate stars that meet the constraints implicit within the triangle. these constraints are effectively the rules for candidate stars. for example, if a triangle consists of star pairs ab and bc, then the third side is ac.
 
 *constraint* remove pairs from constraint sides. these are sides shared by two triangles.
+
 *reduce2* remove star pairs that don't agree with both a constraint side and another side.
 
 *reduce1* remove star pairs that don't agree with another side.

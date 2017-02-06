@@ -25,6 +25,7 @@ public:
 private:
 
     /// *constraint* remove pairs from constraint sides. these are sides shared by two triangles.
+    ///
     void constraint(std::unordered_multimap<int, int>&,
                 const std::unordered_multimap<int, int>&,
                 const std::unordered_multimap<int, int>&,
