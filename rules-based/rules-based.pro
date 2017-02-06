@@ -12,6 +12,7 @@ SOURCES += \
     ../stars/float_int_table.cpp \
     ../stars/skymap.cpp \
     ../stars/mnist.cpp \
+    triangle_side.cpp
 
 HEADERS += \
     triangles.h \
@@ -24,6 +25,7 @@ HEADERS += \
     ../stars/stopwatch.h \
     ../stars/mnist.h \
     ../stars/optionparser.h \
+    triangle_side.h
 
 INCLUDEPATH += \
     ../stars \
