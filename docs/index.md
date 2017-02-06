@@ -1,12 +1,18 @@
-# 30.01.2017
+# 6.1.2017
+
+with stars brighter than 6.5 and pairs up to four degrees, triangle sides begin with tens of thousands of candidate pairs. with loose contraints because of position quantization, there are a lot of false positives in such a large number of candidates. multiple triangles are needed to improve the constraints. the following sketches some important components.
+
+ ![triangle](images/triangleb.jpg)
+
+# 30.1.2017
 
 source code comments beginning with /// and ### are now extracted into markdown available [here](comments.md). the python app performing this is a new project [here](https://github.com/noahhsmith/commenter).
 
-# 23.01.2017
+# 23.1.2017
 
 the point in this discussion of uncertainty and triangle methods - with mnist style images a rules based approach becomes harder. previously the image was from a spacecraft grade star tracker. now it's from a childrens toy. it's a useful challenge...
 
-# 22.01.2017
+# 22.1.2017
 
 with mnist style images and a four degree radius field of view, a pixel is roughly
 
@@ -15,25 +21,25 @@ with mnist style images and a four degree radius field of view, a pixel is rough
 
 arcseconds. the position uncertainty of a star is half this, and triangle side tolerance should be on this order of magnitude. early stopping methods are needed to reduce the number of pairs and stars in triangle processing.
 
-# 20.01.2017
+# 20.1.2017
 
 triangle logic
 
 ![triangle](images/triangle.jpg)
 
-# 19.01.2017
+# 19.1.2017
 
 concepts for image and triangle
 
 ![concepts](images/concepts.jpg)
 
-# 16.01.2017
+# 16.1.2017
 
 mnist viewer. a bit of python code in data/mnist_viewer to see what's in the mnist style data files. this is bare minimum functionality for now. two examples for star 4. these demonstrate axjndx axindx plane. variations of relative positions because of quantization are clear - relative positions vibrate as yaw varies, creating inherent uncertainties in the mnist images...
 
 ![imgndx3](images/star4a.png)![imgndx13](images/star4b.png)
 
-# 15.01.2017
+# 15.1.2017
 
 new school images are now in mnist and tfrecords files, and learning is working. using the first ten skymap stars and a few minutes of training
 
@@ -42,13 +48,13 @@ new school images are now in mnist and tfrecords files, and learning is working.
 
 almost 0.8 correct - this is a significant improvement and reason to suspect there was subtle bug in the old school mnist file - possibly a duplication of images that limited learning.
 
-# 14.01.2017
+# 14.1.2017
 
 concept for image class. an image is a group of unit vectors clustered around the z axis. there is always a center star with unit vector 0, 0, 1 - this can be implicit - an image is always of a star. the explicit unit vectors are the nearby stars that happen to be in the image.
 
 when you talk about a star - say starndx 3 - you can can just as well talk about the image of star 3, with star 3 as its 0, 0, 1 axis.
 
-# 07.01.2017
+# 7.1.2017
 
 more automation with the the mnist style dataset
 
@@ -59,7 +65,7 @@ n 100 | ok | t
 lb | 0.500 | 0.548
 rb | 0.900 | 0.334
 
-# 05.01.2017
+# 5.1.2017
 
 serialized sky and pairs
 
@@ -81,13 +87,13 @@ runtime of rb was reduced by more than an order of magnitude - from about seven 
     learning-based identification 800
     rules-based identification 800
 
-# 04.01.2017
+# 4.1.2017
 
 cereal and optionparser. with initial functionality in place, it's time for a round of refactoring and performance. two cpp header-only libraries have jumped in and they're giving a pretty good feeling about the state of modern cpp.
 
 cereal has quickly allowed two classes, representing the complete sky and all star pairs, to be streamed to and from disk. this is an order of magnitude improvement over runtime generation - say from six seconds to half a second on a six year old laptop. optionparser has taken some pain out of command line handling.
 
-# 03.01.2017
+# 3.1.2017
 
 names matter. cpp caused some unnecessary pain last night - working on serializing the pairs over whole sky object, things were going smoothly
 
