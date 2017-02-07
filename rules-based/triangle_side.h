@@ -17,7 +17,7 @@ public:
 
 private:
 
-    /// **stars** each star is a map key, whose value is a map of star keys it pairs with
+    /// *stars* each star is a map key whose value is a map of star keys it pairs with
     ///
     using inner_map = std::unordered_map<int, int>;
     using outer_map = std::unordered_map<int, inner_map>;

@@ -38,7 +38,9 @@ find star triangles in the image, and candidate stars that meet the constraints 
 
 **triangle side**
 
-for adding, finding, removing, etc star pairs to a triangle side.
+for adding, finding, removing, etc star pairs to a triangle side. one objective here is to work with maps of unique star keys, one key per star, rather than maps with multiple keys per star. this means using unordered_map, not unordered_multimap.
+
+*stars* each star is a map key whose value is a map of star keys it pairs with
 
 **pairs over whole sky**
 
