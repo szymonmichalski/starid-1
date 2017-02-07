@@ -25,8 +25,8 @@ void rules::PairsOverWholeSky::init(stars::Sky& sky)
     angletable.sort();
 }
 
-std::unordered_map<int, int> rules::PairsOverWholeSky::uniquePairsMap(double angle, double tol_radius) {
-    std::unordered_map<int, int> map;
+std::unordered_multimap<int, int> rules::PairsOverWholeSky::pairsMap2(double angle, double tol_radius) {
+    std::unordered_multimap<int, int> map;
 
     double ang1 = angle - tol_radius;
     if (ang1 <= 0) ang1 = 0;
