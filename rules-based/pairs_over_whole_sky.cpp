@@ -25,6 +25,48 @@ void rules::PairsOverWholeSky::init(stars::Sky& sky)
     angletable.sort();
 }
 
+std::unordered_map<int, std::unordered_map<int, int>> rules::PairsOverWholeSky::pairsMap3(double angle, double tol_radius) {
+    std::unordered_map<int, std::unordered_map<int, int>> stars;
+
+    double ang1 = angle - tol_radius;
+    if (ang1 <= 0) ang1 = 0;
+    if (ang1 >= stars::imageRadiusRadians) ang1 = stars::imageRadiusRadians - (stars::imageRadiusRadians/28);
+
+    double ang2 = angle + tol_radius;
+    if (ang2 <= 0) ang2 = 0 + (stars::imageRadiusRadians/28);
+    if (ang2 >= stars::imageRadiusRadians) ang2 = stars::imageRadiusRadians;
+
+    if (ang1 >= ang2) ang1 = ang2 - (stars::imageRadiusRadians/28);
+
+    std::vector<int> intsFromTable = angletable.findInts(ang1, ang2);
+    for (auto ndx : intsFromTable) {
+        int star1 = std::get<1>(starpairs[ndx]);
+        int star2 = std::get<2>(starpairs[ndx]);
+        auto it1 = stars.find(star1);
+        if (it1 != stars.end()) {
+            auto &inner1 = it1->second;
+            inner1.emplace(std::make_pair(star2,1));
+            stars.emplace(std::make_pair(star1,inner1));
+        } else {
+            std::unordered_map<int, int> inner1;
+            inner1.emplace(std::make_pair(star2,1));
+            stars.emplace(std::make_pair(star1,inner1));
+        }
+        auto it2 = stars.find(star2);
+        if (it2 != stars.end()) {
+            auto &inner2 = it2->second;
+            inner2.emplace(std::make_pair(star1,1));
+            stars.emplace(std::make_pair(star2,inner2));
+        } else {
+            std::unordered_map<int, int> inner2;
+            inner2.emplace(std::make_pair(star1,1));
+            stars.emplace(std::make_pair(star2,inner2));
+        }
+    }
+
+    return stars;
+};
+
 std::unordered_multimap<int, int> rules::PairsOverWholeSky::pairsMap2(double angle, double tol_radius) {
     std::unordered_multimap<int, int> map;
 
@@ -110,5 +152,5 @@ std::string rules::PairsOverWholeSky::pairsKey(int catndx1, int catndx2) {
     return key;
 }
 
-void rules::PairsOverWholeSky::Status() {
+void rules::PairsOverWholeSky::status() {
 }

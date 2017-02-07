@@ -5,6 +5,7 @@
 #ifndef TRIANGLE_SIDE_H
 #define TRIANGLE_SIDE_H
 #include <unordered_map>
+#include <map>
 #include "pairs_over_whole_sky.h"
 
 namespace rules {
@@ -15,18 +16,13 @@ public:
 
     TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs);
 
+    std::map<int, int> status();
+
 private:
 
     /// *stars* each star is a map key whose value is a map of star keys it pairs with
     ///
-    using inner_map = std::unordered_map<int, int>;
-    using outer_map = std::unordered_map<int, inner_map>;
-    outer_map stars;
-    // inner_map &pairs = stars->second;
-    // for (auto &star : stars) {
-    //   for (auto &pair : star.second) {
-
-    void add_pair(int star1, int star2);
+    std::unordered_map<int, std::unordered_map<int, int>> stars;
 
 };
 

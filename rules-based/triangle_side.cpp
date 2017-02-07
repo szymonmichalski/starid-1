@@ -1,14 +1,15 @@
 #include "triangle_side.h"
 
 rules::TriangleSide::TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs) {
-    std::unordered_multimap<int, int> in = pairs.pairsMap2(ang, tol_radius);
-    for (auto it = in.begin(), end = in.end(); it != end; ++it) {
-        add_pair(it->first, it->second);
-    }
+    stars = pairs.pairsMap3(ang, tol_radius);
 }
 
-void rules::TriangleSide::add_pair(int star1, int star2) {
-    rules::TriangleSide::inner_map inner;
-    inner.insert(std::make_pair(star2,1));
-    stars.insert(std::make_pair(star1,inner));
+std::map<int, int> rules::TriangleSide::status() {
+    std::map<int, int> result;
+    for (auto it = stars.begin(), end = stars.end(); it != end; ++it) {
+        auto &inner = it->second;
+        result.emplace(it->first, inner.size());
+    }
+    return result;
 }
+

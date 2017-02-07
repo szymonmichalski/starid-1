@@ -26,8 +26,9 @@ public:
 
     std::unordered_multimap<int, int> pairsMap(double angle, double tol_radius);
     std::unordered_multimap<int, int> pairsMap2(double angle, double tol_radius);
+    std::unordered_map<int, std::unordered_map<int, int>> pairsMap3(double angle, double tol_radius);
 
-    void Status();
+    void status();
 
 private:
 
