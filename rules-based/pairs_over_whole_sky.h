@@ -25,6 +25,7 @@ public:
     Eigen::Matrix<int, Eigen::Dynamic, 2> pairsMatrix(double angle, double tol_radius);
 
     std::unordered_multimap<int, int> pairsMap(double angle, double tol_radius);
+    std::unordered_map<int, int> uniquePairsMap(double angle, double tol_radius);
 
     void Status();
 

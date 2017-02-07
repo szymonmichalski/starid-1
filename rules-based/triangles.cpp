@@ -1,4 +1,5 @@
 #include "triangles.h"
+#include "triangle_side.h"
 
 rules::Triangles::Triangles(stars::Image& image, rules::PairsOverWholeSky& pairs, double tolrad) :
     pairsOverWholeSky(pairs), image(image), tol_radius(tolrad) {
@@ -36,6 +37,8 @@ int rules::Triangles::identifyCentralStar() {
                     }
                 }
                 if (skipThisTriangle) continue;
+
+                rules::TriangleSide test(angs[0], tol_radius, pairsOverWholeSky);
 
                 std::unordered_multimap<int, int> ab = pairsOverWholeSky.pairsMap(angs[0], tol_radius);
                 std::unordered_multimap<int, int> ac = pairsOverWholeSky.pairsMap(angs[1], tol_radius);

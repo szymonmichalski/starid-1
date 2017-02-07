@@ -4,6 +4,7 @@ TARGET = rb
 
 SOURCES += \
     rb.cpp \
+    triangle_side.cpp \
     triangles.cpp \
     pairs_over_whole_sky.cpp \
     ../stars/globals.cpp \
@@ -12,9 +13,9 @@ SOURCES += \
     ../stars/float_int_table.cpp \
     ../stars/skymap.cpp \
     ../stars/mnist.cpp \
-    triangle_side.cpp
 
 HEADERS += \
+    triangle_side.h \
     triangles.h \
     pairs_over_whole_sky.h \
     ../stars/globals.h \
@@ -25,7 +26,6 @@ HEADERS += \
     ../stars/stopwatch.h \
     ../stars/mnist.h \
     ../stars/optionparser.h \
-    triangle_side.h
 
 INCLUDEPATH += \
     ../stars \
