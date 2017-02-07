@@ -1,9 +1,7 @@
 #include "triangle_side.h"
 
-rules::TriangleSide::TriangleSide() {}
-
 rules::TriangleSide::TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs) {
-    std::unordered_map<int, int> in = pairs.uniquePairsMap(ang, tol_radius);
+    std::unordered_multimap<int, int> in = pairs.pairsMap2(ang, tol_radius);
     for (auto it = in.begin(), end = in.end(); it != end; ++it) {
         add_pair(it->first, it->second);
     }
