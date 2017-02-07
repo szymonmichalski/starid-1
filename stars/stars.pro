@@ -14,6 +14,7 @@ SOURCES += \
     skymap.cpp \
     ../rules-based/pairs_over_whole_sky.cpp \
     ../rules-based/triangles.cpp \
+    ../rules-based/triangle_side.cpp \
 
 HEADERS += \
     globals.h \
@@ -26,6 +27,7 @@ HEADERS += \
     optionparser.h \
     ../rules-based/pairs_over_whole_sky.h \
     ../rules-based/triangles.h \
+    ../rules-based/triangle_side.h \
 
 INCLUDEPATH += \
     ../rules-based \
