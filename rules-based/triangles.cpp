@@ -38,42 +38,26 @@ int rules::Triangles::identifyCentralStar() {
                 }
                 if (skipThisTriangle) continue;
 
-                rules::TriangleSide test(angs[0], tol_radius, pairsOverWholeSky);
-                std::map<int, int> test2 = test.status();
-
-                std::unordered_multimap<int, int> ab = pairsOverWholeSky.pairsMap(angs[0], tol_radius);
-                std::unordered_multimap<int, int> ac = pairsOverWholeSky.pairsMap(angs[1], tol_radius);
-                std::unordered_multimap<int, int> db = pairsOverWholeSky.pairsMap(angs[2], tol_radius);
-                std::unordered_multimap<int, int> dc = pairsOverWholeSky.pairsMap(angs[3], tol_radius);
-                std::unordered_multimap<int, int> bc = pairsOverWholeSky.pairsMap(angs[4], tol_radius);
-                std::unordered_multimap<int, int> ad = pairsOverWholeSky.pairsMap(angs[5], tol_radius);
-
-                std::vector<int> cntbc;
-                std::vector<int> cntad;
-                std::vector<int> cntab;
-                std::vector<int> cntac;
-                cntbc.push_back(bc.size());
-                cntad.push_back(ad.size());
-                cntab.push_back(ab.size());
-                cntac.push_back(ac.size());
-                for (int redndx = 1; redndx < 5; ++redndx) {
-                    constraint(bc, ab, db, ac, dc);
-                    reduce2(ab, ac, bc);
-                    reduce2(ac, ab, bc);
-                    reduce2(db, dc, bc);
-                    reduce2(dc, db, bc);
-                    constraint(ad, db, dc, ab, ac);
-                    reduce2(db, ab, ad);
-                    reduce2(ac, db, ad);
-                    reduce2(dc, ac, ad);
-                    reduce2(ac, dc, ad);
-                    cntbc.push_back(bc.size());
-                    cntad.push_back(ad.size());
-                    cntab.push_back(ab.size());
-                    cntac.push_back(ac.size());
+                rules::TriangleSide ab(angs[0], tol_radius, pairsOverWholeSky);
+                rules::TriangleSide ac(angs[1], tol_radius, pairsOverWholeSky);
+                rules::TriangleSide db(angs[2], tol_radius, pairsOverWholeSky);
+                rules::TriangleSide dc(angs[3], tol_radius, pairsOverWholeSky);
+                rules::TriangleSide bc(angs[4], tol_radius, pairsOverWholeSky);
+                rules::TriangleSide ad(angs[5], tol_radius, pairsOverWholeSky);
+                for (int cnt1 = 1; cnt1 < 5; ++cnt1) {
+//                    constraint(bc, ab, db, ac, dc);
+//                    reduce2(ab, ac, bc);
+//                    reduce2(ac, ab, bc);
+//                    reduce2(db, dc, bc);
+//                    reduce2(dc, db, bc);
+//                    constraint(ad, db, dc, ab, ac);
+//                    reduce2(db, ab, ad);
+//                    reduce2(ac, db, ad);
+//                    reduce2(dc, ac, ad);
+//                    reduce2(ac, dc, ad);
                 }
 
-                std::unordered_map<int, int> starstmp = starsInThreeSides(ab, ac, ad);
+//                std::unordered_map<int, int> starstmp = starsInThreeSides(ab, ac, ad);
                 mergeStars(stars, starstmp);
             }
         }
