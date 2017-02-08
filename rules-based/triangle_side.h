@@ -16,13 +16,31 @@ public:
 
     TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs);
 
-    std::map<int, int> status();
+    /// *summary* returns a sorted map of stars with the initial number of pairs. the pair stars become outdatated over time as stars are removed from the side.
+    ///
+    std::map<int, int> summary();
+
+
+    /// *get size log* vector of star counts in the side. counts shrink over time as stars are removed.
+    ///
+    std::vector<int> getSizeLog();
+
+    /// *has star* return true if star is in the side
+    ///
+    bool hasStar(int starndx);
+
+    /// *constraint side* this side is shared by two adjacent triangles. member stars have to also be in the other four triangle sides.
+    ///
+    void constraintSide(const TriangleSide &ll, const TriangleSide &lu,
+                        const TriangleSide &rl, const TriangleSide &ru);
 
 private:
 
     /// *stars* each star is a map key whose value is a map of star keys it pairs with
     ///
     std::unordered_map<int, std::unordered_map<int, int>> stars;
+
+    std::vector<int> sizeLog;
 
 };
 

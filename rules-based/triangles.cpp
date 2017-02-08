@@ -45,12 +45,12 @@ int rules::Triangles::identifyCentralStar() {
                 rules::TriangleSide bc(angs[4], tol_radius, pairsOverWholeSky);
                 rules::TriangleSide ad(angs[5], tol_radius, pairsOverWholeSky);
                 for (int cnt1 = 1; cnt1 < 5; ++cnt1) {
-//                    constraint(bc, ab, db, ac, dc);
+                    bc.constraintSide(ab, db, ac, dc);
 //                    reduce2(ab, ac, bc);
 //                    reduce2(ac, ab, bc);
 //                    reduce2(db, dc, bc);
 //                    reduce2(dc, db, bc);
-//                    constraint(ad, db, dc, ab, ac);
+                    ad.constraintSide(db, dc, ab, ac);
 //                    reduce2(db, ab, ad);
 //                    reduce2(ac, db, ad);
 //                    reduce2(dc, ac, ad);
@@ -58,7 +58,7 @@ int rules::Triangles::identifyCentralStar() {
                 }
 
 //                std::unordered_map<int, int> starstmp = starsInThreeSides(ab, ac, ad);
-                mergeStars(stars, starstmp);
+//                mergeStars(stars, starstmp);
             }
         }
     }
