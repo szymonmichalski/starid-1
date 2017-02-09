@@ -14,10 +14,6 @@ std::map<int, int> rules::TriangleSide::summary() {
     return result;
 }
 
-std::vector<int> rules::TriangleSide::get_size_log() {
-    return size_log;
-}
-
 bool rules::TriangleSide::has_star(int starndx) {
     auto it = stars.find(starndx);
     if (it == stars.end()) return false;

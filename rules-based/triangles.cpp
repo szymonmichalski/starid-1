@@ -57,8 +57,8 @@ int rules::Triangles::identifyCentralStar() {
 //                    reduce2(ac, dc, ad);
                 }
 
-//                std::unordered_map<int, int> starstmp = starsInThreeSides(ab, ac, ad);
-//                mergeStars(stars, starstmp);
+                std::unordered_map<int, int> starstmp; // = starsInThreeSides(ab, ac, ad);
+                mergeStars(stars, starstmp);
             }
         }
     }

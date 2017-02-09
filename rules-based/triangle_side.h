@@ -14,16 +14,13 @@ class TriangleSide {
 
 public:
 
+    std::vector<int> size_log;
+
     TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs);
 
     /// *summary* returns a sorted map of stars with the initial number of pairs. the pairs become outdatated over time as stars are removed from the side.
     ///
     std::map<int, int> summary();
-
-
-    /// *get size log* vector of star counts in the side. counts shrink over time as stars are removed.
-    ///
-    std::vector<int> get_size_log();
 
     /// *has star* return true if star is in the side
     ///
@@ -40,7 +37,6 @@ private:
     ///
     std::unordered_map<int, std::unordered_map<int, int>> stars;
 
-    std::vector<int> size_log;
 
 };
 
