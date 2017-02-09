@@ -45,12 +45,12 @@ int rules::Triangles::identifyCentralStar() {
                 rules::TriangleSide bc(angs[4], tol_radius, pairsOverWholeSky);
                 rules::TriangleSide ad(angs[5], tol_radius, pairsOverWholeSky);
                 for (int cnt1 = 1; cnt1 < 5; ++cnt1) {
-                    bc.constraintSide(ab, db, ac, dc);
+                    bc.constraint_side(ab, db, ac, dc);
 //                    reduce2(ab, ac, bc);
 //                    reduce2(ac, ab, bc);
 //                    reduce2(db, dc, bc);
 //                    reduce2(dc, db, bc);
-                    ad.constraintSide(db, dc, ab, ac);
+                    ad.constraint_side(db, dc, ab, ac);
 //                    reduce2(db, ab, ad);
 //                    reduce2(ac, db, ad);
 //                    reduce2(dc, ac, ad);

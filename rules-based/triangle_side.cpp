@@ -2,7 +2,7 @@
 
 rules::TriangleSide::TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs) {
     stars = pairs.pairsMap3(ang, tol_radius);
-    sizeLog.push_back(stars.size());
+    size_log.push_back(stars.size());
 }
 
 std::map<int, int> rules::TriangleSide::summary() {
@@ -14,27 +14,30 @@ std::map<int, int> rules::TriangleSide::summary() {
     return result;
 }
 
-std::vector<int> rules::TriangleSide::getSizeLog() {
-    return sizeLog;
+std::vector<int> rules::TriangleSide::get_size_log() {
+    return size_log;
 }
 
-bool rules::TriangleSide::hasStar(int starndx) {
+bool rules::TriangleSide::has_star(int starndx) {
     auto it = stars.find(starndx);
     if (it == stars.end()) return false;
     return true;
 }
 
-void rules::TriangleSide::constraintSide(const TriangleSide &ll, const TriangleSide &lu,
-                                         const TriangleSide &rl, const TriangleSide &ru) {
-    // picture the bc case, ll left lower ab, lu left upper db
-    // rl right lower ac, ru right upper dc
+void rules::TriangleSide::constraint_side(TriangleSide &ll, TriangleSide &lu,
+                                         TriangleSide &rl, TriangleSide &ru) {
     for (auto it1 = stars.begin(); it1 != stars.end(); ) {
         int star1 = it1->first;
         auto &inner = it1->second;
-        for (auto it2 = inner.begin(); it2 != inner.end(); ) {
+        bool found = false;
+        for (auto it2 = inner.begin(), end = inner.end(); it2 != end; ++it2) {
             int star2 = it2->first;
-
+            if ( (ll.has_star(star1) && lu.has_star(star1) &&
+                  rl.has_star(star2) && ru.has_star(star2)) ||
+                 (ll.has_star(star2) && lu.has_star(star2) &&
+                  rl.has_star(star1) && ru.has_star(star1)) ) {found = true; break;}
         }
+        if (found) ++it1; else it1 = stars.erase(it1);
     }
-    sizeLog.push_back(stars.size());
+    size_log.push_back(stars.size());
 }
