@@ -16,9 +16,9 @@ comments link below is generated from source code.
 
 related | link
 ----- | ---
-comments | http://noahhsmith.github.io/starid/comments
-references | http://noahhsmith.github.io/starid/references
-blog | http://noahhsmith.github.io/starid/
+comments | http://starid.org/comments
+references | http://starid.org/references
+blog | http://starid.org/
 discussion | http://stackoverflow.com/users/5716954/noah-smith
 
 thanks to | link
