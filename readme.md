@@ -12,18 +12,9 @@ star images, sky catalogs, serialized data structures, etc.
 
 **further discussion**
 
-comments link below is generated from source code.
+comments from source code are collected [here](http://starid.org/comments). a collection of related documents are [here](http://starid.org/references).
 
-related | link
------ | ---
-comments | http://starid.org/comments
-references | http://starid.org/references
-
-thanks to | link
------ | ---
-tensorflow | http://github.com/tensorflow/tensorflow
-armadillo | http://arma.sourceforge.net
-eigen | http://eigen.tuxfamily.org/index.php
-cereal| http://github.com/USCiLab/cereal
-optionparser | http://optionparser.sourceforge.net
+thanks to [tensorflow](http://github.com/tensorflow/tensorflow),
+[armadillo](http://arma.sourceforge.net), [eigen](http://eigen.tuxfamily.org/index.php), [cereal](http://github.com/USCiLab/cereal),
+[optionparser](http://optionparser.sourceforge.net).
 
