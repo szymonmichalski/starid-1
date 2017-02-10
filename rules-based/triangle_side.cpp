@@ -21,7 +21,7 @@ bool rules::TriangleSide::has_star(int starndx) {
 }
 
 void rules::TriangleSide::constraint_side(TriangleSide &ll, TriangleSide &lu,
-                                         TriangleSide &rl, TriangleSide &ru) {
+                                          TriangleSide &rl, TriangleSide &ru) {
     for (auto it1 = stars.begin(); it1 != stars.end(); ) {
         int star1 = it1->first;
         auto &inner = it1->second;
@@ -42,8 +42,8 @@ void rules::TriangleSide::reduce(TriangleSide &side, TriangleSide &constraint_si
 
 }
 
-    std::unordered_map<int, int> rules::TriangleSide::stars_in_three_sides(TriangleSide &side1, TriangleSide &side2) {
-        std::unordered_map<int, int> stars;
+std::unordered_map<int, int> rules::TriangleSide::stars_in_three_sides(TriangleSide &side1, TriangleSide &side2) {
+    std::unordered_map<int, int> stars;
 
-        return stars;
-    }
+    return stars;
+}
