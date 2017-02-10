@@ -24,17 +24,7 @@ given an input image of a star pattern, output an integer identifying the star a
 
 find star triangles in the image, and candidate stars that meet the constraints implicit within the triangle. these constraints are effectively the rules for candidate stars. for example, if a triangle consists of star pairs ab and bc, then the third side is ac.
 
-*constraint* remove pairs from constraint sides. these are sides shared by two triangles.
-
-*reduce2* remove star pairs that don't agree with both a constraint side and another side.
-
-*reduce1* remove star pairs that don't agree with another side.
-
-*stars in three sides* find stars that are present in sidea, sideb, and sidec.
-
-*stars in two sides* find stars that are present in both sidea and sideb.
-
-*merge stars* merge a group of stars into another group of stars
+*update stars* include the latest results
 
 **triangle side**
 
@@ -45,6 +35,10 @@ for adding, finding, removing, etc star pairs to a triangle side. one objective 
 *has star* return true if star is in the side
 
 *constraint side* this side is shared by two adjacent triangles. star pair members have to also be in appropriate combinations of the other four triangle sides. picture the bc case, ll left lower ab, lu left upper db, rl right lower ac, ru right upper dc
+
+*reduce*
+
+*stars in three sides* merge stars from ad, ab, ac
 
 *stars* each star is a map key whose value is a map of star keys it pairs with
 
