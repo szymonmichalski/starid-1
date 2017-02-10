@@ -1,6 +1,6 @@
 /// **pairs over whole sky**
 ///
-/// provides quick access to all of the star pairs within a given radius. the underlying data structure is a form of map or hash map for efficient searching.
+/// star pairs with a separation angle within a given range.
 ///
 #ifndef PAIRS_H
 #define PAIRS_H
@@ -20,13 +20,13 @@ class PairsOverWholeSky {
 
 public:
 
+    /// *pairs map* each star is a map key whose value is a map of star keys it pairs with.
+    ///
+    std::unordered_map<int, std::unordered_map<int, int>> pairs_map(double angle, double tol_radius);
+
     void init(stars::Sky& sky);
 
-    Eigen::Matrix<int, Eigen::Dynamic, 2> pairsMatrix(double angle, double tol_radius);
-
-    std::unordered_multimap<int, int> pairsMap(double angle, double tol_radius);
-    std::unordered_multimap<int, int> pairsMap2(double angle, double tol_radius);
-    std::unordered_map<int, std::unordered_map<int, int>> pairsMap3(double angle, double tol_radius);
+    Eigen::Matrix<int, Eigen::Dynamic, 2> pairs_matrix(double angle, double tol_radius);
 
     void status();
 

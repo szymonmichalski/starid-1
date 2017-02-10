@@ -25,7 +25,7 @@ void rules::PairsOverWholeSky::init(stars::Sky& sky)
     angletable.sort();
 }
 
-std::unordered_map<int, std::unordered_map<int, int>> rules::PairsOverWholeSky::pairsMap3(double angle, double tol_radius) {
+std::unordered_map<int, std::unordered_map<int, int>> rules::PairsOverWholeSky::pairs_map(double angle, double tol_radius) {
     std::unordered_map<int, std::unordered_map<int, int>> stars;
 
     double ang1 = angle - tol_radius;
@@ -67,49 +67,7 @@ std::unordered_map<int, std::unordered_map<int, int>> rules::PairsOverWholeSky::
     return stars;
 };
 
-std::unordered_multimap<int, int> rules::PairsOverWholeSky::pairsMap2(double angle, double tol_radius) {
-    std::unordered_multimap<int, int> map;
-
-    double ang1 = angle - tol_radius;
-    if (ang1 <= 0) ang1 = 0;
-    if (ang1 >= stars::imageRadiusRadians) ang1 = stars::imageRadiusRadians - (stars::imageRadiusRadians/28);
-
-    double ang2 = angle + tol_radius;
-    if (ang2 <= 0) ang2 = 0 + (stars::imageRadiusRadians/28);
-    if (ang2 >= stars::imageRadiusRadians) ang2 = stars::imageRadiusRadians;
-
-    if (ang1 >= ang2) ang1 = ang2 - (stars::imageRadiusRadians/28);
-
-    std::vector<int> intsFromTable = angletable.findInts(ang1, ang2);
-    for (auto ndx : intsFromTable) {
-        map.emplace(std::get<1>(starpairs[ndx]), std::get<2>(starpairs[ndx]));
-    }
-    return map;
-}
-
-std::unordered_multimap<int, int> rules::PairsOverWholeSky::pairsMap(double angle, double tol_radius) {
-    std::unordered_multimap<int, int> map;
-
-    double ang1 = angle - tol_radius;
-    if (ang1 <= 0) ang1 = 0;
-    if (ang1 >= stars::imageRadiusRadians) ang1 = stars::imageRadiusRadians - (stars::imageRadiusRadians/28);
-
-    double ang2 = angle + tol_radius;
-    if (ang2 <= 0) ang2 = 0 + (stars::imageRadiusRadians/28);
-    if (ang2 >= stars::imageRadiusRadians) ang2 = stars::imageRadiusRadians;
-
-    if (ang1 >= ang2) ang1 = ang2 - (stars::imageRadiusRadians/28);
-
-    std::vector<int> intsFromTable = angletable.findInts(ang1, ang2);
-    for (auto ndx : intsFromTable) {
-        map.emplace(std::get<1>(starpairs[ndx]), std::get<2>(starpairs[ndx]));
-        map.emplace(std::get<2>(starpairs[ndx]), std::get<1>(starpairs[ndx]));
-    }
-    return map;
-}
-
-
-Eigen::Matrix<int, Eigen::Dynamic, 2> rules::PairsOverWholeSky::pairsMatrix(double angle, double tol_radius) {
+Eigen::Matrix<int, Eigen::Dynamic, 2> rules::PairsOverWholeSky::pairs_matrix(double angle, double tol_radius) {
     using namespace Eigen;
     Matrix<int, Dynamic, 2> pairsMat;
     pairsMat.resize(1000,2);
