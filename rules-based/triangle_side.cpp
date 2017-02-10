@@ -39,7 +39,11 @@ void rules::TriangleSide::constraint_side(TriangleSide &ll, TriangleSide &lu,
 }
 
 void rules::TriangleSide::reduce(TriangleSide &side, TriangleSide &constraint_side) {
-
+    for (auto it1 = stars.begin(); it1 != stars.end(); ) {
+        int star1 = it1->first;
+        if (side.has_star(star1)) ++it1; else it1 = stars.erase(it1);
+    }
+    log_size.push_back(stars.size());
 }
 
 std::unordered_map<int, int> rules::TriangleSide::stars_in_three_sides(TriangleSide &side1, TriangleSide &side2) {
