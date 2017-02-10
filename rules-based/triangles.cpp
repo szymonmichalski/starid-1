@@ -1,5 +1,4 @@
 #include "triangles.h"
-#include "triangle_side.h"
 
 rules::Triangles::Triangles(stars::Image& image, rules::PairsOverWholeSky& pairs, double tolrad) :
     pairsOverWholeSky(pairs), image(image), tol_radius(tolrad) {
@@ -44,21 +43,22 @@ int rules::Triangles::identifyCentralStar() {
                 rules::TriangleSide dc(angs[3], tol_radius, pairsOverWholeSky);
                 rules::TriangleSide bc(angs[4], tol_radius, pairsOverWholeSky);
                 rules::TriangleSide ad(angs[5], tol_radius, pairsOverWholeSky);
+
                 for (int cnt1 = 1; cnt1 < 5; ++cnt1) {
                     bc.constraint_side(ab, db, ac, dc);
-//                    reduce2(ab, ac, bc);
-//                    reduce2(ac, ab, bc);
-//                    reduce2(db, dc, bc);
-//                    reduce2(dc, db, bc);
+                    ab.reduce(ac, bc);
+                    ac.reduce(ab, bc);
+                    db.reduce(dc, bc);
+                    dc.reduce(db, bc);
                     ad.constraint_side(db, dc, ab, ac);
-//                    reduce2(db, ab, ad);
-//                    reduce2(ac, db, ad);
-//                    reduce2(dc, ac, ad);
-//                    reduce2(ac, dc, ad);
+                    ab.reduce(db, ad);
+                    ac.reduce(dc, ad);
+                    db.reduce(ab, ad);
+                    dc.reduce(ac, ad);
                 }
 
-                std::unordered_map<int, int> starstmp; // = starsInThreeSides(ab, ac, ad);
-                mergeStars(stars, starstmp);
+                std::unordered_map<int, int> merged = ad.stars_in_three_sides(ab, ac);
+                update_stars(stars, merged);
             }
         }
     }
@@ -72,51 +72,7 @@ int rules::Triangles::identifyCentralStar() {
     return -1;
 }
 
-void rules::Triangles::reduce2(
-        std::unordered_multimap<int, int>& side,
-        const std::unordered_multimap<int, int>& side2,
-        const std::unordered_multimap<int, int>& con) {
-    for (auto it = side.begin(); it != side.end(); ) {
-        ++it;
-    }
-}
-
-void rules::Triangles::constraint(std::unordered_multimap<int, int>& side, // picture bc case
-                                  const std::unordered_multimap<int, int>& ll, // left lower
-                                  const std::unordered_multimap<int, int>& lu, // left upper
-                                  const std::unordered_multimap<int, int>& rl, // right lower
-                                  const std::unordered_multimap<int, int>& ru // right upper
-                                  ) {
-    for (auto it = side.begin(); it != side.end(); ) {
-        auto ll1 = ll.find(it->first);
-        auto lu1 = lu.find(it->first);
-        auto rl1 = rl.find(it->first);
-        auto ru1 = ru.find(it->first);
-        auto ll2 = ll.find(it->second);
-        auto lu2 = lu.find(it->second);
-        auto rl2 = rl.find(it->second);
-        auto ru2 = ru.find(it->second);
-        if ( ((ll1 != ll.end() && lu1 != lu.end()) && (rl2 != rl.end() && ru2 != ru.end())) ||
-             ((ll2 != ll.end() && lu2 != lu.end()) && (rl1 != rl.end() && ru1 != ru.end())) )
-            ++it;
-        else
-            it = side.erase(it);
-    }
-}
-
-void rules::Triangles::reduce1(std::unordered_multimap<int, int>& side,
-                               const std::unordered_multimap<int, int>& side2) {
-    for (auto it = side.begin(); it != side.end(); ) {
-        auto it2a = side2.find(it->first);
-        auto it2b = side2.find(it->second);
-        if ( it2a != side2.end() || it2b != side2.end() )
-            ++it;
-        else
-            it = side.erase(it);
-    }
-}
-
-void rules::Triangles::mergeStars(std::unordered_map<int, int>& stars1, const std::unordered_map<int, int>& stars2){
+void rules::Triangles::update_stars(std::unordered_map<int, int>& stars1, const std::unordered_map<int, int>& stars2){
     for (auto it2 = stars2.begin(), end = stars2.end(); it2 != end; ++it2) {
         auto it1 = stars1.find(it2->first);
         if (it1 != stars1.end()) {
@@ -127,31 +83,7 @@ void rules::Triangles::mergeStars(std::unordered_map<int, int>& stars1, const st
     }
 }
 
-std::unordered_map<int,int> rules::Triangles::starsInThreeSides(const std::unordered_multimap<int, int>& sidea,
-                                                                const std::unordered_multimap<int, int>& sideb,
-                                                                const std::unordered_multimap<int, int>& sidec) {
-    std::unordered_map<int, int> stars;
-    for (auto it = sidea.begin(), end = sidea.end(); it != end; ++it) {
-        auto it2 = sideb.find(it->first);
-        if (it2 == sideb.end()) continue;
-        auto it3 = sidec.find(it->first);
-        if (it3 == sidec.end()) continue;
-        stars.emplace(it->first, 1);
-    }
-    return stars;
-}
 
-
-std::unordered_map<int,int> rules::Triangles::starsInTwoSides(const std::unordered_multimap<int, int>& sidea,
-                                                              const std::unordered_multimap<int, int>& sideb) {
-    std::unordered_map<int, int> stars;
-    for (auto it = sidea.begin(), end = sidea.end(); it != end; ++it) {
-        auto it2 = sideb.find(it->first);
-        if (it2 == sideb.end()) continue;
-        stars.emplace(it->first, 1);
-    }
-    return stars;
-}
 
 
 

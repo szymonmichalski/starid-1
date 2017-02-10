@@ -2,7 +2,7 @@
 
 rules::TriangleSide::TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs) {
     stars = pairs.pairsMap3(ang, tol_radius);
-    size_log.push_back(stars.size());
+    log_size.push_back(stars.size());
 }
 
 std::map<int, int> rules::TriangleSide::summary() {
@@ -35,5 +35,15 @@ void rules::TriangleSide::constraint_side(TriangleSide &ll, TriangleSide &lu,
         }
         if (found) ++it1; else it1 = stars.erase(it1);
     }
-    size_log.push_back(stars.size());
+    log_size.push_back(stars.size());
 }
+
+void rules::TriangleSide::reduce(TriangleSide &side, TriangleSide &constraint_side) {
+
+}
+
+    std::unordered_map<int, int> rules::TriangleSide::stars_in_three_sides(TriangleSide &side1, TriangleSide &side2) {
+        std::unordered_map<int, int> stars;
+
+        return stars;
+    }

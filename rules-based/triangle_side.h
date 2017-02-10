@@ -14,7 +14,7 @@ class TriangleSide {
 
 public:
 
-    std::vector<int> size_log;
+    std::vector<int> log_size;
 
     TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs);
 
@@ -30,6 +30,14 @@ public:
     ///
     void constraint_side(TriangleSide &ll, TriangleSide &lu,
                         TriangleSide &rl, TriangleSide &ru);
+
+    /// *reduce*
+    ///
+    void reduce(TriangleSide &side, TriangleSide &constraint_side);
+
+    /// *stars in three sides* merge stars from ad, ab, ac
+    ///
+    std::unordered_map<int, int> stars_in_three_sides(TriangleSide &side1, TriangleSide &side2);
 
 private:
 

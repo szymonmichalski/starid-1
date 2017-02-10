@@ -10,6 +10,7 @@
 #include <eigen/Core>
 #include <unordered_map>
 #include <map>
+#include "triangle_side.h"
 
 namespace rules {
 
@@ -24,39 +25,9 @@ public:
 
 private:
 
-    /// *constraint* remove pairs from constraint sides. these are sides shared by two triangles.
+    /// *update stars* include the latest results
     ///
-    void constraint(std::unordered_multimap<int, int>&,
-                const std::unordered_multimap<int, int>&,
-                const std::unordered_multimap<int, int>&,
-                const std::unordered_multimap<int, int>&,
-                const std::unordered_multimap<int, int>&);
-
-    /// *reduce2* remove star pairs that don't agree with both a constraint side and another side.
-    ///
-    void reduce2(std::unordered_multimap<int, int>&,
-                const std::unordered_multimap<int, int>&,
-                const std::unordered_multimap<int, int>&);
-
-    /// *reduce1* remove star pairs that don't agree with another side.
-    ///
-    void reduce1(std::unordered_multimap<int, int>&,
-                const std::unordered_multimap<int, int>&);
-
-    /// *stars in three sides* find stars that are present in sidea, sideb, and sidec.
-    ///
-    std::unordered_map<int,int> starsInThreeSides(const std::unordered_multimap<int, int>& sidea,
-                                                  const std::unordered_multimap<int, int>& sideb,
-                                                  const std::unordered_multimap<int, int>& sidec);
-
-    /// *stars in two sides* find stars that are present in both sidea and sideb.
-    ///
-    std::unordered_map<int,int> starsInTwoSides(const std::unordered_multimap<int, int>& sidea,
-                                                const std::unordered_multimap<int, int>& sideb);
-
-    /// *merge stars* merge a group of stars into another group of stars
-    ///
-    void mergeStars(std::unordered_map<int, int>& stars1, const std::unordered_map<int, int>& stars2);
+    void update_stars(std::unordered_map<int, int>& stars1, const std::unordered_map<int, int>& stars2);
 
     rules::PairsOverWholeSky pairsOverWholeSky;
     stars::Image& image;
