@@ -18,8 +18,6 @@ related | link
 ----- | ---
 comments | http://starid.org/comments
 references | http://starid.org/references
-blog | http://starid.org/
-discussion | http://stackoverflow.com/users/5716954/noah-smith
 
 thanks to | link
 ----- | ---
