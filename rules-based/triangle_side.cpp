@@ -25,19 +25,15 @@ void rules::TriangleSide::constraint_side(TriangleSide &ll, TriangleSide &lu,
     for (auto it1 = stars.begin(); it1 != stars.end(); ) {
         int star1 = it1->first;
         auto &inner = it1->second;
-        bool found = false;
-        for (auto it2 = inner.begin(), end = inner.end(); it2 != end; ++it2) {
+        for (auto it2 = inner.begin(); it2 != inner.end(); ) {
             int star2 = it2->first;
-            if ( (ll.has_star(star1) && lu.has_star(star1) &&
-                  rl.has_star(star2) && ru.has_star(star2)) ||
-                 (ll.has_star(star2) && lu.has_star(star2) &&
-                  rl.has_star(star1) && ru.has_star(star1)) ) {
-                found = true;
-                break;
-            }
+            if ( (ll.has_star(star1) || lu.has_star(star1)) &&
+                 (rl.has_star(star2) || ru.has_star(star2)) ) ++it2;
+            else if ( (ll.has_star(star2) || lu.has_star(star2)) &&
+                      (rl.has_star(star1) || ru.has_star(star1)) ) ++it2;
+            else it2 = inner.erase(it2);
         }
-        if (found) ++it1;
-        else it1 = stars.erase(it1);
+        if (inner.empty()) it1 = stars.erase(it1); else ++it1;
     }
     log_size.push_back(stars.size());
 }
@@ -50,19 +46,15 @@ void rules::TriangleSide::reduce(TriangleSide &side, TriangleSide &constraint_si
             continue;
         }
         auto &inner = it1->second;
-        bool found = false;
-        for (auto it2 = inner.begin(), end = inner.end(); it2 != end; ++it2) {
+        for (auto it2 = inner.begin(); it2 != inner.end(); ) {
             int star2 = it2->first;
             if (constraint_side.has_star(star2)) {
-                found = true;
-                break;
+                ++it2;
+            } else {
+                it2 = inner.erase(it2);
             }
         }
-        if (!found) {
-            it1 = stars.erase(it1);
-            continue;
-        }
-        ++it1;
+        if (inner.empty()) it1 = stars.erase(it1); else ++it1;
     }
     log_size.push_back(stars.size());
 }
