@@ -47,14 +47,10 @@ int rules::Triangles::identifyCentralStar() {
                 for (int cnt1 = 1; cnt1 < 9; ++cnt1) {
                     ad.constraint_side(db, dc, ab, ac);
                     bc.constraint_side(ab, db, ac, dc);
-                    ab.reduce(ac, bc);
-                    ac.reduce(ab, bc);
-                    db.reduce(dc, bc);
-                    dc.reduce(db, bc);
-//                    ab.reduce(db, ad);
-//                    ac.reduce(dc, ad);
-//                    db.reduce(ab, ad);
-//                    dc.reduce(ac, ad);
+                    ab.close_loop(bc, ac);
+                    db.close_loop(bc, dc);
+                    ac.close_loop(bc, ab);
+                    dc.close_loop(bc, db);
                 }
                 bool okad = ad.has_star(0);
                 bool okab = ab.has_star(0);

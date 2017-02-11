@@ -14,9 +14,14 @@ class TriangleSide {
 
 public:
 
-    std::vector<int> log_size;
+    /// *close_loop* check three stars forming three linked pairs around three triangle sides
+    ///
+    void close_loop(TriangleSide &side2, TriangleSide &side3);
 
-    TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs);
+    /// *constraint side* this side is shared by two adjacent triangles. star pair members have to also be in appropriate combinations of the other four triangle sides. picture the bc case, ll left lower ab, lu left upper db, rl right lower ac, ru right upper dc
+    ///
+    void constraint_side(TriangleSide &ll, TriangleSide &lu,
+                        TriangleSide &rl, TriangleSide &ru);
 
     /// *summary* returns a sorted map of stars with the initial number of pairs. the pairs become outdatated over time as stars are removed from the side.
     ///
@@ -26,18 +31,13 @@ public:
     ///
     bool has_star(int starndx);
 
-    /// *constraint side* this side is shared by two adjacent triangles. star pair members have to also be in appropriate combinations of the other four triangle sides. picture the bc case, ll left lower ab, lu left upper db, rl right lower ac, ru right upper dc
-    ///
-    void constraint_side(TriangleSide &ll, TriangleSide &lu,
-                        TriangleSide &rl, TriangleSide &ru);
-
-    /// *reduce*
-    ///
-    void reduce(TriangleSide &side, TriangleSide &constraint_side);
-
     /// *stars in three sides* merge stars from ad, ab, ac
     ///
     std::unordered_map<int, int> stars_in_three_sides(TriangleSide &side1, TriangleSide &side2);
+
+    std::vector<int> log_size;
+
+    TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs);
 
 private:
 
