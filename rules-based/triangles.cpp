@@ -52,6 +52,7 @@ int rules::Triangles::identifyCentralStar() {
                     ac.close_loop(bc, ab);
                     dc.close_loop(bc, db);
                 }
+                std::map<int, int> absum = ab.summary();
                 bool okad = ad.has_star(0);
                 bool okab = ab.has_star(0);
                 bool okac = ac.has_star(0);

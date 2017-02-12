@@ -3,33 +3,32 @@
 void rules::TriangleSide::close_loop(TriangleSide &sideb, TriangleSide &sidec) {
     for (auto it1a = stars.begin(); it1a != stars.end(); ) {
 
-        int star1a = it1a->first; // star1 in sidea is star1a
-        if (!sidec.has_star(star1a)) {
+        int star1a = it1a->first;                 // star1 in sidea is star1a
+        auto it1c = sidec.stars.find(star1a);     // star1 in sidec is star1c
+        if (it1c == sidec.stars.end()) {
             it1a = stars.erase(it1a);
             continue;
         }
-        auto it1c = sidec.stars.find(star1a); // star1 in sidec is **star1c**
         auto &innerc = it1c->second;
 
+        bool is_loop_closed = false;
         auto &innera = it1a->second;
         for (auto it2a = innera.begin(); it2a != innera.end(); ) {
-            int star2a = it2a->first; // star2 in sidea is star2a, tie it to star2b
-            if (!sideb.has_star(star2a)) {
-                it2a = innera.erase(it2a);
-                continue;
-            }
-
+            int star2a = it2a->first;             // star2 in sidea is star2a
             auto it2b = sideb.stars.find(star2a); // star2 in sideb is star2b
-            auto &innerb = it2b->second;
-            for (auto it3b = innerb.begin(); it3b != innerb.end(); ) {
-                int star3b = it3b->first; // star3 in sideb is star3b, tie it to star3c
-
-                // close the loop, pair star3c with **star1c**
-
-                ++it3b;
+            if (it2b != sideb.stars.end()) {
+                auto &innerb = it2b->second;
+                for (auto it3b = innerb.begin(); it3b != innerb.end(); ) {
+                    int star3b = it3b->first;         // star3 in sideb is star3b
+                    auto it3c = innerc.find(star3b);  // star3 in sidec is star3c
+                    if (it3c != innerc.end()) is_loop_closed = true;
+                    ++it3b;
+                }
             }
-
-            ++it2a;
+            if (is_loop_closed)
+                ++it2a;
+            else
+                it2a = innera.erase(it2a);
         }
 
         if (innera.empty())
@@ -47,6 +46,10 @@ void rules::TriangleSide::constraint_side(TriangleSide &ll, TriangleSide &lu,
         auto &inner = it1->second;
         for (auto it2 = inner.begin(); it2 != inner.end(); ) {
             int star2 = it2->first;
+//            if ( (ll.has_star(star1) && lu.has_star(star1)) &&
+//                 (rl.has_star(star2) && ru.has_star(star2)) ) ++it2;
+//            else if ( (ll.has_star(star2) && lu.has_star(star2)) &&
+//                      (rl.has_star(star1) && ru.has_star(star1)) ) ++it2;
             if ( (ll.has_star(star1) || lu.has_star(star1)) &&
                  (rl.has_star(star2) || ru.has_star(star2)) ) ++it2;
             else if ( (ll.has_star(star2) || lu.has_star(star2)) &&
