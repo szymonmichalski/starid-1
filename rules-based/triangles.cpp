@@ -28,14 +28,19 @@ int rules::Triangles::identifyCentralStar() {
                 angs.push_back(std::acos(arma::dot(uvecd, uvecb)));
                 angs.push_back(std::acos(arma::dot(uvecd, uvecc)));
 
-                bool skipThisTriangle = false;
+                bool skip = false;
+                for (int ndx1 = 0; ndx1 < 6; ++ndx1) {
+                    if (angs[ndx1] > stars::imageRadiusRadians)
+                        skip = true;
+                }
                 for (int ndx1 = 0; ndx1 < 3; ++ndx1) {
-                    if (angs[ndx1] > stars::imageRadiusRadians) skipThisTriangle = true;
-                    for (int ndx2 = ndx1+1; ndx2 < 3; ++ndx2) {
-                        if (std::abs(angs[ndx1]-angs[ndx2]) < 2000.0 * M_PI / 648000.0) skipThisTriangle = true;
+                    for (int ndx2 = ndx1; ndx2 < 3; ++ndx2) {
+                        if (ndx1 == ndx2) continue;
+                        if (std::abs(angs[ndx1]-angs[ndx2]) < 3000.0 * M_PI / 648000.0)
+                            skip = true;
                     }
                 }
-                if (skipThisTriangle) continue;
+                if (skip) continue;
 
                 rules::TriangleSide ab(angs[0], tol_radius, pairsOverWholeSky);
                 rules::TriangleSide ac(angs[1], tol_radius, pairsOverWholeSky);
@@ -45,29 +50,13 @@ int rules::Triangles::identifyCentralStar() {
                 rules::TriangleSide dc(angs[5], tol_radius, pairsOverWholeSky);
 
                 for (int cnt1 = 1; cnt1 < 4; ++cnt1) {
-
-                    db.close_loop(ab, ad);
-                    dc.close_loop(ac, ad);
-                    ab.close_loop(ad, db);
+                    ab.close_loop(bc, ac);
+                    ab.close_loop(db, ad);
+                    ac.close_loop(bc, ab);
                     ac.close_loop(dc, ad);
                     ad.close_loop(db, ab);
-
-//                    bc.constraint_side(ab, db, ac, dc);
-//                    ab.close_loop(bc, ac);
-//                    db.close_loop(bc, dc);
-//                    ac.close_loop(bc, ab);
-//                    dc.close_loop(bc, db);
-
-//                    ad.constraint_side(db, dc, ab, ac);
-//                    ab.close_loop(db, ad);
-//                    db.close_loop(ab, ad);
-//                    dc.close_loop(ac, ad);
-//                    ac.close_loop(dc, ad);
-
+                    ad.close_loop(dc, ac);
                 }
-//                bool okad = ad.has_star(0);
-//                bool okab = ab.has_star(0);
-//                bool okac = ac.has_star(0);
 
                 std::unordered_map<int, int> merged = ad.stars_in_three_sides(ab, ac);
                 update_stars(stars, merged);
