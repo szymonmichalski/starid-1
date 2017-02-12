@@ -30,7 +30,7 @@ find star triangles in the image, and candidate stars that meet the constraints 
 
 for adding, finding, removing, etc star pairs to a triangle side. one objective here is to work with maps of unique star keys, one key per star, rather than maps with multiple keys per star. this means using unordered_map, not unordered_multimap.
 
-*close_loop* check three stars forming three linked pairs around three triangle sides
+*close_loop* loop of three stars forming three linked pairs around three triangle sides
 
 *constraint side* this side is shared by two adjacent triangles. star pair members have to also be in appropriate combinations of the other four triangle sides. picture the bc case, ll left lower ab, lu left upper db, rl right lower ac, ru right upper dc
 
