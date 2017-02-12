@@ -1,20 +1,41 @@
 #include "triangle_side.h"
 
-void rules::TriangleSide::close_loop(TriangleSide &side2, TriangleSide &side3) {
-    for (auto it1 = stars.begin(); it1 != stars.end(); ) {
+void rules::TriangleSide::close_loop(TriangleSide &sideb, TriangleSide &sidec) {
+    for (auto it1a = stars.begin(); it1a != stars.end(); ) {
 
-        int star1 = it1->first; //star1 in side1
-        if (!side3.has_star(star1)) { it1 = stars.erase(it1); continue; }
+        int star1a = it1a->first; // star1 in sidea is star1a
+        if (!sidec.has_star(star1a)) {
+            it1a = stars.erase(it1a);
+            continue;
+        }
+        auto it1c = sidec.stars.find(star1a); // star1 in sidec is **star1c**
+        auto &innerc = it1c->second;
 
-        auto &inner = it1->second;
-        for (auto it2 = inner.begin(); it2 != inner.end(); ) {
-            int star2a = it2->first; // star2 in side1
-            if (!side2.has_star(star2a)) { it2 = inner.erase(it2); continue; }
-                auto it3 = stars.find(star2a); // star2 in side2
-            ++it2;
+        auto &innera = it1a->second;
+        for (auto it2a = innera.begin(); it2a != innera.end(); ) {
+            int star2a = it2a->first; // star2 in sidea is star2a, tie it to star2b
+            if (!sideb.has_star(star2a)) {
+                it2a = innera.erase(it2a);
+                continue;
+            }
+
+            auto it2b = sideb.stars.find(star2a); // star2 in sideb is star2b
+            auto &innerb = it2b->second;
+            for (auto it3b = innerb.begin(); it3b != innerb.end(); ) {
+                int star3b = it3b->first; // star3 in sideb is star3b, tie it to star3c
+
+                // close the loop, pair star3c with **star1c**
+
+                ++it3b;
+            }
+
+            ++it2a;
         }
 
-        if (inner.empty()) it1 = stars.erase(it1); else ++it1;
+        if (innera.empty())
+            it1a = stars.erase(it1a);
+        else
+            ++it1a;
     }
     log_size.push_back(stars.size());
 }

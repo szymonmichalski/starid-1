@@ -14,7 +14,7 @@ class TriangleSide {
 
 public:
 
-    /// *close_loop* check three stars forming three linked pairs around three triangle sides
+    /// *close_loop* loop of three stars forming three linked pairs around three triangle sides
     ///
     void close_loop(TriangleSide &side2, TriangleSide &side3);
 
@@ -39,11 +39,11 @@ public:
 
     TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs);
 
-private:
-
     /// *stars* each star is a map key whose value is a map of star keys it pairs with
     ///
     std::unordered_map<int, std::unordered_map<int, int>> stars;
+
+private:
 
 };
 

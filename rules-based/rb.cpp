@@ -88,7 +88,7 @@ int main(int argc, char* argv[])
     std::cout << "sky, pairs, image " << stopwatch.end() << std::endl;
 
     stopwatch.reset();
-    double tolrad = 1000.0 * (M_PI / 648000.0);
+    double tolrad = (2.0 * std::sqrt(500.0*500.0 + 500.00*500.0) + 100.0) * (M_PI / 648000.0);
     rules::Triangles triangles(image, pairs, tolrad);
     int starndxIdentified = triangles.identifyCentralStar();
     std::cout << "triangles " << stopwatch.end() << std::endl;
