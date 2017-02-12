@@ -46,14 +46,14 @@ void rules::TriangleSide::constraint_side(TriangleSide &ll, TriangleSide &lu,
         auto &inner = it1->second;
         for (auto it2 = inner.begin(); it2 != inner.end(); ) {
             int star2 = it2->first;
-//            if ( (ll.has_star(star1) && lu.has_star(star1)) &&
-//                 (rl.has_star(star2) && ru.has_star(star2)) ) ++it2;
-//            else if ( (ll.has_star(star2) && lu.has_star(star2)) &&
-//                      (rl.has_star(star1) && ru.has_star(star1)) ) ++it2;
-            if ( (ll.has_star(star1) || lu.has_star(star1)) &&
-                 (rl.has_star(star2) || ru.has_star(star2)) ) ++it2;
-            else if ( (ll.has_star(star2) || lu.has_star(star2)) &&
-                      (rl.has_star(star1) || ru.has_star(star1)) ) ++it2;
+            if ( (ll.has_star(star1) && lu.has_star(star1)) &&
+                 (rl.has_star(star2) && ru.has_star(star2)) ) ++it2;
+            else if ( (ll.has_star(star2) && lu.has_star(star2)) &&
+                      (rl.has_star(star1) && ru.has_star(star1)) ) ++it2;
+//            if ( (ll.has_star(star1) || lu.has_star(star1)) &&
+//                 (rl.has_star(star2) || ru.has_star(star2)) ) ++it2;
+//            else if ( (ll.has_star(star2) || lu.has_star(star2)) &&
+//                      (rl.has_star(star1) || ru.has_star(star1)) ) ++it2;
             else it2 = inner.erase(it2);
         }
         if (inner.empty()) it1 = stars.erase(it1); else ++it1;
@@ -61,10 +61,13 @@ void rules::TriangleSide::constraint_side(TriangleSide &ll, TriangleSide &lu,
     log_size.push_back(stars.size());
 }
 
-std::unordered_map<int, int> rules::TriangleSide::stars_in_three_sides(TriangleSide &side1, TriangleSide &side2) {
-    std::unordered_map<int, int> stars;
-
-    return stars;
+std::unordered_map<int, int> rules::TriangleSide::stars_in_three_sides(TriangleSide &sideb, TriangleSide &sidec) {
+    std::unordered_map<int, int> result;
+    for (auto it1 = stars.begin(), end = stars.end(); it1 != end; ++it1) {
+        int star = it1->first;
+        if (sideb.has_star(star) && sidec.has_star(star)) result.emplace(star, 1);
+    }
+    return result;
 }
 
 rules::TriangleSide::TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs) {
