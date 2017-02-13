@@ -1,6 +1,6 @@
 # 13.2.2017
 
-after a weekend of experimentation, the method for reducing the number of candidate pairs that's showing the most promise uses a loop of three stars forming three linked pairs around three triangle sides. currently it's called closing the loop. it's made practical by using hash maps everywhere. performance clearly could be an important question with tens of thousands of pairs...
+after a weekend of experimentation, the method for reducing the number of candidate pairs that's showing the most promise uses a loop of three stars forming three linked pairs around three triangle sides. it's made practical by using hash maps everywhere. performance clearly could be an important question with tens of thousands of pairs...
 
 # 6.2.2017
 
