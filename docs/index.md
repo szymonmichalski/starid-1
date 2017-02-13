@@ -1,3 +1,7 @@
+# 13.2.2017
+
+after a weekend of experimentation, the method for reducing the number of candidate pairs that's showing the most promise uses a loop of three stars forming three linked pairs around three triangle sides. currently it's called closing the loop. it's made practical by using hash maps everywhere. performance clearly could be an important question with tens of thousands of pairs...
+
 # 6.2.2017
 
 with stars brighter than 6.5 and pairs up to four degrees, triangle sides begin with tens of thousands of candidate pairs. with loose contraints because of position quantization, there are a lot of false positives in such a large number of candidates. multiple triangles are needed to improve the constraints. the following sketches some important components.
