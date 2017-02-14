@@ -9,7 +9,6 @@ int rules::Triangles::identifyCentralStar() {
     std::unordered_map<int, int> stars;
     int starsCnt = image.uvecs.n_rows;
     int ndxi, ndxj, ndxk, dj, dk;
-    arma::vec uveca = arma::trans(image.uvecs.row(0));
 
     for (dj = 2; dj <= starsCnt-2; ++dj) {
         for (dk = 2; dk <= starsCnt-dj-1; ++dk) {
@@ -18,6 +17,7 @@ int rules::Triangles::identifyCentralStar() {
                 ndxk = ndxj + dk;
 
                 std::vector<double> angs;
+                arma::vec uveca = arma::trans(image.uvecs.row(0));
                 arma::vec uvecb = arma::trans(image.uvecs.row(ndxi-1));
                 arma::vec uvecc = arma::trans(image.uvecs.row(ndxj-1));
                 arma::vec uvecd = arma::trans(image.uvecs.row(ndxk-1));
@@ -42,25 +42,10 @@ int rules::Triangles::identifyCentralStar() {
                 }
                 if (skip) continue;
 
-                Triangle test(angs[0], angs[3], angs[1], tol_radius, pairsOverWholeSky);
+                Triangle abc(angs[0], angs[3], angs[1], tol_radius, pairsOverWholeSky);
+                Triangle abd(angs[0], angs[3], angs[2], tol_radius, pairsOverWholeSky);
 
-                rules::TriangleSide ab(angs[0], tol_radius, pairsOverWholeSky);
-                rules::TriangleSide ac(angs[1], tol_radius, pairsOverWholeSky);
-                rules::TriangleSide ad(angs[2], tol_radius, pairsOverWholeSky);
-                rules::TriangleSide bc(angs[3], tol_radius, pairsOverWholeSky);
-                rules::TriangleSide db(angs[4], tol_radius, pairsOverWholeSky);
-                rules::TriangleSide dc(angs[5], tol_radius, pairsOverWholeSky);
-
-                for (int cnt1 = 1; cnt1 < 4; ++cnt1) {
-                    ab.close_loop(bc, ac);
-                    ab.close_loop(db, ad);
-                    ac.close_loop(bc, ab);
-                    ac.close_loop(dc, ad);
-                    ad.close_loop(db, ab);
-                    ad.close_loop(dc, ac);
-                }
-
-                std::unordered_map<int, int> merged = ad.stars_in_three_sides(ab, ac);
+                std::unordered_map<int, int> merged; // = ad.stars_in_three_sides(ab, ac);
                 update_stars(stars, merged);
             }
         }
