@@ -4,13 +4,14 @@
 ///
 #ifndef TRIPLETS_H
 #define TRIPLETS_H
+#include "triangle.h"
+#include "triangle_side.h"
+#include "pairs_over_whole_sky.h"
 #include "globals.h"
 #include "image.h"
-#include "pairs_over_whole_sky.h"
 #include <eigen/Core>
 #include <unordered_map>
 #include <map>
-#include "triangle_side.h"
 
 namespace rules {
 

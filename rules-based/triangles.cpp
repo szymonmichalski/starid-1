@@ -42,6 +42,8 @@ int rules::Triangles::identifyCentralStar() {
                 }
                 if (skip) continue;
 
+                Triangle test(angs[0], angs[3], angs[1], tol_radius, pairsOverWholeSky);
+
                 rules::TriangleSide ab(angs[0], tol_radius, pairsOverWholeSky);
                 rules::TriangleSide ac(angs[1], tol_radius, pairsOverWholeSky);
                 rules::TriangleSide ad(angs[2], tol_radius, pairsOverWholeSky);

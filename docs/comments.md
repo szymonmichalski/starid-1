@@ -28,7 +28,7 @@ find star triangles in the image, and candidate stars that meet the constraints 
 
 **triangle**
 
-represents a triangle as three constrained sides ab, bc, ca. travel around the triangle ab to bc to ca so that star pairs are not duplicated. if you turn around travel ac to cb to ba you get the same pairs backwards.
+represents a triangle as three constrained sides ab, bc, ca. travel around the sides ab to bc to ca so star pairs are not duplicated. if you turn around and travel ac to cb to ba, you get the same pairs backwards.
 
 **triangle side**
 
