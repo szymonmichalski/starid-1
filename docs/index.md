@@ -1,6 +1,6 @@
 # 14.2.2017
 
-interesting machine learning review here [here](https://blog.ought.com/nips-2016-875bb8fadb8c#.5bk6rnm81)
+interesting machine learning review [here](https://blog.ought.com/nips-2016-875bb8fadb8c#.5bk6rnm81)
 
 # 13.2.2017
 
