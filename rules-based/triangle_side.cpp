@@ -5,8 +5,8 @@ void rules::TriangleSide::close_loop(TriangleSide &sideb, TriangleSide &sidec) {
     for (auto it1a = stars.begin(); it1a != stars.end(); ) {
         bool is_loop_closed = false;
 
-        int star1a = it1a->first;                    // star1a
-        auto it1c = sidec.stars.find(star1a);        // star1c
+        int star1a = it1a->first;                    // star 1a
+        auto it1c = sidec.stars.find(star1a);        // star 1c
         if (it1c == sidec.stars.end()) {
             it1a = stars.erase(it1a);
             continue;
@@ -15,14 +15,14 @@ void rules::TriangleSide::close_loop(TriangleSide &sideb, TriangleSide &sidec) {
         auto &pairsc = it1c->second;                 // pairs c
 
         for (auto it2a = pairsa.begin(); it2a != pairsa.end(); ) {
-            int star2a = it2a->first;                // star2a
-            auto it2b = sideb.stars.find(star2a);    // star2b
+            int star2a = it2a->first;                // star 2a
+            auto it2b = sideb.stars.find(star2a);    // star 2b
             if (it2b != sideb.stars.end()) {
                 auto &pairsb = it2b->second;         // pairs b
 
                 for (auto it3b = pairsb.begin(); it3b != pairsb.end(); ) {
-                    int star3b = it3b->first;        // star3b
-                    auto it3c = pairsc.find(star3b); // star3c
+                    int star3b = it3b->first;        // star 3b
+                    auto it3c = pairsc.find(star3b); // star 3c
                     if (it3c != pairsc.end()) is_loop_closed = true;
                     ++it3b;
                 }

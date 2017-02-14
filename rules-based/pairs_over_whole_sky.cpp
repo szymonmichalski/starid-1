@@ -43,21 +43,21 @@ std::unordered_map<int, std::unordered_map<int, int>> rules::PairsOverWholeSky::
         int star2 = std::get<2>(starpairs[ndx]);
         auto it1 = stars.find(star1);
         if (it1 != stars.end()) {
-            auto &inner1 = it1->second;
-            inner1.emplace(std::make_pair(star2,1));
+            auto &pairs1 = it1->second;
+            pairs1.emplace(std::make_pair(star2,0)); // initial value for pair star key is 0
         } else {
-            std::unordered_map<int, int> inner1;
-            inner1.emplace(std::make_pair(star2,1));
-            stars.emplace(std::make_pair(star1,inner1));
+            std::unordered_map<int, int> pairs1;
+            pairs1.emplace(std::make_pair(star2,1));
+            stars.emplace(std::make_pair(star1,pairs1));
         }
         auto it2 = stars.find(star2);
         if (it2 != stars.end()) {
-            auto &inner2 = it2->second;
-            inner2.emplace(std::make_pair(star1,1));
+            auto &pairs2 = it2->second;
+            pairs2.emplace(std::make_pair(star1,0)); // initial value for pair star key is 0
         } else {
-            std::unordered_map<int, int> inner2;
-            inner2.emplace(std::make_pair(star1,1));
-            stars.emplace(std::make_pair(star2,inner2));
+            std::unordered_map<int, int> pairs2;
+            pairs2.emplace(std::make_pair(star1,1));
+            stars.emplace(std::make_pair(star2,pairs2));
         }
     }
 
