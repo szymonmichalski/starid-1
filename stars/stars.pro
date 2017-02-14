@@ -11,10 +11,7 @@ SOURCES += \
     image.cpp \
     float_int_table.cpp \
     mnist.cpp \
-    skymap.cpp \
-    ../rules-based/pairs_over_whole_sky.cpp \
-    ../rules-based/triangles.cpp \
-    ../rules-based/triangle_side.cpp \
+    skymap.cpp
 
 HEADERS += \
     globals.h \
@@ -24,10 +21,19 @@ HEADERS += \
     mnist.h \
     skymap.h \
     stopwatch.h \
-    optionparser.h \
+    optionparser.h
+
+SOURCES += \
+    ../rules-based/pairs_over_whole_sky.cpp \
+    ../rules-based/triangles.cpp \
+    ../rules-based/triangle_side.cpp \
+    ../rules-based/triangle.cpp
+
+HEADERS += \
     ../rules-based/pairs_over_whole_sky.h \
     ../rules-based/triangles.h \
     ../rules-based/triangle_side.h \
+    ../rules-based/triangle.h
 
 INCLUDEPATH += \
     ../rules-based \

@@ -12,6 +12,7 @@ testing         = 'testing.py'
 rbroot          = '../rules-based/'
 rb              = 'rb.cpp'
 triangles       = 'triangles.h'
+triangle        = 'triangle.h'
 triangle_side   = 'triangle_side.h'
 pairs           = 'pairs_over_whole_sky.h'
 
@@ -26,6 +27,7 @@ with open(outfile, 'w') as f:
   f.write('# heuristics\n')
   f.write('%s' % co.commenter(rbroot + rb))
   f.write('%s' % co.commenter(rbroot + triangles))
+  f.write('%s' % co.commenter(rbroot + triangle))
   f.write('%s' % co.commenter(rbroot + triangle_side))
   f.write('%s' % co.commenter(rbroot + pairs))
 

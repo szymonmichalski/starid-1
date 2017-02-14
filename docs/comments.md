@@ -26,6 +26,10 @@ find star triangles in the image, and candidate stars that meet the constraints 
 
 *update stars* include the latest results
 
+**triangle**
+
+represents a triangle as three constrained sides ab, bc, ca. travel around the triangle ab to bc to ca so that star pairs are not duplicated. if you turn around travel ac to cb to ba you get the same pairs backwards.
+
 **triangle side**
 
 for adding, finding, removing, etc star pairs to a triangle side. one objective here is to work with maps of unique star keys, one key per star, rather than maps with multiple keys per star. this means using unordered_map, not unordered_multimap.
