@@ -1,10 +1,10 @@
 **learning based star identification**
 
-identifies a star using convolutional networks, support vector machines, etc.
+identify a star using convolutional networks, support vector machines, etc.
 
 **rules based heuristic star identification**
 
-uses geometric constraints inherent to star pairs and triangles.
+directly use inherent properties of star pairs, triangles, etc.
 
 **stars**
 
