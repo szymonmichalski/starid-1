@@ -22,14 +22,11 @@ int rules::Triangles::identifyCentralStar() {
                 arma::vec uvecc = arma::trans(image.uvecs.row(ndxj-1));
                 arma::vec uvecd = arma::trans(image.uvecs.row(ndxk-1));
                 angs.push_back(std::acos(arma::dot(uveca, uvecb)));
-                angs.push_back(std::acos(arma::dot(uveca, uvecc)));
-                angs.push_back(std::acos(arma::dot(uveca, uvecd)));
                 angs.push_back(std::acos(arma::dot(uvecb, uvecc)));
-                angs.push_back(std::acos(arma::dot(uvecd, uvecb)));
-                angs.push_back(std::acos(arma::dot(uvecd, uvecc)));
+                angs.push_back(std::acos(arma::dot(uvecc, uveca)));
 
                 bool skip = false;
-                for (int ndx1 = 0; ndx1 < 6; ++ndx1) {
+                for (int ndx1 = 0; ndx1 < 3; ++ndx1) {
                     if (angs[ndx1] > stars::imageRadiusRadians)
                         skip = true;
                 }
@@ -42,8 +39,7 @@ int rules::Triangles::identifyCentralStar() {
                 }
                 if (skip) continue;
 
-                Triangle abc(angs[0], angs[3], angs[1], tol_radius, pairsOverWholeSky);
-                Triangle abd(angs[0], angs[3], angs[2], tol_radius, pairsOverWholeSky);
+                Triangle abc(angs[0], angs[1], angs[2], tol_radius, pairsOverWholeSky);
 
                 std::unordered_map<int, int> merged; // = ad.stars_in_three_sides(ab, ac);
                 update_stars(stars, merged);
