@@ -1,5 +1,31 @@
 #include "triangle_side.h"
 
+void::rules::TriangleSide::prune() {
+    for (auto it1 = stars.begin(); it1 != stars.end(); ) {
+        auto &pairs = it1->second;
+        for (auto it2 = pairs.begin(); it2 != pairs.end(); ) {
+            if (it2->second == 0)
+                it2 = pairs.erase(it2);
+            else
+                ++it2;
+        }
+        if (pairs.empty())
+            it1 = stars.erase(it1);
+        else
+            ++it1;
+    }
+    log_star_count.push_back(stars.size());
+    log_pair_count.push_back(pair_count());
+}
+
+int rules::TriangleSide::pair_count() {
+    int result = 0;
+    for (auto it1 = stars.begin(), end = stars.end(); it1 != end; ++it1) {
+        result += it1->second.size();
+    }
+    return result;
+}
+
 void rules::TriangleSide::close_loop(TriangleSide &sideb, TriangleSide &sidec) {
 
     for (auto it1a = stars.begin(); it1a != stars.end(); ) {
@@ -39,7 +65,7 @@ void rules::TriangleSide::close_loop(TriangleSide &sideb, TriangleSide &sidec) {
         else
             ++it1a;
     }
-    log_size.push_back(stars.size());
+    log_star_count.push_back(stars.size());
 }
 
 void rules::TriangleSide::constraint_side(TriangleSide &ll, TriangleSide &lu,
@@ -61,7 +87,7 @@ void rules::TriangleSide::constraint_side(TriangleSide &ll, TriangleSide &lu,
         }
         if (inner.empty()) it1 = stars.erase(it1); else ++it1;
     }
-    log_size.push_back(stars.size());
+    log_star_count.push_back(stars.size());
 }
 
 std::unordered_map<int, int> rules::TriangleSide::stars_in_three_sides(TriangleSide &sideb, TriangleSide &sidec) {
@@ -75,7 +101,8 @@ std::unordered_map<int, int> rules::TriangleSide::stars_in_three_sides(TriangleS
 
 rules::TriangleSide::TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs) {
     stars = pairs.pairs_map(ang, tol_radius);
-    log_size.push_back(stars.size());
+    log_star_count.push_back(stars.size());
+    log_pair_count.push_back(pair_count());
 }
 
 std::map<int, int> rules::TriangleSide::summary() {

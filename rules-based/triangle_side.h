@@ -14,6 +14,10 @@ class TriangleSide {
 
 public:
 
+    /// *prune* remove pairs keys that have value zero, then stars that have no pairs.
+    ///
+    void prune();
+
     /// *close_loop* loop of three stars forming three linked pairs around three triangle sides
     ///
     void close_loop(TriangleSide &side2, TriangleSide &side3);
@@ -35,7 +39,12 @@ public:
     ///
     std::unordered_map<int, int> stars_in_three_sides(TriangleSide &side1, TriangleSide &side2);
 
-    std::vector<int> log_size;
+    /// *pair count* count all pairs
+    ///
+    int pair_count();
+
+    std::vector<int> log_star_count;
+    std::vector<int> log_pair_count;
 
     TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs);
 
