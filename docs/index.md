@@ -1,3 +1,7 @@
+# 16.2.2017
+
+interesting note using the new triangle class. for stars brighter than 6.5 and pairs within four degrees, in a typical triangle there are on the order of 30k paths around the loop - three stars forming three linked pairs around the sides...
+
 # 14.2.2017
 
 interesting machine learning review [here](https://blog.ought.com/nips-2016-875bb8fadb8c#.5bk6rnm81)

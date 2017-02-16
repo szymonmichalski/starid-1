@@ -34,6 +34,8 @@ represents a triangle as three constrained sides ab, bc, ca. travel around the s
 
 for adding, finding, removing, etc star pairs to a triangle side. one objective here is to work with maps of unique star keys, one key per star, rather than maps with multiple keys per star. this means using unordered_map, not unordered_multimap.
 
+*prune* remove pairs keys that have value zero, then stars that have no pairs.
+
 *close_loop* loop of three stars forming three linked pairs around three triangle sides
 
 *constraint side* this side is shared by two adjacent triangles. star pair members have to also be in appropriate combinations of the other four triangle sides. picture the bc case, ll left lower ab, lu left upper db, rl right lower ac, ru right upper dc
@@ -43,6 +45,8 @@ for adding, finding, removing, etc star pairs to a triangle side. one objective 
 *has star* return true if star is in the side
 
 *stars in three sides* merge stars from ad, ab, ac
+
+*pair count* count all pairs
 
 *stars* each star is a map key whose value is a map of star keys it pairs with
 
