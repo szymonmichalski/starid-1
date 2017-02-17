@@ -1,6 +1,10 @@
+# 17.2.2016
+
+increased the maximum star pair angle from four degrees to eleven degrees so that any star pair in the mnist style images is available. this increases the number of star pairs across the sky from 103k to 232k.
+
 # 16.2.2017
 
-interesting note using the new triangle class. for stars brighter than 6.5 and position quantization uncertainty around a thousand arcseconds, in a typical triangle there are roughly 30k paths around the loop - three stars forming three linked pairs around the sides.
+for 8876 stars brighter than 6.5 and position quantization uncertainty around a thousand arcseconds, in a typical triangle there are roughly 30k paths around the loop - three stars forming three linked pairs around the sides.
 
 # 14.2.2017
 
