@@ -1,6 +1,6 @@
 # 17.2.2016
 
-increased the maximum star pair angle from four degrees to eleven degrees so that any star pair in the mnist style images is available. this increases the number of star pairs across the sky from 103k to 232k.
+increased the maximum star pair angle from four degrees to eleven degrees so that any star pair in the field of view is available. this increases the number of star pairs across the sky from 103k to 232k.
 
 # 16.2.2017
 
