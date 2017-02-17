@@ -1,6 +1,6 @@
 # 16.2.2017
 
-interesting note using the new triangle class. for stars brighter than 6.5 and pairs within four degrees, in a typical triangle there are roughly 30k paths around the loop - three stars forming three linked pairs around the sides...
+interesting note using the new triangle class. for stars brighter than 6.5 and position quantization uncertainty around a thousand arcseconds, in a typical triangle there are roughly 30k paths around the loop - three stars forming three linked pairs around the sides.
 
 # 14.2.2017
 

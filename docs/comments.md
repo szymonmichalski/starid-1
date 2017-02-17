@@ -56,3 +56,5 @@ star pairs with a separation angle within a given range.
 
 *pairs map* each star is a map key whose value is a map of star keys it pairs with.
 
+*init* creates the pairs data structures for all star pairs with a separation less than maximum angle.
+
