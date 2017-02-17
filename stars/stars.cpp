@@ -68,8 +68,9 @@ int main(int argc, char* argv[])
         std::ofstream os1(std::string(datadir + "sky.cereal"));
         cereal::BinaryOutputArchive oarchive1(os1);
         oarchive1(sky);
+
         rules::PairsOverWholeSky pairs;
-        pairs.init(sky);
+        pairs.init(stars::maxStarPairAngle, sky);
         std::ofstream os2(std::string(datadir + "pairs.cereal"));
         cereal::BinaryOutputArchive oarchive2(os2);
         oarchive2(pairs);

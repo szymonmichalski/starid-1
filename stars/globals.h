@@ -7,6 +7,7 @@ extern double imageRadiusRadians;
 extern double imageRadiusUnitVectors;
 extern double imagePixelUnitVectors;
 extern double imageFaintnessLimit;
+extern double maxStarPairAngle;
 
 }
 

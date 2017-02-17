@@ -1,7 +1,7 @@
 #include "pairs_over_whole_sky.h"
 #include "globals.h"
 
-void rules::PairsOverWholeSky::init(stars::Sky& sky)
+void rules::PairsOverWholeSky::init(double max_ang, stars::Sky& sky)
 {
     int pairndx = 0;
     for(auto star : sky.stars) {
@@ -11,10 +11,11 @@ void rules::PairsOverWholeSky::init(stars::Sky& sky)
             std::string key = pairsKey(star.starndx, sky.stars[neighborndx].starndx);
             auto search = starpairs_map.find(key);
             if (search != starpairs_map.end()) continue; // check map that pair is unique
-            double angle = acos( (star.x * sky.stars[neighborndx].x)
+            double angle = std::acos( (star.x * sky.stars[neighborndx].x)
                                  + (star.y * sky.stars[neighborndx].y)
                                  + (star.z * sky.stars[neighborndx].z));
-            if (std::fabs(angle) > stars::imageRadiusRadians) continue;
+            if (std::abs(angle) > max_ang) continue; // max pair angle
+
             std::tuple<double, int, int> starpair {angle, star.starndx, neighborndx};
             starpairs.push_back(starpair);
             starpairs_map.insert({key, pairndx}); // update map of unique pairs

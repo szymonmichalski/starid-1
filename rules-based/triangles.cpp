@@ -6,7 +6,7 @@ rules::Triangles::Triangles(stars::Image& image, rules::PairsOverWholeSky& pairs
 
 int rules::Triangles::identifyCentralStar() {
     using namespace Eigen;
-    std::unordered_map<int, int> stars;
+    std::unordered_map<int, int> curstars;
     int starsCnt = image.uvecs.n_rows;
     int ndxi, ndxj, ndxk, dj, dk;
 
@@ -27,7 +27,7 @@ int rules::Triangles::identifyCentralStar() {
 
                 bool skip = false;
                 for (int ndx1 = 0; ndx1 < 3; ++ndx1) {
-                    if (angs[ndx1] > stars::imageRadiusRadians)
+                    if (angs[ndx1] > stars::maxStarPairAngle)
                         skip = true;
                 }
                 for (int ndx1 = 0; ndx1 < 3; ++ndx1) {
@@ -42,14 +42,14 @@ int rules::Triangles::identifyCentralStar() {
                 Triangle abc(angs[0], angs[1], angs[2], tol_radius, pairsOverWholeSky);
 
                 std::unordered_map<int, int> merged; // = ad.stars_in_three_sides(ab, ac);
-                update_stars(stars, merged);
+                update_stars(curstars, merged);
             }
         }
     }
 
     std::map<int, int> starsa;
     std::multimap<int, int, std::greater<int>> starsb;
-    for (auto it = stars.begin(), end = stars.end(); it != end; ++it) {
+    for (auto it = curstars.begin(), end = curstars.end(); it != end; ++it) {
         starsa.emplace(it->first, it->second);
         starsb.emplace(it->second, it->first);
     }

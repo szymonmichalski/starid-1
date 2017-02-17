@@ -24,7 +24,9 @@ public:
     ///
     std::unordered_map<int, std::unordered_map<int, int>> pairs_map(double angle, double tol_radius);
 
-    void init(stars::Sky& sky);
+    /// *init* creates the pairs data structures for all star pairs with a separation less than maximum angle.
+    ///
+    void init(double max_ang, stars::Sky& sky);
 
     Eigen::Matrix<int, Eigen::Dynamic, 2> pairs_matrix(double angle, double tol_radius);
 
