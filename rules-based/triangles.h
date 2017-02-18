@@ -30,7 +30,7 @@ private:
     ///
     void update_stars(std::unordered_map<int, int>& stars1, const std::unordered_map<int, int>& stars2);
 
-    rules::PairsOverWholeSky pairsOverWholeSky;
+    rules::PairsOverWholeSky all_pairs;
     stars::Image& image;
     double tol_radius;
 };

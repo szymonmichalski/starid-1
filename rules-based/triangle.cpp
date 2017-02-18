@@ -4,10 +4,19 @@ rules::Triangle::Triangle(double angab, double angbc, double angca,
                           double tol_radius, rules::PairsOverWholeSky& pairs) :
     ab(angab, tol_radius, pairs),
     bc(angbc, tol_radius, pairs),
-    ca(angca, tol_radius, pairs)
-{
+    ca(angca, tol_radius, pairs) {
     prune();
 }
+
+void rules::Triangle::bd_da(double angbd, double angda,
+                            double tol_radius, rules::PairsOverWholeSky& pairs) {
+    rules::TriangleSide bd(angbd, tol_radius, pairs);
+    rules::TriangleSide da(angda, tol_radius, pairs);
+    bc = bd;
+    ca = da;
+    prune();
+}
+
 
 void rules::Triangle::prune() {
     for (auto itab = ab.stars.begin(); itab != ab.stars.end(); ) {
@@ -55,6 +64,7 @@ void rules::Triangle::prune() {
 }
 
 void rules::Triangle::fourth_star(double angda, double angdb, double angdc) {
-
+    // abd case
+    // acd case
     prune();
 }

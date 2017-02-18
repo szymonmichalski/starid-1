@@ -4,11 +4,12 @@ void::rules::TriangleSide::prune() {
     for (auto it1 = stars.begin(); it1 != stars.end(); ) {
         auto &pairs = it1->second;
         for (auto it2 = pairs.begin(); it2 != pairs.end(); ) {
-            if (it2->second == 0)
+            if (it2->second == 0) {
                 it2 = pairs.erase(it2);
-            else
+            } else {
                 it2->second = 0;
                 ++it2;
+            }
         }
         if (pairs.empty())
             it1 = stars.erase(it1);
@@ -80,10 +81,10 @@ void rules::TriangleSide::constraint_side(TriangleSide &ll, TriangleSide &lu,
                  (rl.has_star(star2) && ru.has_star(star2)) ) ++it2;
             else if ( (ll.has_star(star2) && lu.has_star(star2)) &&
                       (rl.has_star(star1) && ru.has_star(star1)) ) ++it2;
-//            if ( (ll.has_star(star1) || lu.has_star(star1)) &&
-//                 (rl.has_star(star2) || ru.has_star(star2)) ) ++it2;
-//            else if ( (ll.has_star(star2) || lu.has_star(star2)) &&
-//                      (rl.has_star(star1) || ru.has_star(star1)) ) ++it2;
+            //            if ( (ll.has_star(star1) || lu.has_star(star1)) &&
+            //                 (rl.has_star(star2) || ru.has_star(star2)) ) ++it2;
+            //            else if ( (ll.has_star(star2) || lu.has_star(star2)) &&
+            //                      (rl.has_star(star1) || ru.has_star(star1)) ) ++it2;
             else it2 = inner.erase(it2);
         }
         if (inner.empty()) it1 = stars.erase(it1); else ++it1;
