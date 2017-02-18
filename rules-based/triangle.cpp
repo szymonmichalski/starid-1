@@ -6,6 +6,10 @@ rules::Triangle::Triangle(double angab, double angbc, double angca,
     bc(angbc, tol_radius, pairs),
     ca(angca, tol_radius, pairs)
 {
+    prune();
+}
+
+void rules::Triangle::prune() {
     for (auto itab = ab.stars.begin(); itab != ab.stars.end(); ) {
         auto itca = ca.stars.find(itab->first);
         if (itca == ca.stars.end())
@@ -48,4 +52,8 @@ rules::Triangle::Triangle(double angab, double angbc, double angca,
     ab.prune();
     bc.prune();
     ca.prune();
+}
+
+void rules::Triangle::fourth_star(double da, double db, double dc) {
+
 }

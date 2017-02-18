@@ -7,23 +7,24 @@ rules::Triangles::Triangles(stars::Image& image, rules::PairsOverWholeSky& pairs
 int rules::Triangles::identifyCentralStar() {
     std::unordered_map<int, int> curstars;
     int num_stars = image.uvecs.n_rows;
+    arma::vec uveca = arma::trans(image.uvecs.row(0)); // star a
     for (int ndxb = 1; ndxb < num_stars; ++ndxb) {
+        arma::vec uvecb = arma::trans(image.uvecs.row(ndxb)); // star b
+
         for (int ndxc = 1; ndxc < num_stars; ++ndxc) {
             if (ndxc == ndxb) continue;
             std::vector<double> angs;
-            arma::vec uveca = arma::trans(image.uvecs.row(0));
-            arma::vec uvecb = arma::trans(image.uvecs.row(ndxb));
-            arma::vec uvecc = arma::trans(image.uvecs.row(ndxc));
+            arma::vec uvecc = arma::trans(image.uvecs.row(ndxc)); // star c
             angs.push_back(std::acos(arma::dot(uveca, uvecb)));
             angs.push_back(std::acos(arma::dot(uvecb, uvecc)));
             angs.push_back(std::acos(arma::dot(uvecc, uveca)));
             bool skip = false;
-            if (angs[0] < 4000.0 * M_PI / 648000.0) skip = true;
-            if (angs[2] < 4000.0 * M_PI / 648000.0) skip = true;
+            if (angs[0] < 3000.0 * M_PI / 648000.0) skip = true;
+            if (angs[2] < 3000.0 * M_PI / 648000.0) skip = true;
             for (int ndx1 = 0; ndx1 < 3; ++ndx1) {
                 for (int ndx2 = ndx1; ndx2 < 3; ++ndx2) {
                     if (ndx1 == ndx2) continue;
-                    if (std::abs(angs[ndx1]-angs[ndx2]) < 4000.0 * M_PI / 648000.0)
+                    if (std::abs(angs[ndx1]-angs[ndx2]) < 3000.0 * M_PI / 648000.0)
                         skip = true;
                 }
             }
@@ -32,11 +33,10 @@ int rules::Triangles::identifyCentralStar() {
 
             for (int ndxd = 1; ndxd < num_stars; ++ndxd) {
                 if (ndxd == ndxb || ndxd == ndxc) continue;
+                arma::vec uvecd = arma::trans(image.uvecs.row(ndxd)); // star d
 
-                arma::vec uvecd = arma::trans(image.uvecs.row(ndxd));
-
-//                std::unordered_map<int, int> merged; // = ad.stars_in_three_sides(ab, ac);
-//                update_stars(curstars, merged);
+                //                std::unordered_map<int, int> merged; // = ad.stars_in_three_sides(ab, ac);
+                //                update_stars(curstars, merged);
             }
         }
     }
