@@ -7,6 +7,7 @@ void::rules::TriangleSide::prune() {
             if (it2->second == 0)
                 it2 = pairs.erase(it2);
             else
+                it2->second = 0;
                 ++it2;
         }
         if (pairs.empty())

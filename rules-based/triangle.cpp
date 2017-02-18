@@ -54,6 +54,7 @@ void rules::Triangle::prune() {
     ca.prune();
 }
 
-void rules::Triangle::fourth_star(double da, double db, double dc) {
+void rules::Triangle::fourth_star(double angda, double angdb, double angdc) {
 
+    prune();
 }

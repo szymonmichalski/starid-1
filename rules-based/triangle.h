@@ -25,7 +25,7 @@ public:
 
     /// *fourth star* use the additional information from a fourth star to further constrain the triangle sides. directly reduce sides ab and ca, then prune the triangle;
     ///
-    void fourth_star(double da, double db, double dc);
+    void fourth_star(double angda, double angdb, double angdc);
 
 };
 
