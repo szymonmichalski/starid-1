@@ -1,10 +1,10 @@
-#include "triangles.h"
+#include "star_identifier.h"
 
-rules::Triangles::Triangles(stars::Image& image, rules::PairsOverWholeSky& pairs, double tolrad) :
+rules::StarIdentifier::StarIdentifier(stars::Image& image, rules::PairsOverWholeSky& pairs, double tolrad) :
     all_pairs(pairs), image(image), tol_radius(tolrad) {
 }
 
-int rules::Triangles::identifyCentralStar() {
+int rules::StarIdentifier::identifyCentralStar() {
     std::unordered_map<int, int> curstars;
     int num_stars = image.uvecs.n_rows;
     arma::vec uveca = arma::trans(image.uvecs.row(0)); // star a
@@ -45,8 +45,9 @@ int rules::Triangles::identifyCentralStar() {
                 Triangle adc = abd;
                 adc.dc_ca(angsd[5], abc, tol_radius, all_pairs);
                 abc.update_ab_ca(abd.ab, adc.ab);
-                int zzz = 1;
+                if (abc.ab.log_star_count.size() == 4) break;
             }
+            bool stop = true;
         }
         std::unordered_map<int, int> merged; // = ad.stars_in_three_sides(ab, ac);
         update_stars(curstars, merged);
@@ -61,7 +62,7 @@ int rules::Triangles::identifyCentralStar() {
     return -1;
 }
 
-void rules::Triangles::update_stars(std::unordered_map<int, int>& stars1, const std::unordered_map<int, int>& stars2){
+void rules::StarIdentifier::update_stars(std::unordered_map<int, int>& stars1, const std::unordered_map<int, int>& stars2){
     for (auto it2 = stars2.begin(), end = stars2.end(); it2 != end; ++it2) {
         auto it1 = stars1.find(it2->first);
         if (it1 != stars1.end()) {

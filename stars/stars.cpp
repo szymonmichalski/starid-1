@@ -1,5 +1,5 @@
 #include "image.h"
-#include "triangles.h"
+#include "star_identifier.h"
 #include "mnist.h"
 #include <armadillo>
 #include "optionparser.h"

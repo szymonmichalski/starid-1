@@ -1,9 +1,9 @@
-/// **triangles**
+/// **star identifier**
 ///
 /// find star triangles in the image, and candidate stars that meet the constraints implicit within the triangle. these constraints are effectively the rules for candidate stars. for example, if a triangle consists of star pairs ab and bc, then the third side is ac.
 ///
-#ifndef TRIPLETS_H
-#define TRIPLETS_H
+#ifndef STARIDENTIFIER_H
+#define STARIDENTIFIER_H
 #include "triangle.h"
 #include "triangle_side.h"
 #include "pairs_over_whole_sky.h"
@@ -15,12 +15,12 @@
 
 namespace rules {
 
-class Triangles
+class StarIdentifier
 {
 
 public:
 
-    Triangles(stars::Image& image, rules::PairsOverWholeSky& pairs, double tol_radius);
+    StarIdentifier(stars::Image& image, rules::PairsOverWholeSky& pairs, double tol_radius);
 
     int identifyCentralStar();
 

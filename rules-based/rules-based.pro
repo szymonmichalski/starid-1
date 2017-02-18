@@ -7,15 +7,15 @@ TARGET = rb
 SOURCES += \
     rb.cpp \
     triangle_side.cpp \
-    triangles.cpp \
     pairs_over_whole_sky.cpp \
-    triangle.cpp
+    triangle.cpp \
+    star_identifier.cpp
 
 HEADERS += \
     triangle_side.h \
-    triangles.h \
     pairs_over_whole_sky.h \
-    triangle.h
+    triangle.h \
+    star_identifier.h
 
 SOURCES += \
     ../stars/globals.cpp \

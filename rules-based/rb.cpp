@@ -2,7 +2,7 @@
 ///
 /// given an input image of a star pattern, output an integer identifying the star at the center using methods based on geometry, pairs, triangles, etc. the transformation from the input x to the output y is rather direct and deterministic, but noise in the input complicates things. in particular, loss of angular resolution due to position quantization is effectively a large noise source.
 ///
-#include "triangles.h"
+#include "star_identifier.h"
 #include "image.h"
 #include "stopwatch.h"
 #include <armadillo>
@@ -89,7 +89,7 @@ int main(int argc, char* argv[])
 
     stopwatch.reset();
     double tolrad = (2.0 * std::sqrt(500.0*500.0 + 500.00*500.0) + 100.0) * (M_PI / 648000.0);
-    rules::Triangles triangles(image, pairs, tolrad);
+    rules::StarIdentifier triangles(image, pairs, tolrad);
     int starndxIdentified = triangles.identifyCentralStar();
     std::cout << "triangles " << stopwatch.end() << std::endl;
 

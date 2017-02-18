@@ -25,13 +25,13 @@ HEADERS += \
 
 SOURCES += \
     ../rules-based/pairs_over_whole_sky.cpp \
-    ../rules-based/triangles.cpp \
+    ../rules-based/star_identifier.cpp \
     ../rules-based/triangle_side.cpp \
     ../rules-based/triangle.cpp
 
 HEADERS += \
     ../rules-based/pairs_over_whole_sky.h \
-    ../rules-based/triangles.h \
+    ../rules-based/star_identifier.h \
     ../rules-based/triangle_side.h \
     ../rules-based/triangle.h
 
