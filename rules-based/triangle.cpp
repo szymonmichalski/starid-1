@@ -17,6 +17,14 @@ void rules::Triangle::bd_da(double angbd, double angda,
     prune();
 }
 
+void rules::Triangle::dc_ca(double angdc, Triangle &abc,
+           double tol_radius, rules::PairsOverWholeSky& pairs) {
+    rules::TriangleSide dc(angdc, tol_radius, pairs);
+    ab = ca; // da from abd
+    bc = dc;
+    ca = abc.ca;
+    prune();
+}
 
 void rules::Triangle::prune() {
     for (auto itab = ab.stars.begin(); itab != ab.stars.end(); ) {

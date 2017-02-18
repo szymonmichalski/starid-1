@@ -23,9 +23,14 @@ public:
     ///
     void prune();
 
-    /// *replace bc ca*
+    /// *bd da* create bc and da sides for an abd triangle
     ///
     void bd_da(double angbd, double angda,
+               double tol_radius, rules::PairsOverWholeSky& pairs);
+
+    /// *dc ca* create dc and ca sides for an adc triangle
+    ///
+    void dc_ca(double angbd, Triangle &abc,
                double tol_radius, rules::PairsOverWholeSky& pairs);
 
     /// *fourth star* use the additional information from a fourth star to further constrain the triangle sides. directly reduce sides ab and ca, then prune the triangle;
