@@ -20,7 +20,7 @@ performs testing of the model. star identification is performed on a group of im
 
 given an input image of a star pattern, output an integer identifying the star at the center using methods based on geometry, pairs, triangles, etc. the transformation from the input x to the output y is rather direct and deterministic, but noise in the input complicates things. in particular, loss of angular resolution due to position quantization is effectively a large noise source.
 
-**triangles**
+**star identifier**
 
 find star triangles in the image, and candidate stars that meet the constraints implicit within the triangle. these constraints are effectively the rules for candidate stars. for example, if a triangle consists of star pairs ab and bc, then the third side is ac.
 
@@ -28,7 +28,17 @@ find star triangles in the image, and candidate stars that meet the constraints 
 
 **triangle**
 
-represents a triangle as three constrained sides ab, bc, ca. travel around the sides ab to bc to ca so star pairs are not duplicated. if you turn around and travel ac to cb to ba, you get the same pairs backwards.
+represents a triangle as three constrained sides ab, bc, ca. travel around the sides ab to bc to ca so star pairs are not duplicated. traveling ac to cb to ba, you get the same pairs backwards.
+
+*prune* travel around ab to bc to ca pruning the pairs maps. at the end, prune empty stars from the sides.
+
+*update ab ca* bring in more constrained ab and ca sides
+
+*bd da* create bc and da sides for an abd triangle
+
+*dc ca* create dc and ca sides for an adc triangle
+
+*fourth star* use the additional information from a fourth star to further constrain the triangle sides. directly reduce sides ab and ca, then prune the triangle;
 
 **triangle side**
 

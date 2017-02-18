@@ -12,7 +12,7 @@ star images, sky catalogs, serialized data structures, etc.
 
 **further discussion**
 
-[discussion](http://starid.org), [comments](http://starid.org/comments) from source code, related [documents](http://starid.org/references).
+[discussion](http://starid.org), [comments](http://starid.org/comments) from source code, related [documents](http://starid.org/references), [photos](http://photos.starid.org).
 
 thanks to [tensorflow](http://github.com/tensorflow/tensorflow),
 [armadillo](http://arma.sourceforge.net), [eigen](http://eigen.tuxfamily.org/index.php), [cereal](http://github.com/USCiLab/cereal),
