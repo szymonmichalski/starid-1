@@ -8,6 +8,13 @@ rules::Triangle::Triangle(double angab, double angbc, double angca,
     prune();
 }
 
+void rules::Triangle::update_ab_ca(TriangleSide &abnew, TriangleSide &canew) {
+    ab.stars = abnew.stars;
+    ca.stars = canew.stars;
+    prune();
+}
+
+
 void rules::Triangle::bd_da(double angbd, double angda,
                             double tol_radius, rules::PairsOverWholeSky& pairs) {
     rules::TriangleSide bd(angbd, tol_radius, pairs);

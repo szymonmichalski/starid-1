@@ -44,6 +44,7 @@ int rules::Triangles::identifyCentralStar() {
                 abd.bd_da(angsd[4], angsd[3], tol_radius, all_pairs);
                 Triangle adc = abd;
                 adc.dc_ca(angsd[5], abc, tol_radius, all_pairs);
+                abc.update_ab_ca(abd.ab, adc.ab);
                 int zzz = 1;
             }
         }

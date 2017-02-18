@@ -23,6 +23,10 @@ public:
     ///
     void prune();
 
+    /// *update ab ca* bring in more constrained ab and ca sides
+    ///
+    void update_ab_ca(TriangleSide &ab, TriangleSide &ca);
+
     /// *bd da* create bc and da sides for an abd triangle
     ///
     void bd_da(double angbd, double angda,
