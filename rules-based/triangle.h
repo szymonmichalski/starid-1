@@ -12,34 +12,25 @@ class Triangle
 {
 public:
 
-    Triangle(double angab, double angbc, double angca,
+    Triangle(double ang1, double ang2, double ang3,
              double tol_radius, rules::PairsOverWholeSky& pairs);
 
-    rules::TriangleSide ab;
-    rules::TriangleSide bc;
-    rules::TriangleSide ca;
+    rules::TriangleSide side1;
+    rules::TriangleSide side2;
+    rules::TriangleSide side3;
 
     /// *prune* travel around ab to bc to ca pruning the pairs maps. at the end, prune empty stars from the sides.
     ///
     void prune();
 
-    /// *update ab ca* bring in more constrained ab and ca sides
+    /// *update side1 side3* bring in more constrained sides
     ///
-    void update_ab_ca(TriangleSide &ab, TriangleSide &ca);
+    void update_side1_side3(TriangleSide &side1, TriangleSide &side3);
 
-    /// *bd da* create bc and da sides for an abd triangle
+    /// *side2 side3* create side2 and side3 for an abd triangle
     ///
-    void bd_da(double angbd, double angda,
+    void side2_side3(double ang2, double ang3,
                double tol_radius, rules::PairsOverWholeSky& pairs);
-
-    /// *dc ca* create dc and ca sides for an adc triangle
-    ///
-    void dc_ca(double angbd, Triangle &abc,
-               double tol_radius, rules::PairsOverWholeSky& pairs);
-
-    /// *fourth star* use the additional information from a fourth star to further constrain the triangle sides. directly reduce sides ab and ca, then prune the triangle;
-    ///
-    void fourth_star(double angda, double angdb, double angdc);
 
 };
 

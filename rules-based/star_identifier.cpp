@@ -27,6 +27,7 @@ int rules::StarIdentifier::identifyCentralStar() {
             if (std::abs(angsc[1]-angsc[2]) < min_ang) skipc = true; // bc-ca
             if (skipc) continue;
             Triangle abc(angsc[0], angsc[1], angsc[2], tol_radius, all_pairs);
+            Triangle abd = abc;
             for (int ndxd = 1; ndxd < num_stars; ++ndxd) {
                 if (ndxd == ndxb || ndxd == ndxc) continue;
                 std::vector<double> angsd = angsc;
@@ -35,17 +36,12 @@ int rules::StarIdentifier::identifyCentralStar() {
                 angsd.push_back(std::acos(arma::dot(uvecd, uvecb)));
                 angsd.push_back(std::acos(arma::dot(uvecd, uvecc)));
                 bool skipd = false;
-                if (angsd[3] < min_ang) skipd = skipd; // da allow
+                if (angsd[3] < min_ang) skipd = true; // da allow
                 if (angsd[4] < min_ang) skipd = true; // db
                 if (angsd[5] < min_ang) skipd = true; // dc
-                if (std::abs(angsd[4]-angsd[5]) < min_ang) skipd = true; // db-dc
+                if (std::abs(angsd[4]-angsd[3]) < min_ang) skipd = true; // db-da
                 if (skipd) continue;
-                Triangle abd = abc;
-                abd.bd_da(angsd[4], angsd[3], tol_radius, all_pairs);
-                Triangle adc = abd;
-                adc.dc_ca(angsd[5], abc, tol_radius, all_pairs);
-                abc.update_ab_ca(abd.ab, adc.ab);
-                if (abc.ab.log_star_count.size() == 4) break;
+                abd.side2_side3(angsd[4], angsd[3], tol_radius, all_pairs);
             }
             bool stop = true;
         }
