@@ -10,8 +10,6 @@ directly use inherent properties of star pairs, triangles, etc.
 
 star images, sky catalogs, serialized data structures, etc.
 
-**further discussion**
-
 [discussion](http://starid.org), [comments](http://starid.org/comments) from source code, related [documents](http://starid.org/references), [photos](http://photos.starid.org).
 
 thanks to [tensorflow](http://github.com/tensorflow/tensorflow),
