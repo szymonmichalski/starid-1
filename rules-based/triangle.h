@@ -13,11 +13,14 @@ class Triangle
 public:
 
     Triangle(double ang1, double ang2, double ang3,
-             double tol_radius, rules::PairsOverWholeSky& pairs);
+             double tol_radius,
+             rules::PairsOverWholeSky& pairs,
+             int starndx = -1);
 
     rules::TriangleSide side1;
     rules::TriangleSide side2;
     rules::TriangleSide side3;
+    int starndx;
 
     /// *prune* travel around ab to bc to ca pruning the pairs maps. at the end, prune empty stars from the sides.
     ///

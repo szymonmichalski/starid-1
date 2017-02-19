@@ -14,6 +14,14 @@ class TriangleSide {
 
 public:
 
+    std::vector<int> log_star_count;
+    std::vector<int> log_pair_count;
+    std::vector<bool> log_has_star;
+    int starndx;
+
+    TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs,
+                 int starndx = -1);
+
     /// *prune* remove pairs keys that have value zero, then stars that have no pairs.
     ///
     void prune();
@@ -42,11 +50,6 @@ public:
     /// *pair count* count all pairs
     ///
     int pair_count();
-
-    std::vector<int> log_star_count;
-    std::vector<int> log_pair_count;
-
-    TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs);
 
     /// *stars* each star is a map key whose value is a map of star keys it pairs with
     ///

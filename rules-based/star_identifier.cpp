@@ -26,7 +26,7 @@ int rules::StarIdentifier::identifyCentralStar() {
             if (std::abs(angsc[0]-angsc[2]) < min_ang) skipc = true; // ab-ca
             if (std::abs(angsc[1]-angsc[2]) < min_ang) skipc = true; // bc-ca
             if (skipc) continue;
-            Triangle abc(angsc[0], angsc[1], angsc[2], tol_radius, all_pairs);
+            Triangle abc(angsc[0], angsc[1], angsc[2], tol_radius, all_pairs, 1);
             Triangle abd = abc;
             for (int ndxd = 1; ndxd < num_stars; ++ndxd) {
                 if (ndxd == ndxb || ndxd == ndxc) continue;

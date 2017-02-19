@@ -1,5 +1,12 @@
 #include "triangle_side.h"
 
+rules::TriangleSide::TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs,
+                                  int starndx) : starndx(starndx) {
+    stars = pairs.pairs_map(ang, tol_radius);
+    log_star_count.push_back(stars.size());
+    log_pair_count.push_back(pair_count());
+    log_has_star.push_back(has_star(starndx));
+}
 void::rules::TriangleSide::prune() {
     for (auto it1 = stars.begin(); it1 != stars.end(); ) {
         auto &pairs = it1->second;
@@ -18,6 +25,7 @@ void::rules::TriangleSide::prune() {
     }
     log_star_count.push_back(stars.size());
     log_pair_count.push_back(pair_count());
+    log_has_star.push_back(has_star(starndx));
 }
 
 int rules::TriangleSide::pair_count() {
@@ -99,12 +107,6 @@ std::unordered_map<int, int> rules::TriangleSide::stars_in_three_sides(TriangleS
         if (sideb.has_star(star) && sidec.has_star(star)) result.emplace(star, 1);
     }
     return result;
-}
-
-rules::TriangleSide::TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs) {
-    stars = pairs.pairs_map(ang, tol_radius);
-    log_star_count.push_back(stars.size());
-    log_pair_count.push_back(pair_count());
 }
 
 std::map<int, int> rules::TriangleSide::summary() {
