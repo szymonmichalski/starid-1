@@ -1,6 +1,6 @@
 # how starid came about
 
-some [photos](http://photos.starid.org) and some documents [pdf](1986 hemenway.pdf), [pdf](1986 pierce.pdf), [pdf](1987 hemenway.pdf) to give a feel for the era.
+some [photos](http://photos.starid.org) and documents [pdf](1986 hemenway.pdf), [pdf](1986 pierce.pdf), [pdf](1987 hemenway.pdf).
 
 ## 1990
 
