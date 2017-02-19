@@ -1,5 +1,8 @@
+# how starid came about
+
 some [photos](http://photos.starid.org) and some documents [pdf](1986 hemenway.pdf), [pdf](1986 pierce.pdf), [pdf](1987 hemenway.pdf) to give a feel for the era.
 
+## 1990
 
 in the summer of ninety i was twenty one years old and the previous fall i’d become a research assistant with the hubble space telescope astrometry group, university of texas astronomy department and mcdonald observatory. the berlin wall had fallen in november. hubble had launched in april. i was living in a one room apartment by the back patio of a historic house just north of campus. my landlady, martha ann zively, an eighty three year old local legend, lived overhead. rent was a hundred and fifty dollars. mobile phones, laptops, and the internet were still on the horizon. twin peaks would appear in a few months, and the austin garage rock scene was again gathering steam.
 
