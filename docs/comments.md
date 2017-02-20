@@ -32,13 +32,9 @@ represents a triangle as three constrained sides ab, bc, ca. travel around the s
 
 *prune* travel around ab to bc to ca pruning the pairs maps. at the end, prune empty stars from the sides.
 
-*update ab ca* bring in more constrained ab and ca sides
+*update side1 side3* bring in more constrained sides
 
-*bd da* create bc and da sides for an abd triangle
-
-*dc ca* create dc and ca sides for an adc triangle
-
-*fourth star* use the additional information from a fourth star to further constrain the triangle sides. directly reduce sides ab and ca, then prune the triangle;
+*side2 side3* create side2 and side3 for an abd triangle
 
 **triangle side**
 

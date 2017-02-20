@@ -1,4 +1,10 @@
-# 17.2.2016
+# 20.2.2017
+
+now that it's easy to see exactly when and where the correct star is lost, it makes sense for development purposes to be able to pass its id all the way down in the code. things get much more deterministic.
+
+and the beginnings of how it came about are creeping forward [here](http://starid.org/about).
+
+# 17.2.2017
 
 increased the maximum star pair angle from four degrees to eleven degrees so that any star pair in the field of view is available. this increases the number of star pairs across the sky from 103k to 232k.
 
