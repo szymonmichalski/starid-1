@@ -5,7 +5,7 @@
 #ifndef PAIRS_H
 #define PAIRS_H
 #include "image.h"
-#include "float_int_table.h"
+#include "util/float_int_table.h"
 #include <unordered_map>
 #include <cereal/access.hpp>
 #include <cereal/types/string.hpp>

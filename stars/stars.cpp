@@ -1,11 +1,11 @@
 #include "image.h"
 #include "star_identifier.h"
-#include "mnist.h"
+#include "util/mnist.h"
 #include <armadillo>
-#include "optionparser.h"
+#include "util/optionparser.h"
 #include "cereal/archives/binary.hpp"
 #include <fstream>
-#include "stopwatch.h"
+#include "util/stopwatch.h"
 
 
 std::string datadir = "/home/noah/dev/starid/stars/data/";

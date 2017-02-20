@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-from stars import mnist_to_tfrecords
+from stars.util import mnist_to_tfrecords
 
 imgndx = 13
 

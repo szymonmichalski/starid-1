@@ -6,7 +6,7 @@ import numpy as np
 import tensorflow as tf
 
 import model as gn
-from stars import tfrecords as tr
+from stars.util import tfrecords as tr
 
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/dev/starid/models', '')

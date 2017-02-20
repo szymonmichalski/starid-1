@@ -4,7 +4,7 @@
 #include "sky.h"
 #include <armadillo>
 #include <eigen/Core>
-#include "mnist.h"
+#include "util/mnist.h"
 
 namespace stars {
 

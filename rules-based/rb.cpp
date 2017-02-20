@@ -4,9 +4,9 @@
 ///
 #include "star_identifier.h"
 #include "image.h"
-#include "stopwatch.h"
+#include "util/stopwatch.h"
 #include <armadillo>
-#include "optionparser.h"
+#include "util/optionparser.h"
 #include "cereal/archives/binary.hpp"
 #include <fstream>
 #include <cmath>

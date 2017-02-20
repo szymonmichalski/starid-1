@@ -21,19 +21,19 @@ SOURCES += \
     ../stars/globals.cpp \
     ../stars/image.cpp \
     ../stars/sky.cpp \
-    ../stars/float_int_table.cpp \
-    ../stars/skymap.cpp \
-    ../stars/mnist.cpp
+    ../stars/util/float_int_table.cpp \
+    ../stars/util/skymap.cpp \
+    ../stars/util/mnist.cpp
 
 HEADERS += \
     ../stars/globals.h \
     ../stars/image.h \
     ../stars/sky.h \
-    ../stars/float_int_table.h \
-    ../stars/skymap.h \
-    ../stars/stopwatch.h \
-    ../stars/mnist.h \
-    ../stars/optionparser.h
+    ../stars/util/float_int_table.h \
+    ../stars/util/skymap.h \
+    ../stars/util/stopwatch.h \
+    ../stars/util/mnist.h \
+    ../stars/util/optionparser.h
 
 INCLUDEPATH += \
     ../stars \

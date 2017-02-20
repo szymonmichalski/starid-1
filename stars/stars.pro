@@ -9,19 +9,19 @@ SOURCES += \
     globals.cpp \
     sky.cpp \
     image.cpp \
-    float_int_table.cpp \
-    mnist.cpp \
-    skymap.cpp
+    util/float_int_table.cpp \
+    util/mnist.cpp \
+    util/skymap.cpp
 
 HEADERS += \
     globals.h \
     sky.h \
     image.h \
-    float_int_table.h \
-    mnist.h \
-    skymap.h \
-    stopwatch.h \
-    optionparser.h
+    util/float_int_table.h \
+    util/mnist.h \
+    util/skymap.h \
+    util/stopwatch.h \
+    util/optionparser.h
 
 SOURCES += \
     ../rules-based/pairs_over_whole_sky.cpp \
