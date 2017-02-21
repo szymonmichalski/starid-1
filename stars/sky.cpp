@@ -53,7 +53,7 @@ void stars::Sky::init(std::string fcatin) {
 }
 
 std::vector<int> stars::Sky::starsNearPoint(double x, double y, double z) {
-    double max_ang = 1.4 * stars::imageRadiusRadians;
+    double max_ang = 1.4 * stars::image_radius_radians;
     std::vector<int> xring = starsInRing(x, max_ang, xtable);
     std::vector<int> yring = starsInRing(y, max_ang, ytable);
     std::vector<int> zring = starsInRing(z, max_ang, ztable);

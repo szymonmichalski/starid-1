@@ -18,11 +18,20 @@ void rules::Triangle::update_side1_side3(TriangleSide &side1new, TriangleSide &s
 
 
 void rules::Triangle::side2_side3(double ang2, double ang3,
-                            double tol_radius, rules::PairsOverWholeSky& pairs) {
+                            double tol_radius, rules::PairsOverWholeSky &pairs) {
     rules::TriangleSide side2new(ang2, tol_radius, pairs);
     rules::TriangleSide side3new(ang3, tol_radius, pairs);
     side2 = side2new;
     side3 = side3new;
+    prune();
+}
+
+void rules::Triangle::side1_side2(double ang1, double ang2,
+                            double tol_radius, rules::PairsOverWholeSky &pairs) {
+    rules::TriangleSide side1new(ang1, tol_radius, pairs);
+    rules::TriangleSide side2new(ang2, tol_radius, pairs);
+    side1 = side1new;
+    side2 = side2new;
     prune();
 }
 

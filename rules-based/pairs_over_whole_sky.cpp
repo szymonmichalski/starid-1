@@ -35,8 +35,8 @@ std::unordered_map<int, std::unordered_map<int, int>> rules::PairsOverWholeSky::
     if (ang1 <= 0) ang1 = 0;
     if (ang2 <= 2.0 * tol_radius) ang2 = 2.0 * tol_radius;
 
-    if (ang1 >= stars::imageRadiusRadians - 2.0 * tol_radius) ang1 = stars::imageRadiusRadians - 2.0 * tol_radius;
-    if (ang2 >= stars::imageRadiusRadians) ang2 = stars::imageRadiusRadians;
+    if (ang1 >= stars::image_radius_radians - 2.0 * tol_radius) ang1 = stars::image_radius_radians - 2.0 * tol_radius;
+    if (ang2 >= stars::image_radius_radians) ang2 = stars::image_radius_radians;
 
     std::vector<int> intsFromTable = angletable.findInts(ang1, ang2);
     for (auto ndx : intsFromTable) {
@@ -73,13 +73,13 @@ Eigen::Matrix<int, Eigen::Dynamic, 2> rules::PairsOverWholeSky::pairs_matrix(dou
 
     double ang1 = angle - tol_radius;
     if (ang1 <= 0) ang1 = 0;
-    if (ang1 >= stars::imageRadiusRadians) ang1 = stars::imageRadiusRadians - (stars::imageRadiusRadians/28);
+    if (ang1 >= stars::image_radius_radians) ang1 = stars::image_radius_radians - (stars::image_radius_radians/28);
 
     double ang2 = angle + tol_radius;
-    if (ang2 <= 0) ang2 = 0 + (stars::imageRadiusRadians/28);
-    if (ang2 >= stars::imageRadiusRadians) ang2 = stars::imageRadiusRadians;
+    if (ang2 <= 0) ang2 = 0 + (stars::image_radius_radians/28);
+    if (ang2 >= stars::image_radius_radians) ang2 = stars::image_radius_radians;
 
-    if (ang1 >= ang2) ang1 = ang2 - (stars::imageRadiusRadians/28);
+    if (ang1 >= ang2) ang1 = ang2 - (stars::image_radius_radians/28);
 
     std::vector<int> intsFromTable = angletable.findInts(ang1, ang2);
     int pairsndx = 0;

@@ -16,8 +16,8 @@ void stars::Image::axjAxiImageReadMnist(std::string& imgfile, int imgndx) {
     for (int axjndx = 0; axjndx < 28; ++axjndx) {
         for (int axindx = 0; axindx < 28; ++axindx) {
             if (axjAxiImage(axjndx, axindx) > 0) { // there's a star inside axjndx, axindx
-                double x = stars::imagePixelUnitVectors * ( -13.5 + (double)axindx );
-                double y = stars::imagePixelUnitVectors * ( +13.5 - (double)axjndx );
+                double x = stars::image_pixel_unit_vector_plane * ( -13.5 + (double)axindx );
+                double y = stars::image_pixel_unit_vector_plane * ( +13.5 - (double)axjndx );
                 uvecs(uvecsndx,0) = x;
                 uvecs(uvecsndx,1) = y;
                 uvecs(uvecsndx,2) = std::sqrt(1 - x*x - y*y);
@@ -54,10 +54,10 @@ void stars::Image::axjAxiImageUpdate(arma::mat& axjAxiImage, stars::Sky& sky, in
     for (int ndx = 0; ndx < uvecsndx; ++ndx) {
         double x = std::cos(yaw) * uvecs(ndx,0) - std::sin(yaw) * uvecs(ndx,1);
         double y = std::sin(yaw) * uvecs(ndx,0) + std::cos(yaw) * uvecs(ndx,1);
-        double axi = x + stars::imageRadiusUnitVectors;
-        double axj = -y + stars::imageRadiusUnitVectors;
-        int axindx = std::floor( axi / stars::imagePixelUnitVectors );
-        int axjndx = std::floor( axj / stars::imagePixelUnitVectors );
+        double axi = x + stars::image_radius_unit_vector_plane;
+        double axj = -y + stars::image_radius_unit_vector_plane;
+        int axindx = std::floor( axi / stars::image_pixel_unit_vector_plane );
+        int axjndx = std::floor( axj / stars::image_pixel_unit_vector_plane );
         if (axjndx < 0 || axjndx > 27) continue;
         if (axindx < 0 || axindx > 27) continue;
         axjAxiImage(axjndx, axindx) = 255.0;

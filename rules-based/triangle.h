@@ -30,10 +30,15 @@ public:
     ///
     void update_side1_side3(TriangleSide &side1, TriangleSide &side3);
 
-    /// *side2 side3* create side2 and side3 for an abd triangle
+    /// *side2 side3* create side2 and side3 for an abda triangle
     ///
     void side2_side3(double ang2, double ang3,
-               double tol_radius, rules::PairsOverWholeSky& pairs);
+               double tol_radius, rules::PairsOverWholeSky &pairs);
+
+    /// *side1 side2* create side1 and side2 for an adca triangle
+    ///
+    void side1_side2(double ang1, double ang2,
+               double tol_radius, rules::PairsOverWholeSky &pairs);
 
 };
 

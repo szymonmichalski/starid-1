@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
         oarchive1(sky);
 
         rules::PairsOverWholeSky pairs;
-        pairs.init(stars::maxStarPairAngle, sky);
+        pairs.init(stars::star_pair_angle_limit, sky);
         std::ofstream os2(std::string(datadir + "pairs.cereal"));
         cereal::BinaryOutputArchive oarchive2(os2);
         oarchive2(pairs);

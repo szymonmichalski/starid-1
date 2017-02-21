@@ -26,8 +26,9 @@ int rules::StarIdentifier::identifyCentralStar() {
             if (std::abs(angsc[0]-angsc[2]) < min_ang) skipc = true; // ab-ca
             if (std::abs(angsc[1]-angsc[2]) < min_ang) skipc = true; // bc-ca
             if (skipc) continue;
-            Triangle abc(angsc[0], angsc[1], angsc[2], tol_radius, all_pairs, 1);
-            Triangle abd = abc;
+            Triangle abca(angsc[0], angsc[1], angsc[2], tol_radius, all_pairs, 1);
+            Triangle abda = abca;
+            Triangle adca = abca;
             for (int ndxd = 1; ndxd < num_stars; ++ndxd) {
                 if (ndxd == ndxb || ndxd == ndxc) continue;
                 std::vector<double> angsd = angsc;
@@ -41,7 +42,8 @@ int rules::StarIdentifier::identifyCentralStar() {
                 if (angsd[5] < min_ang) skipd = true; // dc
                 if (std::abs(angsd[4]-angsd[3]) < min_ang) skipd = true; // db-da
                 if (skipd) continue;
-                abd.side2_side3(angsd[4], angsd[3], tol_radius, all_pairs);
+                abda.side2_side3(angsd[4], angsd[3], tol_radius, all_pairs);
+                adca.side1_side2(angsd[3], angsd[5], tol_radius, all_pairs);
             }
             bool stop = true;
         }
