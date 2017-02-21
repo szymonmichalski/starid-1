@@ -26,10 +26,6 @@ public:
     ///
     void prune();
 
-    /// *update side1 side3* bring in more constrained sides
-    ///
-    void update_side1_side3(TriangleSide &side1, TriangleSide &side3);
-
     /// *side2 side3* create side2 and side3 for an abda triangle
     ///
     void side2_side3(double ang2, double ang3,
@@ -39,6 +35,10 @@ public:
     ///
     void side1_side2(double ang1, double ang2,
                double tol_radius, rules::PairsOverWholeSky &pairs);
+
+    void update13(TriangleSide &side1new, TriangleSide &side3new);
+    void update1(TriangleSide &side1new);
+    void update3(TriangleSide &side3new);
 
 };
 

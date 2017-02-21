@@ -44,6 +44,9 @@ int rules::StarIdentifier::identifyCentralStar() {
                 if (skipd) continue;
                 abda.side2_side3(angsd[4], angsd[3], tol_radius, all_pairs);
                 adca.side1_side2(angsd[3], angsd[5], tol_radius, all_pairs);
+                abca.update13(abda.side1, adca.side3);
+                abda.update1(abca.side1);
+                adca.update3(abca.side3);
             }
             bool stop = true;
         }
