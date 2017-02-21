@@ -34,7 +34,9 @@ represents a triangle as three constrained sides ab, bc, ca. travel around the s
 
 *update side1 side3* bring in more constrained sides
 
-*side2 side3* create side2 and side3 for an abd triangle
+*side2 side3* create side2 and side3 for an abda triangle
+
+*side1 side2* create side1 and side2 for an adca triangle
 
 **triangle side**
 
