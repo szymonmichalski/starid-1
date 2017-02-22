@@ -1,4 +1,4 @@
-# references
+**references**
 
 2014 - laser reference sensor alignment tracking and star observations - smith, bae, schutz - journal of spacecraft and rockets - [pdf](2014 jsr c.pdf)
 
@@ -24,7 +24,7 @@
 
 2008 - precision orbit and attitude determination for icesat - schutz, bae, smith, sirota - advances in the astronautical sciences - [pdf](2008 aas.pdf)
 
-# star identification references
+**star identification references**
 
 1993 - pattern recognition of star constellations for spacecraft applications - liebe - ieee aerospace and electronic systems magazine - [pdf](1993 liebe.pdf)
 
@@ -34,7 +34,7 @@
 
 2009 - a survey on star identification algorithms - spratling, mortari - algorithms - [pdf](2009 spratling.pdf)
 
-# texas minor planet project
+**texas minor planet project**
 
 1986 - the use of space telescope to tie the hipparcos reference frame to an extragalactic reference frame - hemenway, duncombe - astrometric techniques - [pdf](1986 hemenway.pdf)
 

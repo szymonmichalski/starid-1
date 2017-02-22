@@ -1,4 +1,3 @@
-# learning
 **learning based star identification**
 
 given an input image of a star pattern, output an integer identifying the star at the center using methods based on convolutional networks, support vector machines, etc. these methods require learning a model and the transformation from the input x to the output y is a rather opaque black box compared to, for example, a matrix multiplication y = Hx.
@@ -15,7 +14,6 @@ performs training of the model.
 
 performs testing of the model. star identification is performed on a group of images and the results are scored.
 
-# heuristics
 **rules based heuristic star identification**
 
 given an input image of a star pattern, output an integer identifying the star at the center using methods based on geometry, pairs, triangles, etc. the transformation from the input x to the output y is rather direct and deterministic, but noise in the input complicates things. in particular, loss of angular resolution due to position quantization is effectively a large noise source.
@@ -31,8 +29,6 @@ find star triangles in the image, and candidate stars that meet the constraints 
 represents a triangle as three constrained sides ab, bc, ca. travel around the sides ab to bc to ca so star pairs are not duplicated. traveling ac to cb to ba, you get the same pairs backwards.
 
 *prune* travel around ab to bc to ca pruning the pairs maps. at the end, prune empty stars from the sides.
-
-*update side1 side3* bring in more constrained sides
 
 *side2 side3* create side2 and side3 for an abda triangle
 
