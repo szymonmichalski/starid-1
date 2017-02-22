@@ -42,11 +42,26 @@ int rules::StarIdentifier::identifyCentralStar() {
                 if (angsd[5] < min_ang) skipd = true; // dc
                 if (std::abs(angsd[4]-angsd[3]) < min_ang) skipd = true; // db-da
                 if (skipd) continue;
-                abda.side2_side3(angsd[4], angsd[3], tol_radius, all_pairs);
-                adca.side1_side2(angsd[3], angsd[5], tol_radius, all_pairs);
-                abca.update13(abda.side1, adca.side3);
-                abda.update1(abca.side1);
-                adca.update3(abca.side3);
+
+                rules::TriangleSide side2new1(angsd[4], tol_radius, all_pairs);
+                rules::TriangleSide side3new(angsd[3], tol_radius, all_pairs);
+                abda.side2.stars = side2new1.stars;
+                abda.side3.stars = side3new.stars;
+                abda.prune();
+
+                adca.side1.stars = abda.side3.stars;
+                rules::TriangleSide side2new2(angsd[5], tol_radius, all_pairs);
+                adca.side2.stars = side2new2.stars;
+                adca.prune();
+
+                for (int cnt = 0; cnt < 1; ++cnt){
+                    abda.side3.stars = adca.side1.stars;
+                    abda.prune();
+                    adca.side1.stars = abda.side3.stars;
+                    adca.prune();
+                    abca.update13(abda.side1, adca.side3);
+                }
+
             }
             bool stop = true;
         }
