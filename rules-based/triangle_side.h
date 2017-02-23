@@ -23,9 +23,9 @@ public:
                  int teststar);
     TriangleSide(int teststar);
 
-    /// *intersect stars* reduce stars to match those in another star, while preserving pair information
+    /// *refresh pairs* bring back pair information from an earlier side
     ///
-    static rules::TriangleSide intersect_stars(TriangleSide &side1, TriangleSide &side2);
+    void refresh_pairs(TriangleSide &side);
 
     /// *prune* remove pairs keys that have value zero, then stars that have no pairs.
     ///

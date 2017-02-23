@@ -13,18 +13,12 @@ rules::TriangleSide::TriangleSide(int teststar)
 
 }
 
-static rules::TriangleSide rules::TriangleSide::intersect_stars(TriangleSide &side1, TriangleSide &side2)
+void rules::TriangleSide::refresh_pairs(TriangleSide &side)
 {
-    TriangleSide newside = side1;
-    for (auto it2 = side2.stars.begin(); it2 != side2.stars.end(); ) {
-        auto it1 = side1.stars.find(it2->first);
-        if (it1 == side1.stars.end())
-            it2 = side2.stars.erase(it2);
-        else
-            ++it2;
+    for (auto it1 = stars.begin(), end = stars.end(); it1 != end; ++it1) {
+        auto it2 = side.stars.find(it1->first);
+        it1->second = it2->second;
     }
-    newside.stars = side2.stars;
-    return newside;
 }
 
 

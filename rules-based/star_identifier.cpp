@@ -39,10 +39,9 @@ int rules::StarIdentifier::identifyCentralStar() {
                 abca.side3.stars = side3.stars;
                 abca.prune();
             } else {
-                rules::TriangleSide side1 = rules::TriangleSide::intersect_stars(abca.side1, firstside1);
                 rules::TriangleSide side2(angsc[1], tol_radius, all_pairs, teststar);
                 rules::TriangleSide side3(angsc[2], tol_radius, all_pairs, teststar);
-                abca.side1.stars = side1.stars;
+                abca.side1.refresh_pairs(firstside1);
                 abca.side2.stars = side2.stars;
                 abca.side3.stars = side3.stars;
                 abca.prune();
