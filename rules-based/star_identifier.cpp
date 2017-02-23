@@ -12,7 +12,7 @@ int rules::StarIdentifier::identifyCentralStar() {
     for (int ndxb = 1; ndxb < num_stars; ++ndxb) {
         arma::vec uvecb = arma::trans(image.uvecs.row(ndxb)); // star b
         double angab = std::acos(arma::dot(uveca, uvecb));
-        TriangleSide absideref(angab, tol_radius, all_pairs, teststar);
+        TriangleSide firstside1(angab, tol_radius, all_pairs, teststar);
         Triangle abca(teststar);
         std::vector<Triangle> log_abca;
         for (int ndxc = 1; ndxc < num_stars; ++ndxc) {
@@ -34,15 +34,15 @@ int rules::StarIdentifier::identifyCentralStar() {
             if (log_abca.empty()) {
                 rules::TriangleSide side2(angsc[1], tol_radius, all_pairs, teststar);
                 rules::TriangleSide side3(angsc[2], tol_radius, all_pairs, teststar);
-                abca.side1.stars = absideref.stars;
+                abca.side1.stars = firstside1.stars;
                 abca.side2.stars = side2.stars;
                 abca.side3.stars = side3.stars;
                 abca.prune();
             } else {
-                absideref.intersect_stars(abca.side1);
+                rules::TriangleSide side1 = rules::TriangleSide::intersect_stars(abca.side1, firstside1);
                 rules::TriangleSide side2(angsc[1], tol_radius, all_pairs, teststar);
                 rules::TriangleSide side3(angsc[2], tol_radius, all_pairs, teststar);
-                abca.side1.stars = absideref.stars;
+                abca.side1.stars = side1.stars;
                 abca.side2.stars = side2.stars;
                 abca.side3.stars = side3.stars;
                 abca.prune();
@@ -76,6 +76,8 @@ int rules::StarIdentifier::identifyCentralStar() {
                 adca.side1.stars = abda.side3.stars;
                 adca.prune();
                 abca.update13(abda.side1, adca.side3);
+                if (!abca.side1.log_teststar.back())
+                    break;
             }
             log_abca.push_back(abca);
             bool stop = true;

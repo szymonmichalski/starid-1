@@ -6,21 +6,25 @@ rules::TriangleSide::TriangleSide(double ang, double tol_radius, rules::PairsOve
     stars = pairs.pairs_map(ang, tol_radius);
     log_star_count.push_back(stars.size());
     log_pair_count.push_back(pair_count());
-    log_teststar.push_back(has_star(starndx));
+    log_teststar.push_back(has_teststar(starndx));
 }
 rules::TriangleSide::TriangleSide(int teststar)
     : teststar(teststar) {
 
 }
 
-void rules::TriangleSide::intersect_stars(TriangleSide &other_side) {
-    for (auto it1 = stars.begin(); it1 != stars.end(); ) {
-        auto it2 = other_side.stars.find(it1->first);
-        if (it2 == other_side.stars.end())
-            it1 = stars.erase(it1);
+static rules::TriangleSide rules::TriangleSide::intersect_stars(TriangleSide &side1, TriangleSide &side2)
+{
+    TriangleSide newside = side1;
+    for (auto it2 = side2.stars.begin(); it2 != side2.stars.end(); ) {
+        auto it1 = side1.stars.find(it2->first);
+        if (it1 == side1.stars.end())
+            it2 = side2.stars.erase(it2);
         else
-            ++it1;
+            ++it2;
     }
+    newside.stars = side2.stars;
+    return newside;
 }
 
 
@@ -42,7 +46,7 @@ void::rules::TriangleSide::prune() {
     }
     log_star_count.push_back(stars.size());
     log_pair_count.push_back(pair_count());
-    log_teststar.push_back(has_star(teststar));
+    log_teststar.push_back(has_teststar(teststar));
 }
 
 int rules::TriangleSide::pair_count() {
@@ -102,10 +106,10 @@ void rules::TriangleSide::constraint_side(TriangleSide &ll, TriangleSide &lu,
         auto &inner = it1->second;
         for (auto it2 = inner.begin(); it2 != inner.end(); ) {
             int star2 = it2->first;
-            if ( (ll.has_star(star1) && lu.has_star(star1)) &&
-                 (rl.has_star(star2) && ru.has_star(star2)) ) ++it2;
-            else if ( (ll.has_star(star2) && lu.has_star(star2)) &&
-                      (rl.has_star(star1) && ru.has_star(star1)) ) ++it2;
+            if ( (ll.has_teststar(star1) && lu.has_teststar(star1)) &&
+                 (rl.has_teststar(star2) && ru.has_teststar(star2)) ) ++it2;
+            else if ( (ll.has_teststar(star2) && lu.has_teststar(star2)) &&
+                      (rl.has_teststar(star1) && ru.has_teststar(star1)) ) ++it2;
             //            if ( (ll.has_star(star1) || lu.has_star(star1)) &&
             //                 (rl.has_star(star2) || ru.has_star(star2)) ) ++it2;
             //            else if ( (ll.has_star(star2) || lu.has_star(star2)) &&
@@ -121,7 +125,7 @@ std::unordered_map<int, int> rules::TriangleSide::stars_in_three_sides(TriangleS
     std::unordered_map<int, int> result;
     for (auto it1 = stars.begin(), end = stars.end(); it1 != end; ++it1) {
         int star = it1->first;
-        if (sideb.has_star(star) && sidec.has_star(star)) result.emplace(star, 1);
+        if (sideb.has_teststar(star) && sidec.has_teststar(star)) result.emplace(star, 1);
     }
     return result;
 }
@@ -135,7 +139,7 @@ std::map<int, int> rules::TriangleSide::summary() {
     return result;
 }
 
-bool rules::TriangleSide::has_star(int starndx) {
+bool rules::TriangleSide::has_teststar(int starndx) {
     auto it = stars.find(starndx);
     if (it == stars.end()) return false;
     return true;

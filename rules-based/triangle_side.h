@@ -25,7 +25,7 @@ public:
 
     /// *intersect stars* reduce stars to match those in another star, while preserving pair information
     ///
-    void intersect_stars(TriangleSide &other_side);
+    static rules::TriangleSide intersect_stars(TriangleSide &side1, TriangleSide &side2);
 
     /// *prune* remove pairs keys that have value zero, then stars that have no pairs.
     ///
@@ -46,7 +46,7 @@ public:
 
     /// *has star* return true if star is in the side
     ///
-    bool has_star(int teststar);
+    bool has_teststar(int teststar);
 
     /// *stars in three sides* merge stars from ad, ab, ac
     ///
