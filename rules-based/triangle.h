@@ -15,12 +15,13 @@ public:
     Triangle(double ang1, double ang2, double ang3,
              double tol_radius,
              rules::PairsOverWholeSky& pairs,
-             int starndx = -1);
+             int teststar);
+    Triangle(int teststar);
 
     rules::TriangleSide side1;
     rules::TriangleSide side2;
     rules::TriangleSide side3;
-    int starndx;
+    int teststar;
 
     /// *prune* travel around ab to bc to ca pruning the pairs maps. at the end, prune empty stars from the sides.
     ///

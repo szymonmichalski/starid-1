@@ -16,11 +16,16 @@ public:
 
     std::vector<int> log_star_count;
     std::vector<int> log_pair_count;
-    std::vector<bool> log_has_star;
-    int starndx;
+    std::vector<bool> log_teststar;
+    int teststar;
 
     TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs,
-                 int starndx = -1);
+                 int teststar);
+    TriangleSide(int teststar);
+
+    /// *intersect stars* reduce stars to match those in another star, while preserving pair information
+    ///
+    void intersect_stars(TriangleSide &other_side);
 
     /// *prune* remove pairs keys that have value zero, then stars that have no pairs.
     ///
@@ -41,7 +46,7 @@ public:
 
     /// *has star* return true if star is in the side
     ///
-    bool has_star(int starndx);
+    bool has_star(int teststar);
 
     /// *stars in three sides* merge stars from ad, ab, ac
     ///

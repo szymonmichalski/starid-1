@@ -1,12 +1,29 @@
 #include "triangle_side.h"
 
 rules::TriangleSide::TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs,
-                                  int starndx) : starndx(starndx) {
+                                  int starndx)
+    : teststar(starndx) {
     stars = pairs.pairs_map(ang, tol_radius);
     log_star_count.push_back(stars.size());
     log_pair_count.push_back(pair_count());
-    log_has_star.push_back(has_star(starndx));
+    log_teststar.push_back(has_star(starndx));
 }
+rules::TriangleSide::TriangleSide(int teststar)
+    : teststar(teststar) {
+
+}
+
+void rules::TriangleSide::intersect_stars(TriangleSide &other_side) {
+    for (auto it1 = stars.begin(); it1 != stars.end(); ) {
+        auto it2 = other_side.stars.find(it1->first);
+        if (it2 == other_side.stars.end())
+            it1 = stars.erase(it1);
+        else
+            ++it1;
+    }
+}
+
+
 void::rules::TriangleSide::prune() {
     for (auto it1 = stars.begin(); it1 != stars.end(); ) {
         auto &pairs = it1->second;
@@ -25,7 +42,7 @@ void::rules::TriangleSide::prune() {
     }
     log_star_count.push_back(stars.size());
     log_pair_count.push_back(pair_count());
-    log_has_star.push_back(has_star(starndx));
+    log_teststar.push_back(has_star(teststar));
 }
 
 int rules::TriangleSide::pair_count() {

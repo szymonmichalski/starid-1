@@ -2,12 +2,19 @@
 
 rules::Triangle::Triangle(double ang1, double ang2, double ang3,
                           double tol_radius, rules::PairsOverWholeSky& pairs,
-                          int starndx) :
-    side1(ang1, tol_radius, pairs, 1),
-    side2(ang2, tol_radius, pairs, 1),
-    side3(ang3, tol_radius, pairs, 1),
-    starndx(starndx) {
+                          int teststar)
+    : side1(ang1, tol_radius, pairs, teststar),
+    side2(ang2, tol_radius, pairs, teststar),
+    side3(ang3, tol_radius, pairs, teststar),
+    teststar(teststar) {
     prune();
+}
+rules::Triangle::Triangle(int teststar)
+    : side1(teststar),
+      side2(teststar),
+      side3(teststar),
+      teststar(teststar) {
+
 }
 
 void rules::Triangle::update13(TriangleSide &side1new, TriangleSide &side3new) {
@@ -50,8 +57,8 @@ void rules::Triangle::update3(TriangleSide &side3new) {
 
 void rules::Triangle::side2_side3(double ang2, double ang3,
                             double tol_radius, rules::PairsOverWholeSky &pairs) {
-    rules::TriangleSide side2new(ang2, tol_radius, pairs);
-    rules::TriangleSide side3new(ang3, tol_radius, pairs);
+    rules::TriangleSide side2new(ang2, tol_radius, pairs, teststar);
+    rules::TriangleSide side3new(ang3, tol_radius, pairs, teststar);
     side2 = side2new;
     side3 = side3new;
     prune();
@@ -59,8 +66,8 @@ void rules::Triangle::side2_side3(double ang2, double ang3,
 
 void rules::Triangle::side1_side2(double ang1, double ang2,
                             double tol_radius, rules::PairsOverWholeSky &pairs) {
-    rules::TriangleSide side1new(ang1, tol_radius, pairs);
-    rules::TriangleSide side2new(ang2, tol_radius, pairs);
+    rules::TriangleSide side1new(ang1, tol_radius, pairs, teststar);
+    rules::TriangleSide side2new(ang2, tol_radius, pairs, teststar);
     side1 = side1new;
     side2 = side2new;
     prune();
