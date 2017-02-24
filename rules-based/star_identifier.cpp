@@ -12,7 +12,7 @@ int rules::StarIdentifier::identifyCentralStar() {
     for (int ndxb = 1; ndxb < num_stars; ++ndxb) {
         arma::vec uvecb = arma::trans(image.uvecs.row(ndxb)); // star b
         double angab = std::acos(arma::dot(uveca, uvecb));
-        TriangleSide firstside1(angab, tol_radius, all_pairs, teststar);
+        TriangleSide abfirst(angab, tol_radius, all_pairs, teststar);
         Triangle abca(teststar);
         std::vector<Triangle> log_abca;
         for (int ndxc = 1; ndxc < num_stars; ++ndxc) {
@@ -34,14 +34,14 @@ int rules::StarIdentifier::identifyCentralStar() {
             if (log_abca.empty()) {
                 rules::TriangleSide side2(angsc[1], tol_radius, all_pairs, teststar);
                 rules::TriangleSide side3(angsc[2], tol_radius, all_pairs, teststar);
-                abca.side1.stars = firstside1.stars;
+                abca.side1.stars = abfirst.stars;
                 abca.side2.stars = side2.stars;
                 abca.side3.stars = side3.stars;
                 abca.prune();
             } else {
                 rules::TriangleSide side2(angsc[1], tol_radius, all_pairs, teststar);
                 rules::TriangleSide side3(angsc[2], tol_radius, all_pairs, teststar);
-                abca.side1.refresh_pairs(firstside1);
+                abca.side1.refresh_pairs(abfirst);
                 abca.side2.stars = side2.stars;
                 abca.side3.stars = side3.stars;
                 abca.prune();
@@ -61,19 +61,23 @@ int rules::StarIdentifier::identifyCentralStar() {
                 if (angsd[5] < min_ang) skipd = true; // dc
                 if (std::abs(angsd[4]-angsd[3]) < min_ang) skipd = true; // db-da
                 if (skipd) continue;
-                rules::TriangleSide side2new1(angsd[4], tol_radius, all_pairs, teststar);
-                rules::TriangleSide side3new(angsd[3], tol_radius, all_pairs, teststar);
-                abda.side2.stars = side2new1.stars;
-                abda.side3.stars = side3new.stars;
+
+                rules::TriangleSide bd(angsd[4], tol_radius, all_pairs, teststar);
+                rules::TriangleSide da(angsd[3], tol_radius, all_pairs, teststar);
+                abda.side2.stars = bd.stars;
+                abda.side3.stars = da.stars;
                 abda.prune();
+
                 adca.side1.stars = abda.side3.stars;
-                rules::TriangleSide side2new2(angsd[5], tol_radius, all_pairs, teststar);
-                adca.side2.stars = side2new2.stars;
+                rules::TriangleSide dc(angsd[5], tol_radius, all_pairs, teststar);
+                adca.side2.stars = dc.stars;
                 adca.prune();
+
                 abda.side3.stars = adca.side1.stars;
                 abda.prune();
                 adca.side1.stars = abda.side3.stars;
                 adca.prune();
+
                 abca.update13(abda.side1, adca.side3);
                 if (!abca.side1.log_teststar.back())
                     break;
