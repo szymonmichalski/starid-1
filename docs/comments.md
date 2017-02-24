@@ -38,6 +38,8 @@ represents a triangle as three constrained sides ab, bc, ca. travel around the s
 
 for adding, finding, removing, etc star pairs to a triangle side. one objective here is to work with maps of unique star keys, one key per star, rather than maps with multiple keys per star. this means using unordered_map, not unordered_multimap.
 
+*refresh pairs* bring back pair information from an earlier side
+
 *prune* remove pairs keys that have value zero, then stars that have no pairs.
 
 *close_loop* loop of three stars forming three linked pairs around three triangle sides
