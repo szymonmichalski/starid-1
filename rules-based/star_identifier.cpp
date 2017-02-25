@@ -83,6 +83,14 @@ int rules::StarIdentifier::identifyCentralStar() {
                     break;
             }
             log_abca.push_back(abca);
+            int abca_log = abca.side1.log_teststar.size();
+            int abca1_stars = abca.side1.stars.size();
+            int abca3_stars = abca.side3.stars.size();
+            bool abca1_teststar = abca.side1.log_teststar.back();
+            bool abca3_teststar = abca.side3.log_teststar.back();
+            std::cout << abca_log << ' ' << abca1_stars << ' ' << abca3_stars
+                      << ' ' << abca1_teststar << ' ' << abca3_teststar << std::endl;
+
             bool stop = true;
         }
         std::unordered_map<int, int> merged; // = ad.stars_in_three_sides(ab, ac);
