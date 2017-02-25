@@ -64,6 +64,7 @@ int rules::StarIdentifier::identifyCentralStar() {
 
                 rules::TriangleSide bd(angsd[4], tol_radius, all_pairs, teststar);
                 rules::TriangleSide da(angsd[3], tol_radius, all_pairs, teststar);
+                abda.side1.refresh_pairs(abfirst);
                 abda.side2.stars = bd.stars;
                 abda.side3.stars = da.stars;
                 abda.link_sides();
@@ -84,20 +85,20 @@ int rules::StarIdentifier::identifyCentralStar() {
                 if (!abca.side1.log_teststar.back()) {
                     int abca1_size = abca.side1.log_star_count.size();
                     int abca1_stars = abca.side1.stars.size();
-                    int abca3_stars = abca.side3.stars.size();
                     bool abca1_teststar = false;
                     bool abca3_teststar = abca.side3.log_teststar.back();
                     break;
                 }
             }
             log_abca.push_back(abca);
-//            int abca_log_size = abca.side1.log_teststar.size();
-//            int abca1_stars = abca.side1.stars.size();
-//            int abca3_stars = abca.side3.stars.size();
-//            bool abca1_teststar = abca.side1.log_teststar.back();
-//            bool abca3_teststar = abca.side3.log_teststar.back();
-//            std::cout << abca_log_size << ' ' << abca1_stars << ' ' << abca3_stars
-//                      << ' ' << abca1_teststar << ' ' << abca3_teststar << std::endl;
+            int abca_log_size = abca.side1.log_teststar.size();
+            int abca1_stars = abca.side1.stars.size();
+            int abca3_stars = abca.side3.stars.size();
+            bool abca1_teststar = abca.side1.log_teststar.back();
+            bool abca3_teststar = abca.side3.log_teststar.back();
+            std::cout << abca_log_size << ' ' << abca1_stars << ' ' << abca3_stars
+                      << ' ' << abca1_teststar << ' ' << abca3_teststar << std::endl;
+            continue;
         }
         std::unordered_map<int, int> merged; // = ad.stars_in_three_sides(ab, ac);
         update_stars(curstars, merged);
