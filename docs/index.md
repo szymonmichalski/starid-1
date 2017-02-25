@@ -1,3 +1,12 @@
+*25.2.2017*
+
+first stable deep iterations...
+
+    1 19 5347 1 1
+    2 38 4511 1 1
+    3 57 4146 1 1
+    4 75 3818 1 1
+
 *20.2.2017*
 
 now that it's easy to see exactly when and where the correct star is lost, it makes sense for development purposes to be able to pass its id all the way down in the code. things get much more deterministic.
