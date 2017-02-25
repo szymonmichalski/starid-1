@@ -34,6 +34,8 @@ a few days after scanning that first plate, i went to meet with paul and ray in 
 
 *2003*
 
+thirteen years later i began grad school in the aerospace department. from the the first day, i went to work for the icesat group of the center for space research, headed by bob schutz. as hoped and expected, my job concerned the missions star trackers. these are onboard astronomical telescopes used to determine orientation in space from the stars. they are the direct modern descendent of the old school sextant used at sea for celestial navigation. again we’re looking at simple images of the sky with a scattering of stars. the classic problem in the star tracker world is called the lost in space problem. given a star tracker image of some stars, and nothing else, what stars are we looking at?
+
 *notes*
 
 thanks to [ed nather](https://en.wikipedia.org/wiki/The_Story_of_Mel) and the [story of mel](http://www.pbm.com/~lindahl/mel.html). i looked up to ed back in the day, and even worked in his lab. it's been an inspiration.
