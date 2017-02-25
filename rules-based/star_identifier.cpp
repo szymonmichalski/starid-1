@@ -37,14 +37,14 @@ int rules::StarIdentifier::identifyCentralStar() {
                 abca.side1.stars = abfirst.stars;
                 abca.side2.stars = side2.stars;
                 abca.side3.stars = side3.stars;
-                abca.prune();
+                abca.connect_pairs();
             } else {
                 rules::TriangleSide side2(angsc[1], tol_radius, all_pairs, teststar);
                 rules::TriangleSide side3(angsc[2], tol_radius, all_pairs, teststar);
                 abca.side1.refresh_pairs(abfirst);
                 abca.side2.stars = side2.stars;
                 abca.side3.stars = side3.stars;
-                abca.prune();
+                abca.connect_pairs();
             }
             Triangle abda = abca;
             Triangle adca = abca;
@@ -66,17 +66,17 @@ int rules::StarIdentifier::identifyCentralStar() {
                 rules::TriangleSide da(angsd[3], tol_radius, all_pairs, teststar);
                 abda.side2.stars = bd.stars;
                 abda.side3.stars = da.stars;
-                abda.prune();
+                abda.connect_pairs();
 
                 adca.side1.stars = abda.side3.stars;
                 rules::TriangleSide dc(angsd[5], tol_radius, all_pairs, teststar);
                 adca.side2.stars = dc.stars;
-                adca.prune();
+                adca.connect_pairs();
 
                 abda.side3.stars = adca.side1.stars;
-                abda.prune();
+                abda.connect_pairs();
                 adca.side1.stars = abda.side3.stars;
-                adca.prune();
+                adca.connect_pairs();
 
                 abca.update13(abda.side1, adca.side3);
                 if (!abca.side1.log_teststar.back())

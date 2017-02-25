@@ -28,7 +28,7 @@ find star triangles in the image, and candidate stars that meet the constraints 
 
 represents a triangle as three constrained sides ab, bc, ca. travel around the sides ab to bc to ca so star pairs are not duplicated. traveling ac to cb to ba, you get the same pairs backwards.
 
-*prune* travel around ab to bc to ca pruning the pairs maps. at the end, prune empty stars from the sides.
+*connect pairs* travel around sides ab to bc to ca connecting by pairs.
 
 *side2 side3* create side2 and side3 for an abda triangle
 
@@ -40,11 +40,7 @@ for adding, finding, removing, etc star pairs to a triangle side. one objective 
 
 *refresh pairs* bring back pair information from an earlier side
 
-*prune* remove pairs keys that have value zero, then stars that have no pairs.
-
-*close_loop* loop of three stars forming three linked pairs around three triangle sides
-
-*constraint side* this side is shared by two adjacent triangles. star pair members have to also be in appropriate combinations of the other four triangle sides. picture the bc case, ll left lower ab, lu left upper db, rl right lower ac, ru right upper dc
+*clean side* remove pairs keys that have value zero, then stars that have no pairs.
 
 *summary* returns a sorted map of stars with the initial number of pairs. the pairs become outdatated over time as stars are removed from the side.
 

@@ -27,18 +27,9 @@ public:
     ///
     void refresh_pairs(TriangleSide &side);
 
-    /// *prune* remove pairs keys that have value zero, then stars that have no pairs.
+    /// *clean side* remove pairs keys that have value zero, then stars that have no pairs.
     ///
-    void prune();
-
-    /// *close_loop* loop of three stars forming three linked pairs around three triangle sides
-    ///
-    void close_loop(TriangleSide &side2, TriangleSide &side3);
-
-    /// *constraint side* this side is shared by two adjacent triangles. star pair members have to also be in appropriate combinations of the other four triangle sides. picture the bc case, ll left lower ab, lu left upper db, rl right lower ac, ru right upper dc
-    ///
-    void constraint_side(TriangleSide &ll, TriangleSide &lu,
-                        TriangleSide &rl, TriangleSide &ru);
+    void clean_side();
 
     /// *summary* returns a sorted map of stars with the initial number of pairs. the pairs become outdatated over time as stars are removed from the side.
     ///

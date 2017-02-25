@@ -23,9 +23,9 @@ public:
     rules::TriangleSide side3;
     int teststar;
 
-    /// *prune* travel around ab to bc to ca pruning the pairs maps. at the end, prune empty stars from the sides.
+    /// *connect pairs* travel around sides ab to bc to ca connecting by pairs.
     ///
-    void prune();
+    void connect_pairs();
 
     /// *side2 side3* create side2 and side3 for an abda triangle
     ///

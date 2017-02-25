@@ -7,7 +7,7 @@ rules::Triangle::Triangle(double ang1, double ang2, double ang3,
     side2(ang2, tol_radius, pairs, teststar),
     side3(ang3, tol_radius, pairs, teststar),
     teststar(teststar) {
-    prune();
+    connect_pairs();
 }
 rules::Triangle::Triangle(int teststar)
     : side1(teststar),
@@ -32,7 +32,7 @@ void rules::Triangle::update13(TriangleSide &side1new, TriangleSide &side3new) {
         else
             ++it3;
     }
-    prune();
+    connect_pairs();
 }
 void rules::Triangle::update1(TriangleSide &side1new) {
     for (auto it1 = side1.stars.begin(); it1 != side1.stars.end(); ) {
@@ -42,7 +42,7 @@ void rules::Triangle::update1(TriangleSide &side1new) {
         else
             ++it1;
     }
-    prune();
+    connect_pairs();
 }
 void rules::Triangle::update3(TriangleSide &side3new) {
     for (auto it3 = side3.stars.begin(); it3 != side3.stars.end(); ) {
@@ -52,7 +52,7 @@ void rules::Triangle::update3(TriangleSide &side3new) {
         else
             ++it3;
     }
-    prune();
+    connect_pairs();
 }
 
 void rules::Triangle::side2_side3(double ang2, double ang3,
@@ -61,7 +61,7 @@ void rules::Triangle::side2_side3(double ang2, double ang3,
     rules::TriangleSide side3new(ang3, tol_radius, pairs, teststar);
     side2 = side2new;
     side3 = side3new;
-    prune();
+    connect_pairs();
 }
 
 void rules::Triangle::side1_side2(double ang1, double ang2,
@@ -70,41 +70,10 @@ void rules::Triangle::side1_side2(double ang1, double ang2,
     rules::TriangleSide side2new(ang2, tol_radius, pairs, teststar);
     side1 = side1new;
     side2 = side2new;
-    prune();
+    connect_pairs();
 }
 
-//void rules::Triangle::prune() {
-//    for (auto it1a = side1.stars.begin(), end = side1.stars.end(); it1a != end; ++it1a) {
-//        int star1a = it1a->first;
-//        auto &pairs1 = it1a->second;
-//        for (auto it1b = pairs1.begin(), end = pairs1.end(); it1b != end; ++it1b) {
-//            int star1b = it1b->first;
-//            auto it2b = side2.stars.find(star1b);
-//            if (it2b != side2.stars.end()) {
-//                auto &pairs2 = it2b->second;
-//                for (auto it2c = pairs2.begin(), end = pairs2.end(); it2c != end; ++it2c) {
-//                    int star2c = it2c->first;
-//                    auto it3c = side3.stars.find(star2c);
-//                    if (it3c != side3.stars.end()) {
-//                        auto &pairs3 = it3c->second;
-//                        for (auto it3a = pairs3.begin(), end = pairs3.end(); it3a != end; ++it3a) {
-//                            if (it3a->first == star1a) {
-//                                ++it1b->second;
-//                                ++it2c->second;
-//                                ++it3a->second;
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-//    side1.prune();
-//    side2.prune();
-//    side3.prune();
-//}
-
-void rules::Triangle::prune() {
+void rules::Triangle::connect_pairs() {
     for (auto itab = side1.stars.begin(); itab != side1.stars.end(); ) {
         auto itca = side3.stars.find(itab->first);
         if (itca == side3.stars.end())
@@ -144,7 +113,8 @@ void rules::Triangle::prune() {
             }
         }
     }
-    side1.prune();
-    side2.prune();
-    side3.prune();
+    side1.clean_side();
+    side2.clean_side();
+    side3.clean_side();
 }
+
