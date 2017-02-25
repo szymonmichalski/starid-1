@@ -16,3 +16,4 @@ thanks to [tensorflow](http://github.com/tensorflow/tensorflow),
 [armadillo](http://arma.sourceforge.net), [eigen](http://eigen.tuxfamily.org/index.php), [cereal](http://github.com/USCiLab/cereal),
 [optionparser](http://optionparser.sourceforge.net).
 
+special thanks to [ed nather](https://en.wikipedia.org/wiki/The_Story_of_Mel) and his [story of mel](http://www.pbm.com/~lindahl/mel.html). i looked up to ed back in the day, late eighties early nineties ut astro days, and even worked in his lab. it's been an inspiration ever since first reading the story of mel, around ninety three or so...

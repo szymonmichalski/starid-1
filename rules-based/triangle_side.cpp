@@ -39,7 +39,7 @@ void rules::TriangleSide::intersect_stars(TriangleSide &sideb) {
 }
 
 
-void::rules::TriangleSide::clean_side() {
+void::rules::TriangleSide::clean_and_log() {
     for (auto it1 = stars.begin(); it1 != stars.end(); ) {
         auto &pairs = it1->second;
         for (auto it2 = pairs.begin(); it2 != pairs.end(); ) {

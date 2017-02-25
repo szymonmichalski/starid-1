@@ -23,9 +23,9 @@ public:
     rules::TriangleSide side3;
     int teststar;
 
-    /// *connect pairs* travel around sides ab to bc to ca connecting by pairs.
+    /// *link sides* travel around sides ab to bc to ca connecting by pairs.
     ///
-    void connect_pairs();
+    void link_sides();
 
     /// *side2 side3* create side2 and side3 for an abda triangle
     ///
@@ -37,10 +37,8 @@ public:
     void side1_side2(double ang1, double ang2,
                double tol_radius, rules::PairsOverWholeSky &pairs);
 
-    void clean();
-    void update13(TriangleSide &side1new, TriangleSide &side3new);
-    void update1(TriangleSide &side1new);
-    void update3(TriangleSide &side3new);
+    void update_side1(TriangleSide &side1new);
+    void update_side3(TriangleSide &side3new);
 
 };
 

@@ -29,7 +29,7 @@ public:
 
     /// *clean side* remove pairs keys that have value zero, then stars that have no pairs.
     ///
-    void clean_side();
+    void clean_and_log();
 
     /// *intersect stars* leave stars that are in both sides
     ///

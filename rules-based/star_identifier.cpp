@@ -23,7 +23,7 @@ int rules::StarIdentifier::identifyCentralStar() {
             angsc.push_back(std::acos(arma::dot(uvecb, uvecc)));
             angsc.push_back(std::acos(arma::dot(uvecc, uveca)));
             bool skipc = false;
-            double min_ang = 2000.0 * stars::arcseconds_to_radians;
+            double min_ang = 3000.0 * stars::arcseconds_to_radians;
             if (angsc[0] < min_ang) skipc = true; // ab
             if (angsc[1] < min_ang) skipc = skipc; // bc allow
             if (angsc[2] < min_ang) skipc = true; // ca
@@ -31,20 +31,20 @@ int rules::StarIdentifier::identifyCentralStar() {
             if (std::abs(angsc[0]-angsc[2]) < min_ang) skipc = true; // ab-ca
             if (std::abs(angsc[1]-angsc[2]) < min_ang) skipc = true; // bc-ca
             if (skipc) continue;
-            if (log_abca.empty()) {
+            if (log_abca.empty()) { // new abca, or update abca for new star c
                 rules::TriangleSide side2(angsc[1], tol_radius, all_pairs, teststar);
                 rules::TriangleSide side3(angsc[2], tol_radius, all_pairs, teststar);
                 abca.side1.stars = abfirst.stars;
                 abca.side2.stars = side2.stars;
                 abca.side3.stars = side3.stars;
-                abca.connect_pairs();
+                abca.link_sides();
             } else {
                 rules::TriangleSide side2(angsc[1], tol_radius, all_pairs, teststar);
                 rules::TriangleSide side3(angsc[2], tol_radius, all_pairs, teststar);
                 abca.side1.refresh_pairs(abfirst);
                 abca.side2.stars = side2.stars;
                 abca.side3.stars = side3.stars;
-                abca.connect_pairs();
+                abca.link_sides();
             }
             Triangle abda = abca;
             Triangle adca = abca;
@@ -66,31 +66,38 @@ int rules::StarIdentifier::identifyCentralStar() {
                 rules::TriangleSide da(angsd[3], tol_radius, all_pairs, teststar);
                 abda.side2.stars = bd.stars;
                 abda.side3.stars = da.stars;
-                abda.connect_pairs();
+                abda.link_sides();
 
-                adca.side1.stars = abda.side3.stars;
-                rules::TriangleSide dc(angsd[5], tol_radius, all_pairs, teststar);
-                adca.side2.stars = dc.stars;
-                adca.connect_pairs();
+//                adca.side1.stars = abda.side3.stars;
+//                rules::TriangleSide dc(angsd[5], tol_radius, all_pairs, teststar);
+//                adca.side2.stars = dc.stars;
+//                adca.link_sides();
 
-                abda.side3.stars = adca.side1.stars;
-                abda.connect_pairs();
-                adca.side1.stars = abda.side3.stars;
-                adca.connect_pairs();
+//                abda.side3.stars = adca.side1.stars;
+//                abda.link_sides();
+//                adca.side1.stars = abda.side3.stars;
+//                adca.link_sides();
 
-                abca.update13(abda.side1, adca.side3);
-                if (!abca.side1.log_teststar.back())
+                abca.update_side1(abda.side1);
+                abca.link_sides();
+
+                if (!abca.side1.log_teststar.back()) {
+                    int abca1_size = abca.side1.log_star_count.size();
+                    int abca1_stars = abca.side1.stars.size();
+                    int abca3_stars = abca.side3.stars.size();
+                    bool abca1_teststar = false;
+                    bool abca3_teststar = abca.side3.log_teststar.back();
                     break;
+                }
             }
             log_abca.push_back(abca);
-            int abca_log = abca.side1.log_teststar.size();
-            int abca1_stars = abca.side1.stars.size();
-            int abca3_stars = abca.side3.stars.size();
-            bool abca1_teststar = abca.side1.log_teststar.back();
-            bool abca3_teststar = abca.side3.log_teststar.back();
-            std::cout << abca_log << ' ' << abca1_stars << ' ' << abca3_stars
-                      << ' ' << abca1_teststar << ' ' << abca3_teststar << std::endl;
-            bool stop = true;
+//            int abca_log_size = abca.side1.log_teststar.size();
+//            int abca1_stars = abca.side1.stars.size();
+//            int abca3_stars = abca.side3.stars.size();
+//            bool abca1_teststar = abca.side1.log_teststar.back();
+//            bool abca3_teststar = abca.side3.log_teststar.back();
+//            std::cout << abca_log_size << ' ' << abca1_stars << ' ' << abca3_stars
+//                      << ' ' << abca1_teststar << ' ' << abca3_teststar << std::endl;
         }
         std::unordered_map<int, int> merged; // = ad.stars_in_three_sides(ab, ac);
         update_stars(curstars, merged);
