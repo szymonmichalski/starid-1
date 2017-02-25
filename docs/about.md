@@ -36,4 +36,4 @@ a few days after scanning that first plate, i went to meet with paul and ray in 
 
 *notes*
 
-thanks to [ed nather](https://en.wikipedia.org/wiki/The_Story_of_Mel) and the [story of mel](http://www.pbm.com/~lindahl/mel.html). i looked up to ed back in the day, late eighties early nineties utastro days, and even worked in his lab. it's been an inspiration ever since first reading the story of mel, around ninety three or so...
+thanks to [ed nather](https://en.wikipedia.org/wiki/The_Story_of_Mel) and the [story of mel](http://www.pbm.com/~lindahl/mel.html). i looked up to ed back in the day, and even worked in his lab. it's been an inspiration.
