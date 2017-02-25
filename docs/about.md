@@ -30,4 +30,6 @@ my first observing run at mcdonald was early summer. paul and i made the day lon
 
 it’s a tall rack with electronics mounted in cases standing in the back corner. on a table beside the rack is a heavy monitor and console. this was one of the first primitive unix gui systems i got to know well, and already it had the feel of an earlier era. not quite as far back as the era of the pds, but early to mid eighties certainly. a scanning session meant creating a set of digitized raster images stored on old school nine track half inch tape, one file for each trail scanned by the pds. a group of files, say thirty to fifty for a plate with a good exposure and lots of stars, is created in the filesystem of the control minicomputer and then written to tape using its sibling above on the sixteenth floor, which has the tape drive. the shift over the border from analog to digital takes place in the seventies style electronics connecting the pds to the minicomputer.
 
+*notes*
+
 thanks to [ed nather](https://en.wikipedia.org/wiki/The_Story_of_Mel) and the [story of mel](http://www.pbm.com/~lindahl/mel.html). i looked up to ed back in the day, late eighties early nineties utastro days, and even worked in his lab. it's been an inspiration ever since first reading the story of mel, around ninety three or so...
