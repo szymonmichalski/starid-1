@@ -21,11 +21,30 @@ void rules::TriangleSide::refresh_pairs(TriangleSide &side)
     }
 }
 
+void rules::TriangleSide::intersect_stars(TriangleSide &sideb) {
+    for (auto ita = stars.begin(); ita != stars.end(); ) {
+        auto itb = sideb.stars.find(ita->first);
+        if (itb == sideb.stars.end())
+            ita = stars.erase(ita);
+        else
+            ++ita;
+    }
+    for (auto itb = sideb.stars.begin(); itb != sideb.stars.end(); ) {
+        auto ita = stars.find(itb->first);
+        if (ita == stars.end())
+            itb = sideb.stars.erase(itb);
+        else
+            ++itb;
+    }
+}
+
 
 void::rules::TriangleSide::clean_side() {
     for (auto it1 = stars.begin(); it1 != stars.end(); ) {
         auto &pairs = it1->second;
         for (auto it2 = pairs.begin(); it2 != pairs.end(); ) {
+//            auto it3 = stars.find(it2->first);
+//            if (it2->second == 0 || it3 == stars.end()) {
             if (it2->second == 0) {
                 it2 = pairs.erase(it2);
             } else {

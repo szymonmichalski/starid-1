@@ -31,6 +31,10 @@ public:
     ///
     void clean_side();
 
+    /// *intersect stars* leave stars that are in both sides
+    ///
+    void intersect_stars(TriangleSide &otherside);
+
     /// *summary* returns a sorted map of stars with the initial number of pairs. the pairs become outdatated over time as stars are removed from the side.
     ///
     std::map<int, int> summary();

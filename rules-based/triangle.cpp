@@ -17,6 +17,36 @@ rules::Triangle::Triangle(int teststar)
 
 }
 
+void rules::Triangle::connect_pairs() {
+    side1.intersect_stars(side3);
+    for (auto ita1 = side1.stars.begin(), end = side1.stars.end(); ita1 != end; ++ita1) {
+        auto &pairs1 = ita1->second;
+        auto ita3 = side3.stars.find(ita1->first);
+        auto &pairs3 = ita3->second;
+        for (auto itb1 = pairs1.begin(), end = pairs1.end(); itb1 != end; ++itb1) {
+            auto itb2 = side2.stars.find(itb1->first);
+            if (itb2 != side2.stars.end()) {
+                auto &pairs2 = itb2->second;
+                for (auto itc2 = pairs2.begin(), end = pairs2.end(); itc2 != end; ++itc2) {
+                    auto itc3 = pairs3.find(itc2->first); // backing into side 3...
+                    if (itc3 != pairs3.end()) {
+                        ++itb1->second;
+                        ++itc2->second;
+                        ++itc3->second;
+                    }
+                }
+            }
+        }
+    }
+    clean();
+}
+
+void rules::Triangle::clean() {
+    side1.clean_side();
+    side2.clean_side();
+    side3.clean_side();
+}
+
 void rules::Triangle::update13(TriangleSide &side1new, TriangleSide &side3new) {
     for (auto it1 = side1.stars.begin(); it1 != side1.stars.end(); ) {
         auto it1new = side1new.stars.find(it1->first);
@@ -73,48 +103,5 @@ void rules::Triangle::side1_side2(double ang1, double ang2,
     connect_pairs();
 }
 
-void rules::Triangle::connect_pairs() {
-    for (auto itab = side1.stars.begin(); itab != side1.stars.end(); ) {
-        auto itca = side3.stars.find(itab->first);
-        if (itca == side3.stars.end())
-            itab = side1.stars.erase(itab);
-        else
-            ++itab;
-    }
-    for (auto itca = side3.stars.begin(); itca != side3.stars.end(); ) {
-        auto itab = side1.stars.find(itca->first);
-        if (itab == side1.stars.end())
-            itca = side3.stars.erase(itca);
-        else
-            ++itca;
-    }
 
-    for (auto it1ab = side1.stars.begin(), end = side1.stars.end(); it1ab != end; ++it1ab) {
-        int star1ab = it1ab->first;                     // star 1ab
-        auto it1ca = side3.stars.find(star1ab);         // star 1ca
-        auto &pairsab = it1ab->second;                  // pairs ab
-        auto &pairsca = it1ca->second;                  // pairs ca
-
-        for (auto it2ab = pairsab.begin(), end = pairsab.end(); it2ab != end; ++it2ab) {
-            int star2ab = it2ab->first;                 // star 2ab
-            auto it2bc = side2.stars.find(star2ab);     // star 2bc
-            if (it2bc != side2.stars.end()) {
-                auto &pairsbc = it2bc->second;          // pairs bc
-
-                for (auto it3bc = pairsbc.begin(), end = pairsbc.end(); it3bc != end; ++it3bc) {
-                    int star3bc = it3bc->first;         // star 3bc
-                    auto it3ca = pairsca.find(star3bc); // star 3ca
-                    if (it3ca != pairsca.end()) {
-                        ++it2ab->second;
-                        ++it3bc->second;
-                        ++it3ca->second;
-                    }
-                }
-            }
-        }
-    }
-    side1.clean_side();
-    side2.clean_side();
-    side3.clean_side();
-}
 

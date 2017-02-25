@@ -37,6 +37,7 @@ public:
     void side1_side2(double ang1, double ang2,
                double tol_radius, rules::PairsOverWholeSky &pairs);
 
+    void clean();
     void update13(TriangleSide &side1new, TriangleSide &side3new);
     void update1(TriangleSide &side1new);
     void update3(TriangleSide &side3new);

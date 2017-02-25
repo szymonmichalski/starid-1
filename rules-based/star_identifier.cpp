@@ -23,7 +23,7 @@ int rules::StarIdentifier::identifyCentralStar() {
             angsc.push_back(std::acos(arma::dot(uvecb, uvecc)));
             angsc.push_back(std::acos(arma::dot(uvecc, uveca)));
             bool skipc = false;
-            double min_ang = 2000.0 * M_PI / 648000.0;
+            double min_ang = 2000.0 * stars::arcseconds_to_radians;
             if (angsc[0] < min_ang) skipc = true; // ab
             if (angsc[1] < min_ang) skipc = skipc; // bc allow
             if (angsc[2] < min_ang) skipc = true; // ca
@@ -90,7 +90,6 @@ int rules::StarIdentifier::identifyCentralStar() {
             bool abca3_teststar = abca.side3.log_teststar.back();
             std::cout << abca_log << ' ' << abca1_stars << ' ' << abca3_stars
                       << ' ' << abca1_teststar << ' ' << abca3_teststar << std::endl;
-
             bool stop = true;
         }
         std::unordered_map<int, int> merged; // = ad.stars_in_three_sides(ab, ac);
