@@ -20,19 +20,36 @@ class StarIdentifier
 
 public:
 
-    StarIdentifier(stars::Image& image, rules::PairsOverWholeSky& pairs, double tol_radius);
+  StarIdentifier(stars::Image& image, rules::PairsOverWholeSky& pairs, double tol_radius);
 
-    int identifyCentralStar();
+  /// *identify central star* primary functionality and purpose of the class
+  int identifyCentralStar();
 
 private:
 
-    /// *update stars* include the latest results
-    ///
-    void update_stars(std::unordered_map<int, int>& stars1, const std::unordered_map<int, int>& stars2);
+  /// *update stars* include the latest results
+  ///
+  void update_stars(std::unordered_map<int, int>& stars1, const std::unordered_map<int, int>& stars2);
 
-    rules::PairsOverWholeSky all_pairs;
-    stars::Image& image;
-    double tol_radius;
+  /// *skip c* criteria for star c
+  ///
+  bool skip_c(int ndxc);
+
+  /// *skip d* criteria for star d
+  ///
+  bool skip_d(int ndxd);
+
+  rules::PairsOverWholeSky all_pairs;
+  stars::Image& image;
+  double tol_radius;
+  double min_ang;
+  std::vector<double> angs_c;
+  std::vector<double> angs_d;
+  arma::vec uveca;
+  arma::vec uvecb;
+  arma::vec uvecc;
+  arma::vec uvecd;
+
 };
 
 }
