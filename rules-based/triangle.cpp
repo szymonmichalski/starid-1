@@ -47,7 +47,6 @@ void rules::Triangle::link_side1_and_side3() {
 
 void rules::Triangle::link_abda_and_adca(Triangle &abda, Triangle &adca) {
   TriangleSide::intersect_stars(abda.side3, adca.side1);
-
   abda.link_side1_and_side3();
   adca.link_side1_and_side3();
 }

@@ -12,7 +12,7 @@ int rules::StarIdentifier::identifyCentralStar() {
   int num_stars = image.uvecs.n_rows;
   uveca = arma::trans(image.uvecs.row(0));
 
-  for (ndxb = 1; ndxb < num_stars; ++ndxb) { // star b //////////////////////
+  for (ndxb = 2;;) { // ndxb = 1; ndxb < num_stars; ++ndxb) { // star b //////////////////////
     uvecb = arma::trans(image.uvecs.row(ndxb));
     double angab = std::acos(arma::dot(uveca, uvecb));
     TriangleSide abref(angab, tol_radius, all_pairs, teststar);
@@ -22,7 +22,7 @@ int rules::StarIdentifier::identifyCentralStar() {
       if (!get_angs_c()) continue;
 
       Triangle abca(angs_c[0], angs_c[1], angs_c[2], tol_radius, all_pairs, teststar);
-      abca.side1.stars = ab.stars;
+      abca.side1 = ab;
       abca.side1.refresh_pairs(abref);
       abca.link_side1_and_side3();
       TriangleSide caref = abca.side3;
@@ -37,10 +37,7 @@ int rules::StarIdentifier::identifyCentralStar() {
         abca.update_side1(abda.side1);
         abca.update_side3(adca.side3);
         abca.link_side1_and_side3();
-
-        std::cout << abca.side1.log_star_count.size() << ' '
-                  << abca.side1.stars.size() << ' '
-                  << abca.side1.log_teststar.back() << std::endl;
+        msg_abca(abca);
       } // star d ////////////////////////////////////////////////
 
       ab = abca.side1;
@@ -58,6 +55,13 @@ int rules::StarIdentifier::identifyCentralStar() {
     starsb.emplace(it->second, it->first);
   }
   return -1;
+}
+
+void rules::StarIdentifier::msg_abca(Triangle &abca) {
+  std::cout << ndxb << ' ' << ndxc << ' ' << ndxd << ' '
+            << abca.side1.log_star_count.size() << ' '
+            << abca.side1.stars.size() << ' '
+            << abca.side1.log_teststar.back() << std::endl;
 }
 
 rules::Triangle rules::StarIdentifier::new_abda(Triangle &abca, TriangleSide &abref) {
