@@ -18,7 +18,7 @@ rules::Triangle::Triangle(int teststar)
 }
 
 void rules::Triangle::link_sides() {
-    side1.intersect_stars(side3);
+    TriangleSide::intersect_stars(side1, side3);
     for (auto ita1 = side1.stars.begin(), end = side1.stars.end(); ita1 != end; ++ita1) {
         auto &pairs1 = ita1->second;
         auto ita3 = side3.stars.find(ita1->first);
@@ -45,7 +45,7 @@ void rules::Triangle::link_sides() {
     side3.clean_and_log();
 }
 
-void rules::Triangle::link_ad_side(Triangle &abda, Triangle &adca) {
+void rules::Triangle::link_abda_and_adca(Triangle &abda, Triangle &adca) {
   for (auto ita = abda.side3.stars.begin(); ita != abda.side3.stars.end(); ) {
       auto itb = adca.side1.stars.find(ita->first);
       if (itb == abda.side3.stars.end())

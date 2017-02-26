@@ -17,9 +17,9 @@ public:
   ///
   void link_sides();
 
-  /// *link ad sides* link the shared ad side of abda and adca triangles
+  /// *link abda and adca* link the shared ad side of abda and adca triangles
   ///
-  static void link_ad_side(Triangle &abda, Triangle &adca);
+  static void link_abda_and_adca(Triangle &abda, Triangle &adca);
 
     Triangle(double ang1, double ang2, double ang3,
              double tol_radius,
