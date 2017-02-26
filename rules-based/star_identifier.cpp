@@ -15,40 +15,32 @@ int rules::StarIdentifier::identifyCentralStar() {
   for (int ndxb = 1; ndxb < num_stars; ++ndxb) { // star b /////////////////
     uvecb = arma::trans(image.uvecs.row(ndxb));
     double angab = std::acos(arma::dot(uveca, uvecb));
-    TriangleSide abfirst(angab, tol_radius, all_pairs, teststar);
-    int starccnt = 0;
-    Triangle abca(teststar); // placeholder for focus on side ab
+    TriangleSide abref(angab, tol_radius, all_pairs, teststar);
+    TriangleSide ab = abref;
 
     for (int ndxc = 1; ndxc < num_stars; ++ndxc) { // star c //////////////
-      if (ndxc == ndxb || skip_c(ndxc)) continue;
-      if (starccnt == 0)
-        abca.side1.stars = abfirst.stars;
-      else
-        abca.side1.refresh_pairs(abfirst);
-      ++starccnt;
-      if (starccnt > 3) continue; // early stop on star c
-      rules::TriangleSide side2(angs_c[1], tol_radius, all_pairs, teststar);
-      rules::TriangleSide side3(angs_c[2], tol_radius, all_pairs, teststar);
-      abca.side2.stars = side2.stars;
-      abca.side3.stars = side3.stars;
+      if (ndxc == ndxb || !get_angs_c(ndxc)) continue;
+      Triangle abca(angs_c[0], angs_c[1], angs_c[2], tol_radius, all_pairs, teststar);
+      abca.side1.stars = ab.stars;
+      abca.side1.refresh_pairs(abref);
       abca.link_sides();
-      TriangleSide cafirst = abca.side3;
-      Triangle abda = abca;
-      Triangle adca = abca;
+      TriangleSide caref = abca.side3;
 
       for (int ndxd = 1; ndxd < num_stars; ++ndxd) { // star d /////////////
-        if (ndxd == ndxb || ndxd == ndxc || skip_d(ndxd)) continue;
+        if (ndxd == ndxb || ndxd == ndxc || !get_angs_d(ndxd)) continue;
+        Triangle abda = abca;
         rules::TriangleSide bd(angs_d[4], tol_radius, all_pairs, teststar);
         rules::TriangleSide da(angs_d[3], tol_radius, all_pairs, teststar);
-        abda.side1.refresh_pairs(abfirst);
+        abda.side1.refresh_pairs(abref);
         abda.side2.stars = bd.stars;
         abda.side3.stars = da.stars;
         abda.link_sides();
 
+        Triangle adca = abca;
         rules::TriangleSide dc(angs_d[5], tol_radius, all_pairs, teststar);
         adca.side1.stars = da.stars; //abda.side3.stars;
         adca.side2.stars = dc.stars;
-        adca.side3.refresh_pairs(cafirst);
+        adca.side3.refresh_pairs(caref);
         adca.link_sides();
 
         abca.update_side1(abda.side1);
@@ -59,6 +51,7 @@ int rules::StarIdentifier::identifyCentralStar() {
                   << abca.side1.log_teststar.back() << std::endl;
       } // star d ///////////////////////////////////////////////////////////
 
+      ab = abca.side1;
       continue;
     } // star c ///////////////////////////////////////////////////////////////
 
@@ -75,35 +68,35 @@ int rules::StarIdentifier::identifyCentralStar() {
   return -1;
 }
 
-bool rules::StarIdentifier::skip_c(int ndxc) {
-  bool result = false;
+bool rules::StarIdentifier::get_angs_c(int ndxc) {
+  bool angsok = true;
   angs_c.clear();
   uvecc = arma::trans(image.uvecs.row(ndxc));
   angs_c.push_back(std::acos(arma::dot(uveca, uvecb)));
   angs_c.push_back(std::acos(arma::dot(uvecb, uvecc)));
   angs_c.push_back(std::acos(arma::dot(uvecc, uveca)));
   min_ang = 3000.0 * stars::arcseconds_to_radians;
-  if (angs_c[0] < min_ang) result = true; // ab
-  if (angs_c[1] < min_ang) result = result; // bc allow
-  if (angs_c[2] < min_ang) result = true; // ca
-  if (std::abs(angs_c[0]-angs_c[1]) < min_ang) result = true; // ab-bc
-  if (std::abs(angs_c[0]-angs_c[2]) < min_ang) result = true; // ab-ca
-  if (std::abs(angs_c[1]-angs_c[2]) < min_ang) result = true; // bc-ca
-  return result;
+  if (angs_c[0] < min_ang) angsok = false; // ab
+  if (angs_c[1] < min_ang) angsok = angsok; // bc allow
+  if (angs_c[2] < min_ang) angsok = false; // ca
+  if (std::abs(angs_c[0]-angs_c[1]) < min_ang) angsok = false; // ab-bc
+  if (std::abs(angs_c[0]-angs_c[2]) < min_ang) angsok = false; // ab-ca
+  if (std::abs(angs_c[1]-angs_c[2]) < min_ang) angsok = false; // bc-ca
+  return angsok;
 }
 
-bool rules::StarIdentifier::skip_d(int ndxd) {
-  bool result = false;
+bool rules::StarIdentifier::get_angs_d(int ndxd) {
+  bool angsok = true;
   angs_d = angs_c;
   uvecd = arma::trans(image.uvecs.row(ndxd));
   angs_d.push_back(std::acos(arma::dot(uvecd, uveca)));
   angs_d.push_back(std::acos(arma::dot(uvecd, uvecb)));
   angs_d.push_back(std::acos(arma::dot(uvecd, uvecc)));
-  if (angs_d[3] < min_ang) result = true; // da allow
-  if (angs_d[4] < min_ang) result = true; // db
-  if (angs_d[5] < min_ang) result = true; // dc
-  if (std::abs(angs_d[4]-angs_d[3]) < min_ang) result = true; // db-da
-  return result;
+  if (angs_d[3] < min_ang) angsok = false; // da allow
+  if (angs_d[4] < min_ang) angsok = false; // db
+  if (angs_d[5] < min_ang) angsok = false; // dc
+  if (std::abs(angs_d[4]-angs_d[3]) < min_ang) angsok = false; // db-da
+  return angsok;
 }
 
 void rules::StarIdentifier::update_stars(std::unordered_map<int, int>& stars1, const std::unordered_map<int, int>& stars2){

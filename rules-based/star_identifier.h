@@ -33,11 +33,11 @@ private:
 
   /// *skip c* criteria for star c
   ///
-  bool skip_c(int ndxc);
+  bool get_angs_c(int ndxc);
 
   /// *skip d* criteria for star d
   ///
-  bool skip_d(int ndxd);
+  bool get_angs_d(int ndxd);
 
   rules::PairsOverWholeSky all_pairs;
   stars::Image& image;
