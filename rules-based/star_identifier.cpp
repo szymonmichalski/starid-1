@@ -7,53 +7,45 @@ rules::StarIdentifier::StarIdentifier(stars::Image& image,
 }
 
 int rules::StarIdentifier::identifyCentralStar() {
-  int teststar = 1;
+  teststar = 1;
   std::unordered_map<int, int> curstars;
   int num_stars = image.uvecs.n_rows;
   uveca = arma::trans(image.uvecs.row(0));
 
-  for (ndxb = 1; ndxb < num_stars; ++ndxb) { // star b /////////////////
+  for (ndxb = 1; ndxb < num_stars; ++ndxb) { // star b //////////////////////
     uvecb = arma::trans(image.uvecs.row(ndxb));
     double angab = std::acos(arma::dot(uveca, uvecb));
     TriangleSide abref(angab, tol_radius, all_pairs, teststar);
-    TriangleSide ab = abref; // evolve ab over multiple c
+    TriangleSide ab = abref; // evolve ab over star c cycles
 
-    for (ndxc = 1; ndxc < num_stars; ++ndxc) { // star c //////////////
+    for (ndxc = 1; ndxc < num_stars; ++ndxc) { // star c /////////////
       if (!get_angs_c()) continue;
+
       Triangle abca(angs_c[0], angs_c[1], angs_c[2], tol_radius, all_pairs, teststar);
       abca.side1.stars = ab.stars;
       abca.side1.refresh_pairs(abref);
       abca.link_sides();
       TriangleSide caref = abca.side3;
 
-      for (ndxd = 1; ndxd < num_stars; ++ndxd) { // star d /////////////
+      for (ndxd = 1; ndxd < num_stars; ++ndxd) { // star d //////
         if (!get_angs_d()) continue;
-        Triangle abda = abca;
-        rules::TriangleSide bd(angs_d[4], tol_radius, all_pairs, teststar);
-        rules::TriangleSide da(angs_d[3], tol_radius, all_pairs, teststar);
-        abda.side1.refresh_pairs(abref);
-        abda.side2.stars = bd.stars;
-        abda.side3.stars = da.stars;
-        abda.link_sides();
 
-        Triangle adca = abca;
-        rules::TriangleSide dc(angs_d[5], tol_radius, all_pairs, teststar);
-        adca.side1.stars = da.stars; //abda.side3.stars;
-        adca.side2.stars = dc.stars;
-        adca.side3.refresh_pairs(caref);
-        adca.link_sides();
+        Triangle abda = new_abda(abca, abref);
+        Triangle adca = new_adca(abca, caref);
+        Triangle::link_ad_side(abda, adca);
 
         abca.update_side1(abda.side1);
         abca.update_side3(adca.side3);
         abca.link_sides();
+
         std::cout << abca.side1.log_star_count.size() << ' '
                   << abca.side1.stars.size() << ' '
                   << abca.side1.log_teststar.back() << std::endl;
-      } // star d ///////////////////////////////////////////////////////////
+      } // star d ////////////////////////////////////////////////
 
       ab = abca.side1;
       continue;
-    } // star c ///////////////////////////////////////////////////////////////
+    } // star c ////////////////////////////////////////////////////////
 
     std::unordered_map<int, int> merged; // = ad.stars_in_three_sides(ab, ac);
     update_stars(curstars, merged);
@@ -66,6 +58,28 @@ int rules::StarIdentifier::identifyCentralStar() {
     starsb.emplace(it->second, it->first);
   }
   return -1;
+}
+
+rules::Triangle rules::StarIdentifier::new_abda(Triangle &abca, TriangleSide &abref) {
+  Triangle abda = abca;
+  rules::TriangleSide bd(angs_d[4], tol_radius, all_pairs, teststar);
+  rules::TriangleSide da(angs_d[3], tol_radius, all_pairs, teststar);
+  abda.side1.refresh_pairs(abref);
+  abda.side2.stars = bd.stars;
+  abda.side3.stars = da.stars;
+  abda.link_sides();
+  return abda;
+}
+
+rules::Triangle rules::StarIdentifier::new_adca(Triangle &abca, TriangleSide &caref) {
+  Triangle adca = abca;
+  rules::TriangleSide ad(angs_d[3], tol_radius, all_pairs, teststar);
+  rules::TriangleSide dc(angs_d[5], tol_radius, all_pairs, teststar);
+  adca.side1.stars = ad.stars; //abda.side3.stars;
+  adca.side2.stars = dc.stars;
+  adca.side3.refresh_pairs(caref);
+  adca.link_sides();
+  return adca;
 }
 
 bool rules::StarIdentifier::get_angs_c() {

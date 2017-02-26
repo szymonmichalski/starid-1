@@ -27,6 +27,9 @@ public:
 
 private:
 
+  Triangle new_abda(Triangle &abca, TriangleSide &abref);
+  Triangle new_adca(Triangle &abca, TriangleSide &caref);
+
   void update_stars(std::unordered_map<int, int>& stars1, const std::unordered_map<int, int>& stars2);
 
   bool get_angs_c();
@@ -42,6 +45,7 @@ private:
   arma::vec uvecc;
   arma::vec uvecd;
   int ndxb, ndxc, ndxd;
+  int teststar;
 
 };
 

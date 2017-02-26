@@ -10,7 +10,16 @@ namespace rules {
 
 class Triangle
 {
+
 public:
+
+  /// *link sides* travel around sides ab to bc to ca connecting by pairs.
+  ///
+  void link_sides();
+
+  /// *link ad sides* link the shared ad side of abda and adca triangles
+  ///
+  static void link_ad_side(Triangle &abda, Triangle &adca);
 
     Triangle(double ang1, double ang2, double ang3,
              double tol_radius,
@@ -22,20 +31,6 @@ public:
     rules::TriangleSide side2;
     rules::TriangleSide side3;
     int teststar;
-
-    /// *link sides* travel around sides ab to bc to ca connecting by pairs.
-    ///
-    void link_sides();
-
-    /// *side2 side3* create side2 and side3 for an abda triangle
-    ///
-    void side2_side3(double ang2, double ang3,
-               double tol_radius, rules::PairsOverWholeSky &pairs);
-
-    /// *side1 side2* create side1 and side2 for an adca triangle
-    ///
-    void side1_side2(double ang1, double ang2,
-               double tol_radius, rules::PairsOverWholeSky &pairs);
 
     void update_side1(TriangleSide &side1new);
     void update_side3(TriangleSide &side3new);
