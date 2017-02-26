@@ -32,11 +32,11 @@ int rules::StarIdentifier::identifyCentralStar() {
 
         Triangle abda = new_abda(abca, abref);
         Triangle adca = new_adca(abca, caref);
-        Triangle::link_abda_and_adca(abda, adca);
-
+//        Triangle::link_abda_and_adca(abda, adca);
         abca.update_side1(abda.side1);
         abca.update_side3(adca.side3);
         abca.link_side1_and_side3();
+
         msg_abca(abca);
       } // star d ////////////////////////////////////////////////
 
