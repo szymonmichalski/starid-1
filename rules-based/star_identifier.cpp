@@ -12,22 +12,22 @@ int rules::StarIdentifier::identifyCentralStar() {
   int num_stars = image.uvecs.n_rows;
   uveca = arma::trans(image.uvecs.row(0));
 
-  for (int ndxb = 1; ndxb < num_stars; ++ndxb) { // star b /////////////////
+  for (ndxb = 1; ndxb < num_stars; ++ndxb) { // star b /////////////////
     uvecb = arma::trans(image.uvecs.row(ndxb));
     double angab = std::acos(arma::dot(uveca, uvecb));
     TriangleSide abref(angab, tol_radius, all_pairs, teststar);
-    TriangleSide ab = abref;
+    TriangleSide ab = abref; // evolve ab over multiple c
 
-    for (int ndxc = 1; ndxc < num_stars; ++ndxc) { // star c //////////////
-      if (ndxc == ndxb || !get_angs_c(ndxc)) continue;
+    for (ndxc = 1; ndxc < num_stars; ++ndxc) { // star c //////////////
+      if (!get_angs_c()) continue;
       Triangle abca(angs_c[0], angs_c[1], angs_c[2], tol_radius, all_pairs, teststar);
       abca.side1.stars = ab.stars;
       abca.side1.refresh_pairs(abref);
       abca.link_sides();
       TriangleSide caref = abca.side3;
 
-      for (int ndxd = 1; ndxd < num_stars; ++ndxd) { // star d /////////////
-        if (ndxd == ndxb || ndxd == ndxc || !get_angs_d(ndxd)) continue;
+      for (ndxd = 1; ndxd < num_stars; ++ndxd) { // star d /////////////
+        if (!get_angs_d()) continue;
         Triangle abda = abca;
         rules::TriangleSide bd(angs_d[4], tol_radius, all_pairs, teststar);
         rules::TriangleSide da(angs_d[3], tol_radius, all_pairs, teststar);
@@ -68,7 +68,8 @@ int rules::StarIdentifier::identifyCentralStar() {
   return -1;
 }
 
-bool rules::StarIdentifier::get_angs_c(int ndxc) {
+bool rules::StarIdentifier::get_angs_c() {
+  if (ndxc == ndxb) return false;
   bool angsok = true;
   angs_c.clear();
   uvecc = arma::trans(image.uvecs.row(ndxc));
@@ -85,7 +86,8 @@ bool rules::StarIdentifier::get_angs_c(int ndxc) {
   return angsok;
 }
 
-bool rules::StarIdentifier::get_angs_d(int ndxd) {
+bool rules::StarIdentifier::get_angs_d() {
+  if (ndxd == ndxb || ndxd == ndxc) return false;
   bool angsok = true;
   angs_d = angs_c;
   uvecd = arma::trans(image.uvecs.row(ndxd));

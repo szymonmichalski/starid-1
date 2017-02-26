@@ -27,18 +27,10 @@ public:
 
 private:
 
-  /// *update stars* include the latest results
-  ///
   void update_stars(std::unordered_map<int, int>& stars1, const std::unordered_map<int, int>& stars2);
 
-  /// *skip c* criteria for star c
-  ///
-  bool get_angs_c(int ndxc);
-
-  /// *skip d* criteria for star d
-  ///
-  bool get_angs_d(int ndxd);
-
+  bool get_angs_c();
+  bool get_angs_d();
   rules::PairsOverWholeSky all_pairs;
   stars::Image& image;
   double tol_radius;
@@ -49,6 +41,7 @@ private:
   arma::vec uvecb;
   arma::vec uvecc;
   arma::vec uvecd;
+  int ndxb, ndxc, ndxd;
 
 };
 
