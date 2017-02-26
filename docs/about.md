@@ -34,8 +34,15 @@ a few days after scanning that first plate, i went to meet with paul and ray in 
 
 *2003*
 
-thirteen years later i began grad school in the aerospace department. from the the first day, i went to work for the icesat group of the center for space research, headed by bob schutz. as hoped and expected, my job concerned the missions star trackers. these are onboard astronomical telescopes used to determine orientation in space from the stars. they are the direct modern descendent of the old school sextant used at sea for celestial navigation. again we’re looking at simple images of the sky with a scattering of stars. the classic problem in the star tracker world is called the lost in space problem. given a star tracker image of some stars, and nothing else, what stars are we looking at? [more photos](https://goo.gl/photos/TbwSuETNgM9b85AF7)
+thirteen years later i began grad school in aerospace, working from the first day for the icesat group at the center for space research, headed by bob schutz. bob was my advisor and boss for the next eleven years, until i was a postdoctoral fellow working with him on icesat two. as hoped and expected, my job concerned star trackers. these are telescopes used to determine orientation in space from the stars. they’re the direct descendent of the old school sextant used at sea for celestial navigation. again we’re looking at simple images of the sky with a scattering of stars. the lost in space problem is an aerospace classic. given a star tracker image of some stars, what stars are we looking at? aerospace really enriched the problem. new perspectives. new cultural bents. new tools. astronomers didn’t generally think in terms of three dimensional unit vectors, rotation matrices, quaternions, and vector matrix notation. there were solutions to problems that seemed of interest for astronomy. maybe there were solutions for star identification? the ideas and history involved are interesting in themselves.
 
 *notes*
 
+[more photos](https://goo.gl/photos/TbwSuETNgM9b85AF7)
+
 thanks to [ed nather](https://en.wikipedia.org/wiki/The_Story_of_Mel) and the [story of mel](http://www.pbm.com/~lindahl/mel.html). i looked up to ed back in the day, and even worked in his lab. it's been an inspiration.
+
+[wahba problem](https://en.wikipedia.org/wiki/Wahba's_problem) 
+
+[grace wahba](https://en.wikipedia.org/wiki/Grace_Wahba) 
+
