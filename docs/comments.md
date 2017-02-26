@@ -22,35 +22,27 @@ given an input image of a star pattern, output an integer identifying the star a
 
 find star triangles in the image, and candidate stars that meet the constraints implicit within the triangle. these constraints are effectively the rules for candidate stars. for example, if a triangle consists of star pairs ab and bc, then the third side is ac.
 
-*update stars* include the latest results
+*identify central star* this is the main function
 
 **triangle**
 
 represents a triangle as three constrained sides ab, bc, ca. travel around the sides ab to bc to ca so star pairs are not duplicated. traveling ac to cb to ba, you get the same pairs backwards.
 
-*connect pairs* travel around sides ab to bc to ca connecting by pairs.
+*link side1 and side3* travel around sides ab to bc to ca connecting by pairs.
 
-*side2 side3* create side2 and side3 for an abda triangle
-
-*side1 side2* create side1 and side2 for an adca triangle
+*link abda and adca* link the shared ad side of abda and adca triangles
 
 **triangle side**
 
 for adding, finding, removing, etc star pairs to a triangle side. one objective here is to work with maps of unique star keys, one key per star, rather than maps with multiple keys per star. this means using unordered_map, not unordered_multimap.
 
+*stars* each star is a map key whose value is a map of star keys it pairs with
+
 *refresh pairs* bring back pair information from an earlier side
 
 *clean side* remove pairs keys that have value zero, then stars that have no pairs.
 
-*summary* returns a sorted map of stars with the initial number of pairs. the pairs become outdatated over time as stars are removed from the side.
-
-*has star* return true if star is in the side
-
-*stars in three sides* merge stars from ad, ab, ac
-
-*pair count* count all pairs
-
-*stars* each star is a map key whose value is a map of star keys it pairs with
+*intersect stars* leave stars that are in both sides
 
 **pairs over whole sky**
 

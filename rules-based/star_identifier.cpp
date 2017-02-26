@@ -24,7 +24,7 @@ int rules::StarIdentifier::identifyCentralStar() {
       Triangle abca(angs_c[0], angs_c[1], angs_c[2], tol_radius, all_pairs, teststar);
       abca.side1.stars = ab.stars;
       abca.side1.refresh_pairs(abref);
-      abca.link_sides();
+      abca.link_side1_and_side3();
       TriangleSide caref = abca.side3;
 
       for (ndxd = 1; ndxd < num_stars; ++ndxd) { // star d //////
@@ -36,7 +36,7 @@ int rules::StarIdentifier::identifyCentralStar() {
 
         abca.update_side1(abda.side1);
         abca.update_side3(adca.side3);
-        abca.link_sides();
+        abca.link_side1_and_side3();
 
         std::cout << abca.side1.log_star_count.size() << ' '
                   << abca.side1.stars.size() << ' '
@@ -67,7 +67,7 @@ rules::Triangle rules::StarIdentifier::new_abda(Triangle &abca, TriangleSide &ab
   abda.side1.refresh_pairs(abref);
   abda.side2.stars = bd.stars;
   abda.side3.stars = da.stars;
-  abda.link_sides();
+  abda.link_side1_and_side3();
   return abda;
 }
 
@@ -78,7 +78,7 @@ rules::Triangle rules::StarIdentifier::new_adca(Triangle &abca, TriangleSide &ca
   adca.side1.stars = ad.stars; //abda.side3.stars;
   adca.side2.stars = dc.stars;
   adca.side3.refresh_pairs(caref);
-  adca.link_sides();
+  adca.link_side1_and_side3();
   return adca;
 }
 

@@ -13,27 +13,29 @@ class Triangle
 
 public:
 
-  /// *link sides* travel around sides ab to bc to ca connecting by pairs.
+  /// *link side1 and side3* travel around sides ab to bc to ca connecting by pairs.
   ///
-  void link_sides();
+  void link_side1_and_side3();
 
   /// *link abda and adca* link the shared ad side of abda and adca triangles
   ///
   static void link_abda_and_adca(Triangle &abda, Triangle &adca);
 
-    Triangle(double ang1, double ang2, double ang3,
-             double tol_radius,
-             rules::PairsOverWholeSky& pairs,
-             int teststar);
-    Triangle(int teststar);
+  Triangle(double ang1, double ang2, double ang3,
+           double tol_radius,
+           rules::PairsOverWholeSky& pairs,
+           int teststar);
+  Triangle(int teststar);
 
-    rules::TriangleSide side1;
-    rules::TriangleSide side2;
-    rules::TriangleSide side3;
-    int teststar;
+  rules::TriangleSide side1;
+  rules::TriangleSide side2;
+  rules::TriangleSide side3;
+  int teststar;
 
-    void update_side1(TriangleSide &side1new);
-    void update_side3(TriangleSide &side3new);
+  void update_side1(TriangleSide &side1new);
+  void update_side3(TriangleSide &side3new);
+
+private:
 
 };
 

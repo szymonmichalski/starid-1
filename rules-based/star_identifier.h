@@ -22,7 +22,8 @@ public:
 
   StarIdentifier(stars::Image& image, rules::PairsOverWholeSky& pairs, double tol_radius);
 
-  /// *identify central star* primary functionality and purpose of the class
+  /// *identify central star* this is the main function
+  ///
   int identifyCentralStar();
 
 private:
