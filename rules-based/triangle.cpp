@@ -18,31 +18,33 @@ rules::Triangle::Triangle(int teststar)
 }
 
 void rules::Triangle::link_side1_and_side3() {
-  TriangleSide::intersect_stars(side1, side3);
-  for (auto ita1 = side1.stars.begin(), end = side1.stars.end(); ita1 != end; ++ita1) {
-    auto &pairs1 = ita1->second;
-    auto ita3 = side3.stars.find(ita1->first);
-    auto &pairs3 = ita3->second;
+  for (int ndx = 0; ndx < 5; ++ndx) {
+    TriangleSide::intersect_stars(side1, side3);
+    for (auto ita1 = side1.stars.begin(), end = side1.stars.end(); ita1 != end; ++ita1) {
+      auto &pairs1 = ita1->second;
+      auto ita3 = side3.stars.find(ita1->first);
+      auto &pairs3 = ita3->second;
 
-    for (auto itb1 = pairs1.begin(), end = pairs1.end(); itb1 != end; ++itb1) {
-      auto itb2 = side2.stars.find(itb1->first);
-      if (itb2 != side2.stars.end()) {
-        auto &pairs2 = itb2->second;
+      for (auto itb1 = pairs1.begin(), end = pairs1.end(); itb1 != end; ++itb1) {
+        auto itb2 = side2.stars.find(itb1->first);
+        if (itb2 != side2.stars.end()) {
+          auto &pairs2 = itb2->second;
 
-        for (auto itc2 = pairs2.begin(), end = pairs2.end(); itc2 != end; ++itc2) {
-          auto itc3 = pairs3.find(itc2->first); // backing into side 3...
-          if (itc3 != pairs3.end()) {
-            ++itb1->second;
-            ++itc2->second;
-            ++itc3->second;
+          for (auto itc2 = pairs2.begin(), end = pairs2.end(); itc2 != end; ++itc2) {
+            auto itc3 = pairs3.find(itc2->first); // backing into side 3...
+            if (itc3 != pairs3.end()) {
+              ++itb1->second;
+              ++itc2->second;
+              ++itc3->second;
+            }
           }
         }
       }
     }
+    side1.prune_pairs();
+    side2.prune_pairs();
+    side3.prune_pairs();
   }
-  side1.clean_and_log();
-  side2.clean_and_log();
-  side3.clean_and_log();
 }
 
 void rules::Triangle::link_abda_and_adca(Triangle &abda, Triangle &adca) {

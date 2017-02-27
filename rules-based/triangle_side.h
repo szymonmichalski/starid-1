@@ -22,9 +22,9 @@ public:
   ///
   void refresh_pairs(TriangleSide &side);
 
-  /// *clean side* remove pairs keys that have value zero, then stars that have no pairs.
+  /// *prune pairs* remove pairs that have value zero or are no longer stars. then remove stars that have no pairs.
   ///
-  void clean_and_log();
+  void prune_pairs();
 
   /// *intersect stars* leave stars that are in both sides
   ///
