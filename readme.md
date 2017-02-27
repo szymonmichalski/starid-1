@@ -3,11 +3,11 @@
 
 **learning based star identification**
 
-identify stars using convolutional networks, support vector machines, etc.
+identify stars using convolutional networks and support vector machines.
 
 **rules based heuristics**
 
-directly use geometric properties of star pairs, triangles, etc.
+directly use geometric properties of star pairs and triangles.
 
 **stars**
 
