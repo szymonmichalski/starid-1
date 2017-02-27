@@ -1,11 +1,8 @@
-*25.2.2017*
+*27.2.2017*
 
-first stable deep iterations...
+triangle processing is now doing a decent job of handling deep cycles and iterations - tracing star pairs down through multiple layers of linked triangles. what this is revealing is just how tough the problem is for low angular resolution mnist style images. at such low resolution each star triangle contains a relatively small amount of information, or inversely a relatively large amount of uncertainty. to gather enough information to identify a star, you need a lot of low res triangles.
 
-    1 19 5347 1 1
-    2 38 4511 1 1
-    3 57 4146 1 1
-    4 75 3818 1 1
+the focus now seems headed towards directly using higher level geometrical structures containing more information, despite the low resolution of the lower levels. these structures can be built out of triangles. it also may be possible to dynamically trace through rather arbitrary geometries. maybe graphs of stars is a useful way of expressing this...
 
 *20.2.2017*
 
