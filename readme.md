@@ -5,7 +5,7 @@
 
 identify a star using convolutional networks, support vector machines, etc.
 
-**rules based heuristic star identification**
+**rules based heuristics**
 
 directly use inherent properties of star pairs, triangles, etc.
 
