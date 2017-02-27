@@ -1,5 +1,5 @@
-<img src="docs/images/star4a.png" align="right" height="300" width="300"/>
 <img src="docs/images/star4b.png" align="right" height="300" width="300"/>
+<img src="docs/images/star4a.png" align="right" height="300" width="300"/>
 
 **learning based star identification**
 
