@@ -1,3 +1,6 @@
+<img src="docs/images/star4a.png" align="left" height="300" width="300"/>
+<img src="docs/images/star4b.png" align="left" height="300" width="300"/>
+
 **learning based star identification**
 
 identify a star using convolutional networks, support vector machines, etc.
