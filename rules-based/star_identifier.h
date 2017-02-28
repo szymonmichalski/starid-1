@@ -24,14 +24,12 @@ public:
 
   /// *identify central star* this is the main function
   ///
-  int identifyCentralStar();
+  int identifyCentralStar(int teststar);
 
 private:
 
-  Triangle new_abda(Triangle &abca, TriangleSide &abref);
-  Triangle new_adca(Triangle &abca, TriangleSide &caref);
-
-  void update_stars(std::unordered_map<int, int>& stars1, const std::unordered_map<int, int>& stars2);
+  Triangle new_abda(Triangle &abca);
+  Triangle new_adca(Triangle &abca);
 
   bool get_angs_c();
   bool get_angs_d();

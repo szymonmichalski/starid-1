@@ -89,9 +89,10 @@ int main(int argc, char* argv[])
 
     stopwatch.reset();
     double epsilon = 500.0; // emperical
-    double tolrad = (2.0 * std::sqrt(500.0*500.0 + 500.00*500.0) + epsilon) * (M_PI / 648000.0);
+    double tolrad = (2.0 * std::sqrt(500.0*500.0 + 500.00*500.0) + epsilon) * stars::arcseconds_to_radians;
     rules::StarIdentifier triangles(image, pairs, tolrad);
-    int starndxIdentified = triangles.identifyCentralStar();
+    int teststar = 1;
+    int starndxIdentified = triangles.identifyCentralStar(teststar);
     std::cout << "triangles " << stopwatch.end() << std::endl;
 
     std::cout << "identification " << starndxIdentified << std::endl;
