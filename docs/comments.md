@@ -40,7 +40,7 @@ for adding, finding, removing, etc star pairs to a triangle side. one objective 
 
 *refresh pairs* bring back pair information from an earlier side
 
-*clean side* remove pairs keys that have value zero, then stars that have no pairs.
+*prune pairs* remove pairs that have value zero or are no longer stars. then remove stars that have no pairs.
 
 *intersect stars* leave stars that are in both sides
 
