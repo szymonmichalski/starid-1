@@ -26,12 +26,7 @@ int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
       for (ndxd = 1; ndxd < image.uvecs.n_rows; ++ndxd) {
         if (!get_angs_d()) continue;
 
-        Triangle abda = abca;
-        rules::TriangleSide bd(angs_d[4], tol_radius, all_pairs, teststar);
-        rules::TriangleSide da(angs_d[3], tol_radius, all_pairs, teststar);
-        abda.side2.stars = bd.stars;
-        abda.side3.stars = da.stars;
-        abda.link_side1_and_side3();
+        Triangle abda = new_abda(abca);
         abdas.push_back(abda);
       }
 
