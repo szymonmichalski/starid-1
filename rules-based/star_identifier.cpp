@@ -22,17 +22,19 @@ int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
       abca.side1 = ab;
       abca.link_side1_and_side3();
 
+      std::vector<Triangle> abdas;
       for (ndxd = 1; ndxd < image.uvecs.n_rows; ++ndxd) {
         if (!get_angs_d()) continue;
 
-        Triangle abda = new_abda(abca);
-        Triangle adca = new_adca(abca);
-//        Triangle::link_abda_and_adca(abda, adca);
-//        abca.update_side1(abda.side1);
-//        abca.update_side3(adca.side3);
-        abca.link_side1_and_side3();
-        msg_abca(abca);
+        Triangle abda = abca;
+        rules::TriangleSide bd(angs_d[4], tol_radius, all_pairs, teststar);
+        rules::TriangleSide da(angs_d[3], tol_radius, all_pairs, teststar);
+        abda.side2.stars = bd.stars;
+        abda.side3.stars = da.stars;
+        abda.link_side1_and_side3();
+        abdas.push_back(abda);
       }
+
       ab = abca.side1;
     }
   }
@@ -76,7 +78,7 @@ bool rules::StarIdentifier::get_angs_c() {
   angs_c.push_back(std::acos(arma::dot(uvecc, uveca)));
   min_ang = 3000.0 * stars::arcseconds_to_radians;
   if (angs_c[0] < min_ang) angsok = false; // ab
-  if (angs_c[1] < min_ang) angsok = angsok; // bc allow
+  if (angs_c[1] < min_ang) angsok = false; // bc
   if (angs_c[2] < min_ang) angsok = false; // ca
   if (std::abs(angs_c[0]-angs_c[1]) < min_ang) angsok = false; // ab-bc
   if (std::abs(angs_c[0]-angs_c[2]) < min_ang) angsok = false; // ab-ca
@@ -92,7 +94,7 @@ bool rules::StarIdentifier::get_angs_d() {
   angs_d.push_back(std::acos(arma::dot(uvecd, uveca)));
   angs_d.push_back(std::acos(arma::dot(uvecd, uvecb)));
   angs_d.push_back(std::acos(arma::dot(uvecd, uvecc)));
-  if (angs_d[3] < min_ang) angsok = false; // da allow
+  if (angs_d[3] < min_ang) angsok = false; // da
   if (angs_d[4] < min_ang) angsok = false; // db
   if (angs_d[5] < min_ang) angsok = false; // dc
   if (std::abs(angs_d[4]-angs_d[3]) < min_ang) angsok = false; // db-da

@@ -85,7 +85,7 @@ int main(int argc, char* argv[])
     stars::Image image;
     std::string filename = datadir + imgfile;
     image.axjAxiImageReadMnist(filename, imgndx);
-    std::cout << "sky, pairs, image " << stopwatch.end() << std::endl;
+    std::cout << "sky, pairs, image msecs " << stopwatch.end() << std::endl;
 
     stopwatch.reset();
     double epsilon = 500.0; // emperical
