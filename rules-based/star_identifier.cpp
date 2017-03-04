@@ -19,7 +19,7 @@ int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
       if (!get_angs_c()) continue;
 
       Triangle abca(angs_c[0], angs_c[1], angs_c[2], tol_radius, all_pairs, teststar);
-      abca.link_side1_and_side3(1);
+      abca.close_loop(1);
       ab.stars = abca.side1.stars;
 
       std::vector<Triangle> abdas;
@@ -28,7 +28,7 @@ int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
 
         Triangle abda = new_abda(abca);
         abda.side1.stars = ab.stars;
-        abda.link_side1_and_side3(1);
+        abda.close_loop(1);
         abdas.push_back(abda);
         ab.stars = abda.side1.stars;
       }
@@ -50,8 +50,8 @@ rules::Triangle rules::StarIdentifier::new_abda(Triangle &abca) {
   Triangle abda = abca;
   rules::TriangleSide bd(angs_d[4], tol_radius, all_pairs, teststar);
   rules::TriangleSide da(angs_d[3], tol_radius, all_pairs, teststar);
-  abda.side2.stars = bd.stars;
-  abda.side3.stars = da.stars;
+  abda.side2 = bd;
+  abda.side3 = da;
   return abda;
 }
 
@@ -92,8 +92,10 @@ bool rules::StarIdentifier::get_angs_d() {
   angs_d.push_back(std::acos(arma::dot(uvecd, uvecc)));
   if (angs_d[3] < min_ang) angsok = false; // da
   if (angs_d[4] < min_ang) angsok = false; // db
-  if (angs_d[5] < min_ang) angsok = false; // dc
+  //if (angs_d[5] < min_ang) angsok = false; // dc
   if (std::abs(angs_d[4]-angs_d[3]) < min_ang) angsok = false; // db-da
+  if (std::abs(angs_d[4]-angs_d[0]) < min_ang) angsok = false; // db-ab
+  //if (std::abs(angs_d[4]-angs_d[5]) < min_ang) angsok = false; // db-dc
   return angsok;
 }
 

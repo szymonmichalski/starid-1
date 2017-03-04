@@ -16,7 +16,7 @@ rules::Triangle::Triangle(int teststar)
     teststar(teststar) {
 }
 
-void rules::Triangle::link_side1_and_side3(int maxits) {
+void rules::Triangle::close_loop(int maxits) {
   star1.clear();
   star2.clear();
   star3.clear();
@@ -24,6 +24,7 @@ void rules::Triangle::link_side1_and_side3(int maxits) {
     TriangleSide::intersect_stars(side1, side3);
 
     for (auto it11 = side1.stars.begin(), end = side1.stars.end(); it11 != end; ++it11) { // star1 side1
+      int star1side1 = it11->first;
       auto &pairs1 = it11->second;
       auto it13 = side3.stars.find(it11->first);
       auto &pairs3 = it13->second;
@@ -34,7 +35,9 @@ void rules::Triangle::link_side1_and_side3(int maxits) {
           auto &pairs2 = it22->second;
 
           for (auto pairs2it = pairs2.begin(), end = pairs2.end(); pairs2it != end; ++pairs2it) { // star3 side2
-            auto pairs3it = pairs3.find(pairs2it->first); // backing into side 3...
+            int star3side2 = pairs2it->first;
+
+            auto pairs3it = pairs3.find(star3side2); // star3 side3
             if (pairs3it != pairs3.end()) {
               ++pairs1it->second;
               ++pairs2it->second;
@@ -57,8 +60,8 @@ void rules::Triangle::link_side1_and_side3(int maxits) {
 
 void rules::Triangle::link_abda_and_adca(Triangle &abda, Triangle &adca) {
   TriangleSide::intersect_stars(abda.side3, adca.side1);
-  abda.link_side1_and_side3();
-  adca.link_side1_and_side3();
+  abda.close_loop();
+  adca.close_loop();
 }
 
 
