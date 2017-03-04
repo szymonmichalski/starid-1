@@ -19,19 +19,21 @@ int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
       if (!get_angs_c()) continue;
 
       Triangle abca(angs_c[0], angs_c[1], angs_c[2], tol_radius, all_pairs, teststar);
-//      abca.side1 = ab;
       abca.link_side1_and_side3(1);
+      ab.stars = abca.side1.stars;
 
       std::vector<Triangle> abdas;
       for (ndxd = 1; ndxd < image.uvecs.n_rows; ++ndxd) {
         if (!get_angs_d()) continue;
 
         Triangle abda = new_abda(abca);
+        abda.side1.stars = ab.stars;
         abda.link_side1_and_side3(1);
         abdas.push_back(abda);
+        ab.stars = abda.side1.stars;
       }
 
-      ab = abca.side1;
+      continue;
     }
   }
   return -1;
