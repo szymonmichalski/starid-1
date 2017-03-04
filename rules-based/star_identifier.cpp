@@ -19,14 +19,15 @@ int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
       if (!get_angs_c()) continue;
 
       Triangle abca(angs_c[0], angs_c[1], angs_c[2], tol_radius, all_pairs, teststar);
-      abca.side1 = ab;
-      abca.link_side1_and_side3();
+//      abca.side1 = ab;
+      abca.link_side1_and_side3(1);
 
       std::vector<Triangle> abdas;
       for (ndxd = 1; ndxd < image.uvecs.n_rows; ++ndxd) {
         if (!get_angs_d()) continue;
 
         Triangle abda = new_abda(abca);
+        abda.link_side1_and_side3(1);
         abdas.push_back(abda);
       }
 
@@ -49,7 +50,6 @@ rules::Triangle rules::StarIdentifier::new_abda(Triangle &abca) {
   rules::TriangleSide da(angs_d[3], tol_radius, all_pairs, teststar);
   abda.side2.stars = bd.stars;
   abda.side3.stars = da.stars;
-  abda.link_side1_and_side3();
   return abda;
 }
 
@@ -59,7 +59,6 @@ rules::Triangle rules::StarIdentifier::new_adca(Triangle &abca) {
   rules::TriangleSide dc(angs_d[5], tol_radius, all_pairs, teststar);
   adca.side1.stars = ad.stars; //abda.side3.stars;
   adca.side2.stars = dc.stars;
-  adca.link_side1_and_side3();
   return adca;
 }
 

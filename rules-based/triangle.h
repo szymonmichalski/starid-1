@@ -15,7 +15,7 @@ public:
 
   /// *link side1 and side3* travel around sides ab to bc to ca connecting by pairs.
   ///
-  void link_side1_and_side3();
+  void link_side1_and_side3(int maxits = 1);
 
   /// *link abda and adca* link the shared ad side of abda and adca triangles
   ///

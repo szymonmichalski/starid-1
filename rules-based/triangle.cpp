@@ -7,7 +7,6 @@ rules::Triangle::Triangle(double ang1, double ang2, double ang3,
     side2(ang2, tol_radius, pairs, teststar),
     side3(ang3, tol_radius, pairs, teststar),
     teststar(teststar) {
-  link_side1_and_side3();
 }
 
 rules::Triangle::Triangle(int teststar)
@@ -17,11 +16,10 @@ rules::Triangle::Triangle(int teststar)
     teststar(teststar) {
 }
 
-void rules::Triangle::link_side1_and_side3() {
+void rules::Triangle::link_side1_and_side3(int maxits) {
   star1.clear();
   star2.clear();
   star3.clear();
-  int maxits = 10;
   for (int it = 0; it < maxits; ++it) {
     TriangleSide::intersect_stars(side1, side3);
     for (auto it11 = side1.stars.begin(), end = side1.stars.end(); it11 != end; ++it11) {
