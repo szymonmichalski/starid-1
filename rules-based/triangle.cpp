@@ -18,24 +18,33 @@ rules::Triangle::Triangle(int teststar)
 }
 
 void rules::Triangle::link_side1_and_side3() {
-  for (int ndx = 0; ndx < 5; ++ndx) {
+  star1.clear();
+  star2.clear();
+  star3.clear();
+  int maxits = 10;
+  for (int it = 0; it < maxits; ++it) {
     TriangleSide::intersect_stars(side1, side3);
-    for (auto ita1 = side1.stars.begin(), end = side1.stars.end(); ita1 != end; ++ita1) {
-      auto &pairs1 = ita1->second;
-      auto ita3 = side3.stars.find(ita1->first);
-      auto &pairs3 = ita3->second;
+    for (auto it11 = side1.stars.begin(), end = side1.stars.end(); it11 != end; ++it11) {
+      auto &pairs1 = it11->second;
+      auto it13 = side3.stars.find(it11->first);
+      auto &pairs3 = it13->second;
 
-      for (auto itb1 = pairs1.begin(), end = pairs1.end(); itb1 != end; ++itb1) {
-        auto itb2 = side2.stars.find(itb1->first);
-        if (itb2 != side2.stars.end()) {
-          auto &pairs2 = itb2->second;
+      for (auto it21 = pairs1.begin(), end = pairs1.end(); it21 != end; ++it21) {
+        auto it22 = side2.stars.find(it21->first);
+        if (it22 != side2.stars.end()) {
+          auto &pairs2 = it22->second;
 
-          for (auto itc2 = pairs2.begin(), end = pairs2.end(); itc2 != end; ++itc2) {
-            auto itc3 = pairs3.find(itc2->first); // backing into side 3...
-            if (itc3 != pairs3.end()) {
-              ++itb1->second;
-              ++itc2->second;
-              ++itc3->second;
+          for (auto it32 = pairs2.begin(), end = pairs2.end(); it32 != end; ++it32) {
+            auto it33 = pairs3.find(it32->first); // backing into side 3...
+            if (it33 != pairs3.end()) {
+              ++it21->second;
+              ++it32->second;
+              ++it33->second;
+              if (it == maxits-1) {
+                star1.push_back(it11->first);
+                star2.push_back(it21->first);
+                star3.push_back(it32->first);
+              }
             }
           }
         }

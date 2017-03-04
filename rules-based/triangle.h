@@ -30,6 +30,9 @@ public:
   rules::TriangleSide side1;
   rules::TriangleSide side2;
   rules::TriangleSide side3;
+  std::vector<int> star1;
+  std::vector<int> star2;
+  std::vector<int> star3;
   int teststar;
 
   void update_side1(TriangleSide &side1new);

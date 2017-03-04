@@ -4,9 +4,9 @@ rules::TriangleSide::TriangleSide(double ang, double tol_radius, rules::PairsOve
                                   int starndx)
   : teststar(starndx) {
   stars = pairs.pairs_map(ang, tol_radius);
-  log_star_count.push_back(stars.size());
-  log_pair_count.push_back(pair_count());
-  log_teststar.push_back(has_teststar(starndx));
+//  log_star_count.push_back(stars.size());
+//  log_pair_count.push_back(pair_count());
+//  log_teststar.push_back(has_teststar(starndx));
 }
 
 rules::TriangleSide::TriangleSide(int teststar)

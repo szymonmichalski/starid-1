@@ -88,7 +88,7 @@ int main(int argc, char* argv[])
     std::cout << "sky, pairs, image msecs " << stopwatch.end() << std::endl;
 
     stopwatch.reset();
-    double epsilon = 500.0; // emperical
+    double epsilon = 0.0; // emperical
     double tolrad = (2.0 * std::sqrt(500.0*500.0 + 500.00*500.0) + epsilon) * stars::arcseconds_to_radians;
     rules::StarIdentifier triangles(image, pairs, tolrad);
     int teststar = 1;
