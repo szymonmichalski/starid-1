@@ -1,8 +1,8 @@
 *5.23.2017*
 
-time for a small celebration. triangle based identification is now working for low res mnist style images. this was really a challenge. screenshot below shows the euerka moment. rapid convergence towards the correct answer over nineteen relatively quick iterations. more iterations and convergence will complete.
+time for a small celebration. triangle based identification is now working for low res mnist style images. this was really a challenge. screenshot below shows the euerka moment. rapid convergence towards the correct answer over nineteen relatively quick iterations.
 
- ![it works](images/it works.png)
+ ![it works](images/itworks.png)
 
 *27.2.2017*
 
