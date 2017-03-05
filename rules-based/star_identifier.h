@@ -33,7 +33,7 @@ private:
 
   bool get_angs_c();
   bool get_angs_d();
-  void msg_abca(Triangle &abca);
+  void print_status(Triangle &abca);
   rules::PairsOverWholeSky all_pairs;
   stars::Image& image;
   double tol_radius;

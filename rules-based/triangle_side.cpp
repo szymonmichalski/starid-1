@@ -14,6 +14,14 @@ rules::TriangleSide::TriangleSide(int teststar)
 
 }
 
+void rules::TriangleSide::append_iterations(TriangleSide &side) {
+  stars = side.stars;
+  for (auto tmp : side.log_pair_count) log_pair_count.push_back(tmp);
+  for (auto tmp : side.log_star_count) log_star_count.push_back(tmp);
+  for (auto tmp : side.log_teststar) log_teststar.push_back(tmp);
+  has_teststar = side.has_teststar;
+}
+
 void rules::TriangleSide::refresh_pairs(TriangleSide &side)
 {
   for (auto it1 = stars.begin(), end = stars.end(); it1 != end; ++it1) {
@@ -40,27 +48,33 @@ void rules::TriangleSide::intersect_stars(TriangleSide &sidea, TriangleSide &sid
 }
 
 void::rules::TriangleSide::prune_pairs() {
-  for (auto it1 = stars.begin(); it1 != stars.end(); ) {
-    auto &pairs = it1->second;
-    for (auto it2 = pairs.begin(); it2 != pairs.end(); ) {
-      auto it3 = stars.find(it2->first);
-      if (it2->second == 0 || it3 == stars.end()) {
-      //if (it2->second == 0) {
-        it2 = pairs.erase(it2);
+
+  for (auto star1 = stars.begin(), end = stars.end(); star1 != end; ++star1) {
+    auto &pairs = star1->second;
+
+    for (auto star2 = pairs.begin(); star2 != pairs.end(); ) {
+
+      if (star2->second == 0) {
+        star2 = pairs.erase(star2);
       } else {
-        it2->second = 0;
-        ++it2;
+        star2->second = 0;
+        ++star2;
       }
     }
-    if (pairs.empty())
-      it1 = stars.erase(it1);
-    else
-      ++it1;
   }
+
+  for (auto star1 = stars.begin(); star1 != stars.end(); ) {
+    auto &pairs = star1->second;
+    if (pairs.empty())
+      star1 = stars.erase(star1);
+    else
+      ++star1;
+  }
+
+  has_teststar = check_teststar(teststar);
   log_star_count.push_back(stars.size());
   log_pair_count.push_back(pair_count());
-  log_teststar.push_back(has_teststar(teststar));
-  hasteststar = has_teststar(teststar);
+  log_teststar.push_back(has_teststar);
 }
 
 int rules::TriangleSide::pair_count() {
@@ -81,7 +95,7 @@ std::map<int, int> rules::TriangleSide::summary() {
   return result;
 }
 
-bool rules::TriangleSide::has_teststar(int starndx) {
+bool rules::TriangleSide::check_teststar(int starndx) {
   auto it = stars.find(starndx);
   if (it == stars.end()) return false;
   return true;

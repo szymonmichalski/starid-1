@@ -12,25 +12,25 @@ int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
 
     uveca = arma::trans(image.uvecs.row(0));
     uvecb = arma::trans(image.uvecs.row(ndxb));
-    TriangleSide abinit(std::acos(arma::dot(uveca, uvecb)), tol_radius, all_pairs, teststar);
-    TriangleSide ab = abinit; // evolve ab over star c cycles
+    TriangleSide ab(std::acos(arma::dot(uveca, uvecb)), tol_radius, all_pairs, teststar);
 
     for (ndxc = 1; ndxc < image.uvecs.n_rows; ++ndxc) {
       if (!get_angs_c()) continue;
 
       Triangle abca(angs_c[0], angs_c[1], angs_c[2], tol_radius, all_pairs, teststar);
-      abca.close_loop(10);
-      ab.stars = abca.side1.stars;
+      abca.close_loops(1);
+      ab.append_iterations(abca.side1);
 
       std::vector<Triangle> abdas;
       for (ndxd = 1; ndxd < image.uvecs.n_rows; ++ndxd) {
         if (!get_angs_d()) continue;
 
-        Triangle abda = new_abda(abca);
-//        abda.side1.stars = ab.stars;
-        abda.close_loop(10);
+        Triangle abda(angs_d[0], angs_d[4], angs_d[3], tol_radius, all_pairs, teststar);
+        abda.side1.stars = ab.stars;
+        abda.close_loops(1);
         abdas.push_back(abda);
-        ab.stars = abda.side1.stars;
+        ab.append_iterations(abda.side1);
+        print_status(abda);
       }
 
       continue;
@@ -39,14 +39,12 @@ int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
   return -1;
 }
 
-rules::Triangle rules::StarIdentifier::new_abda(Triangle &abca) {
-  Triangle abda = abca;
-  rules::TriangleSide da(angs_d[3], tol_radius, all_pairs, teststar);
-  rules::TriangleSide bd(angs_d[4], tol_radius, all_pairs, teststar);
-  rules::TriangleSide cd(angs_d[5], tol_radius, all_pairs, teststar);
-  abda.side2 = bd;
-  abda.side3 = da;
-  return abda;
+void rules::StarIdentifier::print_status(Triangle &in) {
+  std::cout << ndxb << ' ' << ndxc << ' ' << ndxd << ' '
+            << in.side1.log_star_count.size() << ' '
+            << in.side1.stars.size() << ' '
+            << in.side1.has_teststar << ' '
+            << in.side3.has_teststar << std::endl;
 }
 
 bool rules::StarIdentifier::get_angs_d() {
@@ -61,25 +59,9 @@ bool rules::StarIdentifier::get_angs_d() {
   if (angs_d[4] < min_ang) angsok = false; // db
   //if (angs_d[5] < min_ang) angsok = false; // dc
   if (std::abs(angs_d[4]-angs_d[3]) < min_ang) angsok = false; // db-da
-  if (std::abs(angs_d[4]-angs_d[0]) < min_ang) angsok = false; // db-ab
-  if (std::abs(angs_d[4]-angs_d[5]) < min_ang) angsok = false; // db-dc
+  //if (std::abs(angs_d[4]-angs_d[0]) < min_ang) angsok = false; // db-ab
+  //if (std::abs(angs_d[4]-angs_d[5]) < min_ang) angsok = false; // db-dc
   return angsok;
-}
-
-rules::Triangle rules::StarIdentifier::new_adca(Triangle &abca) {
-  Triangle adca = abca;
-  rules::TriangleSide ad(angs_d[3], tol_radius, all_pairs, teststar);
-  rules::TriangleSide dc(angs_d[5], tol_radius, all_pairs, teststar);
-  adca.side1.stars = ad.stars; //abda.side3.stars;
-  adca.side2.stars = dc.stars;
-  return adca;
-}
-
-void rules::StarIdentifier::msg_abca(Triangle &abca) {
-  std::cout << ndxb << ' ' << ndxc << ' ' << ndxd << ' '
-            << abca.side1.log_star_count.size() << ' '
-            << abca.side1.stars.size() << ' '
-            << abca.side1.log_teststar.back() << std::endl;
 }
 
 bool rules::StarIdentifier::get_angs_c() {
@@ -99,6 +81,27 @@ bool rules::StarIdentifier::get_angs_c() {
   if (std::abs(angs_c[1]-angs_c[2]) < min_ang) angsok = false; // bc-ca
   return angsok;
 }
+
+rules::Triangle rules::StarIdentifier::new_abda(Triangle &abca) {
+  Triangle abda = abca;
+  rules::TriangleSide da(angs_d[3], tol_radius, all_pairs, teststar);
+  rules::TriangleSide bd(angs_d[4], tol_radius, all_pairs, teststar);
+  //rules::TriangleSide cd(angs_d[5], tol_radius, all_pairs, teststar);
+  abda.side2 = bd;
+  abda.side3 = da;
+  return abda;
+}
+
+rules::Triangle rules::StarIdentifier::new_adca(Triangle &abca) {
+  Triangle adca = abca;
+  rules::TriangleSide ad(angs_d[3], tol_radius, all_pairs, teststar);
+  rules::TriangleSide dc(angs_d[5], tol_radius, all_pairs, teststar);
+  adca.side1.stars = ad.stars; //abda.side3.stars;
+  adca.side2.stars = dc.stars;
+  return adca;
+}
+
+
 
 
 

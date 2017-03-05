@@ -15,7 +15,7 @@ public:
 
   /// *link side1 and side3* travel around sides ab to bc to ca connecting by pairs.
   ///
-  void close_loop(int maxits = 1);
+  void close_loops(int maxits = 1);
 
   /// *link abda and adca* link the shared ad side of abda and adca triangles
   ///
@@ -30,9 +30,9 @@ public:
   rules::TriangleSide side1;
   rules::TriangleSide side2;
   rules::TriangleSide side3;
-  std::vector<int> star1;
-  std::vector<int> star2;
-  std::vector<int> star3;
+  std::vector<int> loops_star1;
+  std::vector<int> loops_star2;
+  std::vector<int> loops_star3;
   int teststar;
 
   void update_side1(TriangleSide &side1new);

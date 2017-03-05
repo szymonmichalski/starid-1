@@ -30,18 +30,22 @@ public:
   ///
   static void intersect_stars(TriangleSide &sidea, TriangleSide &sideb);
 
+  /// *append iterations* append the iterations contained in another side
+  ///
+  void append_iterations(TriangleSide &side);
+
   std::vector<int> log_star_count;
   std::vector<int> log_pair_count;
   std::vector<bool> log_teststar;
   int teststar;
-  bool hasteststar;
+  bool has_teststar;
 
   TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs,
                int teststar);
   TriangleSide(int teststar);
 
   std::map<int, int> summary();
-  bool has_teststar(int teststar);
+  bool check_teststar(int teststar);
   int pair_count();
 
 private:
