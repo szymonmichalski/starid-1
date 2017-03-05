@@ -1,6 +1,6 @@
 *5.3.2017*
 
-triangle based identification is now working for low res mnist style images. this was really a challenge. screenshot below shows the eureka moment. nice convergence over nineteen triangles.
+triangle based identification is now working formmnist style images. this was really a challenge. image below shows the eureka moment. nice convergence over nineteen triangles.
 
  ![itworks](images/itworks.png)
 
