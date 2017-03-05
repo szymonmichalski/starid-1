@@ -1,27 +1,32 @@
 #include "pairs_over_whole_sky.h"
-#include "globals.h"
 
 void rules::PairsOverWholeSky::init(double max_ang, stars::Sky& sky)
 {
     int pairndx = 0;
-    for(auto star : sky.stars) {
-        std::vector<int> neighborndxs = sky.starsNearPoint(star.x, star.y, star.z);
-        for (auto neighborndx : neighborndxs) {
-            if (star.starndx == neighborndx) continue;
-            std::string key = pairsKey(star.starndx, sky.stars[neighborndx].starndx);
-            auto search = starpairs_map.find(key);
-            if (search != starpairs_map.end()) continue; // check map that pair is unique
-            double angle = std::acos( (star.x * sky.stars[neighborndx].x)
-                                 + (star.y * sky.stars[neighborndx].y)
-                                 + (star.z * sky.stars[neighborndx].z));
-            if (std::abs(angle) > max_ang) continue; // max pair angle
 
-            std::tuple<double, int, int> starpair {angle, star.starndx, neighborndx};
-            starpairs.push_back(starpair);
-            starpairs_map.insert({key, pairndx}); // update map of unique pairs
-            angletable.addPair(angle, pairndx);
-            ++pairndx;
+    for(auto star : sky.stars) {
+      std::vector<int> starndxs = sky.starsNearPoint(star.x, star.y, star.z);
+      starndxs.push_back(star.starndx);
+
+      for (auto starndx1 : starndxs) {
+
+        for (auto starndx2 : starndxs) {
+          if (starndx1 == starndx2) continue;
+
+          std::string key = pairsKey(sky.stars[starndx1].starndx, sky.stars[starndx2].starndx);
+          auto search = starpairs_map.find(key);
+          if (search != starpairs_map.end()) continue; // check map that pair is unique
+
+          double angle = std::acos( (sky.stars[starndx1].x * sky.stars[starndx2].x) + (sky.stars[starndx1].y * sky.stars[starndx2].y) + (sky.stars[starndx1].z * sky.stars[starndx2].z));
+          if (std::abs(angle) > max_ang) continue; // max pair angle
+
+          std::tuple<double, int, int> starpair {angle, starndx1, starndx2};
+          starpairs.push_back(starpair);
+          starpairs_map.insert({key, pairndx}); // update map of unique pairs
+          angletable.addPair(angle, pairndx);
+          ++pairndx;
         }
+      }
     }
     angletable.sort();
 }
@@ -31,17 +36,19 @@ std::unordered_map<int, std::unordered_map<int, int>> rules::PairsOverWholeSky::
 
     double ang1 = angle - tol_radius;
     double ang2 = angle + tol_radius;
+    double epsilon = 1.0;
 
     if (ang1 <= 0) ang1 = 0;
-    if (ang2 <= 2.0 * tol_radius) ang2 = 2.0 * tol_radius;
+    if (ang2 <= epsilon * tol_radius) ang2 = epsilon * tol_radius;
 
-    if (ang1 >= stars::image_radius_radians - 2.0 * tol_radius) ang1 = stars::image_radius_radians - 2.0 * tol_radius;
-    if (ang2 >= stars::image_radius_radians) ang2 = stars::image_radius_radians;
+    if (ang1 >= stars::star_pair_angle_limit - epsilon * tol_radius) ang1 = stars::star_pair_angle_limit - epsilon * tol_radius;
+    if (ang2 >= stars::star_pair_angle_limit) ang2 = stars::star_pair_angle_limit;
 
     std::vector<int> intsFromTable = angletable.findInts(ang1, ang2);
     for (auto ndx : intsFromTable) {
         int star1 = std::get<1>(starpairs[ndx]);
         int star2 = std::get<2>(starpairs[ndx]);
+
         auto it1 = stars.find(star1);
         if (it1 != stars.end()) {
             auto &pairs1 = it1->second;
@@ -51,6 +58,7 @@ std::unordered_map<int, std::unordered_map<int, int>> rules::PairsOverWholeSky::
             pairs1.emplace(std::make_pair(star2,1));
             stars.emplace(std::make_pair(star1,pairs1));
         }
+
         auto it2 = stars.find(star2);
         if (it2 != stars.end()) {
             auto &pairs2 = it2->second;

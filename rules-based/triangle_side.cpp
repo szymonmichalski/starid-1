@@ -60,6 +60,7 @@ void::rules::TriangleSide::prune_pairs() {
   log_star_count.push_back(stars.size());
   log_pair_count.push_back(pair_count());
   log_teststar.push_back(has_teststar(teststar));
+  hasteststar = has_teststar(teststar);
 }
 
 int rules::TriangleSide::pair_count() {

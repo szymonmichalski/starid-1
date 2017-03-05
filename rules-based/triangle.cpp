@@ -21,12 +21,13 @@ void rules::Triangle::close_loop(int maxits) {
   star2.clear();
   star3.clear();
   for (int it = 0; it < maxits; ++it) {
-    TriangleSide::intersect_stars(side1, side3);
+    //TriangleSide::intersect_stars(side1, side3);
 
     for (auto it11 = side1.stars.begin(), end = side1.stars.end(); it11 != end; ++it11) { // star1 side1
       int star1side1 = it11->first;
       auto &pairs1 = it11->second;
-      auto it13 = side3.stars.find(it11->first);
+      auto it13 = side3.stars.find(star1side1);
+      if (it13 == side3.stars.end()) continue;
       auto &pairs3 = it13->second;
 
       for (auto pairs1it = pairs1.begin(), end = pairs1.end(); pairs1it != end; ++pairs1it) { // star2 side1
@@ -39,9 +40,9 @@ void rules::Triangle::close_loop(int maxits) {
 
             auto pairs3it = pairs3.find(star3side2); // star3 side3
             if (pairs3it != pairs3.end()) {
-              ++pairs1it->second;
-              ++pairs2it->second;
-              ++pairs3it->second;
+              pairs1it->second = 1;
+              pairs2it->second = 1;
+              pairs3it->second = 1;
               if (it == maxits-1) {
                 star1.push_back(it11->first);
                 star2.push_back(pairs1it->first);

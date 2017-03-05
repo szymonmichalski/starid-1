@@ -13,6 +13,7 @@
 #include <cereal/types/vector.hpp>
 #include <cereal/types/unordered_map.hpp>
 #include <eigen/Core>
+#include "globals.h"
 
 namespace rules {
 

@@ -12,7 +12,7 @@ and the beginnings of how it came about are creeping forward [here](http://stari
 
 *17.2.2017*
 
-increased the maximum star pair angle from four degrees to eleven degrees so that any star pair in the field of view is available. this increases the number of star pairs across the sky from 103k to 232k.
+increased the maximum star pair angle from four degrees to eleven degrees so that any star pair in the field of view is available. this increases the number of star pairs across the sky from 103k to 751k.
 
 *16.2.2017*
 

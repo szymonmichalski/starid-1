@@ -34,6 +34,7 @@ public:
   std::vector<int> log_pair_count;
   std::vector<bool> log_teststar;
   int teststar;
+  bool hasteststar;
 
   TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs,
                int teststar);
