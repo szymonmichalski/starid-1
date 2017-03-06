@@ -73,39 +73,6 @@ std::unordered_map<int, std::unordered_map<int, int>> rules::PairsOverWholeSky::
     return stars;
 };
 
-Eigen::Matrix<int, Eigen::Dynamic, 2> rules::PairsOverWholeSky::pairs_matrix(double angle, double tol_radius) {
-    using namespace Eigen;
-    Matrix<int, Dynamic, 2> pairsMat;
-    pairsMat.resize(1000,2);
-    pairsMat.setZero();
-
-    double ang1 = angle - tol_radius;
-    if (ang1 <= 0) ang1 = 0;
-    if (ang1 >= stars::image_radius_radians) ang1 = stars::image_radius_radians - (stars::image_radius_radians/28);
-
-    double ang2 = angle + tol_radius;
-    if (ang2 <= 0) ang2 = 0 + (stars::image_radius_radians/28);
-    if (ang2 >= stars::image_radius_radians) ang2 = stars::image_radius_radians;
-
-    if (ang1 >= ang2) ang1 = ang2 - (stars::image_radius_radians/28);
-
-    std::vector<int> intsFromTable = angletable.findInts(ang1, ang2);
-    int pairsndx = 0;
-    for (auto ndx : intsFromTable) {
-        if (pairsMat.rows() < pairsndx+1) {
-            pairsMat.conservativeResize(pairsMat.rows()+1000, pairsMat.cols());
-            for (int i = pairsMat.rows() - 1000; i < pairsMat.rows(); ++i) {
-                pairsMat(i,0) = 0;
-                pairsMat(i,1) = 0;
-            }
-        }
-        pairsMat(pairsndx,0) = (std::get<1>(starpairs[ndx]));
-        pairsMat(pairsndx,1) = (std::get<2>(starpairs[ndx]));
-        ++pairsndx;
-    }
-    return pairsMat;
-}
-
 std::string rules::PairsOverWholeSky::pairsKey(int catndx1, int catndx2) {
     if (catndx1 > catndx2) {
         int tmp = catndx1;
@@ -114,7 +81,4 @@ std::string rules::PairsOverWholeSky::pairsKey(int catndx1, int catndx2) {
     }
     std::string key = std::to_string(catndx1) + std::to_string(catndx2);
     return key;
-}
-
-void rules::PairsOverWholeSky::status() {
 }

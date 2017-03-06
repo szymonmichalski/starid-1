@@ -3,7 +3,7 @@
 rules::StarIdentifier::StarIdentifier(stars::Image& image,
                                       rules::PairsOverWholeSky& pairs,
                                       double tolrad) :
-  all_pairs(pairs), image(image), tol_radius(tolrad) {
+  pairs(pairs), image(image), tolerance(tolrad) {
 }
 
 int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
@@ -12,12 +12,12 @@ int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
 
     uveca = arma::trans(image.uvecs.row(0));
     uvecb = arma::trans(image.uvecs.row(ndxb));
-    TriangleSide ab(std::acos(arma::dot(uveca, uvecb)), tol_radius, all_pairs, teststar);
+    TriangleSide ab(std::acos(arma::dot(uveca, uvecb)), tolerance, pairs, teststar);
 
     for (ndxc = 1; ndxc < image.uvecs.n_rows; ++ndxc) {
       if (!get_angs_c()) continue;
 
-      Triangle abca(angs_c[0], angs_c[1], angs_c[2], tol_radius, all_pairs, teststar);
+      Triangle abca(angs_c[0], angs_c[1], angs_c[2], tolerance, pairs, teststar);
       abca.close_loops(1);
       ab.append_iterations(abca.side1);
 
@@ -25,7 +25,7 @@ int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
       for (ndxd = 1; ndxd < image.uvecs.n_rows; ++ndxd) {
         if (!get_angs_d()) continue;
 
-        Triangle abda(angs_d[0], angs_d[4], angs_d[3], tol_radius, all_pairs, teststar);
+        Triangle abda(angs_d[0], angs_d[4], angs_d[3], tolerance, pairs, teststar);
         abda.side1.stars = ab.stars;
         abda.close_loops(1);
         abdas.push_back(abda);
@@ -81,26 +81,6 @@ bool rules::StarIdentifier::get_angs_c() {
   if (std::abs(angs_c[1]-angs_c[2]) < min_ang) angsok = false; // bc-ca
   return angsok;
 }
-
-rules::Triangle rules::StarIdentifier::new_abda(Triangle &abca) {
-  Triangle abda = abca;
-  rules::TriangleSide da(angs_d[3], tol_radius, all_pairs, teststar);
-  rules::TriangleSide bd(angs_d[4], tol_radius, all_pairs, teststar);
-  //rules::TriangleSide cd(angs_d[5], tol_radius, all_pairs, teststar);
-  abda.side2 = bd;
-  abda.side3 = da;
-  return abda;
-}
-
-rules::Triangle rules::StarIdentifier::new_adca(Triangle &abca) {
-  Triangle adca = abca;
-  rules::TriangleSide ad(angs_d[3], tol_radius, all_pairs, teststar);
-  rules::TriangleSide dc(angs_d[5], tol_radius, all_pairs, teststar);
-  adca.side1.stars = ad.stars; //abda.side3.stars;
-  adca.side2.stars = dc.stars;
-  return adca;
-}
-
 
 
 

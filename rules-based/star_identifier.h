@@ -20,7 +20,7 @@ class StarIdentifier
 
 public:
 
-  StarIdentifier(stars::Image& image, rules::PairsOverWholeSky& pairs, double tol_radius);
+  StarIdentifier(stars::Image& image, rules::PairsOverWholeSky& pairs, double tolerance);
 
   /// *identify central star* this is the main function
   ///
@@ -28,15 +28,12 @@ public:
 
 private:
 
-  Triangle new_abda(Triangle &abca);
-  Triangle new_adca(Triangle &abca);
-
   bool get_angs_c();
   bool get_angs_d();
   void print_status(Triangle &abca);
-  rules::PairsOverWholeSky all_pairs;
+  rules::PairsOverWholeSky pairs;
   stars::Image& image;
-  double tol_radius;
+  double tolerance;
   double min_ang;
   std::vector<double> angs_c;
   std::vector<double> angs_d;

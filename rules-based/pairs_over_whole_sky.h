@@ -29,10 +29,6 @@ public:
     ///
     void init(double max_ang, stars::Sky& sky);
 
-    Eigen::Matrix<int, Eigen::Dynamic, 2> pairs_matrix(double angle, double tol_radius);
-
-    void status();
-
 private:
 
     util::FloatIntTable angletable; // angle, starpairs ndx

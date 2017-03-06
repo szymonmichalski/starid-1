@@ -54,38 +54,9 @@ void rules::Triangle::close_loops(int maxits) {
         }
       }
     }
-    side1.prune_pairs();
-    side2.prune_pairs();
-    side3.prune_pairs();
+    side1.trim_pairs();
+    side2.trim_pairs();
+    side3.trim_pairs();
   }
 }
-
-void rules::Triangle::link_abda_and_adca(Triangle &abda, Triangle &adca) {
-  TriangleSide::intersect_stars(abda.side3, adca.side1);
-  abda.close_loops();
-  adca.close_loops();
-}
-
-
-void rules::Triangle::update_side1(TriangleSide &side1new) {
-  for (auto it1 = side1.stars.begin(); it1 != side1.stars.end(); ) {
-    auto it1new = side1new.stars.find(it1->first);
-    if (it1new == side1new.stars.end())
-      it1 = side1.stars.erase(it1);
-    else
-      ++it1;
-  }
-}
-
-void rules::Triangle::update_side3(TriangleSide &side3new) {
-  for (auto it3 = side3.stars.begin(); it3 != side3.stars.end(); ) {
-    auto it3new = side3new.stars.find(it3->first);
-    if (it3new == side3new.stars.end())
-      it3 = side3.stars.erase(it3);
-    else
-      ++it3;
-  }
-}
-
-
 

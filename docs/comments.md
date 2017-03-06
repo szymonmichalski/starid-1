@@ -30,19 +30,15 @@ represents a triangle as three constrained sides ab, bc, ca. travel around the s
 
 *link side1 and side3* travel around sides ab to bc to ca connecting by pairs.
 
-*link abda and adca* link the shared ad side of abda and adca triangles
-
 **triangle side**
 
 for adding, finding, removing, etc star pairs to a triangle side. one objective here is to work with maps of unique star keys, one key per star, rather than maps with multiple keys per star. this means using unordered_map, not unordered_multimap.
 
 *stars* each star is a map key whose value is a map of star keys it pairs with
 
-*refresh pairs* bring back pair information from an earlier side
+*trim pairs* remove pairs that have value zero or are no longer stars. then remove stars that have no pairs.
 
-*prune pairs* remove pairs that have value zero or are no longer stars. then remove stars that have no pairs.
-
-*intersect stars* leave stars that are in both sides
+*append iterations* append the iterations contained in another side
 
 **pairs over whole sky**
 

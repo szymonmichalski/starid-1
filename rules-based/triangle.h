@@ -17,14 +17,11 @@ public:
   ///
   void close_loops(int maxits = 1);
 
-  /// *link abda and adca* link the shared ad side of abda and adca triangles
-  ///
-  static void link_abda_and_adca(Triangle &abda, Triangle &adca);
-
   Triangle(double ang1, double ang2, double ang3,
-           double tol_radius,
+           double tolerance,
            rules::PairsOverWholeSky& pairs,
            int teststar);
+
   Triangle(int teststar);
 
   rules::TriangleSide side1;
@@ -34,9 +31,6 @@ public:
   std::vector<int> loops_star2;
   std::vector<int> loops_star3;
   int teststar;
-
-  void update_side1(TriangleSide &side1new);
-  void update_side3(TriangleSide &side3new);
 
 private:
 

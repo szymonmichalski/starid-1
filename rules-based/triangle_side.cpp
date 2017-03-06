@@ -1,17 +1,17 @@
 #include "triangle_side.h"
 
-rules::TriangleSide::TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs,
+rules::TriangleSide::TriangleSide(double ang,
+                                  double tolerance,
+                                  rules::PairsOverWholeSky& pairs,
                                   int starndx)
-  : teststar(starndx) {
-  stars = pairs.pairs_map(ang, tol_radius);
-//  log_star_count.push_back(stars.size());
-//  log_pair_count.push_back(pair_count());
-//  log_teststar.push_back(has_teststar(starndx));
+  : teststar(starndx)
+{
+  stars = pairs.pairs_map(ang, tolerance);
 }
 
 rules::TriangleSide::TriangleSide(int teststar)
-  : teststar(teststar) {
-
+  : teststar(teststar)
+{
 }
 
 void rules::TriangleSide::append_iterations(TriangleSide &side) {
@@ -22,32 +22,7 @@ void rules::TriangleSide::append_iterations(TriangleSide &side) {
   has_teststar = side.has_teststar;
 }
 
-void rules::TriangleSide::refresh_pairs(TriangleSide &side)
-{
-  for (auto it1 = stars.begin(), end = stars.end(); it1 != end; ++it1) {
-    auto it2 = side.stars.find(it1->first);
-    it1->second = it2->second;
-  }
-}
-
-void rules::TriangleSide::intersect_stars(TriangleSide &sidea, TriangleSide &sideb) {
-  for (auto ita = sidea.stars.begin(); ita != sidea.stars.end(); ) {
-    auto itb = sideb.stars.find(ita->first);
-    if (itb == sideb.stars.end())
-      ita = sidea.stars.erase(ita);
-    else
-      ++ita;
-  }
-  for (auto itb = sideb.stars.begin(); itb != sideb.stars.end(); ) {
-    auto ita = sidea.stars.find(itb->first);
-    if (ita == sidea.stars.end())
-      itb = sideb.stars.erase(itb);
-    else
-      ++itb;
-  }
-}
-
-void::rules::TriangleSide::prune_pairs() {
+void::rules::TriangleSide::trim_pairs() {
 
   for (auto star1 = stars.begin(), end = stars.end(); star1 != end; ++star1) {
     auto &pairs = star1->second;

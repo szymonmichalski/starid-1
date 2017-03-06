@@ -18,17 +18,9 @@ public:
   ///
   std::unordered_map<int, std::unordered_map<int, int>> stars;
 
-  /// *refresh pairs* bring back pair information from an earlier side
+  /// *trim pairs* remove pairs that have value zero or are no longer stars. then remove stars that have no pairs.
   ///
-  void refresh_pairs(TriangleSide &side);
-
-  /// *prune pairs* remove pairs that have value zero or are no longer stars. then remove stars that have no pairs.
-  ///
-  void prune_pairs();
-
-  /// *intersect stars* leave stars that are in both sides
-  ///
-  static void intersect_stars(TriangleSide &sidea, TriangleSide &sideb);
+  void trim_pairs();
 
   /// *append iterations* append the iterations contained in another side
   ///
@@ -40,8 +32,11 @@ public:
   int teststar;
   bool has_teststar;
 
-  TriangleSide(double ang, double tol_radius, rules::PairsOverWholeSky& pairs,
+  TriangleSide(double ang,
+               double tolerance,
+               rules::PairsOverWholeSky& pairs,
                int teststar);
+
   TriangleSide(int teststar);
 
   std::map<int, int> summary();
