@@ -1,3 +1,7 @@
+*6.3.2017*
+
+next two weeks will pretty much be about vacation, so good time to a bit of mid range planning. clearly r2017a with images going in parallel into lb and rb is first. this could follow on into a c++ kernel for dynamically generating images within tensorflow.
+
 *5.3.2017*
 
 triangle based identification is now working for mmnist style images. this was really a challenge. [here's](images/itworks.png) an image of the eureka moment. nice convergence over nineteen triangles.
