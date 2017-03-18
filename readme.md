@@ -2,13 +2,9 @@
 
 [discussion](http://starid.org), [comments](http://starid.org/comments) from source code, related [documents](http://starid.org/references), [photos](http://photos.starid.org), and a little [history](http://starid.org/about).
 
-*learning based star identification*
+*learning and rules based star identification*
 
-identify stars using convnets and svms.
-
-*rules based heuristics*
-
-feature selection for triangles and higher level geometry.
+identify stars using convnets and svms. feature selection for triangles and higher level geometry.
 
 *stars*
 
