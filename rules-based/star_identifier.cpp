@@ -8,16 +8,18 @@ rules::StarIdentifier::StarIdentifier(stars::Image& image,
 
 int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
 
-  for (ndxb = 2;;) { // ndxb = 1; ndxb < image.uvecs.n_rows; ++ndxb) {
+  for (ndxb = 1; ndxb < image.uvecs.n_rows; ++ndxb) {
 
     uveca = arma::trans(image.uvecs.row(0));
     uvecb = arma::trans(image.uvecs.row(ndxb));
     TriangleSide ab(std::acos(arma::dot(uveca, uvecb)), tolerance, pairs, teststar);
 
+    std::vector<Triangle> abcas;
     for (ndxc = 1; ndxc < image.uvecs.n_rows; ++ndxc) {
       if (!get_angs_c()) continue;
 
       Triangle abca(angs_c[0], angs_c[1], angs_c[2], tolerance, pairs, teststar);
+      abca.side1.stars = ab.stars;
       abca.close_loops(1);
       ab.append_iterations(abca.side1);
 
@@ -28,23 +30,23 @@ int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
         Triangle abda(angs_d[0], angs_d[4], angs_d[3], tolerance, pairs, teststar);
         abda.side1.stars = ab.stars;
         abda.close_loops(1);
-        abdas.push_back(abda);
         ab.append_iterations(abda.side1);
-        print_status(abda);
-      }
 
-      continue;
+        abdas.push_back(abda);
+        std::cout << ndxb << ' ' << ndxc << ' ' << ndxd << std::endl;
+      }
+      abcas.push_back(abca);
+      std::cout << ndxb << ' ' << ndxc << std::endl;
     }
+    continue;
   }
   return -1;
 }
 
-void rules::StarIdentifier::print_status(Triangle &in) {
-  std::cout << ndxb << ' ' << ndxc << ' ' << ndxd << ' '
-            << in.side1.log_star_count.size() << ' '
-            << in.side1.stars.size() << ' '
-            << in.side1.has_teststar << ' '
-            << in.side3.has_teststar << std::endl;
+void rules::StarIdentifier::print_status(TriangleSide &in) {
+  std::cout << ndxb << ' ' << ndxc << ' '
+            << in.stars.size() << ' '
+            << in.has_teststar << std::endl;
 }
 
 bool rules::StarIdentifier::get_angs_d() {
