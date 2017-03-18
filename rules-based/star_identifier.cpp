@@ -8,15 +8,19 @@ rules::StarIdentifier::StarIdentifier(stars::Image& image,
 
 int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
 
+  std::vector<TriangleSide> abs;
   for (ndxb = 1; ndxb < image.uvecs.n_rows; ++ndxb) {
 
     uveca = arma::trans(image.uvecs.row(0));
     uvecb = arma::trans(image.uvecs.row(ndxb));
     TriangleSide ab(std::acos(arma::dot(uveca, uvecb)), tolerance, pairs, teststar);
 
+    int prev_stars = 0;
+    int repeats = 0;
+    bool is_repeating = false;
     std::vector<Triangle> abcas;
     for (ndxc = 1; ndxc < image.uvecs.n_rows; ++ndxc) {
-      if (!get_angs_c()) continue;
+      if (!get_angs_c() || is_repeating) continue;
 
       Triangle abca(angs_c[0], angs_c[1], angs_c[2], tolerance, pairs, teststar);
       abca.side1.stars = ab.stars;
@@ -25,7 +29,7 @@ int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
 
       std::vector<Triangle> abdas;
       for (ndxd = 1; ndxd < image.uvecs.n_rows; ++ndxd) {
-        if (!get_angs_d()) continue;
+        if (!get_angs_d() || is_repeating) continue;
 
         Triangle abda(angs_d[0], angs_d[4], angs_d[3], tolerance, pairs, teststar);
         abda.side1.stars = ab.stars;
@@ -33,11 +37,17 @@ int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
         ab.append_iterations(abda.side1);
 
         abdas.push_back(abda);
-        std::cout << ndxb << ' ' << ndxc << ' ' << ndxd << std::endl;
+        if (prev_stars == ab.stars.size()) ++repeats; else repeats = 0;
+        if (repeats > 4) is_repeating = true;
+        prev_stars = ab.stars.size();
+        std::cout << ndxb << ' ' << ndxc << ' ' << ndxd << ' '
+                  << ab.stars.size() << ' ' << ab.has_teststar << ' '
+                  << repeats << std::endl;
       }
       abcas.push_back(abca);
-      std::cout << ndxb << ' ' << ndxc << std::endl;
+      //std::cout << ndxb << ' ' << ndxc << std::endl;
     }
+    abs.push_back(ab);
     continue;
   }
   return -1;
