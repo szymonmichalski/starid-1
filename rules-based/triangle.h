@@ -13,9 +13,13 @@ class Triangle
 
 public:
 
-  /// *link side1 and side3* travel around sides ab to bc to ca connecting by pairs.
+  /// *close loops abca* travel around sides connecting by pairs.
   ///
-  void close_loops(int maxits = 1);
+  void close_loops_abca(int maxits = 1);
+
+  /// *close loops abda* travel around sides connecting by pairs.
+  ///
+  void close_loops_abda(TriangleSide &cd, Triangle &abca);
 
   Triangle(double ang1, double ang2, double ang3,
            double tolerance,

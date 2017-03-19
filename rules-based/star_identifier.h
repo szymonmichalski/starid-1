@@ -30,7 +30,6 @@ private:
 
   bool get_angs_c();
   bool get_angs_d();
-  void print_status(TriangleSide &ab);
   rules::PairsOverWholeSky pairs;
   stars::Image& image;
   double tolerance;

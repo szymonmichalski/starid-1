@@ -19,44 +19,43 @@ int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
     int repeatcnt = 0;
     bool converged = false;
     std::vector<Triangle> abcas;
+    std::vector<Triangle> abdas;
     for (ndxc = 1; ndxc < image.uvecs.n_rows; ++ndxc) {
       if (converged || !get_angs_c()) continue;
 
       Triangle abca(angs_c[0], angs_c[1], angs_c[2], tolerance, pairs, teststar);
       abca.side1.stars = ab.stars;
-      abca.close_loops(1);
+      abca.close_loops_abca();
       ab.append_iterations(abca.side1);
 
-      std::vector<Triangle> abdas;
       for (ndxd = 1; ndxd < image.uvecs.n_rows; ++ndxd) {
         if (converged || !get_angs_d()) continue;
 
+        TriangleSide cd(angs_d[5], tolerance, pairs, teststar);
+
         Triangle abda(angs_d[0], angs_d[4], angs_d[3], tolerance, pairs, teststar);
         abda.side1.stars = ab.stars;
-        abda.close_loops(1);
+        abda.close_loops_abda(cd, abca);
         ab.append_iterations(abda.side1);
 
-        abdas.push_back(abda);
         if (prev_stars == ab.stars.size()) ++repeatcnt; else repeatcnt = 0;
         if (repeatcnt > 3) converged = true;
         prev_stars = ab.stars.size();
+
+        abcas.push_back(abca);
+        abdas.push_back(abda);
         std::cout << ndxb << ", " << ndxc << ", " << ndxd << ", "
                   << ab.stars.size() << ", " << ab.has_teststar << ", "
                   << repeatcnt << std::endl;
       }
-      abcas.push_back(abca);
+
       //std::cout << ndxb << ' ' << ndxc << std::endl;
     }
+
     abs.push_back(ab);
     continue;
   }
   return -1;
-}
-
-void rules::StarIdentifier::print_status(TriangleSide &in) {
-  std::cout << ndxb << ' ' << ndxc << ' '
-            << in.stars.size() << ' '
-            << in.has_teststar << std::endl;
 }
 
 bool rules::StarIdentifier::get_angs_d() {
@@ -69,7 +68,7 @@ bool rules::StarIdentifier::get_angs_d() {
   angs_d.push_back(std::acos(arma::dot(uvecd, uvecc)));
   if (angs_d[3] < min_ang) angsok = false; // da
   if (angs_d[4] < min_ang) angsok = false; // db
-  //if (angs_d[5] < min_ang) angsok = false; // dc
+  if (angs_d[5] < min_ang) angsok = false; // dc
   if (std::abs(angs_d[4]-angs_d[3]) < min_ang) angsok = false; // db-da
   //if (std::abs(angs_d[4]-angs_d[0]) < min_ang) angsok = false; // db-ab
   //if (std::abs(angs_d[4]-angs_d[5]) < min_ang) angsok = false; // db-dc
