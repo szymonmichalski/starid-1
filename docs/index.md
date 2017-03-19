@@ -1,6 +1,6 @@
 *19.3.2017*
 
-all of the following is for a typical image. we're identifying the star at the center and there are 8876 possibilities. there are nearly thirty other stars in the image, and for each an attempt is made to reject the incorrect center star ids. in each attempt, the ideal is that the possible ids drop quickly to one. here are results using the most naive approach. in one attempt the possible ids drop to ninety.
+the following is for a typical image. we're identifying the star at the center and there are 8876 possibilities. there are nearly thirty other stars in the image, and for each an attempt is made to reject the incorrect center star ids. in each attempt, the ideal is that the possible ids drop quickly to one. here are results using the most naive approach. in one attempt the possible ids drop to ninety.
 
 <img src="images/ab1.png"/>
 
