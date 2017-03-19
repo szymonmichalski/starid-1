@@ -1,7 +1,7 @@
 *19.3.2017*
 
-<img src="images/ab1.png" width="500"/> 
-<img src="images/ab2.png" width="500"/> 
+<img src="images/ab1.png"/> 
+<img src="images/ab2.png"/> 
 
 *6.3.2017*
 
