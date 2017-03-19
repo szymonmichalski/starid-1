@@ -2,11 +2,8 @@
 
 test
 
-<img src="images/ab1.png" align="left"/> 
-<img src="images/ab2.png" align="left"/> 
-
-![ab1](images/ab1.png)
-![ab2](images/ab2.png)
+<img src="images/ab1.png" align="left" width="300"/> 
+<img src="images/ab2.png" align="left" width="300"/> 
 
 *6.3.2017*
 
