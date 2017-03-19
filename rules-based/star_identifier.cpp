@@ -32,7 +32,6 @@ int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
         if (converged || !get_angs_d()) continue;
 
         TriangleSide cd(angs_d[5], tolerance, pairs, teststar);
-
         Triangle abda(angs_d[0], angs_d[4], angs_d[3], tolerance, pairs, teststar);
         abda.side1.stars = ab.stars;
         abda.close_loops_abda(cd, abca);
@@ -41,7 +40,6 @@ int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
         if (prev_stars == ab.stars.size()) ++repeatcnt; else repeatcnt = 0;
         if (repeatcnt > 3) converged = true;
         prev_stars = ab.stars.size();
-
         abcas.push_back(abca);
         abdas.push_back(abda);
         std::cout << ndxb << ", " << ndxc << ", " << ndxd << ", "
