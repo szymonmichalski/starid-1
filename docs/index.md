@@ -4,11 +4,11 @@ all of the following is for a typical mnist style image. we're identifying the s
 
 <img src="images/ab1.png"/>
 
-here are results from a new, next to most naive, method from today. a few new lines of logic mean that a bit more information is being extracted from the image. many of the 28 attempts are now dropping to ten or less possibilities, several to five.
+here are results from a new, next to most naive, method from today. a few new lines of logic mean that a bit more information is being extracted from the image. many of the 28 attempts are now dropping to twenty or less possibilities, several to five.
 
 <img src="images/ab2.png"/> 
 
-extracting a bit more information, we should be dropping to one, and will be trying to make it happen faster and more frequently.
+extracting a bit more information, we should be dropping to one, and will be trying to make it happen more quickly and more frequently.
 
 *6.3.2017*
 
