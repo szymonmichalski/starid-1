@@ -1,9 +1,7 @@
 *19.3.2017*
 
-test
-
-<img src="images/ab1.png" width="300"/> 
-<img src="images/ab2.png" width="300"/> 
+<img src="images/ab1.png" width="500"/> 
+<img src="images/ab2.png" width="500"/> 
 
 *6.3.2017*
 
