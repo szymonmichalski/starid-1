@@ -1,14 +1,14 @@
 *19.3.2017*
 
-all of the following is for a typical mnist style image. we're identifying the star at the center and there are 8876 possibilities. there are 28 other stars in the image, and for each an attempt is made to reject the incorrect center star ids. the ideal for each attempt is that the possible ids drop quickly and smoothly from 8876 to one. here are results using the initial, most naive, method. in one attempt the possible ids drop to ninety.
+all of the following is for a typical image. we're identifying the star at the center and there are 8876 possibilities. there are nearly thirty other stars in the image, and for each an attempt is made to reject the incorrect center star ids. in each attempt, the ideal is that the possible ids drop quickly to one. here are results using the most naive approach. in one attempt the possible ids drop to ninety.
 
 <img src="images/ab1.png"/>
 
-here are results from a new, next to most naive, method from today. a few new lines of logic mean that a bit more information is being extracted from the image. many of the 28 attempts are now dropping to twenty or less possibilities, several to five.
+here are results from a next to most naive approach. a few new lines of logic mean that a bit more information is being extracted from the image. many attempts are now dropping to twenty or less possibilities, several to five.
 
 <img src="images/ab2.png"/> 
 
-extracting a bit more information, we should be dropping to one, and will be trying to make it happen more quickly and more frequently.
+extracting a bit more information, we should be dropping to one, and will be trying to make it happen as quickly and frequently as possible.
 
 *6.3.2017*
 
