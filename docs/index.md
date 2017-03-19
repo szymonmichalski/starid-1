@@ -1,6 +1,11 @@
 *19.3.2017*
 
-<img src="images/ab1.png"/> 
+most naive method
+
+<img src="images/ab1.png"/>
+
+next to most naive method
+
 <img src="images/ab2.png"/> 
 
 *6.3.2017*
