@@ -2,8 +2,8 @@
 
 test
 
-<img src="images/ab1.png" align="left" width="300"/> 
-<img src="images/ab2.png" align="left" width="300"/> 
+<img src="images/ab1.png" width="300"/> 
+<img src="images/ab2.png" width="300"/> 
 
 *6.3.2017*
 
