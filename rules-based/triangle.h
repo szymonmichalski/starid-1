@@ -15,7 +15,7 @@ public:
 
   /// *close loops abca* travel around sides connecting by pairs.
   ///
-  void close_loops_abca(int maxits = 1);
+  void close_loops_abca();
 
   /// *close loops abda* travel around sides connecting by pairs.
   ///
