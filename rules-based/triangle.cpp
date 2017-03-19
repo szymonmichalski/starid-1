@@ -42,7 +42,21 @@ void rules::Triangle::close_loops_abda(TriangleSide &cd, Triangle &abca) {
         auto star3side3 = pairs3.find(star3side2);    // star3 side3
         if (star3side3 == pairs3.end()) continue;
 
-        // does this loop agree with cd and abca?
+        bool dok = false; // is this d star possible
+        auto cdd = cd.stars.find(star3side2);
+        auto aca = abca.side3.stars.find(star1side1);
+        if (cdd != cd.stars.end() && aca != abca.side3.stars.end()) {
+          auto &pairscdc = cdd->second;
+          auto &pairsacc = aca->second;
+          for (auto pairscdcit = pairscdc.begin(), end = pairscdc.end(); pairscdcit != end; ++pairscdcit) {
+            auto pairsaccit = pairsacc.find(pairscdcit->first);
+            if (pairsaccit != pairsacc.end()) {
+              dok = true;
+              break;
+            }
+          }
+        }
+        if (!dok) continue;
 
         pairs1it->second = 1;
         pairs2it->second = 1;
