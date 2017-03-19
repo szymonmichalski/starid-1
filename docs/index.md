@@ -2,12 +2,10 @@
 
 test
 
-<img src="images/ab1.png" align="left" height="250" width="250"/> 
-
-<img src="images/ab2.png" align="left" height="250" width="250"/> 
+<img src="images/ab1.png" align="left"/> 
+<img src="images/ab2.png" align="left"/> 
 
 ![ab1](images/ab1.png)
-
 ![ab2](images/ab2.png)
 
 *6.3.2017*
