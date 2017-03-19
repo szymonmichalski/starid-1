@@ -28,7 +28,9 @@ find star triangles in the image, and candidate stars that meet the constraints 
 
 represents a triangle as three constrained sides ab, bc, ca. travel around the sides ab to bc to ca so star pairs are not duplicated. traveling ac to cb to ba, you get the same pairs backwards.
 
-*link side1 and side3* travel around sides ab to bc to ca connecting by pairs.
+*close loops abca* travel around sides connecting by pairs.
+
+*close loops abda* travel around sides connecting by pairs.
 
 **triangle side**
 
