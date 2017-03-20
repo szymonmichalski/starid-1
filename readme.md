@@ -1,6 +1,6 @@
 <img src="docs/images/star4b.png" align="right" height="250" width="250"/> <img src="docs/images/star4a.png" align="right" height="250" width="250"/>
 
-[discussion](http://starid.org), [references](http://starid.org/references), and some [background](http://starid.org/about).
+[discussion](http://starid.org), [background](http://starid.org/about), [references](http://starid.org/references)
 
 *learning and rules based star identification*
 
