@@ -14,8 +14,9 @@
 std::string datadir = "/home/noah/starid/stars/data/";
 std::string imgfile = "images_b1.mnist";
 int imgndx = 0;
+int teststar = -1;
 
-enum  optionIndex { UNKNOWN, HELP, DATADIR, IMGFILE, IMGNDX };
+enum  optionIndex { UNKNOWN, HELP, DATADIR, IMGFILE, IMGNDX, TESTSTAR };
 struct Arg: public option::Arg {
     static void printError(const char* msg1, const option::Option& opt, const char* msg2) {
       fprintf(stderr, "ERROR: %s", msg1);
@@ -42,6 +43,7 @@ const option::Descriptor usage[] = {
     {DATADIR, 0, "", "datadir", Arg::Required, "  --datadir  \tdata dir" },
     {IMGFILE, 0, "", "imgfile", Arg::Required, "  --imgfile  \timage file" },
     {IMGNDX, 0, "", "imgndx", Arg::Required, "  --imgndx  \timage ndx" },
+    {TESTSTAR, 0, "", "teststar", Arg::Required, "  --teststar  \ttest star ndx" },
     {0,0,0,0,0,0} // end of options
 };
 
@@ -72,6 +74,11 @@ int main(int argc, char* argv[])
     } else {
         std::cout << "using default imgndx " << imgndx << std::endl;
     }
+    if (options[TESTSTAR]) {
+        teststar = atoi(options[TESTSTAR].arg);
+    } else {
+        std::cout << "using default test star ndx " << teststar << std::endl;
+    }
 
     util::Stopwatch stopwatch;
     stars::Sky sky;
@@ -91,7 +98,6 @@ int main(int argc, char* argv[])
     double epsilon = 0.0; // emperical
     double tolrad = (2.0 * std::sqrt(500.0*500.0 + 500.00*500.0) + epsilon) * stars::arcseconds_to_radians;
     rules::StarIdentifier triangles(image, pairs, tolrad);
-    int teststar = 1;
     int starndxIdentified = triangles.identifyCentralStar(teststar);
     std::cout << "triangles " << stopwatch.end() << std::endl;
 
