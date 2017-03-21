@@ -19,11 +19,12 @@ rules::Triangle::Triangle(double ang1,
 }
 
 void rules::Triangle::close_loops_abda(std::vector<Triangle> &triangles) {
-  loops_cnt = 0;
+
   double cdanga = std::acos(arma::dot(avecstar3, triangles[0].avecstar3));
   double cdange = std::acos(evecstar3.transpose() * triangles[0].evecstar3);
   TriangleSide cd(cdanga, tolerance, pairs, teststar);
 
+  loops_cnt = 0;
   for (auto it11 = side1.stars.begin(), end = side1.stars.end(); it11 != end; ++it11) {
     auto &pairs1 = it11->second;
 
