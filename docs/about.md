@@ -38,7 +38,7 @@ our knowledge concerning a star image is important. is the image lost in space, 
 
 *notes*
 
-thanks to [ed nather](https://en.wikipedia.org/wiki/The_Story_of_Mel) and the [story of mel](http://www.pbm.com/~lindahl/mel.html). i looked up to ed back in the day, and even worked in his lab. it's been an inspiration.
+[the story of mel](http://www.pbm.com/~lindahl/mel.html)
 
 [wahba problem](https://en.wikipedia.org/wiki/Wahba's_problem) 
 
