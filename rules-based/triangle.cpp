@@ -11,13 +11,6 @@ rules::Triangle::Triangle(double ang1, double ang2, double ang3,
     pairs(pairs) {
 }
 
-//rules::Triangle::Triangle(int teststar)
-//  : side1(teststar),
-//    side2(teststar),
-//    side3(teststar),
-//    teststar(teststar) {
-//}
-
 void rules::Triangle::close_loops_abda(std::vector<Triangle> &triangles) {
   loops_cnt = 0;
   double cdang = std::acos(star3x * triangles[0].star3x + star3y * triangles[0].star3y + star3z * triangles[0].star3z);

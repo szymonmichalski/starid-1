@@ -26,8 +26,6 @@ public:
            rules::PairsOverWholeSky& pairs,
            int teststar);
 
-//  Triangle(int teststar);
-
   rules::TriangleSide side1;
   rules::TriangleSide side2;
   rules::TriangleSide side3;
