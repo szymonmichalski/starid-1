@@ -1,6 +1,6 @@
 *how it came about*
 
-*1990* [photos](http://photos.starid.org) and documents [pdf](1986 hemenway.pdf), [pdf](1986 pierce.pdf), [pdf](1987 hemenway.pdf).
+*1990, [photos](http://photos.starid.org) and [pdf](1986 hemenway.pdf), [pdf](1986 pierce.pdf), [pdf](1987 hemenway.pdf)*
 
 in the summer of ninety i was twenty one. the previous fall i’d become a research assistant with the hubble space telescope astrometry group, university of texas astronomy department and mcdonald observatory. the berlin wall had fallen in november. hubble had launched in april. i was living in a one room apartment by the back patio of a historic house just north of campus. my landlady martha ann zively, an eighty three year old local legend, lived overhead. rent was a hundred and fifty dollars. mobile phones, laptops, and the web were still on the horizon. twin peaks would appear in a few months, and the austin garage rock scene was as strange as ever.
 
@@ -30,7 +30,7 @@ it’s a tall rack with electronics mounted in cases standing in the back corner
 
 a few days after scanning that first plate, i went to meet with paul and ray in the aerospace building. i vividly remember stopping and standing still under the texas sun, on the sidewalk leading from rlm to wrw. overhead was the typical hard blue summer sky and little white clouds, and i was already sweating just seconds after coming outside. i was thinking about the plate and suddenly had a flash of deep insight. exactly what were the stars on this plate? how could we identify these stars in order to determine the position of the asteroid trail? was there a program on the big astronomy department computers to do this? the answer was no. there was no easy solution. helping to figure out a practical method for our plates was part of my job. not that an undergrad was expected to solve a grand problem, but at least to sense the depth of the problem and what it meant. how does one identify stars? humans can do it. can an eighties computer system?
 
-*2003* [photos](https://goo.gl/photos/TbwSuETNgM9b85AF7)
+*2003, [photos](https://goo.gl/photos/TbwSuETNgM9b85AF7)*
 
 thirteen years later i began grad school in aerospace, working from the first day for the icesat group at the center for space research, headed by bob schutz. bob was my advisor and boss for the next eleven years, until i was a postdoctoral fellow working with him on icesat two. as hoped and expected, my job concerned star trackers. these are telescopes used to determine orientation in space from the stars. they’re the direct descendent of the old school sextant used at sea for celestial navigation. again we’re looking at simple images of the sky with a scattering of stars. the lost in space problem is an aerospace classic. given a star tracker image of some stars, what stars are we looking at? aerospace deepened the problem. new perspectives. new cultural bents. new tools. astronomers didn’t generally think in terms of three dimensional unit vectors, rotation matrices, quaternions, and vector matrix notation. there were solutions to problems that seemed of interest for astronomy. maybe there were solutions for star identification? the ideas and history involved are interesting in themselves.
 
