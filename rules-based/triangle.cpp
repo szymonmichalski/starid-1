@@ -1,20 +1,28 @@
 #include "triangle.h"
 
-rules::Triangle::Triangle(double ang1, double ang2, double ang3,
-                          double tolerance, rules::PairsOverWholeSky &pairs,
-                          int teststar)
+rules::Triangle::Triangle(double ang1,
+                          double ang2,
+                          double ang3,
+                          double tolerance,
+                          rules::PairsOverWholeSky &pairs,
+                          int teststar,
+                          arma::vec avecstar3)
   : side1(ang1, tolerance, pairs, teststar),
     side2(ang2, tolerance, pairs, teststar),
     side3(ang3, tolerance, pairs, teststar),
     teststar(teststar),
     tolerance(tolerance),
-    pairs(pairs) {
+    pairs(pairs),
+    avecstar3(avecstar3)
+{
+    evecstar3 << avecstar3(0), avecstar3(1), avecstar3(2);
 }
 
 void rules::Triangle::close_loops_abda(std::vector<Triangle> &triangles) {
   loops_cnt = 0;
-  double cdang = std::acos(star3x * triangles[0].star3x + star3y * triangles[0].star3y + star3z * triangles[0].star3z);
-  TriangleSide cd(cdang, tolerance, pairs, teststar);
+  double cdanga = std::acos(arma::dot(avecstar3, triangles[0].avecstar3));
+  double cdange = std::acos(evecstar3.transpose() * triangles[0].evecstar3);
+  TriangleSide cd(cdanga, tolerance, pairs, teststar);
 
   for (auto it11 = side1.stars.begin(), end = side1.stars.end(); it11 != end; ++it11) {
     auto &pairs1 = it11->second;

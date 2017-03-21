@@ -22,8 +22,7 @@ int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
     for (ndxc = 1; ndxc < image.uvecs.n_rows; ++ndxc) {
       if (converged || !get_angs_c()) continue;
 
-      Triangle abca(angs_c[0], angs_c[1], angs_c[2], tolerance, pairs, teststar);
-      abca.star3x = image.uvecs(ndxc,0); abca.star3y = image.uvecs(ndxc,1); abca.star3z = image.uvecs(ndxc,2);
+      Triangle abca(angs_c[0], angs_c[1], angs_c[2], tolerance, pairs, teststar, arma::trans(image.uvecs.row(ndxc)));
       abca.side1.stars = ab.stars;
       abca.close_loops_abca();
       ab.append_iterations(abca.side1);
@@ -32,8 +31,7 @@ int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
       for (ndxd = 1; ndxd < image.uvecs.n_rows; ++ndxd) {
         if (converged || !get_angs_d()) continue;
 
-        Triangle abda(angs_d[0], angs_d[4], angs_d[3], tolerance, pairs, teststar);
-        abda.star3x = image.uvecs(ndxd,0); abda.star3y = image.uvecs(ndxd,1); abda.star3z = image.uvecs(ndxd,2);
+        Triangle abda(angs_d[0], angs_d[4], angs_d[3], tolerance, pairs, teststar, arma::trans(image.uvecs.row(ndxd)));
         abda.side1.stars = ab.stars;
         abda.close_loops_abda(triangles);
         ab.append_iterations(abda.side1);
