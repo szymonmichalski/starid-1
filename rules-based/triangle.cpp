@@ -1,25 +1,27 @@
 #include "triangle.h"
 
 rules::Triangle::Triangle(double ang1, double ang2, double ang3,
-                          double tol_radius, rules::PairsOverWholeSky& pairs,
+                          double tolerance, rules::PairsOverWholeSky &pairs,
                           int teststar)
-  : side1(ang1, tol_radius, pairs, teststar),
-    side2(ang2, tol_radius, pairs, teststar),
-    side3(ang3, tol_radius, pairs, teststar),
-    teststar(teststar) {
+  : side1(ang1, tolerance, pairs, teststar),
+    side2(ang2, tolerance, pairs, teststar),
+    side3(ang3, tolerance, pairs, teststar),
+    teststar(teststar),
+    tolerance(tolerance),
+    pairs(pairs) {
 }
 
-rules::Triangle::Triangle(int teststar)
-  : side1(teststar),
-    side2(teststar),
-    side3(teststar),
-    teststar(teststar) {
-}
+//rules::Triangle::Triangle(int teststar)
+//  : side1(teststar),
+//    side2(teststar),
+//    side3(teststar),
+//    teststar(teststar) {
+//}
 
-void rules::Triangle::close_loops_abda(TriangleSide &cd, Triangle &abca) {
-  loops_star1.clear();
-  loops_star2.clear();
-  loops_star3.clear();
+void rules::Triangle::close_loops_abda(std::vector<Triangle> &triangles) {
+  loops_cnt = 0;
+  double cdang = std::acos(star3x * triangles[0].star3x + star3y * triangles[0].star3y + star3z * triangles[0].star3z);
+  TriangleSide cd(cdang, tolerance, pairs, teststar);
 
   for (auto it11 = side1.stars.begin(), end = side1.stars.end(); it11 != end; ++it11) {
     auto &pairs1 = it11->second;
@@ -44,8 +46,8 @@ void rules::Triangle::close_loops_abda(TriangleSide &cd, Triangle &abca) {
 
         bool dok = false; // is this d star possible
         auto cdd = cd.stars.find(star3side2);
-        auto aca = abca.side3.stars.find(star1side1);
-        if (cdd != cd.stars.end() && aca != abca.side3.stars.end()) {
+        auto aca = triangles[0].side3.stars.find(star1side1);
+        if (cdd != cd.stars.end() && aca != triangles[0].side3.stars.end()) {
           auto &pairscdc = cdd->second;
           auto &pairsacc = aca->second;
           for (auto pairscdcit = pairscdc.begin(), end = pairscdc.end(); pairscdcit != end; ++pairscdcit) {
@@ -61,9 +63,7 @@ void rules::Triangle::close_loops_abda(TriangleSide &cd, Triangle &abca) {
         pairs1it->second = 1;
         pairs2it->second = 1;
         star3side3->second = 1;
-        loops_star1.push_back(star1side1);
-        loops_star2.push_back(star2side1);
-        loops_star3.push_back(star3side2);
+        ++loops_cnt;
       }
     }
   }
@@ -73,9 +73,7 @@ void rules::Triangle::close_loops_abda(TriangleSide &cd, Triangle &abca) {
 }
 
 void rules::Triangle::close_loops_abca() {
-  loops_star1.clear();
-  loops_star2.clear();
-  loops_star3.clear();
+  loops_cnt = 0;
 
   for (auto it11 = side1.stars.begin(), end = side1.stars.end(); it11 != end; ++it11) {
     auto &pairs1 = it11->second;
@@ -101,9 +99,7 @@ void rules::Triangle::close_loops_abca() {
         pairs1it->second = 1;
         pairs2it->second = 1;
         star3side3->second = 1;
-        loops_star1.push_back(star1side1);
-        loops_star2.push_back(star2side1);
-        loops_star3.push_back(star3side2);
+        ++loops_cnt;
       }
     }
   }

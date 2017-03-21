@@ -19,22 +19,25 @@ public:
 
   /// *close loops abda* travel around sides connecting by pairs.
   ///
-  void close_loops_abda(TriangleSide &cd, Triangle &abca);
+  void close_loops_abda(std::vector<Triangle> &ab_triangles);
 
   Triangle(double ang1, double ang2, double ang3,
            double tolerance,
            rules::PairsOverWholeSky& pairs,
            int teststar);
 
-  Triangle(int teststar);
+//  Triangle(int teststar);
 
   rules::TriangleSide side1;
   rules::TriangleSide side2;
   rules::TriangleSide side3;
-  std::vector<int> loops_star1;
-  std::vector<int> loops_star2;
-  std::vector<int> loops_star3;
+  int loops_cnt;
   int teststar;
+  double star3x;
+  double star3y;
+  double star3z;
+  double tolerance;
+  rules::PairsOverWholeSky &pairs;
 
 private:
 
