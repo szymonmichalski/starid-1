@@ -1,8 +1,8 @@
 *how it came about*
 
-some [photos](http://photos.starid.org) and documents [pdf](1986 hemenway.pdf), [pdf](1986 pierce.pdf), [pdf](1987 hemenway.pdf).
-
 *1990*
+
+[photos](http://photos.starid.org) and documents [pdf](1986 hemenway.pdf), [pdf](1986 pierce.pdf), [pdf](1987 hemenway.pdf).
 
 in the summer of ninety i was twenty one. the previous fall i’d become a research assistant with the hubble space telescope astrometry group, university of texas astronomy department and mcdonald observatory. the berlin wall had fallen in november. hubble had launched in april. i was living in a one room apartment by the back patio of a historic house just north of campus. my landlady martha ann zively, an eighty three year old local legend, lived overhead. rent was a hundred and fifty dollars. mobile phones, laptops, and the web were still on the horizon. twin peaks would appear in a few months, and the austin garage rock scene was as strange as ever.
 
@@ -34,6 +34,8 @@ a few days after scanning that first plate, i went to meet with paul and ray in 
 
 *2003*
 
+[photos](https://goo.gl/photos/TbwSuETNgM9b85AF7)
+
 thirteen years later i began grad school in aerospace, working from the first day for the icesat group at the center for space research, headed by bob schutz. bob was my advisor and boss for the next eleven years, until i was a postdoctoral fellow working with him on icesat two. as hoped and expected, my job concerned star trackers. these are telescopes used to determine orientation in space from the stars. they’re the direct descendent of the old school sextant used at sea for celestial navigation. again we’re looking at simple images of the sky with a scattering of stars. the lost in space problem is an aerospace classic. given a star tracker image of some stars, what stars are we looking at? aerospace deepened the problem. new perspectives. new cultural bents. new tools. astronomers didn’t generally think in terms of three dimensional unit vectors, rotation matrices, quaternions, and vector matrix notation. there were solutions to problems that seemed of interest for astronomy. maybe there were solutions for star identification? the ideas and history involved are interesting in themselves.
 
 within a few weeks of joining the icesat team, star identification was again one of my major roadblock style problems, and once again the first question was whether there was already a practical solution easily available. to find out, i reconnected with people in the astronomy department after being out of touch for nine years or so. pete shelus from the old school hst astrometry days was a member of the icesat group, and mentioned i should talk with judit ries. she was working on characterizing near earth objects, a topic not far from the old texas minor planet project. if anyone local was knowledgeable about automated identification of stars, it would reasonably be judit. being back on the upper floors of rlm and discussing star identification, there was a strong feeling of continuity with the past. conditions seem right for making meaningful progress. here was a problem that really needed addressing. a solution could be useful for both astronomy and aerospace. common computers were much more powerful, and digital imaging was now standard. there was no longer and analog to digital divide to cross. the data was now in binary from the beginning. this much was clear. 
@@ -41,8 +43,6 @@ within a few weeks of joining the icesat team, star identification was again one
 our knowledge concerning a star image is important. is the image lost in space, or do we have knowledge that helps us identify its stars? we’ll focus on pointing vectors. pure representations of direction in space, with length normalized to one. they point to positions on the sky. they’re three dimensional and with the unit constraint only two coordinates are significant. these can be expressed as latitude and longitude, right ascension and declination, or x and y in a plane tangent to the sky and its image in a sensor. the sky is a sphere formed by an infinite number of these pointing vectors. rotation about a pointing vector is an angle we’ll call yaw. face south with your right arm pointed west and look up at a star. your line of sight is the star pointing vector and your right arm is at zero yaw. knowledge concerning a star image means an estimate and uncertainty for its pointing vector. our convention is that the primary star to be identified is at the center of the image, so the image pointing vector is equivalent to the star pointing vector. the smaller the uncertainty of the image pointing vector, the more certain is our knowledge of the star pointing vector and its identity. when the image pointing vector is totally uncertain, we have the lost in space case.
 
 *notes*
-
-[more photos](https://goo.gl/photos/TbwSuETNgM9b85AF7)
 
 thanks to [ed nather](https://en.wikipedia.org/wiki/The_Story_of_Mel) and the [story of mel](http://www.pbm.com/~lindahl/mel.html). i looked up to ed back in the day, and even worked in his lab. it's been an inspiration.
 
