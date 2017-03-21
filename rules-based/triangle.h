@@ -19,7 +19,7 @@ public:
 
   /// *close loops abda* travel around sides connecting by pairs.
   ///
-  void close_loops_abda(std::vector<Triangle> &triangles);
+  void close_loops_abda(Triangle &abca, std::vector<Triangle> &abdas);
 
   Triangle(double ang1,
            double ang2,
@@ -34,10 +34,10 @@ public:
   rules::TriangleSide side3;
   int loops_cnt;
   int teststar;
-  arma::vec avecstar3;
-  Eigen::Vector3d evecstar3;
   double tolerance;
   rules::PairsOverWholeSky &pairs;
+  arma::vec avecstar3;
+  Eigen::Vector3d evecstar3;
 
 private:
 
