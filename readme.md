@@ -2,9 +2,13 @@
 
 [notes](http://starid.org), [about](http://starid.org/about), and [related papers](http://starid.org/references)
 
-*learning and rules based star identification*
+*learning based star identification*
 
-identify stars using convnets and svms within the tensorflow framework. feature engineering based on star geometry and implemented in c++ to handle tens of thousands of stars and millions of star pairs covering the sky, then perform lost in space identification using star triangles.
+identify stars using convnets and svms within the tensorflow framework.
+
+*rules based star identification*
+
+c++ for identifying triangles from tens of thousands of stars and millions of star pairs across the sky.
 
 *stars*
 
