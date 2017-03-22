@@ -18,10 +18,10 @@ rules::Triangle::Triangle(double ang1,
     evecstar3 << avecstar3(0), avecstar3(1), avecstar3(2);
 }
 
-void rules::Triangle::close_loops_abda(Triangle &abca, std::vector<Triangle> &abdas) {
+void rules::Triangle::close_loops_abda(std::vector<Triangle> &triangles) {
 
-  double cdanga = std::acos(arma::dot(avecstar3, abca.avecstar3));
-  double cdange = std::acos(evecstar3.transpose() * abca.evecstar3);
+  double cdanga = std::acos(arma::dot(avecstar3, triangles[0].avecstar3));
+  double cdange = std::acos(evecstar3.transpose() * triangles[0].evecstar3);
   TriangleSide cd(cdanga, tolerance, pairs, teststar);
 
   loops_cnt = 0;
@@ -48,8 +48,8 @@ void rules::Triangle::close_loops_abda(Triangle &abca, std::vector<Triangle> &ab
 
         bool dok = false; // is this d star possible
         auto cdd = cd.stars.find(star3side2);
-        auto aca = abca.side3.stars.find(star1side1);
-        if (cdd != cd.stars.end() && aca != abca.side3.stars.end()) {
+        auto aca = triangles[0].side3.stars.find(star1side1);
+        if (cdd != cd.stars.end() && aca != triangles[0].side3.stars.end()) {
           auto &pairscdc = cdd->second;
           auto &pairsacc = aca->second;
           for (auto pairscdcit = pairscdc.begin(), end = pairscdc.end(); pairscdcit != end; ++pairscdcit) {

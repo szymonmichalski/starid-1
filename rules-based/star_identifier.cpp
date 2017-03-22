@@ -26,15 +26,16 @@ int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
       abca.close_loops_abca();
       ab.append_iterations(abca.side1);
 
-      std::vector<Triangle> abdas;
+      std::vector<Triangle> triangles;
+      triangles.push_back(abca);
       for (ndxd = 1; ndxd < image.uvecs.n_rows; ++ndxd) {
         if (converged || !get_angs_d()) continue;
 
         Triangle abda(angs_d[0], angs_d[4], angs_d[3], tolerance, pairs, teststar, arma::trans(image.uvecs.row(ndxd)));
         abda.side1.stars = ab.stars;
-        abda.close_loops_abda(abca, abdas);
+        abda.close_loops_abda(triangles);
         ab.append_iterations(abda.side1);
-        abdas.push_back(abda);
+        triangles.push_back(abda);
 
         if (prev_stars == ab.stars.size()) ++repeatcnt; else repeatcnt = 0;
         if (repeatcnt > 3) converged = true;

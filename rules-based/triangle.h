@@ -19,7 +19,7 @@ public:
 
   /// *close loops abda* travel around sides connecting by pairs.
   ///
-  void close_loops_abda(Triangle &abca, std::vector<Triangle> &abdas);
+  void close_loops_abda(std::vector<Triangle> &triangles);
 
   Triangle(double ang1,
            double ang2,
