@@ -4,7 +4,7 @@
 
 *learning based star identification*
 
-identify stars using convnets and svms within the tensorflow framework.
+identify stars using convnets and svms in the tensorflow framework.
 
 *rules based star identification*
 
