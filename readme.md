@@ -4,7 +4,7 @@
 
 *learning and rules based star identification*
 
-identify stars using convnets and svms. feature selection for triangles and higher level geometry.
+identify stars using convnets and svms within the tensorflow framework. feature engineering based on star geometry and implemented in c++ to handle tens of thousands of stars and millions of star pairs covering the sky, and do direct lost in space star identification.
 
 *stars*
 
