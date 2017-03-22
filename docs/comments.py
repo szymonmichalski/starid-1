@@ -1,5 +1,29 @@
-import commenter as co
-import datetime
+import os
+import re
+
+def commenter(filename):
+  base, suffix = os.path.splitext(filename)
+  p = ''
+  f = open(filename, 'r')
+  for line in f:
+    m1 = re.search('/// (.*)', line)
+    m2 = re.search('///', line)
+    m3 = re.search('### (.*)', line)
+    m4 = re.search('###', line)
+    if m1:
+      p += '%s\n' % str(m1.group(1))
+      continue
+    if m3:
+      p += '%s\n' % str(m3.group(1))
+      continue
+    if m2:
+      p += '\n'
+      continue
+    if m4:
+      p += '\n'
+      continue
+
+  return p
 
 outfile         = 'comments.md'
 
@@ -19,15 +43,15 @@ pairs           = 'pairs_over_whole_sky.h'
 with open(outfile, 'w') as f:
 
   # f.write('**learning**\n')
-  f.write('%s' % co.commenter(lbroot + lb))
-  f.write('%s' % co.commenter(lbroot + model))
-  f.write('%s' % co.commenter(lbroot + learning))
-  f.write('%s' % co.commenter(lbroot + testing))
+  f.write('%s' % commenter(lbroot + lb))
+  f.write('%s' % commenter(lbroot + model))
+  f.write('%s' % commenter(lbroot + learning))
+  f.write('%s' % commenter(lbroot + testing))
 
   # f.write('**heuristics**\n')
-  f.write('%s' % co.commenter(rbroot + rb))
-  f.write('%s' % co.commenter(rbroot + star_identifier))
-  f.write('%s' % co.commenter(rbroot + triangle))
-  f.write('%s' % co.commenter(rbroot + triangle_side))
-  f.write('%s' % co.commenter(rbroot + pairs))
+  f.write('%s' % commenter(rbroot + rb))
+  f.write('%s' % commenter(rbroot + star_identifier))
+  f.write('%s' % commenter(rbroot + triangle))
+  f.write('%s' % commenter(rbroot + triangle_side))
+  f.write('%s' % commenter(rbroot + pairs))
 
