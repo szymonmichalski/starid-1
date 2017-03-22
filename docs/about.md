@@ -1,4 +1,4 @@
-*1990, [photos](http://photos.starid.org) and [pdf](1986 hemenway.pdf), [pdf](1986 pierce.pdf), [pdf](1987 hemenway.pdf)*
+*1990, [photos](http://photos.starid.org) and [pdf](papers/1986 hemenway.pdf), [pdf](papers/1986 pierce.pdf), [pdf](papers/1987 hemenway.pdf)*
 
 in the summer of ninety i was twenty one. the previous fall i’d become a research assistant with the hubble space telescope astrometry group, university of texas astronomy department and mcdonald observatory. the berlin wall had fallen in november. hubble had launched in april. i was living in a one room apartment by the back patio of a historic house just north of campus. my landlady martha ann zively, an eighty three year old local legend, lived overhead. rent was a hundred and fifty dollars. mobile phones, laptops, and the web were still on the horizon. twin peaks would appear in a few months, and the austin garage rock scene was as strange as ever.
 
