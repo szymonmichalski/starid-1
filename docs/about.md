@@ -42,5 +42,3 @@ our knowledge concerning a star image is important. is the image lost in space, 
 
 [wahba problem](https://en.wikipedia.org/wiki/Wahba's_problem) 
 
-[grace wahba](https://en.wikipedia.org/wiki/Grace_Wahba) 
-
