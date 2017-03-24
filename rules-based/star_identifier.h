@@ -20,7 +20,7 @@ class StarIdentifier
 
 public:
 
-  StarIdentifier(stars::Image& image, rules::PairsOverWholeSky& pairs, double tolerance);
+  StarIdentifier(stars::Image& image, stars::PairsOverWholeSky& pairs, double tolerance);
 
   /// *identify central star* this is the main function
   ///
@@ -30,7 +30,7 @@ private:
 
   bool get_angs_c();
   bool get_angs_d();
-  rules::PairsOverWholeSky pairs;
+  stars::PairsOverWholeSky pairs;
   stars::Image& image;
   double tolerance;
   double min_ang;

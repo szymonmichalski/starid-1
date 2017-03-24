@@ -9,28 +9,28 @@ SOURCES += \
     globals.cpp \
     sky.cpp \
     image.cpp \
-    util/float_int_table.cpp \
-    util/mnist.cpp \
-    util/skymap.cpp
+    pairs_over_whole_sky.cpp \
+    float_int_table.cpp \
+    mnist.cpp \
+    skymap.cpp
 
 HEADERS += \
     globals.h \
     sky.h \
     image.h \
-    util/float_int_table.h \
-    util/mnist.h \
-    util/skymap.h \
+    pairs_over_whole_sky.h \
+    float_int_table.h \
+    mnist.h \
+    skymap.h \
     util/stopwatch.h \
     util/optionparser.h
 
 SOURCES += \
-    ../rules-based/pairs_over_whole_sky.cpp \
     ../rules-based/star_identifier.cpp \
     ../rules-based/triangle_side.cpp \
     ../rules-based/triangle.cpp
 
 HEADERS += \
-    ../rules-based/pairs_over_whole_sky.h \
     ../rules-based/star_identifier.h \
     ../rules-based/triangle_side.h \
     ../rules-based/triangle.h

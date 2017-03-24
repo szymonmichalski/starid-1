@@ -1,10 +1,10 @@
 #ifndef IMAGE_H
 #define IMAGE_H
 
-#include "sky.h"
+#include <sky.h>
 #include <armadillo>
 #include <eigen/Core>
-#include "util/mnist.h"
+#include <mnist.h>
 
 namespace stars {
 

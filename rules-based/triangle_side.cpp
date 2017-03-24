@@ -2,7 +2,7 @@
 
 rules::TriangleSide::TriangleSide(double ang,
                                   double tolerance,
-                                  rules::PairsOverWholeSky& pairs,
+                                  stars::PairsOverWholeSky& pairs,
                                   int starndx)
   : teststar(starndx)
 {

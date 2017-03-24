@@ -85,7 +85,7 @@ int main(int argc, char* argv[])
     std::ifstream is1(std::string(datadir + "sky.cereal"));
     cereal::BinaryInputArchive iarchive1(is1);
     iarchive1(sky);
-    rules::PairsOverWholeSky pairs;
+    stars::PairsOverWholeSky pairs;
     std::ifstream is2(std::string(datadir + "pairs.cereal"));
     cereal::BinaryInputArchive iarchive2(is2);
     iarchive2(pairs);

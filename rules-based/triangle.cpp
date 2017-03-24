@@ -4,7 +4,7 @@ rules::Triangle::Triangle(double ang1,
                           double ang2,
                           double ang3,
                           double tolerance,
-                          rules::PairsOverWholeSky &pairs,
+                          stars::PairsOverWholeSky &pairs,
                           int teststar,
                           arma::vec avecstar3)
   : side1(ang1, tolerance, pairs, teststar),

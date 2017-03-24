@@ -1,6 +1,6 @@
 #include "image.h"
 #include "star_identifier.h"
-#include "util/mnist.h"
+#include "mnist.h"
 #include <armadillo>
 #include "util/optionparser.h"
 #include "cereal/archives/binary.hpp"
@@ -69,7 +69,7 @@ int main(int argc, char* argv[])
         cereal::BinaryOutputArchive oarchive1(os1);
         oarchive1(sky);
 
-        rules::PairsOverWholeSky pairs;
+        stars::PairsOverWholeSky pairs;
         pairs.init(stars::star_pair_angle_limit, sky);
         std::ofstream os2(std::string(datadir + "pairs.cereal"));
         cereal::BinaryOutputArchive oarchive2(os2);

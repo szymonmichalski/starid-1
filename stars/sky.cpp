@@ -1,5 +1,5 @@
 #include "sky.h"
-#include "util/skymap.h"
+#include "skymap.h"
 #include <cassert>
 #include "globals.h"
 

@@ -34,7 +34,7 @@ public:
 
   TriangleSide(double ang,
                double tolerance,
-               rules::PairsOverWholeSky& pairs,
+               stars::PairsOverWholeSky& pairs,
                int teststar);
 
   TriangleSide(int teststar);

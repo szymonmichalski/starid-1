@@ -2,7 +2,7 @@
 #define STARS_H
 
 #include <armadillo>
-#include <util/float_int_table.h>
+#include <float_int_table.h>
 #include <cereal/access.hpp>
 #include <cereal/types/string.hpp>
 #include <cereal/types/vector.hpp>
