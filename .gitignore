@@ -1,8 +1,4 @@
 .idea/*
 *.o
 Makefile
-*.pro.user
-stars
-rb
-*.stash
-starid.pro
+
