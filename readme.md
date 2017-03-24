@@ -8,7 +8,7 @@ tensorflow framework for identification of stars using convnets and svms.
 
 *rules based star identification*
 
-cpp for unique deterministic identification of triangular structure in tens of thousands of stars and millions of star pairs over the whole sky.
+cpp for unique deterministic identification of triangular structure among tens of thousands of stars and millions of star pairs over the whole sky.
 
 *stars*
 
