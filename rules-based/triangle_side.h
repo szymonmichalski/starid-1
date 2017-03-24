@@ -6,7 +6,7 @@
 #define TRIANGLE_SIDE_H
 #include <unordered_map>
 #include <map>
-#include "pairs_over_whole_sky.h"
+#include "pairs.h"
 
 namespace rules {
 
@@ -34,7 +34,7 @@ public:
 
   TriangleSide(double ang,
                double tolerance,
-               stars::PairsOverWholeSky& pairs,
+               stars::Pairs& pairs,
                int teststar);
 
   TriangleSide(int teststar);

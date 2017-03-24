@@ -1,6 +1,6 @@
-#include "pairs_over_whole_sky.h"
+#include "pairs.h"
 
-void stars::PairsOverWholeSky::init(double max_ang, stars::Sky& sky)
+void stars::Pairs::init(double max_ang, stars::Sky& sky)
 {
     int pairndx = 0;
 
@@ -31,7 +31,7 @@ void stars::PairsOverWholeSky::init(double max_ang, stars::Sky& sky)
     angletable.sort();
 }
 
-std::unordered_map<int, std::unordered_map<int, int>> stars::PairsOverWholeSky::pairs_map(double angle, double tol_radius) {
+std::unordered_map<int, std::unordered_map<int, int>> stars::Pairs::pairs_map(double angle, double tol_radius) {
     std::unordered_map<int, std::unordered_map<int, int>> stars;
 
     double ang1 = angle - tol_radius;
@@ -73,7 +73,7 @@ std::unordered_map<int, std::unordered_map<int, int>> stars::PairsOverWholeSky::
     return stars;
 };
 
-std::string stars::PairsOverWholeSky::pairsKey(int catndx1, int catndx2) {
+std::string stars::Pairs::pairsKey(int catndx1, int catndx2) {
     if (catndx1 > catndx2) {
         int tmp = catndx1;
         catndx1 = catndx2;

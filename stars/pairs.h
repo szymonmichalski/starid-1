@@ -17,7 +17,7 @@
 
 namespace stars {
 
-class PairsOverWholeSky {
+class Pairs {
 
 public:
 

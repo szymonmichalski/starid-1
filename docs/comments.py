@@ -38,20 +38,20 @@ rb              = 'rb.cpp'
 star_identifier = 'star_identifier.h'
 triangle        = 'triangle.h'
 triangle_side   = 'triangle_side.h'
+
+starsroot       = '../stars/'
 pairs           = 'pairs_over_whole_sky.h'
 
 with open(outfile, 'w') as f:
 
-  # f.write('**learning**\n')
   f.write('%s' % commenter(lbroot + lb))
   f.write('%s' % commenter(lbroot + model))
   f.write('%s' % commenter(lbroot + learning))
   f.write('%s' % commenter(lbroot + testing))
 
-  # f.write('**heuristics**\n')
   f.write('%s' % commenter(rbroot + rb))
   f.write('%s' % commenter(rbroot + star_identifier))
   f.write('%s' % commenter(rbroot + triangle))
   f.write('%s' % commenter(rbroot + triangle_side))
-  f.write('%s' % commenter(rbroot + pairs))
 
+  f.write('%s' % commenter(starsroot + pairs))

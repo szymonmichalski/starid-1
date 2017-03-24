@@ -19,7 +19,7 @@ SOURCES += \
     ../stars/globals.cpp \
     ../stars/image.cpp \
     ../stars/sky.cpp \
-    ../stars/pairs_over_whole_sky.cpp \
+    ../stars/pairs.cpp \
     ../stars/float_int_table.cpp \
     ../stars/skymap.cpp \
     ../stars/mnist.cpp
@@ -28,7 +28,7 @@ HEADERS += \
     ../stars/globals.h \
     ../stars/image.h \
     ../stars/sky.h \
-    ../pairs_over_whole_sky.h \
+    ../stars/pairs.h \
     ../stars/float_int_table.h \
     ../stars/skymap.h \
     ../stars/mnist.h \

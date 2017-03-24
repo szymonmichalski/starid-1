@@ -9,21 +9,21 @@ SOURCES += \
     globals.cpp \
     sky.cpp \
     image.cpp \
-    pairs_over_whole_sky.cpp \
     float_int_table.cpp \
     mnist.cpp \
-    skymap.cpp
+    skymap.cpp \
+    pairs.cpp
 
 HEADERS += \
     globals.h \
     sky.h \
     image.h \
-    pairs_over_whole_sky.h \
     float_int_table.h \
     mnist.h \
     skymap.h \
     util/stopwatch.h \
-    util/optionparser.h
+    util/optionparser.h \
+    pairs.h
 
 SOURCES += \
     ../rules-based/star_identifier.cpp \

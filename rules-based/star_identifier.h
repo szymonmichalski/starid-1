@@ -6,7 +6,7 @@
 #define STARIDENTIFIER_H
 #include "triangle.h"
 #include "triangle_side.h"
-#include "pairs_over_whole_sky.h"
+#include "pairs.h"
 #include "globals.h"
 #include "image.h"
 #include <eigen/Core>
@@ -20,7 +20,7 @@ class StarIdentifier
 
 public:
 
-  StarIdentifier(stars::Image& image, stars::PairsOverWholeSky& pairs, double tolerance);
+  StarIdentifier(stars::Image& image, stars::Pairs& pairs, double tolerance);
 
   /// *identify central star* this is the main function
   ///
@@ -30,7 +30,7 @@ private:
 
   bool get_angs_c();
   bool get_angs_d();
-  stars::PairsOverWholeSky pairs;
+  stars::Pairs pairs;
   stars::Image& image;
   double tolerance;
   double min_ang;

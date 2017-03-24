@@ -25,7 +25,7 @@ public:
            double ang2,
            double ang3,
            double tolerance,
-           stars::PairsOverWholeSky& pairs,
+           stars::Pairs& pairs,
            int teststar,
            arma::vec avecstar3);
 
@@ -35,7 +35,7 @@ public:
   int loops_cnt;
   int teststar;
   double tolerance;
-  stars::PairsOverWholeSky &pairs;
+  stars::Pairs &pairs;
   arma::vec avecstar3;
   Eigen::Vector3d evecstar3;
 

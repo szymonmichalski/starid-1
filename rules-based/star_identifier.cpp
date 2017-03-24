@@ -1,7 +1,7 @@
 #include "star_identifier.h"
 
 rules::StarIdentifier::StarIdentifier(stars::Image& image,
-                                      stars::PairsOverWholeSky& pairs,
+                                      stars::Pairs& pairs,
                                       double tolrad) :
   pairs(pairs), image(image), tolerance(tolrad) {
 }
