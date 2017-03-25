@@ -23,7 +23,7 @@ next two weeks will pretty much be about vacation, so time for a bit of planning
 
 *5.3.2017*
 
-triangle based identification is now working for mmnist style images. this was really a challenge. [here's](images/itworks.png) an image of the eureka moment. nice convergence over nineteen triangles.
+triangle based identification is now working for mnist style images. this was really a challenge. [here's](images/itworks.png) an image of the eureka moment. nice convergence over nineteen triangles.
 
 *27.2.2017*
 
