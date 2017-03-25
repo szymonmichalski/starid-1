@@ -1,6 +1,6 @@
 *25.3.2017*
 
-over the last two weeks since getting back from vacation the triangles method was completed. the following is for a typical image. we're identifying the star at the center and there are 8876 possibilities. there are thirty other stars in the image, and for each an attempt is made to discard incorrect ids. in each attempt, the ideal is that the possible ids drop quickly to one. here are results using the most naive approach. in one attempt possible ids drop to ninety.
+two weeks since getting back from vacation and triangles method is complete. the following is for a typical image. we're identifying the star at the center and there are 8876 possibilities. there are thirty other stars in the image, and for each an attempt is made to discard incorrect ids. in each attempt, the ideal is that the possible ids drop quickly to one. here are results using the most naive approach. in one attempt possible ids drop to ninety.
 
 <img src="images/ab1.png"/>
 
