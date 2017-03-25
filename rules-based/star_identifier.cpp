@@ -43,13 +43,13 @@ int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
         std::cout << ndxb << ", " << ndxc << ", " << ndxd << ", "
                   << ab.stars.size() << ", " << ab.has_teststar << ", "
                   << repeatcnt << std::endl;
+        if (ab.stars.size() == 1) break;
       }
 
-      //std::cout << ndxb << ' ' << ndxc << std::endl;
+      if (ab.stars.size() == 1) break;
     }
 
     abs.push_back(ab);
-    continue;
   }
   return -1;
 }
