@@ -8,7 +8,7 @@ next to most naive approach. an adjustment to extract more information from the 
 
 <img src="images/ab2.png"/> 
 
-another adjustment and covergence is already fast enough to use early stopping.
+another adjustment.
 
 <img src="images/ab3.png"/> 
 
