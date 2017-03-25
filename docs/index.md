@@ -4,11 +4,11 @@ two weeks since getting back from vacation and triangles method is complete. the
 
 <img src="images/ab1.png"/>
 
-here are results from a next to most naive approach. a tweak means that a bit more information is being extracted from the image. many attempts are now dropping to twenty or less possibilities, several to five.
+next to most naive approach. a tweak means that a bit more information is being extracted from the image. many attempts are now dropping to twenty or less possibilities, several to five.
 
 <img src="images/ab2.png"/> 
 
-another tweak and covergence is already so fast that early stopping can be used.
+another tweak and covergence is already fast enough to use early stopping.
 
 <img src="images/ab3.png"/> 
 
