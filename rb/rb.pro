@@ -1,7 +1,7 @@
 #TEMPLATE = subdirs
 #SUBDIRS = stars rb
 TEMPLATE = app
-CONFIG = c++14 warn_off
+CONFIG = c++14 warn_off debug
 TARGET = rb
 
 SOURCES += \
