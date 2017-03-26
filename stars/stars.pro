@@ -39,7 +39,7 @@ INCLUDEPATH += \
     ../rb \
     cereal \
     eigen \
+    /usr/include/armadillo_bits \
 
-INCLUDEPATH += /usr/include/armadillo_bits
 LIBS += -L"/usr/lib" -larmadillo
 
