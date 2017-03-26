@@ -1,6 +1,6 @@
 *26.3.2017*
 
-r2017a. both convnet and triangles working on the same mnist style star images. first run results, before any improvements
+r2017a. both lb convnet and rb triangles working on the same mnist style star images. first run results, before any improvements
 
      n 25     ok      t
     -----  -----  -----
