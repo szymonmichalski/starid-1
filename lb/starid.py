@@ -40,8 +40,8 @@ for resultsndx in range(0, resultscnt):
   results[resultsndx, 3] = float(time.time() - t1)
 
   t2 = time.time()
-  # out = subprocess.check_output(['/home/noah/dev/starid/rb/rb', '--imgndx %d' % starndx])
-  starndx2 = -1 #int(re.search(r'identification (\d+)', out.decode('utf-8')).group(1))
+  out = subprocess.check_output(['/home/noah/dev/starid/rb/rb', '--imgndx %d' % starndx])
+  starndx2 = int(re.search(r'identification (\d+)', out.decode('utf-8')).group(1))
   if starndx2 == results[resultsndx, 0]:
     results[resultsndx, 4] = 1
   results[resultsndx, 5] = float(time.time() - t2)
