@@ -27,13 +27,13 @@ def commenter(filename):
 
 outfile         = 'comments.md'
 
-lbroot          = '../learning-based/'
+lbroot          = '../lb/'
 lb              = 'lb.py'
 model           = 'model.py'
 learning        = 'learning.py'
 testing         = 'testing.py'
 
-rbroot          = '../rules-based/'
+rbroot          = '../rb/'
 rb              = 'rb.cpp'
 star_identifier = 'star_identifier.h'
 triangle        = 'triangle.h'

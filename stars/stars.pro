@@ -1,5 +1,5 @@
 #TEMPLATE = subdirs
-#SUBDIRS = stars rules-based
+#SUBDIRS = stars rb
 TEMPLATE = app
 CONFIG = c++14 warn_on debug
 TARGET = stars
@@ -26,17 +26,17 @@ HEADERS += \
     pairs.h
 
 SOURCES += \
-    ../rules-based/star_identifier.cpp \
-    ../rules-based/triangle_side.cpp \
-    ../rules-based/triangle.cpp
+    ../rb/star_identifier.cpp \
+    ../rb/triangle_side.cpp \
+    ../rb/triangle.cpp
 
 HEADERS += \
-    ../rules-based/star_identifier.h \
-    ../rules-based/triangle_side.h \
-    ../rules-based/triangle.h
+    ../rb/star_identifier.h \
+    ../rb/triangle_side.h \
+    ../rb/triangle.h
 
 INCLUDEPATH += \
-    ../rules-based \
+    ../rb \
     cereal \
     eigen \
 

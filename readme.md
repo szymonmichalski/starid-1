@@ -2,11 +2,11 @@
 
 [notes](http://starid.org), [about](http://starid.org/about), and [related papers](http://starid.org/references)
 
-*learning based star identification*
+*lb, machine learning*
 
 tensorflow framework for identification of stars using convnets and svms.
 
-*rules based star identification*
+*rb, heuristic star identification*
 
 cpp for unique deterministic identification of triangular structure among tens of thousands of stars and millions of star pairs over the whole sky.
 
