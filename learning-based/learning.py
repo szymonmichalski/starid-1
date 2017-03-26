@@ -10,9 +10,9 @@ import model as gn
 from stars.util import tfrecords as tr
 
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/dev/starid/models', '')
-tf.app.flags.DEFINE_string('ckpt', '/home/noah/dev/starid/models/model.ckpt', '')
-tf.app.flags.DEFINE_string('examples', '/home/noah/dev/starid/data/images_a.tfrecords', '')
+tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/learning-based/models', '')
+tf.app.flags.DEFINE_string('ckpt', '/home/noah/starid/learning-based/models/model.ckpt', '')
+tf.app.flags.DEFINE_string('examples', '/home/noah/starid/data/images_a.tfrecords', '')
 tf.app.flags.DEFINE_string('num_examples', 60000, '')
 tf.app.flags.DEFINE_integer('batch_size', 100, '')
 tf.app.flags.DEFINE_integer('max_steps', 600, '')

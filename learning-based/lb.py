@@ -11,11 +11,11 @@ import model as gn
 from stars.util import mnist_to_tfrecords
 
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/dev/starid/models', '')
+tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/learning-based/models', '')
 
 def identifyCentralStar(imgndx):
   tf.reset_default_graph()
-  images = mnist_to_tfrecords.read_images('/home/noah/dev/starid/data/images_b1.mnist')
+  images = mnist_to_tfrecords.read_images('/home/noah/starid/data/images_b1.mnist')
   image = images[imgndx,:,:,0]
   image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
   image = tf.reshape(image, [28, 28, 1])
