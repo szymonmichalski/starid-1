@@ -1,6 +1,6 @@
 *26.3.2017*
 
-r2017a released. both convnet and triangles working on the same mnist style star images. first run results, before any performance improvements
+r2017a. both convnet and triangles working on the same mnist style star images. first run results, before any performance improvements
 
      n 25     ok      t
     -----  -----  -----
