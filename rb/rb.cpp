@@ -61,23 +61,27 @@ int main(int argc, char* argv[])
     }
     if (options[DATADIR]) {
         datadir = options[DATADIR].arg;
+        std::cout << "using datadir = " << datadir << std::endl;
     } else {
-        std::cout << "using default datadir " << datadir << std::endl;
+        std::cout << "using default datadir = " << datadir << std::endl;
     }
     if (options[IMGFILE]) {
         imgfile = options[IMGFILE].arg;
+        std::cout << "using imgfile = " << imgfile << std::endl;
     } else {
-        std::cout << "using default imgfile " << imgfile << std::endl;
+        std::cout << "using default imgfile = " << imgfile << std::endl;
     }
     if (options[IMGNDX]) {
         imgndx = atoi(options[IMGNDX].arg);
+        std::cout << "using imgndx = " << imgndx << std::endl;
     } else {
-        std::cout << "using default imgndx " << imgndx << std::endl;
+        std::cout << "using default imgndx = " << imgndx << std::endl;
     }
     if (options[TESTSTAR]) {
         teststar = atoi(options[TESTSTAR].arg);
+        std::cout << "using test star ndx = " << teststar << std::endl;
     } else {
-        std::cout << "using default test star ndx " << teststar << std::endl;
+        std::cout << "using default test star ndx = " << teststar << std::endl;
     }
 
     util::Stopwatch stopwatch;
@@ -92,16 +96,16 @@ int main(int argc, char* argv[])
     stars::Image image;
     std::string filename = datadir + imgfile;
     image.axjAxiImageReadMnist(filename, imgndx);
-    std::cout << "sky, pairs, image msecs " << stopwatch.end() << std::endl;
+    std::cout << "sky, pairs, image msecs = " << stopwatch.end() << std::endl;
 
     stopwatch.reset();
     double epsilon = 0.0; // emperical
     double tolrad = (2.0 * std::sqrt(500.0*500.0 + 500.00*500.0) + epsilon) * stars::arcseconds_to_radians;
     rules::StarIdentifier triangles(image, pairs, tolrad);
     int starndxIdentified = triangles.identifyCentralStar(teststar);
-    std::cout << "triangles " << stopwatch.end() << std::endl;
+    std::cout << "triangles msecs = " << stopwatch.end() << std::endl;
 
-    std::cout << "identification " << starndxIdentified << std::endl;
+    std::cout << "identification = " << starndxIdentified << std::endl;
 
     return 0;
 }

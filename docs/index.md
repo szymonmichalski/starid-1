@@ -1,3 +1,14 @@
+*26.3.2017*
+
+r2017a released. both convnet and triangles working on the same mnist style star images. first run results, before any performance improvements
+
+     n 25     ok      t
+    -----  -----  -----
+       lb  0.680  0.173
+       rb  1.000  5.494
+       
+currently the convnet can identify ten stars. triangles should identify any star. certainly the 8876 brighter than 6.5.
+
 *25.3.2017*
 
 basic triangles method is complete. the following is for a typical image. we're identifying the star at the center and there are 8876 possibilities. there are thirty other stars and for each an attempt is made to discard incorrect ids. in each attempt, the ideal is that the possible ids drop quickly to one. here are results using the most naive approach. in one attempt possible ids drop to ninety.

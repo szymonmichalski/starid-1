@@ -40,15 +40,17 @@ int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
         if (prev_stars == ab.stars.size()) ++repeatcnt; else repeatcnt = 0;
         if (repeatcnt > 3) converged = true;
         prev_stars = ab.stars.size();
-        std::cout << ndxb << ", " << ndxc << ", " << ndxd << ", "
-                  << ab.stars.size() << ", " << ab.has_teststar << ", "
-                  << repeatcnt << std::endl;
+        // std::cout << ndxb << ", " << ndxc << ", " << ndxd << ", " << ab.stars.size() << ", " << ab.has_teststar << ", " << repeatcnt << std::endl;
         if (ab.stars.size() == 1) break;
       }
 
       if (ab.stars.size() == 1) break;
     }
 
+    if (ab.stars.size() == 1) {
+      auto starsit = ab.stars.begin();
+      return starsit->first;
+    }
     abs.push_back(ab);
   }
   return -1;
