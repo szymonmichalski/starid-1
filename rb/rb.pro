@@ -39,8 +39,8 @@ INCLUDEPATH += \
     ../stars \
     ../stars/cereal \
     ../stars/eigen \
-
-INCLUDEPATH += /usr/include/armadillo_bits
+    /usr/include/armadillo_bits \
+    
 LIBS += -L"/usr/lib" -larmadillo
 
 
