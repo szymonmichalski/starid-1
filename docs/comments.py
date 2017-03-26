@@ -28,7 +28,6 @@ def commenter(filename):
 outfile         = 'comments.md'
 
 lbroot          = '../lb/'
-lb              = 'lb.py'
 model           = 'model.py'
 learning        = 'learning.py'
 testing         = 'testing.py'
@@ -40,11 +39,10 @@ triangle        = 'triangle.h'
 triangle_side   = 'triangle_side.h'
 
 starsroot       = '../stars/'
-pairs           = 'pairs_over_whole_sky.h'
+pairs           = 'pairs.h'
 
 with open(outfile, 'w') as f:
 
-  f.write('%s' % commenter(lbroot + lb))
   f.write('%s' % commenter(lbroot + model))
   f.write('%s' % commenter(lbroot + learning))
   f.write('%s' % commenter(lbroot + testing))
