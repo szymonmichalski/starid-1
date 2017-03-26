@@ -1,2 +1,2 @@
-model_checkpoint_path: "/home/noah/dev/starid/models/model.ckpt"
-all_model_checkpoint_paths: "/home/noah/dev/starid/models/model.ckpt"
+model_checkpoint_path: "/home/noah/starid/learning-based/models/model.ckpt"
+all_model_checkpoint_paths: "/home/noah/starid/learning-based/models/model.ckpt"

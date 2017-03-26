@@ -15,7 +15,7 @@ tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/learning-based/m
 
 def identifyCentralStar(imgndx):
   tf.reset_default_graph()
-  images = mnist_to_tfrecords.read_images('/home/noah/starid/data/images_b1.mnist')
+  images = mnist_to_tfrecords.read_images('/home/noah/starid/stars/data/images_b1.mnist')
   image = images[imgndx,:,:,0]
   image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
   image = tf.reshape(image, [28, 28, 1])

@@ -3,7 +3,7 @@ import mnist_to_tfrecords
 
 imgndx = 13
 
-images = mnist_to_tfrecords.read_images('/home/noah/starid/data/images_b1.mnist')
+images = mnist_to_tfrecords.read_images('/home/noah/starid/stars/data/images_b1.mnist')
 image = -1 * images[imgndx,:,:,0]
 
 plt.matshow(image, cmap='Greys',  interpolation='nearest')
