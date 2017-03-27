@@ -21,7 +21,6 @@ rules::Triangle::Triangle(double ang1,
 void rules::Triangle::close_loops_abda(std::vector<Triangle> &triangles) {
 
   int maxtriangles = triangles.size();
-  if (maxtriangles > triangles.size()) maxtriangles = triangles.size();
   for (int trianglendx = 0; trianglendx < maxtriangles; ++trianglendx) {
 
     double cdanga = std::acos(arma::dot(avecstar3, triangles[trianglendx].avecstar3));
