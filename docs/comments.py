@@ -26,33 +26,21 @@ def commenter(filename):
   return p
 
 outfile         = 'comments.md'
-
 lbroot          = '../lb/'
-model           = 'model.py'
-learning        = 'training.py'
-testing         = 'evaluation.py'
-starid          = 'starid.py'
-
 rbroot          = '../rb/'
-rb              = 'rb.cpp'
-star_identifier = 'star_identifier.h'
-triangle        = 'triangle.h'
-triangle_side   = 'triangle_side.h'
-
 starsroot       = '../stars/'
-pairs           = 'pairs.h'
 
 with open(outfile, 'w') as f:
 
-  f.write('%s' % commenter(lbroot + starid))
+  f.write('%s' % commenter(lbroot + 'starid.py'))
+  f.write('%s' % commenter(lbroot + 'image_viewer.py'))
+  f.write('%s' % commenter(lbroot + 'model.py'))
+  f.write('%s' % commenter(lbroot + 'training.py'))
+  f.write('%s' % commenter(lbroot + 'evaluation.py'))
 
-  f.write('%s' % commenter(lbroot + model))
-  f.write('%s' % commenter(lbroot + learning))
-  f.write('%s' % commenter(lbroot + testing))
+  f.write('%s' % commenter(rbroot + 'rb.cpp'))
+  f.write('%s' % commenter(rbroot + 'star_identifier.h'))
+  f.write('%s' % commenter(rbroot + 'triangle.h'))
+  f.write('%s' % commenter(rbroot + 'triangle_side.h'))
 
-  f.write('%s' % commenter(rbroot + rb))
-  f.write('%s' % commenter(rbroot + star_identifier))
-  f.write('%s' % commenter(rbroot + triangle))
-  f.write('%s' % commenter(rbroot + triangle_side))
-
-  f.write('%s' % commenter(starsroot + pairs))
+  f.write('%s' % commenter(starsroot + 'pairs.h'))

@@ -2,6 +2,10 @@
 
 evaluates both lb learning and rb heuristic rules in parallel.
 
+**image viewer**
+
+shows 28 x 28 mnist style star images.
+
 **model**
 
 tensorflow graph implementing inference for star identification. it's kept separate and independent since it's used by multiple scripts, for example lb, learn, and testing.
