@@ -29,8 +29,8 @@ outfile         = 'comments.md'
 
 lbroot          = '../lb/'
 model           = 'model.py'
-learning        = 'learning.py'
-testing         = 'testing.py'
+learning        = 'training.py'
+testing         = 'evaluation.py'
 
 rbroot          = '../rb/'
 rb              = 'rb.cpp'

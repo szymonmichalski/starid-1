@@ -4,8 +4,8 @@
 ###
 import time
 import tensorflow as tf
-import model as gn
-import tfrecords as tr
+import model
+import tfrecords
 
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/lb/models', '')
@@ -15,12 +15,12 @@ tf.app.flags.DEFINE_string('num_examples', 60000, '')
 tf.app.flags.DEFINE_integer('batch_size', 100, '')
 tf.app.flags.DEFINE_integer('max_steps', 600, '')
 
-def learn():
-  images, labels = tr.inputs(FLAGS)
-  softmax = gn.inference(images)
+def train():
+  images, labels = tfrecords.inputs(FLAGS)
+  softmax = model.inference(images)
   cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=softmax, labels=labels)
-  cost = tf.reduce_mean(cross_entropy)
-  learning = tf.train.AdamOptimizer(1e-4).minimize(cost)
+  loss = tf.reduce_mean(cross_entropy)
+  train_op = tf.train.AdamOptimizer(1e-4).minimize(loss)
 
   init = tf.global_variables_initializer()
   img = tf.summary.image('test', images)
@@ -32,13 +32,14 @@ def learn():
   tf.train.start_queue_runners(sess=sess)
   for batch in range(FLAGS.max_steps):
     t1 = time.time()
-    _, costval, img_summary = sess.run([learning, cost, img])
+    _, lossval, img_summary = sess.run([train_op, loss, img])
     if batch % 10 == 0:
-      print ('b %d, cost %.2f, %.3f s/b' % (batch+10, costval, float(time.time() - t1)))
+      print ('b %d, cost %.2f, %.3f s/b' % (batch+10, lossval, float(time.time() - t1)))
     if batch % 100 == 0:
       summary_str = sess.run(summary)
       summary_writer.add_summary(summary_str, batch)
       summary_writer.add_summary(img_summary)
   saver.save(sess, FLAGS.ckpt)
-learn()
+
+train()
 

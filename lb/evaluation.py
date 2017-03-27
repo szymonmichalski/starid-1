@@ -4,9 +4,8 @@
 ###
 import numpy as np
 import tensorflow as tf
-
-import model as gn
-import tfrecords as tr
+import model
+import tfrecords
 
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/lb/models', '')
@@ -15,8 +14,8 @@ tf.app.flags.DEFINE_string('num_examples', 10000, '')
 tf.app.flags.DEFINE_string('batch_size', 100, '')
 tf.app.flags.DEFINE_integer('max_steps', 100, '')
 
-images, labels = tr.inputs(FLAGS)
-softmax = gn.inference(images)
+images, labels = tfrecords.inputs(FLAGS)
+softmax = model.inference(images)
 prediction = tf.nn.in_top_k(softmax, labels, 1)
 
 saver = tf.train.Saver()
