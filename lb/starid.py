@@ -15,7 +15,7 @@ tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/lb/data', '')
 resultscnt = 25
 results = np.zeros(shape=(resultscnt, 6), dtype=float)
 
-def identifyCentralStar(imgndx):
+def identify_central_star(imgndx):
   tf.reset_default_graph()
   images = mnist_to_tfrecords.read_images('/home/noah/starid/lb/data/images_b1.mnist')
   image = images[imgndx,:,:,0]
@@ -38,7 +38,7 @@ for resultsndx in range(0, resultscnt):
   results[resultsndx, 1] = imgndx
 
   t1 = time.time()
-  starndx1 = identifyCentralStar(imgndx)
+  starndx1 = identify_central_star(imgndx)
   if starndx1 == results[resultsndx, 0]:
     results[resultsndx, 2] = 1
   results[resultsndx, 3] = float(time.time() - t1)

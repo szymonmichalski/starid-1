@@ -6,7 +6,7 @@ rules::StarIdentifier::StarIdentifier(stars::Image& image,
   pairs(pairs), image(image), tolerance(tolrad) {
 }
 
-int rules::StarIdentifier::identifyCentralStar(int teststar = 1) {
+int rules::StarIdentifier::identify_central_star(int teststar = 1) {
 
   std::vector<TriangleSide> abs;
   for (ndxb = 1; ndxb < image.uvecs.n_rows; ++ndxb) {

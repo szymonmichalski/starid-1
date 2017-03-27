@@ -24,7 +24,7 @@ public:
 
   /// *identify central star* this is the main function
   ///
-  int identifyCentralStar(int teststar);
+  int identify_central_star(int teststar);
 
 private:
 
