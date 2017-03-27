@@ -1,14 +1,18 @@
+**starid**
+
+evaluates both lb learning and rb heuristic rules in parallel.
+
 **model**
 
 tensorflow graph implementing inference for star identification. it's kept separate and independent since it's used by multiple scripts, for example lb, learn, and testing.
 
-**learning**
+**training**
 
 performs training of the model.
 
-**testing**
+**evaluation**
 
-performs testing of the model. star identification is performed on a group of images and the results are scored.
+performs evaluation of the model. star identification is performed on a group of images and the results are scored.
 
 **rules based heuristic star identification**
 

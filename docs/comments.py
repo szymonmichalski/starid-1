@@ -31,6 +31,7 @@ lbroot          = '../lb/'
 model           = 'model.py'
 learning        = 'training.py'
 testing         = 'evaluation.py'
+starid          = 'starid.py'
 
 rbroot          = '../rb/'
 rb              = 'rb.cpp'
@@ -42,6 +43,8 @@ starsroot       = '../stars/'
 pairs           = 'pairs.h'
 
 with open(outfile, 'w') as f:
+
+  f.write('%s' % commenter(lbroot + starid))
 
   f.write('%s' % commenter(lbroot + model))
   f.write('%s' % commenter(lbroot + learning))

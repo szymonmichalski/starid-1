@@ -1,3 +1,7 @@
+### **starid**
+###
+### evaluates both lb learning and rb heuristic rules in parallel.
+###
 import subprocess
 import re
 import time
