@@ -1,3 +1,7 @@
+*31.3.2017*
+
+beginning work on a tensorflow op that dynamically generate images in memory at runtime. the point is that for starid training there is no need to use the filesystem, which is a good thing since training image files for 8876 stars would be big and slow. instead, we can create them on the fly as fast as possible and as needed. it's also nice to be able to easily configure subsets of the stars, for example just the first hundred or first thousand.
+
 *26.3.2017*
 
 r2017a. both lb convnet and rb triangles working on the same mnist style star images. first run results, before any performance work
