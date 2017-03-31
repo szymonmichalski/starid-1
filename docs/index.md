@@ -6,7 +6,7 @@ beginning work on a cpp tensorflow kernel that dynamically generates star images
 
 r2017a. both lb convnet and rb triangles working on the same mnist style star images. first run results, before any performance work
 
-     n 25     ok      t
+              ok      t
     -----  -----  -----
        lb  0.897  0.173
        rb  1.000  5.494
