@@ -1,6 +1,6 @@
 *31.3.2017*
 
-beginning work on a cpp tensorflow op that dynamically generates star images in memory at runtime. the point is that there is no need to use the filesystem for training, which is a good thing since lots of images for 8876 stars would be big and slow. instead, we can create them on the fly as fast as possible. it's also nice to be able to easily configure subsets of the stars, for example just the first hundred or first thousand.
+beginning work on a cpp tensorflow op that dynamically generates star images in memory at runtime. there's no need to use the filesystem for training, which is a good thing since lots of images for 8876 stars would be big and slow. we'll create them on the fly as fast as possible, without going through the filesystem. it's also nice to be able to easily configure subsets of the stars, for example just the first hundred or first thousand.
 
 *26.3.2017*
 
