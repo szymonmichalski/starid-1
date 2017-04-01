@@ -1,6 +1,6 @@
-
 TARGET = star_images_op
 TEMPLATE = lib
+CONFIG -= qt
 
 SOURCES += star_images_op.cpp
 
