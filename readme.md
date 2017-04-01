@@ -12,7 +12,7 @@ cpp for unique deterministic identification of triangular structure.
 
 *star images op*
 
-tensorflow op and cpp kernel to dynamically generate star images in memory at runtime. there’s no need to use the filesystem during training. this is a good thing since image files for training 8876 stars would be big and slow. we’ll generate them on the fly as fast as possible. it’s also nice to be able to easily switch subsets of the stars, for example just the first hundred or first thousand.
+tensorflow op cpp kernel to dynamically generate star images in memory at runtime. there’s no need to use the filesystem during training. this is a good thing since image files for training 8876 stars would be big and slow. we’ll generate them on the fly as fast as possible. it’s also nice to be able to easily switch subsets of the stars, for example just the first hundred or first thousand.
 
 *stars*
 
