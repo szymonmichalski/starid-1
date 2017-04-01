@@ -10,6 +10,10 @@ tensorflow framework for identification of stars using convnets and svms.
 
 cpp for unique deterministic identification of triangular structure.
 
+*star images op*
+
+tensorflow op and cpp kernel to dynamically generate star images in memory at runtime. there’s no need to use the filesystem during training. this is a good thing since image files for training 8876 stars would be big and slow. we’ll generate them on the fly as fast as possible. it’s also nice to be able to easily switch subsets of the stars, for example just the first hundred or first thousand.
+
 *stars*
 
 star catalogs, sky representations, image generation, serialized data structures. the focus is on pointing vectors. pure representations of direction in space, with length normalized to one, pointing to positions on the sky. two coordinates are independent, and can be represented as ra and dec, or x and y in a plane tangent to the sky and its image in a sensor. the sky is a unit sphere formed by a continuum of pointing vectors. rotation about a pointing vector is an angle we’ll call yaw. looking at a star with your right arm pointed west, your line of sight is the star pointing vector and your arm is yaw zero. knowledge concerning a star image means an estimate and uncertainty for its pointing vector. our convention is that we're identifying a star at the center of the image. this means the image pointing vector is equivalent to the star pointing vector. the smaller the uncertainty of the image pointing vector, the more certain is our knowledge of the star pointing vector, and its identity. when the image pointing vector is totally uncertain, we have the lost in space case.
