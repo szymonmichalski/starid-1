@@ -2,7 +2,7 @@
 
 next step is to increase the number of stars the convnet can identify to 100, then 1000, then 8876. this means much larger amounts of training data.
 
-begin work on a tensorflow op and cpp kernel to dynamically generate star images in memory at runtime. there's no need to use the filesystem during training. this is a good thing since enoguh images for training 8876 stars would be big and slow. we'll generate them on the fly as fast as possible. it's also nice to be able to easily switch subsets of the stars, for example just the first hundred or first thousand.
+begin work on a tensorflow op and cpp kernel to dynamically generate star images in memory at runtime. there's no need to use the filesystem during training. this is a good thing since image files for training 8876 stars would be big and slow. we'll generate them on the fly as fast as possible. it's also nice to be able to easily switch subsets of the stars, for example just the first hundred or first thousand.
 
 *26.3.2017*
 
