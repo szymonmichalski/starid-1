@@ -5,28 +5,28 @@ void stars::Pairs::init(double max_ang, stars::Sky& sky)
     int pairndx = 0;
 
     for(auto star : sky.stars) {
-      std::vector<int> starndxs = sky.starsNearPoint(star.x, star.y, star.z);
-      starndxs.push_back(star.starndx);
+        std::vector<int> starndxs = sky.starsNearPoint(star.x, star.y, star.z);
+        starndxs.push_back(star.starndx);
 
-      for (auto starndx1 : starndxs) {
+        for (auto starndx1 : starndxs) {
 
-        for (auto starndx2 : starndxs) {
-          if (starndx1 == starndx2) continue;
+            for (auto starndx2 : starndxs) {
+                if (starndx1 == starndx2) continue;
 
-          std::string key = pairsKey(sky.stars[starndx1].starndx, sky.stars[starndx2].starndx);
-          auto search = starpairs_map.find(key);
-          if (search != starpairs_map.end()) continue; // check map that pair is unique
+                std::string key = pairsKey(sky.stars[starndx1].starndx, sky.stars[starndx2].starndx);
+                auto search = starpairs_map.find(key);
+                if (search != starpairs_map.end()) continue; // check map that pair is unique
 
-          double angle = std::acos( (sky.stars[starndx1].x * sky.stars[starndx2].x) + (sky.stars[starndx1].y * sky.stars[starndx2].y) + (sky.stars[starndx1].z * sky.stars[starndx2].z));
-          if (std::abs(angle) > max_ang) continue; // max pair angle
+                double angle = std::acos( (sky.stars[starndx1].x * sky.stars[starndx2].x) + (sky.stars[starndx1].y * sky.stars[starndx2].y) + (sky.stars[starndx1].z * sky.stars[starndx2].z));
+                if (std::abs(angle) > max_ang) continue; // max pair angle
 
-          std::tuple<double, int, int> starpair {angle, starndx1, starndx2};
-          starpairs.push_back(starpair);
-          starpairs_map.insert({key, pairndx}); // update map of unique pairs
-          angletable.addPair(angle, pairndx);
-          ++pairndx;
+                std::tuple<double, int, int> starpair {angle, starndx1, starndx2};
+                starpairs.push_back(starpair);
+                starpairs_map.insert({key, pairndx}); // update map of unique pairs
+                angletable.addPair(angle, pairndx);
+                ++pairndx;
+            }
         }
-      }
     }
     angletable.sort();
 }

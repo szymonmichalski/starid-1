@@ -19,15 +19,15 @@ int teststar = -1;
 enum  optionIndex { UNKNOWN, HELP, DATADIR, IMGFILE, IMGNDX, TESTSTAR };
 struct Arg: public option::Arg {
     static void printError(const char* msg1, const option::Option& opt, const char* msg2) {
-      fprintf(stderr, "ERROR: %s", msg1);
-      fwrite(opt.name, opt.namelen, 1, stderr);
-      fprintf(stderr, "%s", msg2);
+        fprintf(stderr, "ERROR: %s", msg1);
+        fwrite(opt.name, opt.namelen, 1, stderr);
+        fprintf(stderr, "%s", msg2);
     }
     static option::ArgStatus Required(const option::Option& option, bool msg)
     {
-      if (option.arg != 0) return option::ARG_OK;
-      if (msg) printError("Option '", option, "' requires an argument\n");
-      return option::ARG_ILLEGAL;
+        if (option.arg != 0) return option::ARG_OK;
+        if (msg) printError("Option '", option, "' requires an argument\n");
+        return option::ARG_ILLEGAL;
     }
     static option::ArgStatus Numeric(const option::Option& option, bool msg) {
         char* endptr = 0;

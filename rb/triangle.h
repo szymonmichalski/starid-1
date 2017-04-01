@@ -13,31 +13,31 @@ class Triangle
 
 public:
 
-  /// *close loops abca* travel around sides connecting by pairs.
-  ///
-  void close_loops_abca();
+    /// *close loops abca* travel around sides connecting by pairs.
+    ///
+    void close_loops_abca();
 
-  /// *close loops abda* travel around sides connecting by pairs.
-  ///
-  void close_loops_abda(std::vector<Triangle> &triangles);
+    /// *close loops abda* travel around sides connecting by pairs.
+    ///
+    void close_loops_abda(std::vector<Triangle> &triangles);
 
-  Triangle(double ang1,
-           double ang2,
-           double ang3,
-           double tolerance,
-           stars::Pairs& pairs,
-           int teststar,
-           arma::vec avecstar3);
+    Triangle(double ang1,
+             double ang2,
+             double ang3,
+             double tolerance,
+             stars::Pairs& pairs,
+             int teststar,
+             arma::vec avecstar3);
 
-  rules::TriangleSide side1;
-  rules::TriangleSide side2;
-  rules::TriangleSide side3;
-  int loops_cnt;
-  int teststar;
-  double tolerance;
-  stars::Pairs &pairs;
-  arma::vec avecstar3;
-  Eigen::Vector3d evecstar3;
+    rules::TriangleSide side1;
+    rules::TriangleSide side2;
+    rules::TriangleSide side3;
+    int loops_cnt;
+    int teststar;
+    double tolerance;
+    stars::Pairs &pairs;
+    arma::vec avecstar3;
+    Eigen::Vector3d evecstar3;
 
 private:
 

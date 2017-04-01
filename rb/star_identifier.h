@@ -20,28 +20,28 @@ class StarIdentifier
 
 public:
 
-  StarIdentifier(stars::Image& image, stars::Pairs& pairs, double tolerance);
+    StarIdentifier(stars::Image& image, stars::Pairs& pairs, double tolerance);
 
-  /// *identify central star* this is the main function
-  ///
-  int identify_central_star(int teststar);
+    /// *identify central star* this is the main function
+    ///
+    int identify_central_star(int teststar);
 
 private:
 
-  bool get_angs_c();
-  bool get_angs_d();
-  stars::Pairs pairs;
-  stars::Image& image;
-  double tolerance;
-  double min_ang;
-  std::vector<double> angs_c;
-  std::vector<double> angs_d;
-  arma::vec uveca;
-  arma::vec uvecb;
-  arma::vec uvecc;
-  arma::vec uvecd;
-  int ndxb, ndxc, ndxd;
-  int teststar;
+    bool get_angs_c();
+    bool get_angs_d();
+    stars::Pairs pairs;
+    stars::Image& image;
+    double tolerance;
+    double min_ang;
+    std::vector<double> angs_c;
+    std::vector<double> angs_d;
+    arma::vec uveca;
+    arma::vec uvecb;
+    arma::vec uvecc;
+    arma::vec uvecd;
+    int ndxb, ndxc, ndxd;
+    int teststar;
 
 };
 
