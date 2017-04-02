@@ -37,8 +37,6 @@ HEADERS += \
 
 INCLUDEPATH += \
     ../stars \
-    ../stars/cereal \
-    ../stars/eigen \
     /usr/include/armadillo_bits \
     
 LIBS += -L"/usr/lib" -larmadillo

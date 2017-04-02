@@ -37,8 +37,6 @@ HEADERS += \
 
 INCLUDEPATH += \
     ../rb \
-    cereal \
-    eigen \
     /usr/include/armadillo_bits \
 
 LIBS += -L"/usr/lib" -larmadillo
