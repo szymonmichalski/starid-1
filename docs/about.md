@@ -48,3 +48,5 @@ at this point, fall of 2003, i began a serious study of the research literature 
 
 [wahba problem](https://en.wikipedia.org/wiki/Wahba's_problem) 
 
+[quest for better attitudes](papers/2006 shuster.pdf)
+

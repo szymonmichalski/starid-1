@@ -24,7 +24,7 @@
 
 2008 - precision orbit and attitude determination for icesat - schutz, bae, smith, sirota - advances in the astronautical sciences - [pdf](papers/2008 aas.pdf)
 
-**star identification references**
+**star identification**
 
 1993 - pattern recognition of star constellations for spacecraft applications - liebe - ieee aerospace and electronic systems magazine - [pdf](papers/1993 liebe.pdf)
 
@@ -33,6 +33,10 @@
 2004 - the pyramid star identification technique - mortari, samaan, bruccoleri, junkins - advances in the astronautical sciences - [pdf](papers/2004 mortari.pdf)
 
 2009 - a survey on star identification algorithms - spratling, mortari - algorithms - [pdf](papers/2009 spratling.pdf)
+
+**attitude**
+
+2006 - quest for better attitude - shuster - [pdf](papers/2006 shuster.pdf)
 
 **texas minor planet project**
 
