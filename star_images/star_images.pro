@@ -2,6 +2,7 @@ TARGET = star_images
 TEMPLATE = lib
 CONFIG -= qt
 CONFIG += c++14 warn_off debug
+QMAKE_CXXFLAGS = -D_GLIBCXX_USE_CXX11_ABI=0
 
 SOURCES += \
     star_images.cpp

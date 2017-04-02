@@ -1,5 +1,5 @@
-#ifndef STAR_IMAGES_OP_H
-#define STAR_IMAGES_OP_H
+#ifndef STAR_IMAGES_H
+#define STAR_IMAGES_H
 
 #include "/home/noah/tf/lib/python3.5/site-packages/tensorflow/include/tensorflow/core/framework/op.h"
 #include "/home/noah/tf/lib/python3.5/site-packages/tensorflow/include/tensorflow/core/framework/shape_inference.h"
@@ -50,4 +50,4 @@ REGISTER_KERNEL_BUILDER(Name("StarImages").Device(DEVICE_CPU), StarImagesOp);
 //    star_images_op();
 //};
 
-#endif // STAR_IMAGES_OP_H
+#endif
