@@ -1,3 +1,7 @@
+*3.4.2017*
+
+skeleton of star images tensorflow op is now working. current concept is that on startup it will load the star catalog cereal binary file as input, then for each graph iteration output a 28 x 28 x n tensor of star images, with a label tensor.
+
 *31.3.2017*
 
 next step is to increase the number of stars the convnet can identify to 100, then 1000, then 8876. this means much larger amounts of training data.
