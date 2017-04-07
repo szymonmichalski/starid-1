@@ -38,7 +38,7 @@
 
 **attitude**
 
-2006 - quest for better attitude - shuster - [pdf](papers/2006 shuster.pdf)
+2006 - the quest for better attitudes - shuster - [pdf](papers/2006 shuster.pdf)
 
 **texas minor planet project**
 
