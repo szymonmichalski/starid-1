@@ -1,5 +1,7 @@
 **references**
 
+2017 - effect of sun shade performance on icesat-2 laser reference sensor alignment estimation - patel, smith, bae, schutz - advances in the astronautical sciences - [pdf](papers/2017 aas.pdf)
+
 2014 - laser reference sensor alignment tracking and star observations - smith, bae, schutz - journal of spacecraft and rockets - [pdf](papers/2014 jsr c.pdf)
 
 2014 - laser reference sensor alignment estimations using star observations - smith, bae, schutz - journal of spacecraft and rockets - [pdf](papers/2014 jsr b.pdf)
