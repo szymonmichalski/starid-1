@@ -17,7 +17,7 @@ r2017a. both lb convnet and rb triangles working on the same mnist style star im
        lb  0.897  0.173
        rb  1.000  5.494
        
-convnet can identify ten stars, triangles can identify all stars,or at least all 8876 brighter than 6.5.
+convnet can identify ten stars, triangles can identify all stars, or at least for now, all 8876 brighter than 6.5.
 
 *25.3.2017*
 
