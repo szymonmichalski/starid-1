@@ -46,7 +46,7 @@ another thing that became clear was that there was no open source project for th
 
 *2016*
 
-another thirteen years passed. now i was in hamburg germany, after living in austin for thirty two years, 1982 to 2014. in a german winter, there is time to work on the lost in space problem. 
+another thirteen years passed. now i was in hamburg germany, after living in austin for thirty two years, 1982 to 2014. there is time to work on the lost in space problem during a german winter. 
 
 *notes*
 
