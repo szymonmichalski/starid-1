@@ -30,13 +30,25 @@
 
 1993 - pattern recognition of star constellations for spacecraft applications - liebe - ieee aerospace and electronic systems magazine - [pdf](papers/1993 liebe.pdf)
 
+1997 - a grid algorithm for autonomous star identification - padgett - [pdf](papers/1997 padgett.pdf)
+
 1999 - skymap specification - sande, ottenstein - nasa technical report - [pdf](papers/1999 skymap a.pdf)
 
 2004 - the pyramid star identification technique - mortari, samaan, bruccoleri, junkins - advances in the astronautical sciences - [pdf](papers/2004 mortari.pdf)
 
+2008 - an analytic approach to star identification reliability - kumari, mortari - [pdf](papers/2008 kumari.pdf)
+
 2009 - a survey on star identification algorithms - spratling, mortari - algorithms - [pdf](papers/2009 spratling.pdf)
 
-**attitude**
+2012 - an autonomous star identification algorithm based on the directed circularity pattern - xie - [pdf](papers/2012 xie.pdf)
+
+2013 - analysis of star identification algorithms due to uncompensated spatial distortion - bratt - [pdf](papers/2013 bratt.pdf)
+
+2014 - a brightness referenced star identification algorithm for aps star trackers - zhang - [pdf](papers/2014 zhang.pdf)
+
+2015 - an autonomous star identification algortihm based on one dimensional vector pattern for star sensors - luo - [pdf](papers/2015 luo.pdf)
+
+**wahba problem and attitude estimation**
 
 2006 - the quest for better attitudes - shuster - [pdf](papers/2006 shuster.pdf)
 
