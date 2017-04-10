@@ -1,7 +1,6 @@
 #ifndef STARS_H
 #define STARS_H
 
-#include <armadillo>
 #include <float_int_table.h>
 #include <cereal/access.hpp>
 #include <cereal/types/string.hpp>
@@ -10,31 +9,14 @@
 namespace stars {
 
 struct Star {
-    std::string iau_identifier;
-    std::string star_name;
-    std::string variablestar_name;
+    int starndx;
     int skymap_number;
-    int hd_number;
-    int sao_number;
-    int dm_number;
-    int hr_number;
-    int wds_number;
-    int ppm_number;
-    bool blended_position;
-    double mv1;
-    double ra_degrees;
-    double dec_degrees;
-    double ra;
-    double dec;
+    double mv;
     double x;
     double y;
     double z;
-    int starndx;
     template <class Archive> void serialize(Archive& ar) {
-        ar(iau_identifier, star_name, variablestar_name);
-        ar(skymap_number, hd_number, sao_number, dm_number, hr_number, wds_number, ppm_number);
-        ar(blended_position);
-        ar(mv1, ra_degrees, dec_degrees, ra, dec, x, y, z, starndx);
+        ar(starndx, skymap_number, mv, x, y, z);
     }
 };
 
@@ -43,7 +25,7 @@ class Sky {
 public:
 
     std::vector<stars::Star> stars;
-    std::vector<std::string> catalogLines;
+    std::vector<std::string> catalog_lines;
 
     void init(std::string fcatalog);
 

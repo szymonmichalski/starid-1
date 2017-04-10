@@ -1,10 +1,11 @@
 #ifndef SKYMAP_H
 #define SKYMAP_H
-#include <armadillo>
+#include <string>
+#include <vector>
 
 namespace data {
 
-struct SkymapRecord {
+struct star_record {
     double mv1;
     std::string iau_identifier;
     std::string star_name;
@@ -30,12 +31,12 @@ struct SkymapRecord {
     std::string fileLine;
 };
 
-class SkymapCatalog {
+class star_catalog {
 
 public:
 
-    SkymapCatalog(std::string fcat);
-    std::vector<data::SkymapRecord> skymapRecords;
+    star_catalog(std::string fcat);
+    std::vector<data::star_record> star_records;
     int dimStars;
 
 };

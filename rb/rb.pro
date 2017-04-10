@@ -21,7 +21,7 @@ SOURCES += \
     ../stars/sky.cpp \
     ../stars/pairs.cpp \
     ../stars/float_int_table.cpp \
-    ../stars/skymap.cpp \
+    ../stars/star_catalog.cpp \
     ../stars/mnist.cpp
 
 HEADERS += \
@@ -30,7 +30,7 @@ HEADERS += \
     ../stars/sky.h \
     ../stars/pairs.h \
     ../stars/float_int_table.h \
-    ../stars/skymap.h \
+    ../stars/star_catalog.h \
     ../stars/mnist.h \
     ../stars/util/stopwatch.h \
     ../stars/util/optionparser.h

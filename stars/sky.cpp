@@ -1,50 +1,34 @@
 #include "sky.h"
-#include "skymap.h"
-#include <cassert>
+#include "star_catalog.h"
 #include "globals.h"
+#include <cmath>
+#include <algorithm>
 
 void stars::Sky::init(std::string fcatin) {
-    arma::arma_rng::set_seed_random();
     fcatalog = fcatin;
     t = 0.0;
     Star star;
 
-    data::SkymapCatalog skymapCatalog(fcatalog);
+    data::star_catalog skymapCatalog(fcatalog);
     int starndx = 0;
-    for (auto r : skymapCatalog.skymapRecords) {
+    for (auto rec : skymapCatalog.star_records) {
         star.starndx = starndx;
-        star.iau_identifier = r.iau_identifier;
-        star.star_name = r.star_name;
-        star.variablestar_name = r.variablestar_name;
-        star.skymap_number = r.skymap_number;
-        star.hd_number = r.hd_number;
-        star.sao_number = r.sao_number;
-        star.dm_number = r.dm_number;
-        star.hr_number = r.hr_number;
-        star.wds_number = r.wds_number;
-        star.ppm_number = r.ppm_number;
-        star.blended_position = r.blended_position;
-
-        star.ra_degrees = 15.0 * (r.rah + r.ram/60.0 + r.ras/3600.0);
-        star.dec_degrees = r.decsign * (r.decd + r.decm/60.0 + r.decs/3600.0);
-        star.ra_degrees += (t * r.pmra_arcsec_per_year) / 3600.0;
-        star.dec_degrees += (t * r.pmdecsign * r.pmdec_arcsec_per_year) / 3600.0;
-        assert (star.ra_degrees >= 0.0 && star.ra_degrees <= 360.0);
-        assert (star.dec_degrees >= -90.0 && star.dec_degrees <= 90.0);
-
-        double ra = star.ra_degrees * arma::datum::pi / 180.0;
-        double dec = star.dec_degrees * arma::datum::pi / 180.0;
-        star.ra = ra;
-        star.dec = dec;
-        star.x = cos(ra)*cos(dec);
-        star.y = sin(ra)*cos(dec);
-        star.z = sin(dec);
-
+        star.skymap_number = rec.skymap_number;
+        star.mv = rec.mv1;
+        double ra_degrees = 15.0 * (rec.rah + rec.ram/60.0 + rec.ras/3600.0);
+        double dec_degrees = rec.decsign * (rec.decd + rec.decm/60.0 + rec.decs/3600.0);
+        ra_degrees += (t * rec.pmra_arcsec_per_year) / 3600.0;
+        dec_degrees += (t * rec.pmdecsign * rec.pmdec_arcsec_per_year) / 3600.0;
+        double ra = ra_degrees * stars::pi / 180.0;
+        double dec = dec_degrees * stars::pi / 180.0;
+        star.x = std::cos(ra) * std::cos(dec);
+        star.y = std::sin(ra) * cos(dec);
+        star.z = std::sin(dec);
         xtable.addPair(star.x, starndx);
         ytable.addPair(star.y, starndx);
         ztable.addPair(star.z, starndx);
         stars.push_back(star);
-        catalogLines.push_back(r.fileLine);
+        catalog_lines.push_back(rec.fileLine);
         ++starndx;
     }
     xtable.sort();
@@ -81,7 +65,6 @@ std::vector<int> stars::Sky::starsInRing(double p, double radius, util::FloatInt
         pmin = p*cos(radius) - sqrt(1-(p*p))*sin(radius);
         pmax = p*cos(radius) + sqrt(1-(p*p))*sin(radius);
     }
-    assert (pmin >= -1.0 && pmax <= 1.0);
     return table.findInts(pmin, pmax);
 }
 

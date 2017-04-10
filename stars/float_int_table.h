@@ -1,7 +1,6 @@
 #ifndef FLOAT_INT_TABLE_H
 #define FLOAT_INT_TABLE_H
 
-#include <armadillo>
 #include <cereal/access.hpp>
 #include <cereal/types/utility.hpp>
 #include <cereal/types/vector.hpp>

@@ -11,8 +11,8 @@ SOURCES += \
     image.cpp \
     float_int_table.cpp \
     mnist.cpp \
-    skymap.cpp \
-    pairs.cpp
+    pairs.cpp \
+    star_catalog.cpp
 
 HEADERS += \
     globals.h \
@@ -20,10 +20,10 @@ HEADERS += \
     image.h \
     float_int_table.h \
     mnist.h \
-    skymap.h \
     util/stopwatch.h \
     util/optionparser.h \
-    pairs.h
+    pairs.h \
+    star_catalog.h
 
 SOURCES += \
     ../rb/star_identifier.cpp \

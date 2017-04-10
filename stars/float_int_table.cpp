@@ -1,4 +1,5 @@
 #include "float_int_table.h"
+#include <algorithm>
 
 void util::FloatIntTable::addPair(double newFloat, int newInt)
 {
