@@ -1,6 +1,6 @@
 *11.4.2017*
 
-slim down the bits in the sky binary file from naive initial 1.8 mb. 
+slim down bits in sky binary file from naive initial 1.8 mb. 
 
 *3.4.2017*
 
