@@ -5,6 +5,7 @@
 #ifndef TRIANGLE_H
 #define TRIANGLE_H
 #include "triangle_side.h"
+#include <armadillo>
 
 namespace rules {
 

@@ -1,7 +1,6 @@
 #ifndef MNIST_H
 #define MNIST_H
 
-#include <armadillo>
 #include <eigen/Core>
 
 namespace data {
@@ -12,13 +11,13 @@ public:
 
     static Eigen::Matrix<double, 28, 28> readImage(std::string& imgfile, int imgndx);
 
-    void readAxjAxiImages(std::string filename, std::vector<arma::mat> &images);
+//    void readAxjAxiImages(std::string filename, std::vector<arma::mat> &images);
 
-    void readLabels(std::string filename, arma::colvec &labels);
+//    void readLabels(std::string filename, arma::colvec &labels);
 
-    void writeImages(std::string filename, std::vector<arma::mat> &images);
+//    void writeImages(std::string filename, std::vector<arma::mat> &images);
 
-    void writeLabels(std::string filename, arma::colvec &labels);
+//    void writeLabels(std::string filename, arma::colvec &labels);
 
 private:
 

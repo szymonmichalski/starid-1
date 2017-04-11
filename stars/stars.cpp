@@ -1,14 +1,18 @@
+/// **stars**
+///
+/// sky representation and image generation
+///
 #include "image.h"
-#include "star_identifier.h"
+#include "pairs.h"
 #include "mnist.h"
-#include <armadillo>
+
+#include "util/stopwatch.h"
 #include "util/optionparser.h"
 #include "cereal/archives/binary.hpp"
 #include <fstream>
-#include "util/stopwatch.h"
 
 
-std::string datadir = "/home/noah/dev/starid/stars/data/";
+std::string datadir = "/home/noah/starid/stars/data/";
 void doMnist(int, std::string&, std::string&, stars::Sky&);
 
 enum  optionIndex { UNKNOWN, HELP, DATADIR, SKY, MNIST };
@@ -90,20 +94,20 @@ int main(int argc, char* argv[])
 }
 
 void doMnist(int imgCnt, std::string& datadir, std::string& filename, stars::Sky& sky) {
-    data::Mnist mnist;
-    std::vector<arma::mat> axjAxiImages;
-    arma::colvec labels = arma::zeros<arma::colvec>(imgCnt);
-    mnist.readAxjAxiImages(std::string(datadir + filename + "1.mnist"), axjAxiImages); // 28x28ximgCnt images
-    mnist.readLabels(std::string(datadir + filename + "2.mnist"), labels); // imageCntx1 labels
-    for (int starSetNdx = 0; starSetNdx < imgCnt/10; ++starSetNdx) {
-        for (int starndx = 0; starndx < 10; ++starndx) {
-            arma::mat axjAxiImage = axjAxiImages[10*starSetNdx + starndx]; // get current image
-            stars::Image image;
-            image.axjAxiImageUpdate(axjAxiImage, sky, starndx);
-            labels(10*starSetNdx + starndx) = (double) starndx; // update current label
-            axjAxiImages[10*starSetNdx + starndx] = axjAxiImage; // update current image
-        }
-    }
-    mnist.writeImages(std::string(datadir + filename + "1.mnist"), axjAxiImages);
-    mnist.writeLabels(std::string(datadir + filename + "2.mnist"), labels);
+//    data::Mnist mnist;
+//    std::vector<arma::mat> axjAxiImages;
+//    arma::colvec labels = arma::zeros<arma::colvec>(imgCnt);
+//    mnist.readAxjAxiImages(std::string(datadir + filename + "1.mnist"), axjAxiImages); // 28x28ximgCnt images
+//    mnist.readLabels(std::string(datadir + filename + "2.mnist"), labels); // imageCntx1 labels
+//    for (int starSetNdx = 0; starSetNdx < imgCnt/10; ++starSetNdx) {
+//        for (int starndx = 0; starndx < 10; ++starndx) {
+//            arma::mat axjAxiImage = axjAxiImages[10*starSetNdx + starndx]; // get current image
+//            stars::Image image;
+//            image.axjAxiImageUpdate(axjAxiImage, sky, starndx);
+//            labels(10*starSetNdx + starndx) = (double) starndx; // update current label
+//            axjAxiImages[10*starSetNdx + starndx] = axjAxiImage; // update current image
+//        }
+//    }
+//    mnist.writeImages(std::string(datadir + filename + "1.mnist"), axjAxiImages);
+//    mnist.writeLabels(std::string(datadir + filename + "2.mnist"), labels);
 }

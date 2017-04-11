@@ -46,6 +46,10 @@ for adding, finding, removing, etc star pairs to a triangle side. one objective 
 
 *append iterations* append the iterations contained in another side
 
+**stars**
+
+sky representation and image generation
+
 **pairs over whole sky**
 
 star pairs with a separation angle within a given range.
