@@ -34,6 +34,8 @@
 
 1997 - a grid algorithm for autonomous star identification - padgett - [pdf](papers/1997 padgett.pdf)
 
+1997 - star identification using neural networks- lindblad, lindsey - [pdf](papers/1997 lindblad.pdf)
+
 1999 - skymap specification - sande, ottenstein - nasa technical report - [pdf](papers/1999 skymap a.pdf)
 
 2004 - the pyramid star identification technique - mortari, samaan, bruccoleri, junkins - advances in the astronautical sciences - [pdf](papers/2004 mortari.pdf)
@@ -45,6 +47,8 @@
 2009 - a survey on star identification algorithms - spratling, mortari - algorithms - [pdf](papers/2009 spratling.pdf)
 
 2012 - an autonomous star identification algorithm based on the directed circularity pattern - xie - [pdf](papers/2012 xie.pdf)
+
+2012 - star identification using delaunay triangulation and distributed neural networks - miri, shiri - [pdf](papers/2012 miri.pdf)
 
 2013 - analysis of star identification algorithms due to uncompensated spatial distortion - bratt - [pdf](papers/2013 bratt.pdf)
 
