@@ -1,3 +1,7 @@
+/// **images**
+///
+/// image representations as pointing vectors and binary images container on disk
+///
 #ifndef IMAGE_H
 #define IMAGE_H
 
@@ -7,15 +11,18 @@
 
 namespace stars {
 
-class Image {
+class Images {
 
 public:
 
     Eigen::MatrixXd uvecs;
 
-    static Eigen::Matrix<double, 28, 28> readImage(std::string& imgfile, int imgndx);
+    /// *read images container* get an image from an images container.
+    ///
+    static Eigen::Matrix<double, 28, 28> read_images_container(std::string& imgfile, int imgndx);
 
-    void axjAxiImageReadMnist(std::string& imgfile, int imgndx);
+    /// *get image vectors* get pointing vector representation of an image
+    void get_image_vectors(std::string& imgfile, int imgndx);
 
 //    void axjAxiImageUpdate(arma::mat& axjAxiImage, stars::Sky& sky, int starndx);
 

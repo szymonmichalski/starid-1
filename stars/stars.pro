@@ -8,16 +8,16 @@ SOURCES += \
     pairs.cpp \
     star_catalog.cpp \
     sky.cpp \
-    image.cpp \
     float_int_table.cpp \
+    images.cpp
 
 HEADERS += \
     globals.h \
     pairs.h \
     star_catalog.h \
     sky.h \
-    image.h \
     float_int_table.h \
     util/stopwatch.h \
     util/optionparser.h \
+    images.h
 

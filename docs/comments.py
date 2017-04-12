@@ -44,4 +44,6 @@ with open(outfile, 'w') as f:
   f.write('%s' % commenter(rbroot + 'triangle_side.h'))
 
   f.write('%s' % commenter(starsroot + 'stars.cpp'))
+  f.write('%s' % commenter(starsroot + 'sky.h'))
+  f.write('%s' % commenter(starsroot + 'images.h'))
   f.write('%s' % commenter(starsroot + 'pairs.h'))

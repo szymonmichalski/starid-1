@@ -1,4 +1,4 @@
-#include "image.h"
+#include "images.h"
 #include "globals.h"
 #include <cmath>
 #include <random>
@@ -7,8 +7,8 @@ std::random_device r;
 std::default_random_engine e1(r());
 std::uniform_real_distribution<double> unitscatter(0, 1);
 
-void stars::Image::axjAxiImageReadMnist(std::string& imgfile, int imgndx) {
-    Eigen::Matrix<double, 28, 28> axjAxiImage = stars::Image::readImage(imgfile, imgndx);
+void stars::Images::get_image_vectors(std::string& imgfile, int imgndx) {
+    Eigen::Matrix<double, 28, 28> axjAxiImage = stars::Images::read_images_container(imgfile, imgndx);
     uvecs = Eigen::MatrixXd::Zero(100,3);
     uvecs(0,0) = 0.0; // center star, stars, is implicit in the image
     uvecs(0,1) = 0.0;
@@ -29,7 +29,7 @@ void stars::Image::axjAxiImageReadMnist(std::string& imgfile, int imgndx) {
     uvecs.conservativeResize(uvecsndx, 3);
 }
 
-Eigen::Matrix<double, 28, 28> stars::Image::readImage(std::string& imgfile, int targetimgndx) {
+Eigen::Matrix<double, 28, 28> stars::Images::read_images_container(std::string& imgfile, int imgndx) {
     Eigen::Matrix<double, 28, 28> image;
     std::ifstream file (imgfile, std::ios::binary);
     if (file.is_open())
@@ -45,7 +45,7 @@ Eigen::Matrix<double, 28, 28> stars::Image::readImage(std::string& imgfile, int 
         axicnt = reverseInt(axicnt); // 28
 
         int imgndx = 0;
-        while (imgndx < targetimgndx) {
+        while (imgndx < imgndx) {
             for (int axjndx = 0; axjndx < 28; ++axjndx) { // inverted-y-like, row-like
                 for (int axindx = 0; axindx < 28; ++axindx) { // x-like, col-like
                     unsigned char temp = 0;
@@ -66,7 +66,7 @@ Eigen::Matrix<double, 28, 28> stars::Image::readImage(std::string& imgfile, int 
     return image;
 }
 
-//void stars::Image::axjAxiImageUpdate(arma::mat& axjAxiImage, stars::Sky& sky, int starndx) {
+//void stars::Images::axjAxiImageUpdate(arma::mat& axjAxiImage, stars::Sky& sky, int starndx) {
 
 //    arma::vec pointing(3);
 //    pointing(0) = sky.stars[starndx].x;
@@ -102,7 +102,7 @@ Eigen::Matrix<double, 28, 28> stars::Image::readImage(std::string& imgfile, int 
 //    }
 //}
 
-//arma::mat stars::Image::rotationMatrix(arma::vec& pointing) {
+//arma::mat stars::Images::rotationMatrix(arma::vec& pointing) {
 //    arma::mat rm;
 //    rm.eye(3,3);
 //    arma::vec bz = pointing;
@@ -115,7 +115,7 @@ Eigen::Matrix<double, 28, 28> stars::Image::readImage(std::string& imgfile, int 
 //    return rm;
 //}
 
-//void stars::image::writeImages(std::string filename, std::vector<arma::mat> &images) {
+//void stars::Images::writeImages(std::string filename, std::vector<arma::mat> &images) {
 //    std::ofstream file (filename, std::ios::binary);
 //    int rev_magnumimg = reverseInt(magnumimg);
 //    int rev_imgcnt = reverseInt(imgcnt);
@@ -138,7 +138,7 @@ Eigen::Matrix<double, 28, 28> stars::Image::readImage(std::string& imgfile, int 
 //    }
 //}
 
-//void stars::image::readAxjAxiImages(std::string filename, std::vector<arma::mat> &images) {
+//void stars::Images::readAxjAxiImages(std::string filename, std::vector<arma::mat> &images) {
 //    std::ifstream file (filename, std::ios::binary);
 //    if (file.is_open())
 //    {
@@ -164,7 +164,7 @@ Eigen::Matrix<double, 28, 28> stars::Image::readImage(std::string& imgfile, int 
 //    }
 //}
 
-//void stars::image::writeLabels(std::string filename, arma::colvec &labels) {
+//void stars::Images::writeLabels(std::string filename, arma::colvec &labels) {
 //    std::ofstream file (filename, std::ios::binary);
 //    int rev_magnumlab = reverseInt(magnumlab);
 //    int rev_imgcnt = reverseInt(imgcnt);
@@ -178,7 +178,7 @@ Eigen::Matrix<double, 28, 28> stars::Image::readImage(std::string& imgfile, int 
 //    }
 //}
 
-//void stars::image::readLabels(std::string filename, arma::colvec &labels) {
+//void stars::Images::readLabels(std::string filename, arma::colvec &labels) {
 //    std::ifstream file (filename, std::ios::binary);
 //    if (file.is_open()) {
 //        file.read((char*) &magnumlab, sizeof(magnumlab));
@@ -193,7 +193,7 @@ Eigen::Matrix<double, 28, 28> stars::Image::readImage(std::string& imgfile, int 
 //    }
 //}
 
-int stars::Image::reverseInt (int i)
+int stars::Images::reverseInt (int i)
 {
     unsigned char ch1, ch2, ch3, ch4;
     ch1 = i & 255;

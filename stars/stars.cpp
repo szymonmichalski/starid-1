@@ -2,7 +2,7 @@
 ///
 /// sky representation and image generation
 ///
-#include "image.h"
+#include "images.h"
 #include "pairs.h"
 
 #include "util/stopwatch.h"
@@ -69,9 +69,9 @@ int main(int argc, char* argv[])
         std::string datadir = "/home/noah/starid/stars/data/";
         std::string imgfile = "images_b1.mnist";
         int imgndx = 0;
-        stars::Image image;
+        stars::Images image;
         std::string filename = datadir + imgfile;
-        image.axjAxiImageReadMnist(filename, imgndx);
+        image.get_image_vectors(filename, imgndx);
         std::cout << " " << std::endl;
     }
 
