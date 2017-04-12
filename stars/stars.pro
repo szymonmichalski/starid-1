@@ -10,7 +10,6 @@ SOURCES += \
     sky.cpp \
     image.cpp \
     float_int_table.cpp \
-    mnist.cpp \
 
 HEADERS += \
     globals.h \
@@ -19,7 +18,6 @@ HEADERS += \
     sky.h \
     image.h \
     float_int_table.h \
-    mnist.h \
     util/stopwatch.h \
     util/optionparser.h \
 

@@ -4,7 +4,6 @@
 ///
 #include "image.h"
 #include "pairs.h"
-#include "mnist.h"
 
 #include "util/stopwatch.h"
 #include "util/optionparser.h"
@@ -15,7 +14,7 @@
 std::string datadir = "/home/noah/starid/stars/data/";
 void doMnist(int, std::string&, std::string&, stars::Sky&);
 
-enum  optionIndex { UNKNOWN, HELP, DATADIR, SKY, MNIST };
+enum  optionIndex { UNKNOWN, HELP, DATADIR, SKY, MNIST, TEST };
 struct Arg: public option::Arg {
     static void printError(const char* msg1, const option::Option& opt, const char* msg2) {
         fprintf(stderr, "ERROR: %s", msg1);
@@ -42,6 +41,7 @@ const option::Descriptor usage[] = {
     {DATADIR, 0, "d", "data", Arg::Required, "  -d, --data  \tdata dir" },
     {SKY, 0, "s", "", Arg::None, "  -s  \tcreate sky and pair files" },
     {MNIST, 0, "m", "", Arg::None, "  -m  \tcreate mnist files" },
+    {TEST, 0, "t", "", Arg::None, "  -t  \ttest" },
     {0,0,0,0,0,0} // end of options
 };
 
@@ -63,6 +63,16 @@ int main(int argc, char* argv[])
         datadir = options[DATADIR].arg;
     } else {
         std::cout << "using default datadir " << datadir << std::endl;
+    }
+
+    if (options[TEST]) {
+        std::string datadir = "/home/noah/starid/stars/data/";
+        std::string imgfile = "images_b1.mnist";
+        int imgndx = 0;
+        stars::Image image;
+        std::string filename = datadir + imgfile;
+        image.axjAxiImageReadMnist(filename, imgndx);
+        std::cout << " " << std::endl;
     }
 
     if (options[SKY]) {
