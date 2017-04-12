@@ -66,6 +66,29 @@ Eigen::Matrix<double, 28, 28> stars::Images::read_images_container(std::string& 
     return image;
 }
 
+//std::string a = "images_a";
+//std::string b = "images_b";
+//doMnist(60000, datadir, a, sky);
+//doMnist(10000, datadir, b, sky);
+//void doMnist(int imgCnt, std::string& datadir, std::string& filename, stars::Sky& sky) {
+//    data::Mnist mnist;
+//    std::vector<arma::mat> axjAxiImages;
+//    arma::colvec labels = arma::zeros<arma::colvec>(imgCnt);
+//    mnist.readAxjAxiImages(std::string(datadir + filename + "1.mnist"), axjAxiImages); // 28x28ximgCnt images
+//    mnist.readLabels(std::string(datadir + filename + "2.mnist"), labels); // imageCntx1 labels
+//    for (int starSetNdx = 0; starSetNdx < imgCnt/10; ++starSetNdx) {
+//        for (int starndx = 0; starndx < 10; ++starndx) {
+//            arma::mat axjAxiImage = axjAxiImages[10*starSetNdx + starndx]; // get current image
+//            stars::Image image;
+//            image.axjAxiImageUpdate(axjAxiImage, sky, starndx);
+//            labels(10*starSetNdx + starndx) = (double) starndx; // update current label
+//            axjAxiImages[10*starSetNdx + starndx] = axjAxiImage; // update current image
+//        }
+//    }
+//    mnist.writeImages(std::string(datadir + filename + "1.mnist"), axjAxiImages);
+//    mnist.writeLabels(std::string(datadir + filename + "2.mnist"), labels);
+//}
+
 //void stars::Images::axjAxiImageUpdate(arma::mat& axjAxiImage, stars::Sky& sky, int starndx) {
 
 //    arma::vec pointing(3);

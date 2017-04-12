@@ -22,6 +22,7 @@ public:
     static Eigen::Matrix<double, 28, 28> read_images_container(std::string& imgfile, int imgndx);
 
     /// *get image vectors* get pointing vector representation of an image
+    ///
     void get_image_vectors(std::string& imgfile, int imgndx);
 
 //    void axjAxiImageUpdate(arma::mat& axjAxiImage, stars::Sky& sky, int starndx);

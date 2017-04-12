@@ -10,11 +10,9 @@
 #include "cereal/archives/binary.hpp"
 #include <fstream>
 
-
 std::string datadir = "/home/noah/starid/stars/data/";
-void doMnist(int, std::string&, std::string&, stars::Sky&);
+enum  optionIndex { UNKNOWN, HELP, DATADIR, STARS, IMAGES, TEST };
 
-enum  optionIndex { UNKNOWN, HELP, DATADIR, SKY, MNIST, TEST };
 struct Arg: public option::Arg {
     static void printError(const char* msg1, const option::Option& opt, const char* msg2) {
         fprintf(stderr, "ERROR: %s", msg1);
@@ -39,8 +37,8 @@ const option::Descriptor usage[] = {
     {UNKNOWN, 0, "", "", option::Arg::None, "\nusage: stars [options]\n\noptions:" },
     {HELP, 0, "h", "help", option::Arg::None, "  -h, --help  \tprint usage and exit" },
     {DATADIR, 0, "d", "data", Arg::Required, "  -d, --data  \tdata dir" },
-    {SKY, 0, "s", "", Arg::None, "  -s  \tcreate sky and pair files" },
-    {MNIST, 0, "m", "", Arg::None, "  -m  \tcreate mnist files" },
+    {STARS, 0, "s", "", Arg::None, "  -s  \tcreate star data files" },
+    {IMAGES, 0, "m", "", Arg::None, "  -i  \tcreate images container files" },
     {TEST, 0, "t", "", Arg::None, "  -t  \ttest" },
     {0,0,0,0,0,0} // end of options
 };
@@ -75,7 +73,7 @@ int main(int argc, char* argv[])
         std::cout << " " << std::endl;
     }
 
-    if (options[SKY]) {
+    if (options[STARS]) {
         util::Stopwatch stopwatch;
         stars::Sky sky;
         sky.init(std::string(datadir + "skymap.txt"));
@@ -88,36 +86,13 @@ int main(int argc, char* argv[])
         std::ofstream os2(std::string(datadir + "pairs.cereal"));
         cereal::BinaryOutputArchive oarchive2(os2);
         oarchive2(pairs);
-        std::cout << "sky and pairs " << stopwatch.end() << std::endl;
+        std::cout << "star data files " << stopwatch.end() << std::endl;
     }
 
-    if (options[MNIST]) {
+    if (options[IMAGES]) {
         stars::Sky sky;
         sky.init(std::string(datadir + "skymap.txt"));
-        std::string a = "images_a";
-        std::string b = "images_b";
-        doMnist(60000, datadir, a, sky);
-        doMnist(10000, datadir, b, sky);
     }
 
     return 0;
-}
-
-void doMnist(int imgCnt, std::string& datadir, std::string& filename, stars::Sky& sky) {
-//    data::Mnist mnist;
-//    std::vector<arma::mat> axjAxiImages;
-//    arma::colvec labels = arma::zeros<arma::colvec>(imgCnt);
-//    mnist.readAxjAxiImages(std::string(datadir + filename + "1.mnist"), axjAxiImages); // 28x28ximgCnt images
-//    mnist.readLabels(std::string(datadir + filename + "2.mnist"), labels); // imageCntx1 labels
-//    for (int starSetNdx = 0; starSetNdx < imgCnt/10; ++starSetNdx) {
-//        for (int starndx = 0; starndx < 10; ++starndx) {
-//            arma::mat axjAxiImage = axjAxiImages[10*starSetNdx + starndx]; // get current image
-//            stars::Image image;
-//            image.axjAxiImageUpdate(axjAxiImage, sky, starndx);
-//            labels(10*starSetNdx + starndx) = (double) starndx; // update current label
-//            axjAxiImages[10*starSetNdx + starndx] = axjAxiImage; // update current image
-//        }
-//    }
-//    mnist.writeImages(std::string(datadir + filename + "1.mnist"), axjAxiImages);
-//    mnist.writeLabels(std::string(datadir + filename + "2.mnist"), labels);
 }
