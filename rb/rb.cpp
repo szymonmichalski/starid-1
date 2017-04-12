@@ -2,10 +2,12 @@
 ///
 /// given an input image of a star pattern, output an integer identifying the star at the center using methods based on geometry, pairs, triangles, etc. the transformation from the input x to the output y is rather direct and deterministic, but noise in the input complicates things. in particular, loss of angular resolution due to position quantization is effectively a large noise source.
 ///
+
 #include "star_identifier.h"
-#include "image.h"
+#include "images.h"
+#include "sky.h"
+#include "globals.h"
 #include "util/stopwatch.h"
-#include <armadillo>
 #include "util/optionparser.h"
 #include "cereal/archives/binary.hpp"
 #include <fstream>
@@ -93,9 +95,10 @@ int main(int argc, char* argv[])
     std::ifstream is2(std::string(datadir + "pairs.cereal"));
     cereal::BinaryInputArchive iarchive2(is2);
     iarchive2(pairs);
-    stars::Image image;
+
+    stars::Images image;
     std::string filename = datadir + imgfile;
-    image.axjAxiImageReadMnist(filename, imgndx);
+    image.get_image_vectors(filename, imgndx);
     std::cout << "sky, pairs, image msecs = " << stopwatch.end() << std::endl;
 
     stopwatch.reset();

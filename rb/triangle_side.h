@@ -4,9 +4,11 @@
 ///
 #ifndef TRIANGLE_SIDE_H
 #define TRIANGLE_SIDE_H
+
+#include "sky.h"
+#include "pairs.h"
 #include <unordered_map>
 #include <map>
-#include "pairs.h"
 
 namespace rules {
 

@@ -4,11 +4,12 @@
 ///
 #ifndef STARIDENTIFIER_H
 #define STARIDENTIFIER_H
+
 #include "triangle.h"
 #include "triangle_side.h"
 #include "pairs.h"
 #include "globals.h"
-#include "image.h"
+#include "images.h"
 #include <eigen/Core>
 #include <unordered_map>
 #include <map>
@@ -20,7 +21,7 @@ class StarIdentifier
 
 public:
 
-    StarIdentifier(stars::Image& image, stars::Pairs& pairs, double tolerance);
+    StarIdentifier(stars::Images& image, stars::Pairs& pairs, double tolerance);
 
     /// *identify central star* this is the main function
     ///
@@ -31,15 +32,15 @@ private:
     bool get_angs_c();
     bool get_angs_d();
     stars::Pairs pairs;
-    stars::Image& image;
+    stars::Images& image;
     double tolerance;
     double min_ang;
     std::vector<double> angs_c;
     std::vector<double> angs_d;
-    arma::vec uveca;
-    arma::vec uvecb;
-    arma::vec uvecc;
-    arma::vec uvecd;
+    Eigen::Vector3d uveca;
+    Eigen::Vector3d uvecb;
+    Eigen::Vector3d uvecc;
+    Eigen::Vector3d uvecd;
     int ndxb, ndxc, ndxd;
     int teststar;
 

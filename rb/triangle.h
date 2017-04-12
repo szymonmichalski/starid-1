@@ -4,8 +4,11 @@
 ///
 #ifndef TRIANGLE_H
 #define TRIANGLE_H
+
 #include "triangle_side.h"
-#include <armadillo>
+#include "sky.h"
+#include "pairs.h"
+#include <eigen/Core>
 
 namespace rules {
 
@@ -28,7 +31,7 @@ public:
              double tolerance,
              stars::Pairs& pairs,
              int teststar,
-             arma::vec avecstar3);
+             Eigen::Vector3d vecstar3);
 
     rules::TriangleSide side1;
     rules::TriangleSide side2;
@@ -37,8 +40,7 @@ public:
     int teststar;
     double tolerance;
     stars::Pairs &pairs;
-    arma::vec avecstar3;
-    Eigen::Vector3d evecstar3;
+    Eigen::Vector3d vecstar3;
 
 private:
 

@@ -6,16 +6,16 @@ rules::Triangle::Triangle(double ang1,
                           double tolerance,
                           stars::Pairs &pairs,
                           int teststar,
-                          arma::vec avecstar3)
+                          Eigen::Vector3d vecin)
     : side1(ang1, tolerance, pairs, teststar),
       side2(ang2, tolerance, pairs, teststar),
       side3(ang3, tolerance, pairs, teststar),
       teststar(teststar),
       tolerance(tolerance),
       pairs(pairs),
-      avecstar3(avecstar3)
+      vecstar3(vecin)
 {
-    evecstar3 << avecstar3(0), avecstar3(1), avecstar3(2);
+    vecstar3 << vecin(0), vecin(1), vecin(2);
 }
 
 void rules::Triangle::close_loops_abda(std::vector<Triangle> &triangles) {
@@ -23,9 +23,8 @@ void rules::Triangle::close_loops_abda(std::vector<Triangle> &triangles) {
     int maxtriangles = triangles.size();
     for (int trianglendx = 0; trianglendx < maxtriangles; ++trianglendx) {
 
-        double cdanga = std::acos(arma::dot(avecstar3, triangles[trianglendx].avecstar3));
-        double cdange = std::acos(evecstar3.transpose() * triangles[trianglendx].evecstar3);
-        TriangleSide cd(cdanga, tolerance, pairs, teststar);
+        double cdang = std::acos(vecstar3.transpose() * triangles[trianglendx].vecstar3);
+        TriangleSide cd(cdang, tolerance, pairs, teststar);
 
         loops_cnt = 0;
         for (auto it11 = side1.stars.begin(), end = side1.stars.end(); it11 != end; ++it11) {
