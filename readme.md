@@ -10,7 +10,7 @@ tensorflow framework for identification of stars using convnets and svms.
 
 cpp for unique deterministic identification of triangular structure.
 
-*star images*
+*images*
 
 tensorflow op generating star image and label tensors.
 
