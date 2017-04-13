@@ -12,7 +12,7 @@ cpp for deterministic identification of unique triangular structure.
 
 *images*
 
-tensorflow op cpp generating star image and label tensors.
+tensorflow op cpp generating tensors of star images and labels.
 
 *stars*
 
