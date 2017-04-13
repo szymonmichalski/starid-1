@@ -1,4 +1,4 @@
-### **image viewer**
+### *image viewer*
 ###
 ### shows 28 x 28 mnist style star images.
 ###

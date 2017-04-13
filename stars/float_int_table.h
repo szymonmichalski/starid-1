@@ -1,3 +1,8 @@
+/// *float int table*
+///
+/// data structure based on floats in a range, with hash map like characteristics
+///
+
 #ifndef FLOAT_INT_TABLE_H
 #define FLOAT_INT_TABLE_H
 

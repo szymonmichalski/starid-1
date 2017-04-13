@@ -1,10 +1,10 @@
-/// **rules based heuristic star identification**
+/// *rules based heuristic star identification*
 ///
 /// given an input image of a star pattern, output an integer identifying the star at the center using methods based on geometry, pairs, triangles, etc. the transformation from the input x to the output y is rather direct and deterministic, but noise in the input complicates things. in particular, loss of angular resolution due to position quantization is effectively a large noise source.
 ///
 
 #include "star_identifier.h"
-#include "images.h"
+#include "pointing_vectors.h"
 #include "sky.h"
 #include "globals.h"
 #include "util/stopwatch.h"
@@ -17,8 +17,8 @@ std::string datadir = "/home/noah/starid/stars/data/";
 std::string imgfile = "images_b1.mnist";
 int imgndx = 0;
 int teststar = -1;
-
 enum  optionIndex { UNKNOWN, HELP, DATADIR, IMGFILE, IMGNDX, TESTSTAR };
+
 struct Arg: public option::Arg {
     static void printError(const char* msg1, const option::Option& opt, const char* msg2) {
         fprintf(stderr, "ERROR: %s", msg1);
@@ -61,24 +61,28 @@ int main(int argc, char* argv[])
         option::printUsage(std::cout, usage);
         return 0;
     }
+
     if (options[DATADIR]) {
         datadir = options[DATADIR].arg;
         std::cout << "using datadir = " << datadir << std::endl;
     } else {
         std::cout << "using default datadir = " << datadir << std::endl;
     }
+
     if (options[IMGFILE]) {
         imgfile = options[IMGFILE].arg;
         std::cout << "using imgfile = " << imgfile << std::endl;
     } else {
         std::cout << "using default imgfile = " << imgfile << std::endl;
     }
+
     if (options[IMGNDX]) {
         imgndx = atoi(options[IMGNDX].arg);
         std::cout << "using imgndx = " << imgndx << std::endl;
     } else {
         std::cout << "using default imgndx = " << imgndx << std::endl;
     }
+
     if (options[TESTSTAR]) {
         teststar = atoi(options[TESTSTAR].arg);
         std::cout << "using test star ndx = " << teststar << std::endl;
@@ -96,15 +100,15 @@ int main(int argc, char* argv[])
     cereal::BinaryInputArchive iarchive2(is2);
     iarchive2(pairs);
 
-    stars::Images image;
+    stars::pointing_vectors pvecs;
     std::string filename = datadir + imgfile;
-    image.get_image_vectors(filename, imgndx);
+    pvecs.get_pvecs(filename, imgndx);
     std::cout << "sky, pairs, image msecs = " << stopwatch.end() << std::endl;
 
     stopwatch.reset();
-    double epsilon = 0.0; // emperical
+    double epsilon = 0.0; // empirical
     double tolrad = (2.0 * std::sqrt(500.0*500.0 + 500.00*500.0) + epsilon) * stars::arcseconds_to_radians;
-    rules::StarIdentifier triangles(image, pairs, tolrad);
+    rules::StarIdentifier triangles(pvecs, pairs, tolrad);
     int starndxIdentified = triangles.identify_central_star(teststar);
     std::cout << "triangles msecs = " << stopwatch.end() << std::endl;
 

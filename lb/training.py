@@ -1,4 +1,4 @@
-### **training**
+### *training*
 ###
 ### performs training of the model.
 ###

@@ -1,10 +1,10 @@
-/// **pairs over whole sky**
+/// *pairs over whole sky*
 ///
 /// star pairs with a separation angle within a given range.
 ///
 #ifndef PAIRS_H
 #define PAIRS_H
-#include <images.h>
+#include <pointing_vectors.h>
 #include <float_int_table.h>
 #include <unordered_map>
 #include <cereal/access.hpp>

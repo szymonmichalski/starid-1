@@ -1,8 +1,9 @@
-/// **stars**
+/// *stars*
 ///
 /// sky representation and image generation
 ///
-#include "images.h"
+
+#include "pointing_vectors.h"
 #include "pairs.h"
 
 #include "util/stopwatch.h"
@@ -67,9 +68,9 @@ int main(int argc, char* argv[])
         std::string datadir = "/home/noah/starid/stars/data/";
         std::string imgfile = "images_b1.mnist";
         int imgndx = 0;
-        stars::Images image;
+        stars::pointing_vectors image;
         std::string filename = datadir + imgfile;
-        image.get_image_vectors(filename, imgndx);
+        image.get_pvecs(filename, imgndx);
         std::cout << " " << std::endl;
     }
 

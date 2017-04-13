@@ -45,5 +45,8 @@ with open(outfile, 'w') as f:
 
   f.write('%s' % commenter(starsroot + 'stars.cpp'))
   f.write('%s' % commenter(starsroot + 'sky.h'))
-  f.write('%s' % commenter(starsroot + 'images.h'))
+  f.write('%s' % commenter(starsroot + 'pointing_vectors.h'))
   f.write('%s' % commenter(starsroot + 'pairs.h'))
+  f.write('%s' % commenter(starsroot + 'float_int_table.h'))
+  f.write('%s' % commenter(starsroot + 'globals.h'))
+  f.write('%s' % commenter(starsroot + 'star_catalog.h'))

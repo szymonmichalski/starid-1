@@ -9,7 +9,7 @@ SOURCES += \
     star_catalog.cpp \
     sky.cpp \
     float_int_table.cpp \
-    images.cpp
+    pointing_vectors.cpp \
 
 HEADERS += \
     globals.h \
@@ -19,5 +19,5 @@ HEADERS += \
     float_int_table.h \
     util/stopwatch.h \
     util/optionparser.h \
-    images.h
+    pointing_vectors.h \
 

@@ -1,4 +1,4 @@
-### **starid**
+### *starid*
 ###
 ### evaluates both lb learning and rb heuristic rules in parallel.
 ###

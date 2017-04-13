@@ -1,4 +1,4 @@
-/// **triangle side**
+/// *triangle side*
 ///
 /// for adding, finding, removing, etc star pairs to a triangle side. one objective here is to work with maps of unique star keys, one key per star, rather than maps with multiple keys per star. this means using unordered_map, not unordered_multimap.
 ///

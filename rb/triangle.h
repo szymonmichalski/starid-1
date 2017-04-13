@@ -1,4 +1,4 @@
-/// **triangle**
+/// *triangle*
 ///
 /// represents a triangle as three constrained sides ab, bc, ca. travel around the sides ab to bc to ca so star pairs are not duplicated. traveling ac to cb to ba, you get the same pairs backwards.
 ///

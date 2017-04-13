@@ -1,4 +1,4 @@
-### **evaluation**
+### *evaluation*
 ###
 ### performs evaluation of the model. star identification is performed on a group of images and the results are scored.
 ###

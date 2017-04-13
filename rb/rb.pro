@@ -6,16 +6,16 @@ SOURCES += \
     rb.cpp \
     triangle_side.cpp \
     triangle.cpp \
-    star_identifier.cpp
+    star_identifier.cpp \
 
 HEADERS += \
     triangle_side.h \
     triangle.h \
-    star_identifier.h
+    star_identifier.h \
 
 SOURCES += \
     ../stars/globals.cpp \
-    ../stars/images.cpp \
+    ../stars/pointing_vectors.cpp \
     ../stars/sky.cpp \
     ../stars/pairs.cpp \
     ../stars/float_int_table.cpp \
@@ -23,13 +23,13 @@ SOURCES += \
 
 HEADERS += \
     ../stars/globals.h \
-    ../stars/images.h \
+    ../stars/pointing_vectors.h \
     ../stars/sky.h \
     ../stars/pairs.h \
     ../stars/float_int_table.h \
     ../stars/star_catalog.h \
     ../stars/util/stopwatch.h \
-    ../stars/util/optionparser.h
+    ../stars/util/optionparser.h \
 
 INCLUDEPATH += ../stars
 

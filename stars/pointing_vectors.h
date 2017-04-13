@@ -1,6 +1,6 @@
-/// **images**
+/// *pointing vectors*
 ///
-/// image representations as pointing vectors and binary images container on disk
+/// star representations as pointing vectors and binary images container on disk
 ///
 #ifndef IMAGE_H
 #define IMAGE_H
@@ -11,11 +11,11 @@
 
 namespace stars {
 
-class Images {
+class pointing_vectors {
 
 public:
 
-    Eigen::MatrixXd uvecs;
+    Eigen::MatrixXd pvecs;
 
     /// *read images container* get an image from an images container.
     ///
@@ -23,7 +23,7 @@ public:
 
     /// *get image vectors* get pointing vector representation of an image
     ///
-    void get_image_vectors(std::string& imgfile, int imgndx);
+    void get_pvecs(std::string& imgfile, int imgndx);
 
 //    void axjAxiImageUpdate(arma::mat& axjAxiImage, stars::Sky& sky, int starndx);
 

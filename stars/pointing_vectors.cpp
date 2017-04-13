@@ -1,4 +1,4 @@
-#include "images.h"
+#include "pointing_vectors.h"
 #include "globals.h"
 #include <cmath>
 #include <random>
@@ -7,29 +7,29 @@ std::random_device r;
 std::default_random_engine e1(r());
 std::uniform_real_distribution<double> unitscatter(0, 1);
 
-void stars::Images::get_image_vectors(std::string& imgfile, int imgndx) {
-    Eigen::Matrix<double, 28, 28> axjAxiImage = stars::Images::read_images_container(imgfile, imgndx);
-    uvecs = Eigen::MatrixXd::Zero(100,3);
-    uvecs(0,0) = 0.0; // center star, stars, is implicit in the image
-    uvecs(0,1) = 0.0;
-    uvecs(0,2) = 1.0;
+void stars::pointing_vectors::get_pvecs(std::string& imgfile, int imgndx) {
+    Eigen::Matrix<double, 28, 28> axjAxiImage = stars::pointing_vectors::read_images_container(imgfile, imgndx);
+    pvecs = Eigen::MatrixXd::Zero(100,3);
+    pvecs(0,0) = 0.0; // center star, stars, is implicit in the image
+    pvecs(0,1) = 0.0;
+    pvecs(0,2) = 1.0;
     int uvecsndx = 1;
     for (int axjndx = 0; axjndx < 28; ++axjndx) {
         for (int axindx = 0; axindx < 28; ++axindx) {
             if (axjAxiImage(axjndx, axindx) > 0) { // there's a star inside axjndx, axindx
                 double x = stars::image_pixel_unit_vector_plane * ( -13.5 + (double)axindx );
                 double y = stars::image_pixel_unit_vector_plane * ( +13.5 - (double)axjndx );
-                uvecs(uvecsndx,0) = x;
-                uvecs(uvecsndx,1) = y;
-                uvecs(uvecsndx,2) = std::sqrt(1 - x*x - y*y);
+                pvecs(uvecsndx,0) = x;
+                pvecs(uvecsndx,1) = y;
+                pvecs(uvecsndx,2) = std::sqrt(1 - x*x - y*y);
                 ++uvecsndx;
             }
         }
     }
-    uvecs.conservativeResize(uvecsndx, 3);
+    pvecs.conservativeResize(uvecsndx, 3);
 }
 
-Eigen::Matrix<double, 28, 28> stars::Images::read_images_container(std::string& imgfile, int imgndx) {
+Eigen::Matrix<double, 28, 28> stars::pointing_vectors::read_images_container(std::string& imgfile, int imgndx) {
     Eigen::Matrix<double, 28, 28> image;
     std::ifstream file (imgfile, std::ios::binary);
     if (file.is_open())
@@ -44,15 +44,15 @@ Eigen::Matrix<double, 28, 28> stars::Images::read_images_container(std::string& 
         file.read((char*) &axicnt, sizeof(axicnt));
         axicnt = reverseInt(axicnt); // 28
 
-        int imgndx = 0;
-        while (imgndx < imgndx) {
+        int curimgndx = 0;
+        while (curimgndx < imgndx) {
             for (int axjndx = 0; axjndx < 28; ++axjndx) { // inverted-y-like, row-like
                 for (int axindx = 0; axindx < 28; ++axindx) { // x-like, col-like
                     unsigned char temp = 0;
                     file.read((char*) &temp, sizeof(temp));
                 }
             }
-            ++imgndx;
+            ++curimgndx;
         }
         // (axjndx inverted-y-like row-like), (axindx x-like col-like) plane
         for (int axjndx = 0; axjndx < 28; ++axjndx) { // inverted-y-like, row-like
@@ -216,7 +216,7 @@ Eigen::Matrix<double, 28, 28> stars::Images::read_images_container(std::string& 
 //    }
 //}
 
-int stars::Images::reverseInt (int i)
+int stars::pointing_vectors::reverseInt (int i)
 {
     unsigned char ch1, ch2, ch3, ch4;
     ch1 = i & 255;

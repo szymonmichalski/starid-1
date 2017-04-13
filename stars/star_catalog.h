@@ -1,3 +1,8 @@
+/// *star catalog*
+///
+/// nasa skymap star catalog
+///
+
 #ifndef SKYMAP_H
 #define SKYMAP_H
 #include <string>
