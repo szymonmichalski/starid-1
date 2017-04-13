@@ -11,8 +11,8 @@ int rules::StarIdentifier::identify_central_star(int teststar = 1) {
     std::vector<TriangleSide> abs;
     for (ndxb = 1; ndxb < image.uvecs.rows(); ++ndxb) {
 
-        uveca = image.uvecs.row(0).transpose();
-        uvecb = image.uvecs.row(ndxb).transpose();
+        uveca = image.uvecs.row(0);
+        uvecb = image.uvecs.row(ndxb);
         TriangleSide ab(std::acos(uveca.transpose() * uvecb), tolerance, pairs, teststar);
 
         int prev_stars = 0;
@@ -60,7 +60,7 @@ bool rules::StarIdentifier::get_angs_d() {
     if (ndxd == ndxb || ndxd == ndxc) return false;
     bool angsok = true;
     angs_d = angs_c;
-    uvecd = image.uvecs.row(ndxd).transpose();
+    uvecd = image.uvecs.row(ndxd);
     angs_d.push_back(std::acos(uvecd.transpose() * uveca));
     angs_d.push_back(std::acos(uvecd.transpose() * uvecb));
     angs_d.push_back(std::acos(uvecd.transpose() * uvecc));
@@ -77,7 +77,7 @@ bool rules::StarIdentifier::get_angs_c() {
     if (ndxc == ndxb) return false;
     bool angsok = true;
     angs_c.clear();
-    uvecc = image.uvecs.row(ndxc).transpose();
+    uvecc = image.uvecs.row(ndxc);
     angs_c.push_back(std::acos(uveca.transpose() * uvecb));
     angs_c.push_back(std::acos(uvecb.transpose() * uvecc));
     angs_c.push_back(std::acos(uvecc.transpose() * uveca));
