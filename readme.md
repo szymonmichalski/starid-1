@@ -12,10 +12,10 @@ cpp for deterministic identification of unique triangular structure.
 
 *images*
 
-tensorflow op generating star image and label tensors.
+tensorflow op cpp generating star image and label tensors.
 
 *stars*
 
-sky representation and image generation. the focus is on pointing vectors. pure representations of direction in space, with length normalized to one, pointing to positions on the sky. two coordinates are independent and expressed in a plane tangent to the sky, and its image in a sensor. rotation about a pointing vector is yaw. we're identifying a star at the center of an image. the image pointing vector is equivalent to the star pointing vector. when the image pointing vector is totally uncertain, we have the lost in space case.
+cpp sky representation and image generation. the focus is on pointing vectors. pure representations of direction in space, with length normalized to one, pointing to positions on the sky. two coordinates are independent and expressed in a plane tangent to the sky, and its image in a sensor. rotation about a pointing vector is yaw. we're identifying a star at the center of an image. the image pointing vector is equivalent to the star pointing vector. when the image pointing vector is totally uncertain, we have the lost in space case.
 
 thanks to [tensorflow](http://github.com/tensorflow/tensorflow), [armadillo](http://arma.sourceforge.net), [eigen](http://eigen.tuxfamily.org/index.php), [openblas](http://www.openblas.net/), [lapack](http://www.netlib.org/lapack/), [cereal](http://github.com/USCiLab/cereal), [optionparser](http://optionparser.sourceforge.net).
