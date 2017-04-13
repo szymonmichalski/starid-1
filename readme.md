@@ -8,7 +8,7 @@ tensorflow framework for identification of stars using convnets and svms.
 
 *rb heuristic rule based starid*
 
-cpp for unique deterministic identification of triangular structure.
+cpp for deterministic identification of unique triangular structure.
 
 *images*
 
