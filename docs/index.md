@@ -1,3 +1,7 @@
+*14.4.2017*
+
+underlying cpp classes are now fully refactored and updated in preparation for the tensorflow op. they're ready to pump eigen matrices representing star images directly into tensorflow graphs. the switch from armadillo to eigen is complete. 
+
 *11.4.2017*
 
 slim down bits in sky binary file from naive initial 1.8 mb. first iteration reduced size to 0.7 mb.

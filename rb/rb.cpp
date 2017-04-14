@@ -96,22 +96,22 @@ int main(int argc, char* argv[])
         int teststar = imgndx;
         std::string datadir = "/home/noah/starid/stars/data/";
         std::string imgfile = "images_b1";
-        stars::pointing_vectors image;
+        stars::pointing_vectors img;
         std::string filename = datadir + imgfile;
-        stars::image_matrix imgmat1 = image.read_image_matrix(filename, imgndx);
+        stars::image_matrix imgmat1 = img.read_image_matrix(filename, imgndx);
         stars::Sky sky;
         std::ifstream is1(std::string(datadir + "sky"));
         cereal::BinaryInputArchive iarchive1(is1);
         iarchive1(sky);
-        stars::image_matrix imgmat2 = image.new_image_matrix(sky, imgndx);
-        image.get_pvecs_from_imgmat(imgmat2);
+        stars::image_matrix imgmat2 = img.new_image_matrix(sky, imgndx);
+        img.get_pvecs_from_imgmat(imgmat2);
         double epsilon = 0.0;
         double tolrad = (2.0 * std::sqrt(500.0*500.0 + 500.00*500.0) + epsilon) * stars::arcseconds_to_radians;
         stars::Pairs pairs;
         std::ifstream is2(std::string(datadir + "pairs"));
         cereal::BinaryInputArchive iarchive2(is2);
         iarchive2(pairs);
-        rules::StarIdentifier triangles(image, pairs, tolrad);
+        rules::StarIdentifier triangles(img, pairs, tolrad);
         int starndx = triangles.identify_central_star(teststar);
         std::cout << " " << std::endl;
     }
