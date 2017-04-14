@@ -19,19 +19,19 @@ public:
 
     /// *new image matrix* create an axi axj image matrix for the star, with a random yaw
     ///
-    image_matrix new_image_matrix(stars::Sky &sky, int starndx);
-    image_matrix read_image_matrix(std::string &imgfile, int imgndx);
+    static image_matrix new_image_matrix(stars::Sky &sky, int starndx);
+    static image_matrix read_image_matrix(std::string &imgfile, int imgndx);
 
     /// *get pointing vectors* get pointing vector representation of an image
     ///
-    Eigen::MatrixXd get_pvecs_from_imgmat(image_matrix &imgmat);
+    static Eigen::MatrixXd get_pvecs_from_imgmat(image_matrix &imgmat);
 
 
 private:
 
-    Eigen::Matrix3d rotation_matrix(Eigen::Vector3d &pointing);
+    static Eigen::Matrix3d rotation_matrix(Eigen::Vector3d &pointing);
     static int reverseInt (int i);
-    Eigen::Vector3d crossprod(Eigen::Vector3d &u, Eigen::Vector3d &v);
+    static Eigen::Vector3d crossprod(Eigen::Vector3d &u, Eigen::Vector3d &v);
 
     // following still need to switched from armadillo to eigen
     // void read_labels_container(std::string filename, arma::colvec &labels);

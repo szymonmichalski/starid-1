@@ -94,24 +94,19 @@ int main(int argc, char* argv[])
     if (options[TEST]) {
         int imgndx = 2;
         int teststar = imgndx;
-        std::string datadir = "/home/noah/starid/stars/data/";
-        std::string imgfile = "images_b1";
-        stars::pointing_vectors pv;
-        std::string filename = datadir + imgfile;
-        stars::image_matrix imgmat1 = pv.read_image_matrix(filename, imgndx);
+
         stars::Sky sky;
         std::ifstream is1(std::string(datadir + "sky"));
         cereal::BinaryInputArchive iarchive1(is1);
         iarchive1(sky);
-        stars::image_matrix imgmat2 = pv.new_image_matrix(sky, imgndx);
-        Eigen::MatrixXd pvecs = pv.get_pvecs_from_imgmat(imgmat2);
-        double epsilon = 0.0;
-        double tolrad = (2.0 * std::sqrt(500.0*500.0 + 500.00*500.0) + epsilon) * stars::arcseconds_to_radians;
         stars::Pairs pairs;
         std::ifstream is2(std::string(datadir + "pairs"));
         cereal::BinaryInputArchive iarchive2(is2);
         iarchive2(pairs);
-        rules::StarIdentifier triangles(pvecs, pairs, tolrad);
+
+        stars::image_matrix imgmat2 = stars::pointing_vectors::new_image_matrix(sky, imgndx);
+        Eigen::MatrixXd pvecs = stars::pointing_vectors::get_pvecs_from_imgmat(imgmat2);
+        rules::StarIdentifier triangles(pvecs, pairs);
         int starndx = triangles.identify_central_star(teststar);
         std::cout << " " << std::endl;
     }
@@ -131,14 +126,12 @@ int main(int argc, char* argv[])
 
         stars::pointing_vectors pv;
         std::string filename = datadir + imgfile;
-        stars::image_matrix imgmat = pv.read_image_matrix(filename, imgndx);
-        Eigen::MatrixXd pvecs = pv.get_pvecs_from_imgmat(imgmat);
+        stars::image_matrix imgmat = stars::pointing_vectors::read_image_matrix(filename, imgndx);
+        Eigen::MatrixXd pvecs = stars::pointing_vectors::get_pvecs_from_imgmat(imgmat);
         std::cout << "sky, pairs, image msecs = " << stopwatch.end() << std::endl;
 
         stopwatch.reset();
-        double epsilon = 0.0; // empirical
-        double tolrad = (2.0 * std::sqrt(500.0*500.0 + 500.00*500.0) + epsilon) * stars::arcseconds_to_radians;
-        rules::StarIdentifier triangles(pvecs, pairs, tolrad);
+        rules::StarIdentifier triangles(pvecs, pairs);
         int starndxIdentified = triangles.identify_central_star(teststar);
         std::cout << "triangles msecs = " << stopwatch.end() << std::endl;
 

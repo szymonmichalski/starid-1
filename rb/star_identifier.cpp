@@ -1,9 +1,10 @@
 #include "star_identifier.h"
 
-rules::StarIdentifier::StarIdentifier(Eigen::MatrixXd &pvecs,
-                                      stars::Pairs &pairs,
-                                      double tolrad) :
-    pvecs(pvecs), pairs(pairs), tolerance(tolrad) {
+rules::StarIdentifier::StarIdentifier(Eigen::MatrixXd &pvecs, stars::Pairs &pairs)
+    : pvecs(pvecs), pairs(pairs)
+{
+    double epsilon = 0.0;
+    tolerance = (2.0 * std::sqrt(500.0*500.0 + 500.00*500.0) + epsilon) * stars::arcseconds_to_radians;
 }
 
 int rules::StarIdentifier::identify_central_star(int teststar = 1) {

@@ -22,7 +22,7 @@ class StarIdentifier
 
 public:
 
-    StarIdentifier(Eigen::MatrixXd &pvecs, stars::Pairs &pairs, double tolerance);
+    StarIdentifier(Eigen::MatrixXd &pvecs, stars::Pairs &pairs);
 
     /// *identify central star* this is the main function
     ///
