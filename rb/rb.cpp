@@ -14,10 +14,10 @@
 #include <cmath>
 
 std::string datadir = "/home/noah/starid/stars/data/";
-std::string imgfile = "images_b1.mnist";
+std::string imgfile = "images_b1";
 int imgndx = 0;
 int teststar = -1;
-enum  optionIndex { UNKNOWN, HELP, DATADIR, IMGFILE, IMGNDX, TESTSTAR };
+enum  optionIndex { UNKNOWN, HELP, DATADIR, IMGFILE, IMGNDX, TESTSTAR, TEST };
 
 struct Arg: public option::Arg {
     static void printError(const char* msg1, const option::Option& opt, const char* msg2) {
@@ -46,6 +46,7 @@ const option::Descriptor usage[] = {
     {IMGFILE, 0, "", "imgfile", Arg::Required, "  --imgfile  \timage file" },
     {IMGNDX, 0, "", "imgndx", Arg::Required, "  --imgndx  \timage ndx" },
     {TESTSTAR, 0, "", "teststar", Arg::Required, "  --teststar  \ttest star ndx" },
+    {TEST, 0, "t", "", Arg::None, "  -t  \ttest" },
     {0,0,0,0,0,0} // end of options
 };
 
@@ -90,29 +91,49 @@ int main(int argc, char* argv[])
         std::cout << "using default test star ndx = " << teststar << std::endl;
     }
 
-    util::Stopwatch stopwatch;
-    stars::Sky sky;
-    std::ifstream is1(std::string(datadir + "sky.cereal"));
-    cereal::BinaryInputArchive iarchive1(is1);
-    iarchive1(sky);
-    stars::Pairs pairs;
-    std::ifstream is2(std::string(datadir + "pairs.cereal"));
-    cereal::BinaryInputArchive iarchive2(is2);
-    iarchive2(pairs);
+    if (options[TEST]) {
+        std::string datadir = "/home/noah/starid/stars/data/";
+        std::string imgfile = "images_b1";
+        int imgndx = 1;
+        stars::pointing_vectors image;
+        std::string filename = datadir + imgfile;
+        image.get_pvecs(filename, imgndx);
 
-    stars::pointing_vectors pvecs;
-    std::string filename = datadir + imgfile;
-    pvecs.get_pvecs(filename, imgndx);
-    std::cout << "sky, pairs, image msecs = " << stopwatch.end() << std::endl;
+        stars::Sky sky;
+        std::ifstream is1(std::string(datadir + "sky"));
+        cereal::BinaryInputArchive iarchive1(is1);
+        iarchive1(sky);
+        stars::image_matrix imgmat = image.new_image_matrix(sky, imgndx);
+        std::cout << " " << std::endl;
+    }
 
-    stopwatch.reset();
-    double epsilon = 0.0; // empirical
-    double tolrad = (2.0 * std::sqrt(500.0*500.0 + 500.00*500.0) + epsilon) * stars::arcseconds_to_radians;
-    rules::StarIdentifier triangles(pvecs, pairs, tolrad);
-    int starndxIdentified = triangles.identify_central_star(teststar);
-    std::cout << "triangles msecs = " << stopwatch.end() << std::endl;
+    if (!options[TEST]) {
+        util::Stopwatch stopwatch;
 
-    std::cout << "identification = " << starndxIdentified << std::endl;
+        stars::Sky sky;
+        std::ifstream is1(std::string(datadir + "sky"));
+        cereal::BinaryInputArchive iarchive1(is1);
+        iarchive1(sky);
+
+        stars::Pairs pairs;
+        std::ifstream is2(std::string(datadir + "pairs"));
+        cereal::BinaryInputArchive iarchive2(is2);
+        iarchive2(pairs);
+
+        stars::pointing_vectors pvecs;
+        std::string filename = datadir + imgfile;
+        pvecs.get_pvecs(filename, imgndx);
+        std::cout << "sky, pairs, image msecs = " << stopwatch.end() << std::endl;
+
+        stopwatch.reset();
+        double epsilon = 0.0; // empirical
+        double tolrad = (2.0 * std::sqrt(500.0*500.0 + 500.00*500.0) + epsilon) * stars::arcseconds_to_radians;
+        rules::StarIdentifier triangles(pvecs, pairs, tolrad);
+        int starndxIdentified = triangles.identify_central_star(teststar);
+        std::cout << "triangles msecs = " << stopwatch.end() << std::endl;
+
+        std::cout << "identification = " << starndxIdentified << std::endl;
+    }
 
     return 0;
 }

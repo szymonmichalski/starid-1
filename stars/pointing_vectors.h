@@ -11,9 +11,9 @@
 
 namespace stars {
 
-class pointing_vectors {
+using image_matrix = Eigen::Matrix<double, 28, 28>;
 
-    using image_matrix = Eigen::Matrix<double, 28, 28>;
+class pointing_vectors {
 
 public:
 
@@ -29,8 +29,9 @@ public:
 
 private:
 
-    Eigen::Matrix3d rotation_matrix(Eigen::Vector3d& pointing);
+    Eigen::Matrix3d rotation_matrix(Eigen::Vector3d &pointing);
     static int reverseInt (int i);
+    Eigen::Vector3d crossprod(Eigen::Vector3d &u, Eigen::Vector3d &v);
 
     // following still need to switched from armadillo to eigen
     // void read_labels_container(std::string filename, arma::colvec &labels);

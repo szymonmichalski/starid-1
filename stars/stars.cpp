@@ -66,7 +66,7 @@ int main(int argc, char* argv[])
 
     if (options[TEST]) {
         std::string datadir = "/home/noah/starid/stars/data/";
-        std::string imgfile = "images_b1.mnist";
+        std::string imgfile = "images_b1";
         int imgndx = 0;
         stars::pointing_vectors image;
         std::string filename = datadir + imgfile;
@@ -78,13 +78,13 @@ int main(int argc, char* argv[])
         util::Stopwatch stopwatch;
         stars::Sky sky;
         sky.init(std::string(datadir + "skymap.txt"));
-        std::ofstream os1(std::string(datadir + "sky.cereal"));
+        std::ofstream os1(std::string(datadir + "sky"));
         cereal::BinaryOutputArchive oarchive1(os1);
         oarchive1(sky);
 
         stars::Pairs pairs;
         pairs.init(stars::star_pair_angle_limit, sky);
-        std::ofstream os2(std::string(datadir + "pairs.cereal"));
+        std::ofstream os2(std::string(datadir + "pairs"));
         cereal::BinaryOutputArchive oarchive2(os2);
         oarchive2(pairs);
         std::cout << "star data files " << stopwatch.end() << std::endl;

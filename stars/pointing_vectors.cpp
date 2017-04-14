@@ -7,68 +7,60 @@ std::random_device r;
 std::default_random_engine e1(r());
 std::uniform_real_distribution<double> unitscatter(0, 1);
 
-stars::pointing_vectors::image_matrix stars::pointing_vectors::new_image_matrix(stars::Sky &sky, int starndx) {
+stars::image_matrix stars::pointing_vectors::new_image_matrix(stars::Sky &sky, int starndx) {
     using namespace Eigen;
-    image_matrix image;
+    image_matrix imgmat = image_matrix::Zero();
 
-//    arma::vec pointing(3);
-//    pointing(0) = sky.stars[starndx].x;
-//    pointing(1) = sky.stars[starndx].y;
-//    pointing(2) = sky.stars[starndx].z;
-//    std::vector<int> starndxs = sky.starsNearPoint(pointing(0), pointing(1), pointing(2));
+    Vector3d pointing;
+    pointing << sky.stars[starndx].x, sky.stars[starndx].y, sky.stars[starndx].z;
+    std::vector<int> starndxs = sky.starsNearPoint(pointing(0), pointing(1), pointing(2));
 
-//    uvecs.zeros(100,3);
-//    int uvecsndx = 0;
-//    for (auto ndx : starndxs) {
-//        uvecs(uvecsndx,0) = sky.stars[ndx].x;
-//        uvecs(uvecsndx,1) = sky.stars[ndx].y;
-//        uvecs(uvecsndx,2) = sky.stars[ndx].z;
-//        ++uvecsndx;
-//    }
-//    uvecs.shed_rows(uvecsndx, 99);
+    pvecs = Eigen::MatrixXd::Zero(100,3);
+    int pvecsndx = 0;
+    for (auto ndx : starndxs) {
+        pvecs.row(pvecsndx) << sky.stars[ndx].x, sky.stars[ndx].y, sky.stars[ndx].z;
+        ++pvecsndx;
+    }
+    pvecs.conservativeResize(pvecsndx, 3);
 
-//    double yaw = unitscatter(e1) * 2 * M_PI;
-//    arma::mat attitude = rotationMatrix(pointing);
-//    uvecs = arma::trans( arma::trans(attitude) * arma::trans(uvecs) );
+    double yaw = unitscatter(e1) * 2 * stars::pi;
+    Eigen::Matrix3d attitude = rotation_matrix(pointing);
+    pvecs = (attitude.transpose() * pvecs.transpose()).transpose();
 
-//    axjAxiImage.zeros(); // update axjaxiimage
-//    for (int ndx = 0; ndx < uvecsndx; ++ndx) {
-//        double x = std::cos(yaw) * uvecs(ndx,0) - std::sin(yaw) * uvecs(ndx,1);
-//        double y = std::sin(yaw) * uvecs(ndx,0) + std::cos(yaw) * uvecs(ndx,1);
-//        double axi = x + stars::image_radius_unit_vector_plane;
-//        double axj = -y + stars::image_radius_unit_vector_plane;
-//        int axindx = std::floor( axi / stars::image_pixel_unit_vector_plane );
-//        int axjndx = std::floor( axj / stars::image_pixel_unit_vector_plane );
-//        if (axjndx < 0 || axjndx > 27) continue;
-//        if (axindx < 0 || axindx > 27) continue;
-//        axjAxiImage(axjndx, axindx) = 255.0;
+    for (int ndx = 0; ndx < pvecsndx; ++ndx) {
+        double x = std::cos(yaw) * pvecs(ndx,0) - std::sin(yaw) * pvecs(ndx,1);
+        double y = std::sin(yaw) * pvecs(ndx,0) + std::cos(yaw) * pvecs(ndx,1);
+        double axi = x + stars::image_radius_unit_vector_plane;
+        double axj = -y + stars::image_radius_unit_vector_plane;
+        int axindx = std::floor( axi / stars::image_pixel_unit_vector_plane );
+        int axjndx = std::floor( axj / stars::image_pixel_unit_vector_plane );
+        if (axjndx < 0 || axjndx > 27) continue;
+        if (axindx < 0 || axindx > 27) continue;
+        imgmat(axjndx, axindx) = 255.0;
+    }
 
-    return image;
+    return imgmat;
 }
 
 void stars::pointing_vectors::get_pvecs(std::string &imgfile, int imgndx) {
-    image_matrix axjAxiImage = stars::pointing_vectors::read_images_container(imgfile, imgndx);
+    image_matrix image = stars::pointing_vectors::read_images_container(imgfile, imgndx);
     pvecs = Eigen::MatrixXd::Zero(100,3);
-    pvecs(0,0) = 0.0; // center star, stars, is implicit in the image
-    pvecs(0,1) = 0.0;
-    pvecs(0,2) = 1.0;
-    int uvecsndx = 1;
+    pvecs.row(0) << 0.0, 0.0, 1.0;
+    int pvecsndx = 1;
     for (int axjndx = 0; axjndx < 28; ++axjndx) {
         for (int axindx = 0; axindx < 28; ++axindx) {
-            if (axjAxiImage(axjndx, axindx) > 0) { // there's a star inside axjndx, axindx
+            if (image(axjndx, axindx) > 0) { // there's a star inside axjndx, axindx
                 double x = stars::image_pixel_unit_vector_plane * ( -13.5 + (double)axindx );
                 double y = stars::image_pixel_unit_vector_plane * ( +13.5 - (double)axjndx );
-                pvecs(uvecsndx,0) = x;
-                pvecs(uvecsndx,1) = y;
-                pvecs(uvecsndx,2) = std::sqrt(1 - x*x - y*y);
-                ++uvecsndx;
+                pvecs.row(pvecsndx) << x, y, std::sqrt(1 - x*x - y*y);
+                ++pvecsndx;
             }
         }
     }
-    pvecs.conservativeResize(uvecsndx, 3);
+    pvecs.conservativeResize(pvecsndx, 3);
 }
 
-stars::pointing_vectors::image_matrix stars::pointing_vectors::read_images_container(std::string &imgfile, int imgndx) {
+stars::image_matrix stars::pointing_vectors::read_images_container(std::string &imgfile, int imgndx) {
     image_matrix image;
     std::ifstream file (imgfile, std::ios::binary);
     if (file.is_open())
@@ -108,14 +100,21 @@ stars::pointing_vectors::image_matrix stars::pointing_vectors::read_images_conta
 Eigen::Matrix3d stars::pointing_vectors::rotation_matrix(Eigen::Vector3d &bodyz) {
     using namespace Eigen;
     Matrix3d rm = Matrix3d::Identity(3,3);
-    Vector3d icrfz, bodyx, bodyy;
-    icrfz << 0.0, 0.0, 1.0;
-//    bodyx = bodyz.cross(icrfz);
-//    bodyy = bodyz.cross(bodyx);
-//    rm.col(0) = bodyx.normalized();
-//    rm.col(1) = bodyy.normalized();
-//    rm.col(2) = bodyz.normalized();
+    Vector3d icrfz(0.0, 0.0, 1.0);
+    Vector3d bodyx = crossprod(bodyz, icrfz);
+    Vector3d bodyy = crossprod(bodyz, bodyx);
+    rm.col(0) = bodyx.normalized();
+    rm.col(1) = bodyy.normalized();
+    rm.col(2) = bodyz.normalized();
     return rm;
+}
+
+Eigen::Vector3d stars::pointing_vectors::crossprod(Eigen::Vector3d &u, Eigen::Vector3d &v) {
+    Eigen::Vector3d result;
+    result(0) = u(1)*v(2) - u(2)*v(1);
+    result(1) = u(2)*v(0) - u(0)*v(2);
+    result(2) = u(0)*v(1) - u(1)*v(0);
+    return result;
 }
 
 int stars::pointing_vectors::reverseInt (int i)
