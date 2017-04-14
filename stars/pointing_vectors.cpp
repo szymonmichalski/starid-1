@@ -7,7 +7,9 @@ std::random_device r;
 std::default_random_engine e1(r());
 std::uniform_real_distribution<double> unitscatter(0, 1);
 
-//void stars::Images::axjAxiImageUpdate(arma::mat& axjAxiImage, stars::Sky& sky, int starndx) {
+stars::pointing_vectors::image_matrix stars::pointing_vectors::new_image_matrix(stars::Sky &sky, int starndx) {
+    using namespace Eigen;
+    image_matrix image;
 
 //    arma::vec pointing(3);
 //    pointing(0) = sky.stars[starndx].x;
@@ -40,11 +42,12 @@ std::uniform_real_distribution<double> unitscatter(0, 1);
 //        if (axjndx < 0 || axjndx > 27) continue;
 //        if (axindx < 0 || axindx > 27) continue;
 //        axjAxiImage(axjndx, axindx) = 255.0;
-//    }
-//}
 
-void stars::pointing_vectors::get_pvecs(std::string& imgfile, int imgndx) {
-    Eigen::Matrix<double, 28, 28> axjAxiImage = stars::pointing_vectors::read_images_container(imgfile, imgndx);
+    return image;
+}
+
+void stars::pointing_vectors::get_pvecs(std::string &imgfile, int imgndx) {
+    image_matrix axjAxiImage = stars::pointing_vectors::read_images_container(imgfile, imgndx);
     pvecs = Eigen::MatrixXd::Zero(100,3);
     pvecs(0,0) = 0.0; // center star, stars, is implicit in the image
     pvecs(0,1) = 0.0;
@@ -65,8 +68,8 @@ void stars::pointing_vectors::get_pvecs(std::string& imgfile, int imgndx) {
     pvecs.conservativeResize(uvecsndx, 3);
 }
 
-Eigen::Matrix<double, 28, 28> stars::pointing_vectors::read_images_container(std::string& imgfile, int imgndx) {
-    Eigen::Matrix<double, 28, 28> image;
+stars::pointing_vectors::image_matrix stars::pointing_vectors::read_images_container(std::string &imgfile, int imgndx) {
+    image_matrix image;
     std::ifstream file (imgfile, std::ios::binary);
     if (file.is_open())
     {
@@ -102,16 +105,16 @@ Eigen::Matrix<double, 28, 28> stars::pointing_vectors::read_images_container(std
     return image;
 }
 
-Eigen::Matrix3d stars::pointing_vectors::rotation_matrix(Eigen::Vector3d& pointing) {
+Eigen::Matrix3d stars::pointing_vectors::rotation_matrix(Eigen::Vector3d &bodyz) {
     using namespace Eigen;
     Matrix3d rm = Matrix3d::Identity(3,3);
     Vector3d icrfz, bodyx, bodyy;
     icrfz << 0.0, 0.0, 1.0;
-    bodyx = pointing.cross(icrfz);
-    bodyy = pointing.cross(bodyx);
-    rm.col(0) = bodyx.normalized();
-    rm.col(1) = bodyy.normalized();
-    rm.col(2) = pointing.normalized();
+//    bodyx = bodyz.cross(icrfz);
+//    bodyy = bodyz.cross(bodyx);
+//    rm.col(0) = bodyx.normalized();
+//    rm.col(1) = bodyy.normalized();
+//    rm.col(2) = bodyz.normalized();
     return rm;
 }
 
@@ -127,6 +130,7 @@ int stars::pointing_vectors::reverseInt (int i)
 
 
 
+// following still need to be switched from armadillo to eigen
 
 //void stars::pointing_vectors::write_images_container(std::string filename, std::vector<arma::mat> &images) {
 //    std::ofstream file (filename, std::ios::binary);
