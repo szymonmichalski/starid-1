@@ -7,6 +7,42 @@ std::random_device r;
 std::default_random_engine e1(r());
 std::uniform_real_distribution<double> unitscatter(0, 1);
 
+//void stars::Images::axjAxiImageUpdate(arma::mat& axjAxiImage, stars::Sky& sky, int starndx) {
+
+//    arma::vec pointing(3);
+//    pointing(0) = sky.stars[starndx].x;
+//    pointing(1) = sky.stars[starndx].y;
+//    pointing(2) = sky.stars[starndx].z;
+//    std::vector<int> starndxs = sky.starsNearPoint(pointing(0), pointing(1), pointing(2));
+
+//    uvecs.zeros(100,3);
+//    int uvecsndx = 0;
+//    for (auto ndx : starndxs) {
+//        uvecs(uvecsndx,0) = sky.stars[ndx].x;
+//        uvecs(uvecsndx,1) = sky.stars[ndx].y;
+//        uvecs(uvecsndx,2) = sky.stars[ndx].z;
+//        ++uvecsndx;
+//    }
+//    uvecs.shed_rows(uvecsndx, 99);
+
+//    double yaw = unitscatter(e1) * 2 * M_PI;
+//    arma::mat attitude = rotationMatrix(pointing);
+//    uvecs = arma::trans( arma::trans(attitude) * arma::trans(uvecs) );
+
+//    axjAxiImage.zeros(); // update axjaxiimage
+//    for (int ndx = 0; ndx < uvecsndx; ++ndx) {
+//        double x = std::cos(yaw) * uvecs(ndx,0) - std::sin(yaw) * uvecs(ndx,1);
+//        double y = std::sin(yaw) * uvecs(ndx,0) + std::cos(yaw) * uvecs(ndx,1);
+//        double axi = x + stars::image_radius_unit_vector_plane;
+//        double axj = -y + stars::image_radius_unit_vector_plane;
+//        int axindx = std::floor( axi / stars::image_pixel_unit_vector_plane );
+//        int axjndx = std::floor( axj / stars::image_pixel_unit_vector_plane );
+//        if (axjndx < 0 || axjndx > 27) continue;
+//        if (axindx < 0 || axindx > 27) continue;
+//        axjAxiImage(axjndx, axindx) = 255.0;
+//    }
+//}
+
 void stars::pointing_vectors::get_pvecs(std::string& imgfile, int imgndx) {
     Eigen::Matrix<double, 28, 28> axjAxiImage = stars::pointing_vectors::read_images_container(imgfile, imgndx);
     pvecs = Eigen::MatrixXd::Zero(100,3);
@@ -66,79 +102,33 @@ Eigen::Matrix<double, 28, 28> stars::pointing_vectors::read_images_container(std
     return image;
 }
 
-//std::string a = "images_a";
-//std::string b = "images_b";
-//doMnist(60000, datadir, a, sky);
-//doMnist(10000, datadir, b, sky);
-//void doMnist(int imgCnt, std::string& datadir, std::string& filename, stars::Sky& sky) {
-//    data::Mnist mnist;
-//    std::vector<arma::mat> axjAxiImages;
-//    arma::colvec labels = arma::zeros<arma::colvec>(imgCnt);
-//    mnist.readAxjAxiImages(std::string(datadir + filename + "1.mnist"), axjAxiImages); // 28x28ximgCnt images
-//    mnist.readLabels(std::string(datadir + filename + "2.mnist"), labels); // imageCntx1 labels
-//    for (int starSetNdx = 0; starSetNdx < imgCnt/10; ++starSetNdx) {
-//        for (int starndx = 0; starndx < 10; ++starndx) {
-//            arma::mat axjAxiImage = axjAxiImages[10*starSetNdx + starndx]; // get current image
-//            stars::Image image;
-//            image.axjAxiImageUpdate(axjAxiImage, sky, starndx);
-//            labels(10*starSetNdx + starndx) = (double) starndx; // update current label
-//            axjAxiImages[10*starSetNdx + starndx] = axjAxiImage; // update current image
-//        }
-//    }
-//    mnist.writeImages(std::string(datadir + filename + "1.mnist"), axjAxiImages);
-//    mnist.writeLabels(std::string(datadir + filename + "2.mnist"), labels);
-//}
+Eigen::Matrix3d stars::pointing_vectors::rotation_matrix(Eigen::Vector3d& pointing) {
+    using namespace Eigen;
+    Matrix3d rm = Matrix3d::Identity(3,3);
+    Vector3d icrfz, bodyx, bodyy;
+    icrfz << 0.0, 0.0, 1.0;
+    bodyx = pointing.cross(icrfz);
+    bodyy = pointing.cross(bodyx);
+    rm.col(0) = bodyx.normalized();
+    rm.col(1) = bodyy.normalized();
+    rm.col(2) = pointing.normalized();
+    return rm;
+}
 
-//void stars::Images::axjAxiImageUpdate(arma::mat& axjAxiImage, stars::Sky& sky, int starndx) {
+int stars::pointing_vectors::reverseInt (int i)
+{
+    unsigned char ch1, ch2, ch3, ch4;
+    ch1 = i & 255;
+    ch2 = (i >> 8) & 255;
+    ch3 = (i >> 16) & 255;
+    ch4 = (i >> 24) & 255;
+    return((int) ch1 << 24) + ((int)ch2 << 16) + ((int)ch3 << 8) + ch4;
+}
 
-//    arma::vec pointing(3);
-//    pointing(0) = sky.stars[starndx].x;
-//    pointing(1) = sky.stars[starndx].y;
-//    pointing(2) = sky.stars[starndx].z;
-//    std::vector<int> starndxs = sky.starsNearPoint(pointing(0), pointing(1), pointing(2));
 
-//    uvecs.zeros(100,3);
-//    int uvecsndx = 0;
-//    for (auto ndx : starndxs) {
-//        uvecs(uvecsndx,0) = sky.stars[ndx].x;
-//        uvecs(uvecsndx,1) = sky.stars[ndx].y;
-//        uvecs(uvecsndx,2) = sky.stars[ndx].z;
-//        ++uvecsndx;
-//    }
-//    uvecs.shed_rows(uvecsndx, 99);
 
-//    double yaw = unitscatter(e1) * 2 * M_PI;
-//    arma::mat attitude = rotationMatrix(pointing);
-//    uvecs = arma::trans( arma::trans(attitude) * arma::trans(uvecs) );
 
-//    axjAxiImage.zeros(); // update axjaxiimage
-//    for (int ndx = 0; ndx < uvecsndx; ++ndx) {
-//        double x = std::cos(yaw) * uvecs(ndx,0) - std::sin(yaw) * uvecs(ndx,1);
-//        double y = std::sin(yaw) * uvecs(ndx,0) + std::cos(yaw) * uvecs(ndx,1);
-//        double axi = x + stars::image_radius_unit_vector_plane;
-//        double axj = -y + stars::image_radius_unit_vector_plane;
-//        int axindx = std::floor( axi / stars::image_pixel_unit_vector_plane );
-//        int axjndx = std::floor( axj / stars::image_pixel_unit_vector_plane );
-//        if (axjndx < 0 || axjndx > 27) continue;
-//        if (axindx < 0 || axindx > 27) continue;
-//        axjAxiImage(axjndx, axindx) = 255.0;
-//    }
-//}
-
-//arma::mat stars::Images::rotationMatrix(arma::vec& pointing) {
-//    arma::mat rm;
-//    rm.eye(3,3);
-//    arma::vec bz = pointing;
-//    arma::vec iz = { 0.0, 0.0, 1.0 };
-//    arma::vec b1x = arma::cross(bz,iz);
-//    arma::vec b1y = arma::cross(bz,b1x);
-//    rm.col(0) = arma::normalise(b1x);
-//    rm.col(1) = arma::normalise(b1y);
-//    rm.col(2) = bz;
-//    return rm;
-//}
-
-//void stars::Images::writeImages(std::string filename, std::vector<arma::mat> &images) {
+//void stars::pointing_vectors::write_images_container(std::string filename, std::vector<arma::mat> &images) {
 //    std::ofstream file (filename, std::ios::binary);
 //    int rev_magnumimg = reverseInt(magnumimg);
 //    int rev_imgcnt = reverseInt(imgcnt);
@@ -161,33 +151,7 @@ Eigen::Matrix<double, 28, 28> stars::pointing_vectors::read_images_container(std
 //    }
 //}
 
-//void stars::Images::readAxjAxiImages(std::string filename, std::vector<arma::mat> &images) {
-//    std::ifstream file (filename, std::ios::binary);
-//    if (file.is_open())
-//    {
-//        file.read((char*) &magnumimg, sizeof(magnumimg));
-//        magnumimg = reverseInt(magnumimg);
-//        file.read((char*) &imgcnt, sizeof(imgcnt));
-//        imgcnt = reverseInt(imgcnt);
-//        file.read((char*) &axjcnt, sizeof(axjcnt));
-//        axjcnt = reverseInt(axjcnt);
-//        file.read((char*) &axicnt, sizeof(axicnt));
-//        axicnt = reverseInt(axicnt);
-//        for(int imgndx = 0; imgndx < imgcnt; ++imgndx) {
-//            arma::mat image(axjcnt, axicnt);
-//            for(int axjndx = 0; axjndx < axjcnt; ++axjndx) {
-//                for(int axindx = 0; axindx < axicnt; ++axindx) {
-//                    unsigned char temp = 0;
-//                    file.read((char*) &temp, sizeof(temp));
-//                    image(axjndx, axindx) = (double) temp;
-//                }
-//            }
-//            images.push_back(image);
-//        }
-//    }
-//}
-
-//void stars::Images::writeLabels(std::string filename, arma::colvec &labels) {
+//void stars::pointing_vector::write_labels_container(std::string filename, arma::colvec &labels) {
 //    std::ofstream file (filename, std::ios::binary);
 //    int rev_magnumlab = reverseInt(magnumlab);
 //    int rev_imgcnt = reverseInt(imgcnt);
@@ -201,7 +165,7 @@ Eigen::Matrix<double, 28, 28> stars::pointing_vectors::read_images_container(std
 //    }
 //}
 
-//void stars::Images::readLabels(std::string filename, arma::colvec &labels) {
+//void stars::pointing_vector::read_labels_container(std::string filename, arma::colvec &labels) {
 //    std::ifstream file (filename, std::ios::binary);
 //    if (file.is_open()) {
 //        file.read((char*) &magnumlab, sizeof(magnumlab));
@@ -216,12 +180,25 @@ Eigen::Matrix<double, 28, 28> stars::pointing_vectors::read_images_container(std
 //    }
 //}
 
-int stars::pointing_vectors::reverseInt (int i)
-{
-    unsigned char ch1, ch2, ch3, ch4;
-    ch1 = i & 255;
-    ch2 = (i >> 8) & 255;
-    ch3 = (i >> 16) & 255;
-    ch4 = (i >> 24) & 255;
-    return((int) ch1 << 24) + ((int)ch2 << 16) + ((int)ch3 << 8) + ch4;
-}
+//std::string a = "images_a";
+//std::string b = "images_b";
+//doMnist(60000, datadir, a, sky);
+//doMnist(10000, datadir, b, sky);
+//void doMnist(int imgCnt, std::string& datadir, std::string& filename, stars::Sky& sky) {
+//    data::Mnist mnist;
+//    std::vector<arma::mat> axjAxiImages;
+//    arma::colvec labels = arma::zeros<arma::colvec>(imgCnt);
+//    mnist.readAxjAxiImages(std::string(datadir + filename + "1.mnist"), axjAxiImages); // 28x28ximgCnt images
+//    mnist.readLabels(std::string(datadir + filename + "2.mnist"), labels); // imageCntx1 labels
+//    for (int starSetNdx = 0; starSetNdx < imgCnt/10; ++starSetNdx) {
+//        for (int starndx = 0; starndx < 10; ++starndx) {
+//            arma::mat axjAxiImage = axjAxiImages[10*starSetNdx + starndx]; // get current image
+//            stars::Image image;
+//            image.axjAxiImageUpdate(axjAxiImage, sky, starndx);
+//            labels(10*starSetNdx + starndx) = (double) starndx; // update current label
+//            axjAxiImages[10*starSetNdx + starndx] = axjAxiImage; // update current image
+//        }
+//    }
+//    mnist.writeImages(std::string(datadir + filename + "1.mnist"), axjAxiImages);
+//    mnist.writeLabels(std::string(datadir + filename + "2.mnist"), labels);
+//}
