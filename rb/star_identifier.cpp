@@ -1,37 +1,37 @@
 #include "star_identifier.h"
 
-rules::StarIdentifier::StarIdentifier(stars::pointing_vectors& image,
-                                      stars::Pairs& pairs,
+rules::StarIdentifier::StarIdentifier(Eigen::MatrixXd &pvecs,
+                                      stars::Pairs &pairs,
                                       double tolrad) :
-    pairs(pairs), image(image), tolerance(tolrad) {
+    pvecs(pvecs), pairs(pairs), tolerance(tolrad) {
 }
 
 int rules::StarIdentifier::identify_central_star(int teststar = 1) {
 
     std::vector<TriangleSide> abs;
-    for (ndxb = 1; ndxb < image.pvecs.rows(); ++ndxb) {
+    for (ndxb = 1; ndxb < pvecs.rows(); ++ndxb) {
 
-        uveca = image.pvecs.row(0);
-        uvecb = image.pvecs.row(ndxb);
+        uveca = pvecs.row(0);
+        uvecb = pvecs.row(ndxb);
         TriangleSide ab(std::acos(uveca.transpose() * uvecb), tolerance, pairs, teststar);
 
         int prev_stars = 0;
         int repeatcnt = 0;
         bool converged = false;
-        for (ndxc = 1; ndxc < image.pvecs.rows(); ++ndxc) {
+        for (ndxc = 1; ndxc < pvecs.rows(); ++ndxc) {
             if (converged || !get_angs_c()) continue;
 
-            Triangle abca(angs_c[0], angs_c[1], angs_c[2], tolerance, pairs, teststar, image.pvecs.row(ndxc).transpose());
+            Triangle abca(angs_c[0], angs_c[1], angs_c[2], tolerance, pairs, teststar, pvecs.row(ndxc).transpose());
             abca.side1.stars = ab.stars;
             abca.close_loops_abca();
             ab.append_iterations(abca.side1);
 
             std::vector<Triangle> triangles;
             triangles.push_back(abca);
-            for (ndxd = 1; ndxd < image.pvecs.rows(); ++ndxd) {
+            for (ndxd = 1; ndxd < pvecs.rows(); ++ndxd) {
                 if (converged || !get_angs_d()) continue;
 
-                Triangle abda(angs_d[0], angs_d[4], angs_d[3], tolerance, pairs, teststar, image.pvecs.row(ndxd).transpose());
+                Triangle abda(angs_d[0], angs_d[4], angs_d[3], tolerance, pairs, teststar, pvecs.row(ndxd).transpose());
                 abda.side1.stars = ab.stars;
                 abda.close_loops_abda(triangles);
                 ab.append_iterations(abda.side1);
@@ -60,7 +60,7 @@ bool rules::StarIdentifier::get_angs_d() {
     if (ndxd == ndxb || ndxd == ndxc) return false;
     bool angsok = true;
     angs_d = angs_c;
-    uvecd = image.pvecs.row(ndxd);
+    uvecd = pvecs.row(ndxd);
     angs_d.push_back(std::acos(uvecd.transpose() * uveca));
     angs_d.push_back(std::acos(uvecd.transpose() * uvecb));
     angs_d.push_back(std::acos(uvecd.transpose() * uvecc));
@@ -77,7 +77,7 @@ bool rules::StarIdentifier::get_angs_c() {
     if (ndxc == ndxb) return false;
     bool angsok = true;
     angs_c.clear();
-    uvecc = image.pvecs.row(ndxc);
+    uvecc = pvecs.row(ndxc);
     angs_c.push_back(std::acos(uveca.transpose() * uvecb));
     angs_c.push_back(std::acos(uvecb.transpose() * uvecc));
     angs_c.push_back(std::acos(uvecc.transpose() * uveca));

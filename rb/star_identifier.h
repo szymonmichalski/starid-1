@@ -22,7 +22,7 @@ class StarIdentifier
 
 public:
 
-    StarIdentifier(stars::pointing_vectors& image, stars::Pairs& pairs, double tolerance);
+    StarIdentifier(Eigen::MatrixXd &pvecs, stars::Pairs &pairs, double tolerance);
 
     /// *identify central star* this is the main function
     ///
@@ -33,7 +33,7 @@ private:
     bool get_angs_c();
     bool get_angs_d();
     stars::Pairs pairs;
-    stars::pointing_vectors& image;
+    Eigen::MatrixXd pvecs;
     double tolerance;
     double min_ang;
     std::vector<double> angs_c;

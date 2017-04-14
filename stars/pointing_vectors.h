@@ -17,8 +17,6 @@ class pointing_vectors {
 
 public:
 
-    Eigen::MatrixXd pvecs;
-
     /// *new image matrix* create an axi axj image matrix for the star, with a random yaw
     ///
     image_matrix new_image_matrix(stars::Sky &sky, int starndx);
@@ -26,7 +24,7 @@ public:
 
     /// *get pointing vectors* get pointing vector representation of an image
     ///
-    void get_pvecs_from_imgmat(image_matrix &imgmat);
+    Eigen::MatrixXd get_pvecs_from_imgmat(image_matrix &imgmat);
 
 
 private:

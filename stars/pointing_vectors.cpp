@@ -15,7 +15,7 @@ stars::image_matrix stars::pointing_vectors::new_image_matrix(stars::Sky &sky, i
     pointing << sky.stars[starndx].x, sky.stars[starndx].y, sky.stars[starndx].z;
     std::vector<int> starndxs = sky.starsNearPoint(pointing(0), pointing(1), pointing(2));
 
-    pvecs = Eigen::MatrixXd::Zero(100,3);
+    Eigen::MatrixXd pvecs = Eigen::MatrixXd::Zero(100,3);
     int pvecsndx = 0;
     for (auto ndx : starndxs) {
         pvecs.row(pvecsndx) << sky.stars[ndx].x, sky.stars[ndx].y, sky.stars[ndx].z;
@@ -42,8 +42,8 @@ stars::image_matrix stars::pointing_vectors::new_image_matrix(stars::Sky &sky, i
     return imgmat;
 }
 
-void stars::pointing_vectors::get_pvecs_from_imgmat(stars::image_matrix &imgmat) {
-    pvecs = Eigen::MatrixXd::Zero(100,3);
+Eigen::MatrixXd stars::pointing_vectors::get_pvecs_from_imgmat(stars::image_matrix &imgmat) {
+    Eigen::MatrixXd pvecs = Eigen::MatrixXd::Zero(100,3);
     pvecs.row(0) << 0.0, 0.0, 1.0;
     int pvecsndx = 1;
     for (int axjndx = 0; axjndx < 28; ++axjndx) {
@@ -57,6 +57,7 @@ void stars::pointing_vectors::get_pvecs_from_imgmat(stars::image_matrix &imgmat)
         }
     }
     pvecs.conservativeResize(pvecsndx, 3);
+    return pvecs;
 }
 
 stars::image_matrix stars::pointing_vectors::read_image_matrix(std::string &imgfile, int imgndx) {
