@@ -92,18 +92,34 @@ int main(int argc, char* argv[])
     }
 
     if (options[TEST]) {
+        int imgndx = 2;
+        int teststar = imgndx;
         std::string datadir = "/home/noah/starid/stars/data/";
         std::string imgfile = "images_b1";
-        int imgndx = 1;
+
         stars::pointing_vectors image;
+
         std::string filename = datadir + imgfile;
-        image.get_pvecs(filename, imgndx);
+        stars::image_matrix imgmat1 = image.read_image_matrix(filename, imgndx);
 
         stars::Sky sky;
         std::ifstream is1(std::string(datadir + "sky"));
         cereal::BinaryInputArchive iarchive1(is1);
         iarchive1(sky);
-        stars::image_matrix imgmat = image.new_image_matrix(sky, imgndx);
+        stars::image_matrix imgmat2 = image.new_image_matrix(sky, imgndx);
+
+        image.get_pvecs_from_imgmat(imgmat1);
+
+        stars::Pairs pairs;
+        std::ifstream is2(std::string(datadir + "pairs"));
+        cereal::BinaryInputArchive iarchive2(is2);
+        iarchive2(pairs);
+
+        double epsilon = 0.0;
+        double tolrad = (2.0 * std::sqrt(500.0*500.0 + 500.00*500.0) + epsilon) * stars::arcseconds_to_radians;
+        rules::StarIdentifier triangles(image, pairs, tolrad);
+        int starndxIdentified = triangles.identify_central_star(teststar);
+
         std::cout << " " << std::endl;
     }
 
@@ -120,15 +136,16 @@ int main(int argc, char* argv[])
         cereal::BinaryInputArchive iarchive2(is2);
         iarchive2(pairs);
 
-        stars::pointing_vectors pvecs;
+        stars::pointing_vectors image;
         std::string filename = datadir + imgfile;
-        pvecs.get_pvecs(filename, imgndx);
+        stars::image_matrix imgmat =image.read_image_matrix(filename, imgndx);
+        image.get_pvecs_from_imgmat(imgmat);
         std::cout << "sky, pairs, image msecs = " << stopwatch.end() << std::endl;
 
         stopwatch.reset();
         double epsilon = 0.0; // empirical
         double tolrad = (2.0 * std::sqrt(500.0*500.0 + 500.00*500.0) + epsilon) * stars::arcseconds_to_radians;
-        rules::StarIdentifier triangles(pvecs, pairs, tolrad);
+        rules::StarIdentifier triangles(image, pairs, tolrad);
         int starndxIdentified = triangles.identify_central_star(teststar);
         std::cout << "triangles msecs = " << stopwatch.end() << std::endl;
 

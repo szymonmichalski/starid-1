@@ -19,13 +19,15 @@ public:
 
     Eigen::MatrixXd pvecs;
 
-    /// *get image vectors* get pointing vector representation of an image
+    /// *new image matrix* create an axi axj image matrix for the star, with a random yaw
     ///
-    void get_pvecs(std::string &imgfile, int imgndx);
-
     image_matrix new_image_matrix(stars::Sky &sky, int starndx);
+    image_matrix read_image_matrix(std::string &imgfile, int imgndx);
 
-    static image_matrix read_images_container(std::string &imgfile, int imgndx);
+    /// *get pointing vectors* get pointing vector representation of an image
+    ///
+    void get_pvecs_from_imgmat(image_matrix &imgmat);
+
 
 private:
 

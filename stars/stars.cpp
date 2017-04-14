@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
         int imgndx = 0;
         stars::pointing_vectors image;
         std::string filename = datadir + imgfile;
-        image.get_pvecs(filename, imgndx);
+        image.read_image_matrix(filename, imgndx);
         std::cout << " " << std::endl;
     }
 

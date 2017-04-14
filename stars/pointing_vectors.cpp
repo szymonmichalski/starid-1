@@ -42,14 +42,13 @@ stars::image_matrix stars::pointing_vectors::new_image_matrix(stars::Sky &sky, i
     return imgmat;
 }
 
-void stars::pointing_vectors::get_pvecs(std::string &imgfile, int imgndx) {
-    image_matrix image = stars::pointing_vectors::read_images_container(imgfile, imgndx);
+void stars::pointing_vectors::get_pvecs_from_imgmat(stars::image_matrix &imgmat) {
     pvecs = Eigen::MatrixXd::Zero(100,3);
     pvecs.row(0) << 0.0, 0.0, 1.0;
     int pvecsndx = 1;
     for (int axjndx = 0; axjndx < 28; ++axjndx) {
         for (int axindx = 0; axindx < 28; ++axindx) {
-            if (image(axjndx, axindx) > 0) { // there's a star inside axjndx, axindx
+            if (imgmat(axjndx, axindx) > 0) { // there's a star inside axjndx, axindx
                 double x = stars::image_pixel_unit_vector_plane * ( -13.5 + (double)axindx );
                 double y = stars::image_pixel_unit_vector_plane * ( +13.5 - (double)axjndx );
                 pvecs.row(pvecsndx) << x, y, std::sqrt(1 - x*x - y*y);
@@ -60,7 +59,7 @@ void stars::pointing_vectors::get_pvecs(std::string &imgfile, int imgndx) {
     pvecs.conservativeResize(pvecsndx, 3);
 }
 
-stars::image_matrix stars::pointing_vectors::read_images_container(std::string &imgfile, int imgndx) {
+stars::image_matrix stars::pointing_vectors::read_image_matrix(std::string &imgfile, int imgndx) {
     image_matrix image;
     std::ifstream file (imgfile, std::ios::binary);
     if (file.is_open())
