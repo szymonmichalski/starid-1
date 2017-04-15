@@ -101,12 +101,11 @@ int main(int argc, char* argv[])
         cereal::BinaryInputArchive iarchive2(is2);
         iarchive2(pairs);
 
-        int imgndx = 2;
-        int teststar = imgndx;
-        stars::image_matrix imgmat = stars::pointing_vectors::new_image_matrix(imgndx, sky);
-        rules::StarIdentifier triangles(imgmat, pairs);
-        int starndx = triangles.identify_central_star(teststar);
-        std::cout << " " << std::endl;
+        int starndx = 2;
+        stars::image_matrix imgmat = stars::pointing_vectors::new_image_matrix(starndx, sky);
+        rules::star_identifier ider(imgmat, pairs);
+        int result = ider.id();
+        std::cout << result << std::endl;
     }
 
     if (!options[TEST]) {
@@ -128,11 +127,11 @@ int main(int argc, char* argv[])
         std::cout << "sky, pairs, image msecs = " << stopwatch.end() << std::endl;
 
         stopwatch.reset();
-        rules::StarIdentifier triangles(imgmat, pairs);
-        int starndxIdentified = triangles.identify_central_star(teststar);
+        rules::star_identifier ider(imgmat, pairs);
+        int result = ider.id(teststar);
         std::cout << "triangles msecs = " << stopwatch.end() << std::endl;
 
-        std::cout << "identification = " << starndxIdentified << std::endl;
+        std::cout << "identification = " << result << std::endl;
     }
 
     return 0;

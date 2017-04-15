@@ -1,13 +1,13 @@
 #include "star_identifier.h"
 
-rules::StarIdentifier::StarIdentifier(stars::image_matrix &imgmat, stars::Pairs &pairs) : pairs(pairs)
+rules::star_identifier::star_identifier(stars::image_matrix &imgmat, stars::Pairs &pairs) : pairs(pairs)
 {
     pvecs = stars::pointing_vectors::get_pvecs_from_imgmat(imgmat);
     double epsilon = 0.0;
     tolerance = (2.0 * std::sqrt(500.0*500.0 + 500.00*500.0) + epsilon) * stars::arcseconds_to_radians;
 }
 
-int rules::StarIdentifier::identify_central_star(int teststar = 1) {
+int rules::star_identifier::id(int teststar) {
 
     std::vector<TriangleSide> abs;
     for (ndxb = 1; ndxb < pvecs.rows(); ++ndxb) {
@@ -57,7 +57,7 @@ int rules::StarIdentifier::identify_central_star(int teststar = 1) {
     return -1;
 }
 
-bool rules::StarIdentifier::get_angs_d() {
+bool rules::star_identifier::get_angs_d() {
     if (ndxd == ndxb || ndxd == ndxc) return false;
     bool angsok = true;
     angs_d = angs_c;
@@ -74,7 +74,7 @@ bool rules::StarIdentifier::get_angs_d() {
     return angsok;
 }
 
-bool rules::StarIdentifier::get_angs_c() {
+bool rules::star_identifier::get_angs_c() {
     if (ndxc == ndxb) return false;
     bool angsok = true;
     angs_c.clear();

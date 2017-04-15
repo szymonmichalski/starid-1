@@ -17,16 +17,16 @@
 
 namespace rules {
 
-class StarIdentifier
+class star_identifier
 {
 
 public:
 
-    StarIdentifier(stars::image_matrix &imgmat, stars::Pairs &pairs);
+    star_identifier(stars::image_matrix &imgmat, stars::Pairs &pairs);
 
     /// *identify central star* this is the main function
     ///
-    int identify_central_star(int teststar);
+    int id(int teststar = -1);
 
 private:
 
