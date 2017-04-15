@@ -5,9 +5,8 @@ underlying cpp classes are refactored and updated in preparation for the tensorf
 here's an example of creating an image of star two and then identifying it.
 
     int starndx = 2;
-    stars::image_matrix imgmat =
-      stars::pointing_vectors::new_image_matrix(starndx, sky);
-    rules::star_identifier ider(imgmat, pairs);
+    image_matrix imgmat = new_image_matrix(starndx, sky);
+    star_identifier ider(imgmat, pairs);
     int result = ider.id();
 
 
