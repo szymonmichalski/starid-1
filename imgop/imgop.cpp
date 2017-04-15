@@ -1,6 +1,6 @@
-#include "star_images.h"
+#include "imgop.h"
 
-void StarImagesOp::Compute(OpKernelContext* context)
+void imgop::Compute(OpKernelContext* context)
 {
   // Grab the input tensor
   const Tensor& input_tensor = context->input(0);

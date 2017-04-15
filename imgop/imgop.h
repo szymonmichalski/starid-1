@@ -7,7 +7,7 @@
 
 using namespace tensorflow;
 
-REGISTER_OP("StarImages")
+REGISTER_OP("StarImagesAndLabels")
     .Input("to_zero: int32")
     .Output("zeroed: int32")
     .SetShapeFn([](::tensorflow::shape_inference::InferenceContext* c) {
@@ -15,16 +15,16 @@ REGISTER_OP("StarImages")
       return Status::OK();
     });
 
-class StarImagesOp : public OpKernel {
+class imgop : public OpKernel {
 
  public:
 
-  explicit StarImagesOp(OpKernelConstruction* context) : OpKernel(context) {}
+  explicit imgop(OpKernelConstruction* context) : OpKernel(context) {}
 
   void Compute(OpKernelContext* context) override;
 
 };
 
-REGISTER_KERNEL_BUILDER(Name("StarImages").Device(DEVICE_CPU), StarImagesOp)
+REGISTER_KERNEL_BUILDER(Name("StarImagesAndLabels").Device(DEVICE_CPU), imgop)
 
 #endif
