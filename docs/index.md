@@ -2,10 +2,9 @@
 
 underlying cpp classes are refactored and updated in preparation for the tensorflow op. they're ready to output eigen matrices representing star images directly into tensorflow graphs. the switch from armadillo to eigen is complete. 
 
-here's an example of creating an image of star two and then identifying it.
+here's an example of creating an image of star number 13 and then identifying it.
 
-    int starndx = 2;
-    image_matrix imgmat = new_image_matrix(starndx, sky);
+    image_matrix imgmat = new_image_matrix(13, sky);
     star_identifier ider(imgmat, pairs);
     int result = ider.id();
 
