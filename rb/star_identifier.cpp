@@ -1,8 +1,8 @@
 #include "star_identifier.h"
 
-rules::StarIdentifier::StarIdentifier(Eigen::MatrixXd &pvecs, stars::Pairs &pairs)
-    : pvecs(pvecs), pairs(pairs)
+rules::StarIdentifier::StarIdentifier(stars::image_matrix &imgmat, stars::Pairs &pairs) : pairs(pairs)
 {
+    pvecs = stars::pointing_vectors::get_pvecs_from_imgmat(imgmat);
     double epsilon = 0.0;
     tolerance = (2.0 * std::sqrt(500.0*500.0 + 500.00*500.0) + epsilon) * stars::arcseconds_to_radians;
 }

@@ -92,9 +92,6 @@ int main(int argc, char* argv[])
     }
 
     if (options[TEST]) {
-        int imgndx = 2;
-        int teststar = imgndx;
-
         stars::Sky sky;
         std::ifstream is1(std::string(datadir + "sky"));
         cereal::BinaryInputArchive iarchive1(is1);
@@ -104,9 +101,10 @@ int main(int argc, char* argv[])
         cereal::BinaryInputArchive iarchive2(is2);
         iarchive2(pairs);
 
-        stars::image_matrix imgmat2 = stars::pointing_vectors::new_image_matrix(sky, imgndx);
-        Eigen::MatrixXd pvecs = stars::pointing_vectors::get_pvecs_from_imgmat(imgmat2);
-        rules::StarIdentifier triangles(pvecs, pairs);
+        int imgndx = 2;
+        int teststar = imgndx;
+        stars::image_matrix imgmat = stars::pointing_vectors::new_image_matrix(imgndx, sky);
+        rules::StarIdentifier triangles(imgmat, pairs);
         int starndx = triangles.identify_central_star(teststar);
         std::cout << " " << std::endl;
     }
@@ -127,11 +125,10 @@ int main(int argc, char* argv[])
         stars::pointing_vectors pv;
         std::string filename = datadir + imgfile;
         stars::image_matrix imgmat = stars::pointing_vectors::read_image_matrix(filename, imgndx);
-        Eigen::MatrixXd pvecs = stars::pointing_vectors::get_pvecs_from_imgmat(imgmat);
         std::cout << "sky, pairs, image msecs = " << stopwatch.end() << std::endl;
 
         stopwatch.reset();
-        rules::StarIdentifier triangles(pvecs, pairs);
+        rules::StarIdentifier triangles(imgmat, pairs);
         int starndxIdentified = triangles.identify_central_star(teststar);
         std::cout << "triangles msecs = " << stopwatch.end() << std::endl;
 

@@ -1,6 +1,6 @@
 *14.4.2017*
 
-underlying cpp classes are now fully refactored and updated in preparation for the tensorflow op. they're ready to pump eigen matrices representing star images directly into tensorflow graphs. the switch from armadillo to eigen is complete. 
+underlying cpp classes are refactored and updated in preparation for the tensorflow op. they're ready to output eigen matrices representing star images directly into tensorflow graphs. the switch from armadillo to eigen is complete. 
 
 *11.4.2017*
 

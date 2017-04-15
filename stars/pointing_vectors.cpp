@@ -7,7 +7,7 @@ std::random_device r;
 std::default_random_engine e1(r());
 std::uniform_real_distribution<double> unitscatter(0, 1);
 
-stars::image_matrix stars::pointing_vectors::new_image_matrix(stars::Sky &sky, int starndx) {
+stars::image_matrix stars::pointing_vectors::new_image_matrix(int starndx, stars::Sky &sky) {
     using namespace Eigen;
     image_matrix imgmat = image_matrix::Zero();
 

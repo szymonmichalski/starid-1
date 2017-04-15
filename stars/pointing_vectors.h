@@ -19,7 +19,7 @@ public:
 
     /// *new image matrix* create an axi axj image matrix for the star, with a random yaw
     ///
-    static image_matrix new_image_matrix(stars::Sky &sky, int starndx);
+    static image_matrix new_image_matrix(int starndx, stars::Sky &sky);
     static image_matrix read_image_matrix(std::string &imgfile, int imgndx);
 
     /// *get pointing vectors* get pointing vector representation of an image
