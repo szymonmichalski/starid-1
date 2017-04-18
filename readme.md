@@ -2,8 +2,6 @@
 
 [notes](http://starid.org), [about](http://starid.org/about), [related papers](http://starid.org/references), [code notes](http://starid.org/comments)
 
-this project is about using new algorithms to learn the sky.
-
 *lb learning based starid*
 
 tensorflow framework for identification of stars using convnets and svms.
