@@ -1,4 +1,4 @@
-a brief history of preoccupation with the star identification problem
+*a brief history of preoccupation with the star identification problem*
 
 this story actually began back in the seventies and eighties, when from grade school onward it was always disturbing that, when outside looking at the night sky, it wasn’t easy to name many stars and constellations...
 
