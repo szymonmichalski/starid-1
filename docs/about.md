@@ -1,6 +1,6 @@
 *a brief history of preoccupation with the star identification problem*
 
-this story began back in the seventies and eighties, when from grade school onward it was always disturbing that, when outside looking at the night sky, it wasn’t easy to name many stars and constellations...
+the story actually began back in the seventies and eighties, when from grade school onward it was always disturbing that, when outside looking at the night sky, it wasn’t easy to name many stars and constellations...
 
 *1990, [photos](http://photos.starid.org) and [pdf](papers/1986 hemenway.pdf), [pdf](papers/1986 pierce.pdf), [pdf](papers/1987 hemenway.pdf)*
 
