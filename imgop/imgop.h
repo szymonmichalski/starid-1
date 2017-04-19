@@ -5,6 +5,10 @@
 #include "/home/noah/tf/lib/python3.5/site-packages/tensorflow/include/tensorflow/core/framework/shape_inference.h"
 #include "/home/noah/tf/lib/python3.5/site-packages/tensorflow/include/tensorflow/core/framework/op_kernel.h"
 
+#include "sky.h"
+#include "pointing_vectors.h"
+#include "cereal/archives/binary.hpp"
+
 using namespace tensorflow;
 
 REGISTER_OP("StarImagesAndLabels")
