@@ -26,11 +26,13 @@ public:
     /// *constructor* interfaces with tensorflow, and loads the sky binary file needed to generate star images
     ///
     explicit imgop(OpKernelConstruction* context) : OpKernel(context) {
-        std::string datadir = "/home/noah/starid/stars/data/";
+
+        std::string datadir = "/home/noah/starid/stars/data/"; // move out of header when possible
         stars::Sky sky;
         std::ifstream is1(std::string(datadir + "sky"));
         cereal::BinaryInputArchive iarchive1(is1);
         iarchive1(sky);
+
     }
 
     /// *compute* called by tensorflow to perform op
