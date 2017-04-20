@@ -58,9 +58,9 @@ sky representation as pointing vectors, with methods to get the stars near an ar
 
 star representations as pointing vectors and binary images container on disk
 
-*read images container* get an image from an images container.
+*new image matrix* create an axi axj image matrix for the star, with a random yaw
 
-*get image vectors* get pointing vector representation of an image
+*get pointing vectors* get pointing vector representation of an image
 
 *pairs over whole sky*
 
@@ -81,4 +81,12 @@ global values
 *star catalog*
 
 nasa skymap star catalog
+
+*imgop*
+
+tensorflow op generating runtime star images and labels.
+
+*constructor* interfaces with tensorflow, and loads the sky binary file needed to generate star images
+
+*compute* called by tensorflow to perform op
 

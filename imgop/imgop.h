@@ -1,3 +1,8 @@
+/// *imgop*
+///
+/// tensorflow op generating runtime star images and labels.
+///
+
 #ifndef STAR_IMAGES_H
 #define STAR_IMAGES_H
 
@@ -18,6 +23,8 @@ class imgop : public OpKernel {
 
 public:
 
+    /// *constructor* interfaces with tensorflow, and loads the sky binary file needed to generate star images
+    ///
     explicit imgop(OpKernelConstruction* context) : OpKernel(context) {
         std::string datadir = "/home/noah/starid/stars/data/";
         stars::Sky sky;
@@ -26,6 +33,8 @@ public:
         iarchive1(sky);
     }
 
+    /// *compute* called by tensorflow to perform op
+    ///
     void Compute(OpKernelContext* context) override;
 
 };

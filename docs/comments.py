@@ -29,6 +29,7 @@ outfile         = 'comments.md'
 lbroot          = '../lb/'
 rbroot          = '../rb/'
 starsroot       = '../stars/'
+imgop           = '../imgop/'
 
 with open(outfile, 'w') as f:
 
@@ -50,3 +51,5 @@ with open(outfile, 'w') as f:
   f.write('%s' % commenter(starsroot + 'float_int_table.h'))
   f.write('%s' % commenter(starsroot + 'globals.h'))
   f.write('%s' % commenter(starsroot + 'star_catalog.h'))
+
+  f.write('%s' % commenter(imgop + 'imgop.h'))
