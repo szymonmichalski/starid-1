@@ -6,12 +6,6 @@ void imgop::Compute(OpKernelContext* context)
   auto input = input_tensor.flat<int32>();
 
 
-  std::string datadir = "/home/noah/starid/stars/data/";
-  stars::Sky sky;
-  std::ifstream is1(std::string(datadir + "sky"));
-  cereal::BinaryInputArchive iarchive1(is1);
-  iarchive1(sky);
-
 
   Tensor* output_tensor = NULL;
   OP_REQUIRES_OK(context, context->allocate_output(0, input_tensor.shape(), &output_tensor));

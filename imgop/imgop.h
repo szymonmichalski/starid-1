@@ -18,7 +18,13 @@ class imgop : public OpKernel {
 
 public:
 
-    explicit imgop(OpKernelConstruction* context) : OpKernel(context) {}
+    explicit imgop(OpKernelConstruction* context) : OpKernel(context) {
+        std::string datadir = "/home/noah/starid/stars/data/";
+        stars::Sky sky;
+        std::ifstream is1(std::string(datadir + "sky"));
+        cereal::BinaryInputArchive iarchive1(is1);
+        iarchive1(sky);
+    }
 
     void Compute(OpKernelContext* context) override;
 
