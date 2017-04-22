@@ -16,7 +16,7 @@
 
 using namespace tensorflow;
 
-REGISTER_OP("StarImagesAndLabels")
+REGISTER_OP("Image")
 .Input("in: int32")
 .Output("out: int32")
 .SetShapeFn(
@@ -44,6 +44,6 @@ public:
 
 };
 
-REGISTER_KERNEL_BUILDER(Name("StarImagesAndLabels").Device(DEVICE_CPU), imgop)
+REGISTER_KERNEL_BUILDER(Name("Image").Device(DEVICE_CPU), imgop)
 
 #endif
