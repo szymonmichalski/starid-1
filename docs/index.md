@@ -2,7 +2,7 @@
 
 imgop tensorflow op and cpp kernel is fully functional, and immediately having a useful side effect. it allows python to interactively generate images using the stars cpp app. in other words you can now very easily generate images like
 
-<img src="images/image.png"/>
+![image](images/image.jpg)
 
 *14.4.2017*
 
