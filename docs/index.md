@@ -1,3 +1,9 @@
+*22.4.2017*
+
+imgop tensorflow op and cpp kernel is fully functional, and immediately having a useful side effect. it allows python to interactively generate images using the stars cpp app. in other words you can now very easily generate images like
+
+<img src="images/image.png"/>
+
 *14.4.2017*
 
 underlying cpp classes are refactored and updated in preparation for the tensorflow op. they're ready to output eigen matrices representing star images directly into tensorflow graphs. the switch from armadillo to eigen is complete. 
