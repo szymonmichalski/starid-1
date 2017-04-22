@@ -2,7 +2,7 @@
 
 imgop tensorflow op and cpp kernel is fully functional, and immediately having a useful side effect. python can now interactively get images from the stars cpp app as numpy ndarrays, and you can very easily be looking at star images such as
 
-![image](images/image.jpg)
+![image](images/image.png)
 
 *14.4.2017*
 
