@@ -4,11 +4,11 @@
 
 *lb learning based starid*
 
-tensorflow framework for identification of using convnets, rnns, svms, etc.
+tensorflow framework for identification using cnn, rnn, svm, etc.
 
 *rb heuristic rule based starid*
 
-cpp for deterministic identification of unique triangular structure.
+cpp for deterministic identification using triangular structure.
 
 *imgop*
 
