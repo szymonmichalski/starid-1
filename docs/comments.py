@@ -34,10 +34,10 @@ imgop           = '../imgop/'
 with open(outfile, 'w') as f:
 
   f.write('%s' % commenter(lbroot + 'starid.py'))
-  f.write('%s' % commenter(lbroot + 'image_viewer.py'))
-  f.write('%s' % commenter(lbroot + 'model.py'))
-  f.write('%s' % commenter(lbroot + 'training.py'))
-  f.write('%s' % commenter(lbroot + 'evaluation.py'))
+  f.write('%s' % commenter(lbroot + 'acontainer_plot.py'))
+  f.write('%s' % commenter(lbroot + 'amodel.py'))
+  f.write('%s' % commenter(lbroot + 'atrain.py'))
+  f.write('%s' % commenter(lbroot + 'aevaluate.py'))
 
   f.write('%s' % commenter(rbroot + 'rb.cpp'))
   f.write('%s' % commenter(rbroot + 'star_identifier.h'))

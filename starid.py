@@ -11,14 +11,14 @@ import model
 import mnist_to_tfrecords
 
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/lb/data', '')
+tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/lb/adata', '')
 resultscnt = 25
 results = np.zeros(shape=(resultscnt, 6), dtype=float)
 
 
 def identify_central_star(imgndx):
     tf.reset_default_graph()
-    images = mnist_to_tfrecords.read_images('/home/noah/starid/lb/data/images_b1')
+    images = mnist_to_tfrecords.read_images('/home/noah/starid/lb/adata/images_b1')
     image = images[imgndx, :, :, 0]
     image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
     image = tf.reshape(image, [28, 28, 1])

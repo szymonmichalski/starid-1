@@ -76,12 +76,12 @@ def convert_to_tfrecords(images, labels, filename):
 
 
 def main(argv):
-    images = read_images('/home/noah/starid/stars/data/images_a1')
-    labels = read_labels('/home/noah/starid/stars/data/images_a2')
-    convert_to_tfrecords(images, labels, '/home/noah/starid/lb/data/images_a')
-    images = read_images('/home/noah/starid/stars/data/images_b1')
-    labels = read_labels('/home/noah/starid/stars/data/images_b2')
-    convert_to_tfrecords(images, labels, '/home/noah/starid/lb/data/images_b')
+    images = read_images('/home/noah/starid/stars/adata/images_a1')
+    labels = read_labels('/home/noah/starid/stars/adata/images_a2')
+    convert_to_tfrecords(images, labels, '/home/noah/starid/lb/adata/images_a')
+    images = read_images('/home/noah/starid/stars/adata/images_b1')
+    labels = read_labels('/home/noah/starid/stars/adata/images_b2')
+    convert_to_tfrecords(images, labels, '/home/noah/starid/lb/adata/images_b')
 
     # imgndx = 0
     # print (np.array_str(images[imgndx,:,:,0], max_line_width=500))

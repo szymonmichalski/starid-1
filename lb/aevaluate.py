@@ -8,8 +8,8 @@ import model
 import tfrecords
 
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/lb/data', '')
-tf.app.flags.DEFINE_string('examples', '/home/noah/starid/lb/data/images_b', '')
+tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/lb/adata', '')
+tf.app.flags.DEFINE_string('examples', '/home/noah/starid/lb/adata/images_b', '')
 tf.app.flags.DEFINE_string('num_examples', 10000, '')
 tf.app.flags.DEFINE_string('batch_size', 100, '')
 tf.app.flags.DEFINE_integer('max_steps', 100, '')
