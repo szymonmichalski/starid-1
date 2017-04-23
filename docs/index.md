@@ -1,6 +1,6 @@
 *22.4.2017*
 
-imgop tensorflow op and cpp kernel is fully functional, and immediately having a useful side effect. python can now interactively get images from the stars cpp app as numpy ndarrays
+imgop fully functional, and having a useful side effect. interactive star images as numpy ndarrays
 
     libimgop = tf.load_op_library('libimgop.so')
     with tf.Session(''):

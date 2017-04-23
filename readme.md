@@ -4,7 +4,7 @@
 
 *lb learning based starid*
 
-tensorflow framework for identification of stars using convnets and svms.
+tensorflow framework for identification of using convnets, rnns, svms, etc.
 
 *rb heuristic rule based starid*
 
