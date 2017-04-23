@@ -1,6 +1,6 @@
 ### *starid*
 ###
-### evaluates everything
+### demonstration, testing, and evaluation
 ###
 import subprocess
 import re
