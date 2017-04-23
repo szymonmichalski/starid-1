@@ -4,7 +4,7 @@
 
 *lb learning based starid*
 
-tensorflow framework for identification using cnn, rnn, svm, etc.
+tensorflow framework for identification using convolutional and recurrent networks.
 
 *rb heuristic rule based starid*
 
