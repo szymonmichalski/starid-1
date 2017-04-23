@@ -4,18 +4,18 @@
 ###
 import numpy as np
 import tensorflow as tf
-import model
-import tfrecords
+import amodel
+import acontainer_read
 
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/lb/adata', '')
-tf.app.flags.DEFINE_string('examples', '/home/noah/starid/lb/adata/images_b', '')
+tf.app.flags.DEFINE_string('examples', '/home/noah/starid/stars/data/eval', '')
 tf.app.flags.DEFINE_string('num_examples', 10000, '')
 tf.app.flags.DEFINE_string('batch_size', 100, '')
 tf.app.flags.DEFINE_integer('max_steps', 100, '')
 
-images, labels = tfrecords.inputs(FLAGS)
-softmax = model.inference(images)
+images, labels = acontainer_read.inputs(FLAGS)
+softmax = amodel.inference(images)
 prediction = tf.nn.in_top_k(softmax, labels, 1)
 
 saver = tf.train.Saver()

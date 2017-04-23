@@ -4,21 +4,21 @@
 ###
 import time
 import tensorflow as tf
-import model
-import tfrecords
+import amodel
+import acontainer_read
 
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/lb/adata', '')
 tf.app.flags.DEFINE_string('ckpt', '/home/noah/starid/lb/adata/model.ckpt', '')
-tf.app.flags.DEFINE_string('examples', '/home/noah/starid/lb/adata/images_a', '')
+tf.app.flags.DEFINE_string('examples', '/home/noah/starid/stars/data/train', '')
 tf.app.flags.DEFINE_string('num_examples', 60000, '')
 tf.app.flags.DEFINE_integer('batch_size', 100, '')
 tf.app.flags.DEFINE_integer('max_steps', 600, '')
 
 
 def train():
-    images, labels = tfrecords.inputs(FLAGS)
-    softmax = model.inference(images)
+    images, labels = acontainer_read.inputs(FLAGS)
+    softmax = amodel.inference(images)
     cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=softmax, labels=labels)
     loss = tf.reduce_mean(cross_entropy)
     train_op = tf.train.AdamOptimizer(1e-4).minimize(loss)

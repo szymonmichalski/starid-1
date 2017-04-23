@@ -14,7 +14,7 @@
 #include <cmath>
 
 std::string datadir = "/home/noah/starid/stars/data/";
-std::string imgfile = "images_b1";
+std::string imgfile = "eval_examples";
 int imgndx = 0;
 int teststar = -1;
 enum  optionIndex { UNKNOWN, HELP, DATADIR, IMGFILE, IMGNDX, TESTSTAR, TEST };
