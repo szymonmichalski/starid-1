@@ -37,10 +37,10 @@ def rb(starndx):
     result = int(re.search(r'identification = (\d+)', output.decode('utf-8')).group(1))
     return result
 
-### *imgop* generates and plots a star image numpy array.
+### *libimgop* generates and plots a star image numpy array.
 ###
 def imgop(starndx):
-    libimgop = tf.load_op_library('imgop/libimgop.so')
+    libimgop = tf.load_op_library('libimgop/libimgop.so')
     with tf.Session(''):
         image = libimgop.image(np.zeros(shape=(28, 28))).eval()
     plt.matshow(-1 * image, cmap='Greys', interpolation='nearest')

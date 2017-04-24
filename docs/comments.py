@@ -30,7 +30,7 @@ root = '../'
 lbroot = '../lb/'
 rbroot = '../rb/'
 starsroot = '../stars/'
-imgoproot = '../imgop/'
+imgoproot = '../libimgop/'
 
 with open(outfile, 'w') as f:
     f.write('%s' % commenter(root + 'starid.py'))
@@ -53,4 +53,4 @@ with open(outfile, 'w') as f:
     f.write('%s' % commenter(starsroot + 'globals.h'))
     f.write('%s' % commenter(starsroot + 'star_catalog.h'))
 
-    f.write('%s' % commenter(imgoproot + 'imgop.h'))
+    f.write('%s' % commenter(imgoproot + 'libimgop.h'))
