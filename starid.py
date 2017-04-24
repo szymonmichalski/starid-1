@@ -27,13 +27,13 @@ def lb_a(imgndx):
     sess = tf.Session()
     saver.restore(sess, ckpt.model_checkpoint_path)
     softmaxval = sess.run(softmax)
-    starndx = np.argmax(softmaxval)
-    return starndx
+    result = np.argmax(softmaxval)
+    return result
 
 def rb_a(starndx):
     output = subprocess.check_output(['/home/noah/starid/rb/rb', '--starndx', str(starndx)])
-    starndx = int(re.search(r'identification = (\d+)', output.decode('utf-8')).group(1))
-    return starndx
+    result = int(re.search(r'identification = (\d+)', output.decode('utf-8')).group(1))
+    return result
 
 for resultsndx in range(0, resultscnt):
     starndx = np.mod(resultsndx, 10)
