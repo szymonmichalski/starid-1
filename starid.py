@@ -15,7 +15,6 @@ tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/lb/adata', '')
 resultscnt = 5
 results = np.zeros(shape=(resultscnt, 6), dtype=float)
 
-
 def lb_a(imgndx):
     tf.reset_default_graph()
     images = lb.acontainer_make.read_images('/home/noah/starid/stars/data/eval_examples')
@@ -37,7 +36,6 @@ def rb_a(starndx):
     return starndx
 
 for resultsndx in range(0, resultscnt):
-
     starndx = np.mod(resultsndx, 10)
     starsetndx = np.random.randint(0, 1000)
     imgndx = starndx + starsetndx * 10
@@ -49,4 +47,3 @@ for resultsndx in range(0, resultscnt):
     t = time.time()
     results[resultsndx, 4] = rb_a(starndx)
     results[resultsndx, 5] = float(time.time() - t)
-
