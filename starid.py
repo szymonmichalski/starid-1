@@ -40,7 +40,7 @@ def rb_a(starndx):
     result = int(re.search(r'identification = (\d+)', output.decode('utf-8')).group(1))
     return result
 
-### *main processing loop*
+### *main*
 ###
 for resultsndx in range(0, resultscnt):
     starndx = np.mod(resultsndx, 10)
