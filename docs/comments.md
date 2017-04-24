@@ -2,11 +2,13 @@
 
 demonstration, testing, and evaluation
 
-*lb a* uses a convolutional network with training and evaluation input files based on the classic mnist format. systems that process classic mnist are compatible.
+*lb* uses a convolutional network with training and evaluation input files based on the classic mnist format.
 
-*rb a* uses triangular structure in the star image.
+*rb* uses triangular structure in the star image.
 
-*main processing loop*
+*imgop* generates and plots a star image numpy array.
+
+*main*
 
 *image viewer*
 

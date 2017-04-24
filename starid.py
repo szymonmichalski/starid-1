@@ -4,20 +4,17 @@
 ###
 import subprocess
 import re
-import time
 import numpy as np
 import tensorflow as tf
+import matplotlib.pyplot as plt
 import lb.amodel
 import lb.acontainer_make
 
-FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/lb/adata', '')
-resultscnt = 5
-results = np.zeros(shape=(resultscnt, 3), dtype=float)
-
-### *lb a* uses a convolutional network with training and evaluation input files based on the classic mnist format. systems that process classic mnist are compatible.
+### *lb* uses a convolutional network with training and evaluation input files based on the classic mnist format.
 ###
-def lb_a(imgndx):
+def lb(starndx):
+    FLAGS = tf.app.flags.FLAGS
+    tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/lb/adata', '')
     imgndx = starndx + 10 * np.random.randint(0, 1000)
     tf.reset_default_graph()
     images = lb.acontainer_make.read_images('/home/noah/starid/stars/data/eval_examples')
@@ -33,17 +30,28 @@ def lb_a(imgndx):
     result = np.argmax(softmaxval)
     return result
 
-### *rb a* uses triangular structure in the star image.
+### *rb* uses triangular structure in the star image.
 ###
-def rb_a(starndx):
+def rb(starndx):
     output = subprocess.check_output(['/home/noah/starid/rb/rb', '--starndx', str(starndx)])
     result = int(re.search(r'identification = (\d+)', output.decode('utf-8')).group(1))
     return result
 
+### *imgop* generates and plots a star image numpy array.
+###
+def imgop(starndx):
+    libimgop = tf.load_op_library('imgop/libimgop.so')
+    with tf.Session(''):
+        image = libimgop.image(np.zeros(shape=(28, 28))).eval()
+    plt.matshow(-1 * image, cmap='Greys', interpolation='nearest')
+    plt.show()
+    return image
+
 ### *main*
 ###
-for resultsndx in range(0, resultscnt):
-    starndx = np.mod(resultsndx, 10)
-    results[resultsndx, 0] = starndx
-    results[resultsndx, 1] = lb_a(starndx)
-    results[resultsndx, 2] = rb_a(starndx)
+starndx = 1
+image = imgop(starndx)
+reslb = lb(starndx)
+resrb = rb(starndx)
+
+
