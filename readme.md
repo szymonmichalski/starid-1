@@ -14,6 +14,10 @@ cpp for deterministic identification using triangular structure.
 
 tensorflow op generating runtime star images and labels.
 
+*libstarid*
+
+join numpy and cpp using pybind11.
+
 *stars*
 
 cpp sky representation and image generation. the focus is on pointing vectors. pure representations of direction in space, with length normalized to one, pointing to positions on the sky. two coordinates are independent and expressed in a plane tangent to the sky, and its image in a sensor. rotation about a pointing vector is yaw. we're identifying a star at the center of an image. the image pointing vector is equivalent to the star pointing vector. when the image pointing vector is totally uncertain, we have the lost in space case.
