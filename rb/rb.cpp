@@ -14,10 +14,9 @@
 #include <cmath>
 
 std::string datadir = "/home/noah/starid/stars/data/";
-std::string imgfile = "eval_examples";
-int imgndx = 0;
+int starndx = 0;
 int teststar = -1;
-enum  optionIndex { UNKNOWN, HELP, DATADIR, IMGFILE, IMGNDX, TESTSTAR, TEST };
+enum  optionIndex { UNKNOWN, HELP, DATADIR, STARNDX, TESTSTAR, TEST };
 
 struct Arg: public option::Arg {
     static void printError(const char* msg1, const option::Option& opt, const char* msg2) {
@@ -43,8 +42,7 @@ const option::Descriptor usage[] = {
     {UNKNOWN, 0, "", "", option::Arg::None, "\nusage: rb [options]\n\noptions:" },
     {HELP, 0, "h", "help", option::Arg::None, "  -h, --help  \tprint usage and exit" },
     {DATADIR, 0, "", "datadir", Arg::Required, "  --datadir  \tdata dir" },
-    {IMGFILE, 0, "", "imgfile", Arg::Required, "  --imgfile  \timage file" },
-    {IMGNDX, 0, "", "imgndx", Arg::Required, "  --imgndx  \timage ndx" },
+    {STARNDX, 0, "", "starndx", Arg::Required, "  --starndx  \timage ndx" },
     {TESTSTAR, 0, "", "teststar", Arg::Required, "  --teststar  \ttest star ndx" },
     {TEST, 0, "t", "", Arg::None, "  -t  \ttest" },
     {0,0,0,0,0,0} // end of options
@@ -70,18 +68,11 @@ int main(int argc, char* argv[])
         std::cout << "using default datadir = " << datadir << std::endl;
     }
 
-    if (options[IMGFILE]) {
-        imgfile = options[IMGFILE].arg;
-        std::cout << "using imgfile = " << imgfile << std::endl;
+    if (options[STARNDX]) {
+        starndx = atoi(options[STARNDX].arg);
+        std::cout << "using starndx = " << starndx << std::endl;
     } else {
-        std::cout << "using default imgfile = " << imgfile << std::endl;
-    }
-
-    if (options[IMGNDX]) {
-        imgndx = atoi(options[IMGNDX].arg);
-        std::cout << "using imgndx = " << imgndx << std::endl;
-    } else {
-        std::cout << "using default imgndx = " << imgndx << std::endl;
+        std::cout << "using default starndx = " << starndx << std::endl;
     }
 
     if (options[TESTSTAR]) {
@@ -101,7 +92,6 @@ int main(int argc, char* argv[])
         cereal::BinaryInputArchive iarchive2(is2);
         iarchive2(pairs);
 
-        int starndx = 2;
         stars::image_matrix imgmat = stars::pointing_vectors::new_image_matrix(starndx, sky);
         rules::star_identifier ider(imgmat, pairs);
         int result = ider.id();
@@ -110,20 +100,15 @@ int main(int argc, char* argv[])
 
     if (!options[TEST]) {
         util::Stopwatch stopwatch;
-
         stars::Sky sky;
         std::ifstream is1(std::string(datadir + "sky"));
         cereal::BinaryInputArchive iarchive1(is1);
         iarchive1(sky);
-
         stars::Pairs pairs;
         std::ifstream is2(std::string(datadir + "pairs"));
         cereal::BinaryInputArchive iarchive2(is2);
         iarchive2(pairs);
-
-        stars::pointing_vectors pv;
-        std::string filename = datadir + imgfile;
-        stars::image_matrix imgmat = stars::pointing_vectors::read_image_matrix(filename, imgndx);
+        stars::image_matrix imgmat = stars::pointing_vectors::new_image_matrix(starndx, sky);
         std::cout << "sky, pairs, image msecs = " << stopwatch.end() << std::endl;
 
         stopwatch.reset();

@@ -46,7 +46,7 @@ for resultsndx in range(0, resultscnt):
     results[resultsndx, 3] = float(time.time() - t1)
 
     t2 = time.time()
-    output = subprocess.check_output(['/home/noah/starid/rb/rb', '--imgndx', str(imgndx)])
+    output = subprocess.check_output(['/home/noah/starid/rb/rb', '--starndx', str(starndx)])
     starndx2 = int(re.search(r'identification = (\d+)', output.decode('utf-8')).group(1))
     if starndx2 == results[resultsndx, 0]:
         results[resultsndx, 4] = 1

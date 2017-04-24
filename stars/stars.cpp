@@ -65,13 +65,7 @@ int main(int argc, char* argv[])
     }
 
     if (options[TEST]) {
-        std::string datadir = "/home/noah/starid/stars/data/";
-        std::string imgfile = "images_b1";
-        int imgndx = 0;
-        stars::pointing_vectors image;
-        std::string filename = datadir + imgfile;
-        image.read_image_matrix(filename, imgndx);
-        std::cout << " " << std::endl;
+
     }
 
     if (options[STARS]) {
