@@ -55,8 +55,6 @@ for resultsndx in range(0, resultscnt):
     print('%5.0f, %5.0f, %1.0f, %1.0f' % (
     results[resultsndx, 0], results[resultsndx, 1], results[resultsndx, 2], results[resultsndx, 4]))
 
-print()
 print('%5s  %5s  %5s' % ('n %i' % resultscnt, 'ok', 't'))
-print('%5s  %5s  %5s' % ('-----', '-----', '-----'))
 print('%5s  %4.3f  %4.3f' % ('lb', np.mean(results[:, 2]), np.mean(results[:, 3])))
 print('%5s  %4.3f  %4.3f' % ('rb', np.mean(results[:, 4]), np.mean(results[:, 5])))
