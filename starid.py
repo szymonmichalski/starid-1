@@ -15,6 +15,8 @@ tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/lb/adata', '')
 resultscnt = 5
 results = np.zeros(shape=(resultscnt, 6), dtype=float)
 
+### *lb a* uses a convolutional network with training and evaluation input files based on the classic mnist format. systems that process classic mnist are compatible.
+###
 def lb_a(imgndx):
     tf.reset_default_graph()
     images = lb.acontainer_make.read_images('/home/noah/starid/stars/data/eval_examples')
@@ -30,11 +32,15 @@ def lb_a(imgndx):
     result = np.argmax(softmaxval)
     return result
 
+### *rb a* uses triangular structure in the star image.
+###
 def rb_a(starndx):
     output = subprocess.check_output(['/home/noah/starid/rb/rb', '--starndx', str(starndx)])
     result = int(re.search(r'identification = (\d+)', output.decode('utf-8')).group(1))
     return result
 
+### *main processing loop*
+###
 for resultsndx in range(0, resultscnt):
     starndx = np.mod(resultsndx, 10)
     starsetndx = np.random.randint(0, 1000)

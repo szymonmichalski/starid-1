@@ -1,6 +1,12 @@
 *starid*
 
-evaluates both lb learning and rb heuristic rules in parallel.
+demonstration, testing, and evaluation
+
+*lb a* uses a convolutional network with training and evaluation input files based on the classic mnist format. systems that process classic mnist are compatible.
+
+*rb a* uses triangular structure in the star image.
+
+*main processing loop*
 
 *image viewer*
 
