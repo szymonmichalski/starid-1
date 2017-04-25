@@ -16,7 +16,7 @@ tensorflow op for star images.
 
 *libstars*
 
-pybind11 interfaces for star images.
+pybind11 interface for star images.
 
 *stars*
 
