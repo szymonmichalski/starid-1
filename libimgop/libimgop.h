@@ -1,4 +1,4 @@
-/// *imgop*
+/// *libimgop*
 ///
 /// tensorflow op generating runtime star images and labels.
 ///

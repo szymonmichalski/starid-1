@@ -1,4 +1,4 @@
-#include "imgop.h"
+#include "libimgop.h"
 
 void imgop::Compute(OpKernelContext* context) {
   const Tensor& input_tensor = context->input(0);
