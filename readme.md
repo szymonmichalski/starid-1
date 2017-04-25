@@ -16,7 +16,7 @@ tensorflow op generating runtime star images and labels.
 
 *libstarid*
 
-pybind11 interface of numpy and eigen.
+pybind11 between numpy and eigen.
 
 *stars*
 
