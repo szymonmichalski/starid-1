@@ -14,7 +14,7 @@ cpp for deterministic identification using triangular structure.
 
 tensorflow op generating runtime star images and labels.
 
-*libstarid*
+*libstars*
 
 pybind11 between numpy and eigen.
 
