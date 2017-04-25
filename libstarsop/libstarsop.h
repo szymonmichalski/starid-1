@@ -1,10 +1,10 @@
-/// *libimgop*
+/// *libstarsop*
 ///
 /// tensorflow op generating runtime star images and labels.
 ///
 
-#ifndef STAR_IMAGES_H
-#define STAR_IMAGES_H
+#ifndef LIBSTARSOP_H
+#define LIBSTARSOP_H
 
 #include "/home/noah/tf/lib/python3.5/site-packages/tensorflow/include/tensorflow/core/framework/op.h"
 #include "/home/noah/tf/lib/python3.5/site-packages/tensorflow/include/tensorflow/core/framework/shape_inference.h"
@@ -23,7 +23,7 @@ REGISTER_OP("Image")
     [](::tensorflow::shape_inference::InferenceContext* c) { c->set_output(0, c->input(0)); return Status::OK(); }
 );
 
-class imgop : public OpKernel {
+class libstarsop : public OpKernel {
 
 public:
 
@@ -31,7 +31,7 @@ public:
 
     /// *constructor* interfaces with tensorflow, and loads the sky binary file needed to generate star images
     ///
-    explicit imgop(OpKernelConstruction* context) : OpKernel(context) {
+    explicit libstarsop(OpKernelConstruction* context) : OpKernel(context) {
         std::string datadir = "/home/noah/starid/stars/data/"; // move out of header when possible
         std::ifstream is1(std::string(datadir + "sky"));
         cereal::BinaryInputArchive iarchive1(is1);

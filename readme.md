@@ -10,7 +10,7 @@ tensorflow framework for identification using convolutional and recurrent networ
 
 cpp for identification using triangular structure.
 
-*libimgop*
+*libstarsop*
 
 tensorflow op for star images.
 

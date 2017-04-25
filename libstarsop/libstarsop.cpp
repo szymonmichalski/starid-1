@@ -1,6 +1,6 @@
-#include "libimgop.h"
+#include "libstarsop.h"
 
-void imgop::Compute(OpKernelContext* context) {
+void libstarsop::Compute(OpKernelContext* context) {
   const Tensor& input_tensor = context->input(0);
   auto input = input_tensor.flat<int32>();
 
