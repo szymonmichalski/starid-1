@@ -8,7 +8,7 @@ tensorflow framework for identification using convolutional and recurrent networ
 
 *rb heuristic rule based starid*
 
-cpp for deterministic identification using triangular structure.
+cpp for identification using triangular structure.
 
 *libimgop*
 
@@ -20,6 +20,6 @@ pybind11 interface for star images.
 
 *stars*
 
-cpp sky representation and image generation. the focus is on pointing vectors. pure representations of direction in space, with length normalized to one, pointing to positions on the sky. two coordinates are independent and expressed in a plane tangent to the sky, and its image in a sensor. rotation about a pointing vector is yaw. we're identifying a star at the center of an image. the image pointing vector is equivalent to the star pointing vector. when the image pointing vector is totally uncertain, we have the lost in space case.
+cpp sky representation and image generation using pointing vectors, pure representations of direction in space. two coordinates are independent and expressed in a plane tangent to the sky, and its image in a sensor. rotation about a pointing vector is yaw. we're identifying a star at the center of an image. the image pointing vector is equivalent to the star pointing vector. when the image pointing vector is totally uncertain, we have the lost in space case.
 
 thanks to [tensorflow](http://github.com/tensorflow/tensorflow), [eigen](http://eigen.tuxfamily.org/index.php), [pybind11](https://github.com/pybind/pybind11), [armadillo](http://arma.sourceforge.net), [openblas](http://www.openblas.net/), [lapack](http://www.netlib.org/lapack/), [cereal](http://github.com/USCiLab/cereal), [optionparser](http://optionparser.sourceforge.net).
