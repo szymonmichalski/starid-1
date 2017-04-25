@@ -2,9 +2,9 @@
 
 imgop fully functional, and having a useful side effect. interactive star images as numpy ndarrays
 
-    libimgop = tf.load_op_library('libimgop.so')
+    libstarsop = tf.load_op_library('libstarsop.so')
     with tf.Session(''):
-        image = libimgop.image(nd.zeros(shape=(28, 28))).eval()
+        image = libstarsop.stars_op(np.zeros(shape=(28, 28))).eval()
     plt.matshow(-1 * image, cmap='Greys', interpolation='nearest')
     plt.show()
 
