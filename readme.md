@@ -12,11 +12,11 @@ cpp for deterministic identification using triangular structure.
 
 *libimgop*
 
-tensorflow op generating runtime star images and labels.
+tensorflow op for star images.
 
 *libstars*
 
-pybind11 between numpy and eigen.
+pybind11 interfaces for star images.
 
 *stars*
 
