@@ -4,7 +4,7 @@
 
 *id*
 
-star identification using convolutional networks, recurrent networks, triangular structure, etc.
+star identification using convolutional and recurrent networks, triangular structure, etc.
 
 *libstarsop*
 
