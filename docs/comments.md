@@ -2,11 +2,11 @@
 
 demonstration, testing, and evaluation
 
-*lb* uses a convolutional network with training and evaluation input files based on the classic mnist format.
+*id1* uses a convolutional network with training and evaluation input files based on the classic mnist format.
 
-*rb* uses triangular structure in the star image.
+*id* uses triangular structure in the star image.
 
-*imgop* generates and plots a star image numpy array.
+*libstarsop* generates and plots a star image numpy array.
 
 *main*
 
@@ -16,7 +16,7 @@ shows 28 x 28 mnist style star images.
 
 *model*
 
-tensorflow graph implementing inference for star identification. it's kept separate and independent since it's used by multiple scripts, for example lb, learn, and testing.
+tensorflow graph implementing inference for star identification. it's kept separate and independent since it's used by multiple scripts, for example id1, learn, and testing.
 
 *training*
 
@@ -90,7 +90,7 @@ global values
 
 nasa skymap star catalog
 
-*imgop*
+*libstarsop*
 
 tensorflow op generating runtime star images and labels.
 

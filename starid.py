@@ -2,19 +2,18 @@
 ###
 ### demonstration, testing, and evaluation
 ###
-import subprocess
 import re
+import subprocess
+
+import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
-import matplotlib.pyplot as plt
-import lb.amodel
-import lb.acontainer_make
 
-### *lb* uses a convolutional network with training and evaluation input files based on the classic mnist format.
+### *id1* uses a convolutional network with training and evaluation input files based on the classic mnist format.
 ###
 def lb(starndx):
     FLAGS = tf.app.flags.FLAGS
-    tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/lb/adata', '')
+    tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/id1/adata', '')
     imgndx = starndx + 10 * np.random.randint(0, 1000)
     tf.reset_default_graph()
     images = lb.acontainer_make.read_images('/home/noah/starid/stars/data/eval_examples')
@@ -30,10 +29,10 @@ def lb(starndx):
     result = np.argmax(softmaxval)
     return result
 
-### *rb* uses triangular structure in the star image.
+### *id* uses triangular structure in the star image.
 ###
 def rb(starndx):
-    output = subprocess.check_output(['/home/noah/starid/rb/rb', '--starndx', str(starndx)])
+    output = subprocess.check_output(['/home/noah/starid/id/id', '--starndx', str(starndx)])
     result = int(re.search(r'identification = (\d+)', output.decode('utf-8')).group(1))
     return result
 

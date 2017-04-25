@@ -1,9 +1,9 @@
 TEMPLATE = app
 CONFIG = c++14 warn_off debug
-TARGET = rb
+TARGET = id
 
 SOURCES += \
-    rb.cpp \
+    id.cpp \
     triangle_side.cpp \
     triangle.cpp \
     star_identifier.cpp \

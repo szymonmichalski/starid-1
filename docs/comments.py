@@ -27,23 +27,22 @@ def commenter(filename):
 
 outfile = 'comments.md'
 root = '../'
-lbroot = '../lb/'
-rbroot = '../rb/'
+idroot = '../id/'
 starsroot = '../stars/'
-imgoproot = '../libstarsop/'
+libstarsop = '../libstarsop/'
 
 with open(outfile, 'w') as f:
     f.write('%s' % commenter(root + 'starid.py'))
 
-    f.write('%s' % commenter(lbroot + 'acontainer_plot.py'))
-    f.write('%s' % commenter(lbroot + 'amodel.py'))
-    f.write('%s' % commenter(lbroot + 'atrain.py'))
-    f.write('%s' % commenter(lbroot + 'aevaluate.py'))
+    f.write('%s' % commenter(idroot + 'acontainer_plot.py'))
+    f.write('%s' % commenter(idroot + 'amodel.py'))
+    f.write('%s' % commenter(idroot + 'atrain.py'))
+    f.write('%s' % commenter(idroot + 'aevaluate.py'))
 
-    f.write('%s' % commenter(rbroot + 'rb.cpp'))
-    f.write('%s' % commenter(rbroot + 'star_identifier.h'))
-    f.write('%s' % commenter(rbroot + 'triangle.h'))
-    f.write('%s' % commenter(rbroot + 'triangle_side.h'))
+    f.write('%s' % commenter(idroot + 'id.cpp'))
+    f.write('%s' % commenter(idroot + 'star_identifier.h'))
+    f.write('%s' % commenter(idroot + 'triangle.h'))
+    f.write('%s' % commenter(idroot + 'triangle_side.h'))
 
     f.write('%s' % commenter(starsroot + 'stars.cpp'))
     f.write('%s' % commenter(starsroot + 'sky.h'))
@@ -53,4 +52,4 @@ with open(outfile, 'w') as f:
     f.write('%s' % commenter(starsroot + 'globals.h'))
     f.write('%s' % commenter(starsroot + 'star_catalog.h'))
 
-    f.write('%s' % commenter(imgoproot + 'libstarsop.h'))
+    f.write('%s' % commenter(libstarsop + 'libstarsop.h'))

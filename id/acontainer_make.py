@@ -17,7 +17,7 @@ def _read32(bytestream):
 
 
 def read_images(filename):
-    with gfile.Open(filename, 'rb') as bytestream:
+    with gfile.Open(filename, 'id') as bytestream:
         magic = _read32(bytestream)
         if magic != 2051:
             raise ValueError('magic number error %s' % (magic, filename))
@@ -31,7 +31,7 @@ def read_images(filename):
 
 
 def read_labels(filename, one_hot=False, num_classes=10):
-    with gfile.Open(filename, 'rb') as bytestream:
+    with gfile.Open(filename, 'id') as bytestream:
         magic = _read32(bytestream)
         if magic != 2049:
             raise ValueError('magic number error %s' % (magic, filename))
@@ -78,10 +78,10 @@ def convert_to_tfrecords(images, labels, filename):
 def main(argv):
     images = read_images('/home/noah/starid/stars/adata/train_examples')
     labels = read_labels('/home/noah/starid/stars/adata/train_labels')
-    convert_to_tfrecords(images, labels, '/home/noah/starid/lb/adata/train')
+    convert_to_tfrecords(images, labels, '/home/noah/starid/id1/adata/train')
     images = read_images('/home/noah/starid/stars/adata/eval_examples')
     labels = read_labels('/home/noah/starid/stars/adata/eval_labels')
-    convert_to_tfrecords(images, labels, '/home/noah/starid/lb/adata/eval')
+    convert_to_tfrecords(images, labels, '/home/noah/starid/id1/adata/eval')
 
     # imgndx = 0
     # print (np.array_str(images[imgndx,:,:,0], max_line_width=500))

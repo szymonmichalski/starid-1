@@ -2,13 +2,9 @@
 
 [notes](http://starid.org), [about](http://starid.org/about), [related papers](http://starid.org/references), [code notes](http://starid.org/comments)
 
-*lb learning based starid*
+*id*
 
-tensorflow framework for identification using convolutional and recurrent networks.
-
-*rb heuristic rule based starid*
-
-cpp for identification using triangular structure.
+star identification using convolutional networks, recurrent networks, triangular structure, etc.
 
 *libstarsop*
 
