@@ -23,4 +23,6 @@ HEADERS += \
     ../stars/float_int_table.h \
     ../stars/star_catalog.h \
 
-INCLUDEPATH += ../stars
+INCLUDEPATH += \
+    ../stars \
+    /usr/include/python3.5m \
