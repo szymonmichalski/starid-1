@@ -8,9 +8,9 @@ import amodel
 import acontainer_read
 
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/id1/adata', '')
-tf.app.flags.DEFINE_string('ckpt', '/home/noah/starid/id1/adata/model.ckpt', '')
-tf.app.flags.DEFINE_string('examples', '/home/noah/starid/stars/data/train', '')
+tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/id/adata', '')
+tf.app.flags.DEFINE_string('ckpt', '/home/noah/starid/id/adata/model.ckpt', '')
+tf.app.flags.DEFINE_string('examples', '/home/noah/starid/id/adata/train', '')
 tf.app.flags.DEFINE_string('num_examples', 60000, '')
 tf.app.flags.DEFINE_integer('batch_size', 100, '')
 tf.app.flags.DEFINE_integer('max_steps', 600, '')

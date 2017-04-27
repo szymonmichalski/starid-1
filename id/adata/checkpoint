@@ -1,2 +1,2 @@
-model_checkpoint_path: "/home/noah/starid/lb/adata/model.ckpt"
-all_model_checkpoint_paths: "/home/noah/starid/lb/adata/model.ckpt"
+model_checkpoint_path: "/home/noah/starid/id/adata/model.ckpt"
+all_model_checkpoint_paths: "/home/noah/starid/id/adata/model.ckpt"
