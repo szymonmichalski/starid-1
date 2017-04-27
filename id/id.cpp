@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
         iarchive2(pairs);
 
         stars::image_matrix imgmat = stars::pointing_vectors::new_image_matrix(starndx, sky);
-        rules::star_identifier ider(imgmat, pairs);
+        id::star_identifier ider(imgmat, pairs);
         int result = ider.id();
         std::cout << result << std::endl;
     }
@@ -112,7 +112,7 @@ int main(int argc, char* argv[])
         std::cout << "sky, pairs, image msecs = " << stopwatch.end() << std::endl;
 
         stopwatch.reset();
-        rules::star_identifier ider(imgmat, pairs);
+        id::star_identifier ider(imgmat, pairs);
         int result = ider.id(teststar);
         std::cout << "triangles msecs = " << stopwatch.end() << std::endl;
 

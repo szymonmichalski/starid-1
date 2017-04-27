@@ -15,7 +15,7 @@
 #include <unordered_map>
 #include <map>
 
-namespace rules {
+namespace id {
 
 class star_identifier
 {

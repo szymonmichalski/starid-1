@@ -1,6 +1,6 @@
 #include "triangle_side.h"
 
-rules::TriangleSide::TriangleSide(double ang,
+id::TriangleSide::TriangleSide(double ang,
                                   double tolerance,
                                   stars::Pairs& pairs,
                                   int starndx)
@@ -9,12 +9,12 @@ rules::TriangleSide::TriangleSide(double ang,
     stars = pairs.pairs_map(ang, tolerance);
 }
 
-rules::TriangleSide::TriangleSide(int teststar)
+id::TriangleSide::TriangleSide(int teststar)
     : teststar(teststar)
 {
 }
 
-void rules::TriangleSide::append_iterations(TriangleSide &side) {
+void id::TriangleSide::append_iterations(TriangleSide &side) {
     stars = side.stars;
     for (auto tmp : side.log_pair_count) log_pair_count.push_back(tmp);
     for (auto tmp : side.log_star_count) log_star_count.push_back(tmp);
@@ -22,7 +22,7 @@ void rules::TriangleSide::append_iterations(TriangleSide &side) {
     has_teststar = side.has_teststar;
 }
 
-void::rules::TriangleSide::trim_pairs() {
+void::id::TriangleSide::trim_pairs() {
 
     for (auto star1 = stars.begin(), end = stars.end(); star1 != end; ++star1) {
         auto &pairs = star1->second;
@@ -52,7 +52,7 @@ void::rules::TriangleSide::trim_pairs() {
     log_teststar.push_back(has_teststar);
 }
 
-int rules::TriangleSide::pair_count() {
+int id::TriangleSide::pair_count() {
     int result = 0;
     for (auto it1 = stars.begin(), end = stars.end(); it1 != end; ++it1) {
         result += it1->second.size();
@@ -61,7 +61,7 @@ int rules::TriangleSide::pair_count() {
 }
 
 
-std::map<int, int> rules::TriangleSide::summary() {
+std::map<int, int> id::TriangleSide::summary() {
     std::map<int, int> result;
     for (auto it = stars.begin(), end = stars.end(); it != end; ++it) {
         auto &inner = it->second;
@@ -70,7 +70,7 @@ std::map<int, int> rules::TriangleSide::summary() {
     return result;
 }
 
-bool rules::TriangleSide::check_teststar(int starndx) {
+bool id::TriangleSide::check_teststar(int starndx) {
     auto it = stars.find(starndx);
     if (it == stars.end()) return false;
     return true;

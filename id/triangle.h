@@ -10,7 +10,7 @@
 #include "pairs.h"
 #include <Eigen/Core>
 
-namespace rules {
+namespace id {
 
 class Triangle
 {
@@ -33,9 +33,9 @@ public:
              int teststar,
              Eigen::Vector3d vecstar3);
 
-    rules::TriangleSide side1;
-    rules::TriangleSide side2;
-    rules::TriangleSide side3;
+    id::TriangleSide side1;
+    id::TriangleSide side2;
+    id::TriangleSide side3;
     int loops_cnt;
     int teststar;
     double tolerance;

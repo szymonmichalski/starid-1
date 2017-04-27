@@ -1,6 +1,6 @@
 #include "triangle.h"
 
-rules::Triangle::Triangle(double ang1,
+id::Triangle::Triangle(double ang1,
                           double ang2,
                           double ang3,
                           double tolerance,
@@ -18,7 +18,7 @@ rules::Triangle::Triangle(double ang1,
     vecstar3 << vecin(0), vecin(1), vecin(2);
 }
 
-void rules::Triangle::close_loops_abda(std::vector<Triangle> &triangles) {
+void id::Triangle::close_loops_abda(std::vector<Triangle> &triangles) {
 
     int maxtriangles = triangles.size();
     for (int trianglendx = 0; trianglendx < maxtriangles; ++trianglendx) {
@@ -78,7 +78,7 @@ void rules::Triangle::close_loops_abda(std::vector<Triangle> &triangles) {
     }
 }
 
-void rules::Triangle::close_loops_abca() {
+void id::Triangle::close_loops_abca() {
     loops_cnt = 0;
 
     for (auto it11 = side1.stars.begin(), end = side1.stars.end(); it11 != end; ++it11) {

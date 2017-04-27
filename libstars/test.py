@@ -3,7 +3,9 @@ import matplotlib.pyplot as plt
 
 import libstars
 stars = libstars.libstars()
-starndx = 4
-image = stars.image(starndx)
-plt.matshow(-1 * image, cmap='Greys', interpolation='nearest')
-plt.show()
+image = stars.image(starndx=4)
+# plt.matshow(-1 * image, cmap='Greys', interpolation='nearest')
+# plt.show()
+
+stars.load_pairs()
+print(stars.id(image))
