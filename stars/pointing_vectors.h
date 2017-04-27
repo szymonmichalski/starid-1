@@ -6,7 +6,7 @@
 #define IMAGE_H
 
 #include "sky.h"
-#include <eigen/Core>
+#include <Eigen/Core>
 #include <fstream>
 
 namespace stars {

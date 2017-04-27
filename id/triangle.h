@@ -8,7 +8,7 @@
 #include "triangle_side.h"
 #include "sky.h"
 #include "pairs.h"
-#include <eigen/Core>
+#include <Eigen/Core>
 
 namespace rules {
 

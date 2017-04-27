@@ -12,7 +12,7 @@
 #include <cereal/types/tuple.hpp>
 #include <cereal/types/vector.hpp>
 #include <cereal/types/unordered_map.hpp>
-#include <eigen/Core>
+#include <Eigen/Core>
 #include <globals.h>
 
 namespace stars {

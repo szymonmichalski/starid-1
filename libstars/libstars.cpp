@@ -1,6 +1,6 @@
 #include "libstars.h"
 
-libstars::libstars() {
+starsclass::starsclass() {
 
     std::string datadir = "/home/noah/starid/stars/data/";
     std::ifstream is1(std::string(datadir + "sky"));
