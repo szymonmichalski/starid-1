@@ -1,6 +1,6 @@
 /// *libstars*
 ///
-/// interface numpy and cpp.
+/// interface numpy and eigen.
 ///
 
 #ifndef LIBSTARS_H
