@@ -1,3 +1,13 @@
+*27.4.201*
+
+interactive star images via pybind11 now working as well, cpp eigen direct into numpy
+
+    import libstars
+    stars = libstars.libstars()
+    image = stars.image(starndx)
+    plt.matshow(-1 * image, cmap='Greys', interpolation='nearest')
+    plt.show()
+
 *22.4.2017*
 
 imgop fully functional, and having a useful side effect. interactive star images as numpy ndarrays

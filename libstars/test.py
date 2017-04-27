@@ -1,7 +1,7 @@
-import libstars
 import numpy as np
 import matplotlib.pyplot as plt
 
+import libstars
 stars = libstars.libstars()
 starndx = 4
 image = stars.image(starndx)
