@@ -1,11 +1,9 @@
 *27.4.201*
 
-interactive star images via pybind11 now working as well, cpp eigen direct into numpy. and the inverse. input numpy imgmat into cpp identification. 
+pybind11 star images now working, and the inverse as well. 
 
-    import libstars
-    stars = libstars.libstars()
-    image = stars.image(starndx=4)
-    starndx = stars.id(image)
+    image = libstars.image(starndx=4)
+    starndx = libstars.id(image)
 
 *22.4.2017*
 
