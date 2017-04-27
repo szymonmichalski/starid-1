@@ -8,6 +8,6 @@ libstars::libstars() {
 }
 
 Eigen::MatrixXd libstars::image(int starndx) {
-    Eigen::MatrixXd out = Eigen::MatrixXd::Zero(starndx, starndx);
-    return out;
+    Eigen::MatrixXd img = stars::pointing_vectors::new_image_matrix(starndx, sky);;
+    return img;
 }
