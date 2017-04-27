@@ -13,26 +13,23 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/eigen.h>
 
-class starsclass {
+class libstars {
 
 public:
 
     stars::Sky sky;
 
-    starsclass();
+    libstars();
 
-    Eigen::Matrix2d add(Eigen::Matrix2d in) {
-        Eigen::Matrix2d out = in;
-        return out;
-    }
+    Eigen::MatrixXd image(int starndx);
 
 };
 
 PYBIND11_PLUGIN(libstars) {
-    pybind11::module pymodule("libstars", "description string");
-    pybind11::class_<starsclass>(pymodule, "starsclass")
+    pybind11::module pymodule("libstars", "libstars python module");
+    pybind11::class_<libstars>(pymodule, "libstars")
         .def(pybind11::init<>())
-        .def("add", &starsclass::add);
+        .def("image", &libstars::image);
     return pymodule.ptr();
 }
 
