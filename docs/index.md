@@ -1,9 +1,9 @@
 *27.4.201*
 
-pybind11 star images now working, and the inverse as well. 
+star image and inverse now working, with direct cpp eigen and python numpy using pybind11.
 
-    image = libstars.image(starndx=4)
-    starndx = libstars.id(image)
+    image = libstarid.image(starndx=4)
+    starndx = libstarid.id(image)
 
 *22.4.2017*
 
