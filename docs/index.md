@@ -1,4 +1,4 @@
-*27.4.201*
+*27.4.2017*
 
 star image and inverse now working, with direct cpp eigen and python numpy using pybind11.
 
