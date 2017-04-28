@@ -29,15 +29,10 @@ outfile = 'comments.md'
 root = '../'
 idroot = '../id/'
 starsroot = '../stars/'
-libstarsop = '../libstarsop/'
+libstarid = '../libstarid/'
 
 with open(outfile, 'w') as f:
     f.write('%s' % commenter(root + 'starid.py'))
-
-    f.write('%s' % commenter(idroot + 'acontainer_plot.py'))
-    f.write('%s' % commenter(idroot + 'amodel.py'))
-    f.write('%s' % commenter(idroot + 'atrain.py'))
-    f.write('%s' % commenter(idroot + 'aevaluate.py'))
 
     f.write('%s' % commenter(idroot + 'id.cpp'))
     f.write('%s' % commenter(idroot + 'star_identifier.h'))
@@ -52,4 +47,4 @@ with open(outfile, 'w') as f:
     f.write('%s' % commenter(starsroot + 'globals.h'))
     f.write('%s' % commenter(starsroot + 'star_catalog.h'))
 
-    f.write('%s' % commenter(libstarsop + 'libstarsop.h'))
+    f.write('%s' % commenter(libstarid + 'libstarid.h'))

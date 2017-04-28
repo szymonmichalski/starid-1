@@ -2,16 +2,15 @@
 ###
 ### demonstration and testing
 ###
-import numpy as np
-import tensorflow as tf
-import libstars.libstars as ls
+
+import libstarid.libstarid as ls
 import id.id
 
-libstars = ls.libstars()
-libstars.load_pairs()
+libstarid = ls.libstarid()
+libstarid.load_pairs()
 
-image = libstars.image(starndx=1)
-print(libstars.id(image))
+image = libstarid.image(starndx=1)
+print(libstarid.id(image))
 print(id.id.lb(image))
 
 

@@ -1,13 +1,13 @@
-TARGET = stars
+TARGET = starid
 TEMPLATE = lib
 CONFIG -= qt
 CONFIG += c++14 warn_off debug
 
 SOURCES += \
-    libstars.cpp
+    libstarid.cpp
 
 HEADERS += \
-    libstars.h
+    libstarid.h
 
 SOURCES += \
     ../stars/globals.cpp \

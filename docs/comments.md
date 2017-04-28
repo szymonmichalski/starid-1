@@ -1,30 +1,6 @@
 *starid*
 
-demonstration, testing, and evaluation
-
-*id1* uses a convolutional network with training and evaluation input files based on the classic mnist format.
-
-*id* uses triangular structure in the star image.
-
-*libstarsop* generates and plots a star image numpy array.
-
-*main*
-
-*image viewer*
-
-shows 28 x 28 mnist style star images.
-
-*model*
-
-tensorflow graph implementing inference for star identification. it's kept separate and independent since it's used by multiple scripts, for example id1, learn, and testing.
-
-*training*
-
-performs training of the model.
-
-*evaluation*
-
-performs evaluation of the model. star identification is performed on a group of images and the results are scored.
+demonstration and testing
 
 *rules based heuristic star identification*
 
@@ -90,11 +66,7 @@ global values
 
 nasa skymap star catalog
 
-*libstarsop*
+*libstarid*
 
-tensorflow op generating runtime star images and labels.
-
-*constructor* interfaces with tensorflow, and loads the sky binary file needed to generate star images
-
-*compute* called by tensorflow to perform op
+interface cpp eigen and python numpy.
 

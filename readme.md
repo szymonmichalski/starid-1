@@ -6,13 +6,9 @@
 
 star identification using convolutional and recurrent networks, triangular structure, etc.
 
-*libstarsop*
+*libstarid*
 
-tensorflow op for star images.
-
-*libstars*
-
-pybind11 for star images.
+interface cpp eigen and python numpy.
 
 *stars*
 
