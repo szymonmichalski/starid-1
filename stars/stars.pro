@@ -1,23 +1,10 @@
 TEMPLATE = app
 CONFIG = c++14 warn_on debug
 TARGET = stars
+OTHER_FILES += stars.pri
 
 SOURCES += \
     stars.cpp \
-    globals.cpp \
-    pairs.cpp \
-    star_catalog.cpp \
-    sky.cpp \
-    float_int_table.cpp \
-    pointing_vectors.cpp \
 
-HEADERS += \
-    globals.h \
-    pairs.h \
-    star_catalog.h \
-    sky.h \
-    float_int_table.h \
-    util/stopwatch.h \
-    util/optionparser.h \
-    pointing_vectors.h \
+include(/home/noah/starid/stars/stars.pri)
 
