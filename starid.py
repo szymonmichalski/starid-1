@@ -1,6 +1,6 @@
 ### *starid*
 ###
-### demonstration, testing, and evaluation
+### demonstration and testing
 ###
 import numpy as np
 import tensorflow as tf
