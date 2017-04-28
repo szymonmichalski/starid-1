@@ -12,6 +12,6 @@ interface cpp eigen and python numpy.
 
 *stars*
 
-star images from pointing vectors. two coordinates are independent and expressed in a plane tangent to the sky and its image in a sensor. we shift the central star to the center of the image and then identify it, so the star and image pointing vectors are effectively the same.
+star images from pointing vectors. two coordinates are independent and expressed in a plane tangent to the sky and its image in a sensor. shift so the central star is at the center of the image and then identify it.
 
 thanks to [tensorflow](http://github.com/tensorflow/tensorflow), [eigen](http://eigen.tuxfamily.org/index.php), [pybind11](https://github.com/pybind/pybind11), [armadillo](http://arma.sourceforge.net), [openblas](http://www.openblas.net/), [lapack](http://www.netlib.org/lapack/), [cereal](http://github.com/USCiLab/cereal), [optionparser](http://optionparser.sourceforge.net).
