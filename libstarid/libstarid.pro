@@ -5,8 +5,6 @@ CONFIG += c++14 warn_off debug
 
 DIR=/home/noah/starid
 
-OTHER_FILES += $$DIR/stars/stars.pri
-OTHER_FILES += $$DIR/id/id.pri
 include($$DIR/stars/stars.pri)
 include($$DIR/id/id.pri)
 
