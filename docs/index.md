@@ -2,7 +2,7 @@
 
 star image and inverse now working, with direct cpp eigen and python numpy using pybind11.
 
-    image = libstarid.image(starndx=4)
+    image = libstarid.image(starndx=13)
     starndx = libstarid.id(image)
     plt.matshow(-1 * image, cmap='Greys', interpolation='nearest')
     plt.show()
