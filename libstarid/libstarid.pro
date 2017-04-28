@@ -9,11 +9,13 @@ SOURCES += \
 HEADERS += \
     libstarid.h
 
-include(/home/noah/starid/stars/stars.pri)
-include(/home/noah/starid/id/id.pri)
+DIR=/home/noah/starid
+
+include($$DIR/stars/stars.pri)
+include($$DIR/id/id.pri)
 
 INCLUDEPATH += \
-    ../stars \
-    ../id \
-    ../stars/Eigen \
+    $$DIR/stars \
+    $$DIR/id \
+    $$DIR/stars/Eigen \
     /usr/include/python3.5m \

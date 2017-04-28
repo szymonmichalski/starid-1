@@ -1,9 +1,9 @@
 SOURCES += \
-    /home/noah/starid/id/triangle_side.cpp \
-    /home/noah/starid/id/triangle.cpp \
-    /home/noah/starid/id/star_identifier.cpp \
+    $$DIR/id/triangle_side.cpp \
+    $$DIR/id/triangle.cpp \
+    $$DIR/id/star_identifier.cpp \
 
 HEADERS += \
-    /home/noah/starid/id/triangle_side.h \
-    /home/noah/starid/id/triangle.h \
-    /home/noah/starid/id/star_identifier.h \
+    $$DIR/id/triangle_side.h \
+    $$DIR/id/triangle.h \
+    $$DIR/id/star_identifier.h \

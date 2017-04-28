@@ -6,8 +6,8 @@ OTHER_FILES += id.pri
 SOURCES += \
     id.cpp \
 
-include(/home/noah/starid/stars/stars.pri)
-include(/home/noah/starid/id/id.pri)
+include(../stars/stars.pri)
+include(id.pri)
 
 INCLUDEPATH += ../stars
 
