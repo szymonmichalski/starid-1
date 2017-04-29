@@ -70,14 +70,14 @@ int main(int argc, char* argv[])
 
     if (options[STARS]) {
         util::Stopwatch stopwatch;
-        stars::Sky sky;
+        starid::Sky sky;
         sky.init(std::string(datadir + "skymap.txt"));
         std::ofstream os1(std::string(datadir + "sky"));
         cereal::BinaryOutputArchive oarchive1(os1);
         oarchive1(sky);
 
-        stars::Pairs pairs;
-        pairs.init(stars::star_pair_angle_limit, sky);
+        starid::Pairs pairs;
+        pairs.init(starid::star_pair_angle_limit, sky);
         std::ofstream os2(std::string(datadir + "pairs"));
         cereal::BinaryOutputArchive oarchive2(os2);
         oarchive2(pairs);
@@ -85,7 +85,7 @@ int main(int argc, char* argv[])
     }
 
     if (options[IMAGES]) {
-        stars::Sky sky;
+        starid::Sky sky;
         sky.init(std::string(datadir + "skymap.txt"));
     }
 

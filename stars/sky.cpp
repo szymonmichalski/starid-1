@@ -4,7 +4,7 @@
 #include <cmath>
 #include <algorithm>
 
-void stars::Sky::init(std::string fcatin) {
+void starid::Sky::init(std::string fcatin) {
     fcatalog = fcatin;
     t = 0.0;
     Star star;
@@ -19,8 +19,8 @@ void stars::Sky::init(std::string fcatin) {
         double dec_degrees = rec.decsign * (rec.decd + rec.decm/60.0 + rec.decs/3600.0);
         ra_degrees += (t * rec.pmra_arcsec_per_year) / 3600.0;
         dec_degrees += (t * rec.pmdecsign * rec.pmdec_arcsec_per_year) / 3600.0;
-        double ra = ra_degrees * stars::pi / 180.0;
-        double dec = dec_degrees * stars::pi / 180.0;
+        double ra = ra_degrees * starid::pi / 180.0;
+        double dec = dec_degrees * starid::pi / 180.0;
         star.x = std::cos(ra) * std::cos(dec);
         star.y = std::sin(ra) * cos(dec);
         star.z = std::sin(dec);
@@ -36,8 +36,8 @@ void stars::Sky::init(std::string fcatin) {
     ztable.sort();
 }
 
-std::vector<int> stars::Sky::starsNearPoint(double x, double y, double z) {
-    double max_ang = 1.4 * stars::image_radius_radians;
+std::vector<int> starid::Sky::starsNearPoint(double x, double y, double z) {
+    double max_ang = 1.4 * starid::image_radius_radians;
     std::vector<int> xring = starsInRing(x, max_ang, xtable);
     std::vector<int> yring = starsInRing(y, max_ang, ytable);
     std::vector<int> zring = starsInRing(z, max_ang, ztable);
@@ -52,7 +52,7 @@ std::vector<int> stars::Sky::starsNearPoint(double x, double y, double z) {
     return ndxs;
 }
 
-std::vector<int> stars::Sky::starsInRing(double p, double radius, util::FloatIntTable& table)
+std::vector<int> starid::Sky::starsInRing(double p, double radius, util::FloatIntTable& table)
 {
     double pmin, pmax;
     if (p >= cos(radius)) {
@@ -68,7 +68,7 @@ std::vector<int> stars::Sky::starsInRing(double p, double radius, util::FloatInt
     return table.findInts(pmin, pmax);
 }
 
-void stars::Sky::status() {
+void starid::Sky::status() {
     std::cout << "number of stars " << stars.size() << "\n";
 }
 

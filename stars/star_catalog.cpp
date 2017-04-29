@@ -10,7 +10,7 @@ data::star_catalog::star_catalog(std::string fcat) {
         while (std::getline(catfile, line)) {
             try {
                 try {rec.mv1 = std::stof(line.substr(232,6));} catch(...){}
-                if (rec.mv1 > stars::star_brightness_limit) {
+                if (rec.mv1 > starid::star_brightness_limit) {
                     ++dimStars;
                     continue;
                 }

@@ -15,12 +15,12 @@ void libstarid::load_pairs() {
 }
 
 Eigen::MatrixXd libstarid::image(int starndx) {
-    Eigen::MatrixXd img = stars::pointing_vectors::new_image_matrix(starndx, sky);;
+    Eigen::MatrixXd img = starid::pointing_vectors::new_image_matrix(starndx, sky);;
     return img;
 }
 
-int libstarid::id(stars::image_matrix imgmat) {
-    id::star_identifier ider(imgmat, pairs);
+int libstarid::id(starid::image_matrix imgmat) {
+    starid::star_identifier ider(imgmat, pairs);
     int result = ider.id();
     return result;
 }

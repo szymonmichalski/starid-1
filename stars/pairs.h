@@ -15,7 +15,7 @@
 #include <Eigen/Core>
 #include <globals.h>
 
-namespace stars {
+namespace starid {
 
 class Pairs {
 
@@ -27,7 +27,7 @@ public:
 
     /// *init* creates the pairs data structures for all star pairs with a separation less than maximum angle.
     ///
-    void init(double max_ang, stars::Sky& sky);
+    void init(double max_ang, starid::Sky& sky);
 
 private:
 

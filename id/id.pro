@@ -1,13 +1,10 @@
 TEMPLATE = app
 CONFIG = c++14 warn_off debug
 TARGET = id
-OTHER_FILES += id.pri
 
-SOURCES += \
-    id.cpp \
-
-include(../stars/stars.pri)
-include(id.pri)
-
+DIR=/home/noah/starid
+include($$DIR/stars/stars.pri)
+include($$DIR/id/id.pri)
 INCLUDEPATH += ../stars
 
+SOURCES += id.cpp

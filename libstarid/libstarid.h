@@ -20,13 +20,13 @@ class libstarid {
 
 public:
 
-    stars::Sky sky;
-    stars::Pairs pairs;
+    starid::Sky sky;
+    starid::Pairs pairs;
 
     libstarid();
     void load_pairs();
     Eigen::MatrixXd image(int starndx);
-    int id(stars::image_matrix image);
+    int id(starid::image_matrix image);
 };
 
 PYBIND11_PLUGIN(libstarid) {

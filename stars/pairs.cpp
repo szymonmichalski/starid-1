@@ -1,6 +1,6 @@
 #include "pairs.h"
 
-void stars::Pairs::init(double max_ang, stars::Sky& sky)
+void starid::Pairs::init(double max_ang, starid::Sky& sky)
 {
     int pairndx = 0;
 
@@ -31,7 +31,7 @@ void stars::Pairs::init(double max_ang, stars::Sky& sky)
     angletable.sort();
 }
 
-std::unordered_map<int, std::unordered_map<int, int>> stars::Pairs::pairs_map(double angle, double tol_radius) {
+std::unordered_map<int, std::unordered_map<int, int>> starid::Pairs::pairs_map(double angle, double tol_radius) {
     std::unordered_map<int, std::unordered_map<int, int>> stars;
 
     double ang1 = angle - tol_radius;
@@ -41,8 +41,8 @@ std::unordered_map<int, std::unordered_map<int, int>> stars::Pairs::pairs_map(do
     if (ang1 <= 0) ang1 = 0;
     if (ang2 <= epsilon * tol_radius) ang2 = epsilon * tol_radius;
 
-    if (ang1 >= stars::star_pair_angle_limit - epsilon * tol_radius) ang1 = stars::star_pair_angle_limit - epsilon * tol_radius;
-    if (ang2 >= stars::star_pair_angle_limit) ang2 = stars::star_pair_angle_limit;
+    if (ang1 >= starid::star_pair_angle_limit - epsilon * tol_radius) ang1 = starid::star_pair_angle_limit - epsilon * tol_radius;
+    if (ang2 >= starid::star_pair_angle_limit) ang2 = starid::star_pair_angle_limit;
 
     std::vector<int> intsFromTable = angletable.findInts(ang1, ang2);
     for (auto ndx : intsFromTable) {
@@ -73,7 +73,7 @@ std::unordered_map<int, std::unordered_map<int, int>> stars::Pairs::pairs_map(do
     return stars;
 };
 
-std::string stars::Pairs::pairsKey(int catndx1, int catndx2) {
+std::string starid::Pairs::pairsKey(int catndx1, int catndx2) {
     if (catndx1 > catndx2) {
         int tmp = catndx1;
         catndx1 = catndx2;

@@ -11,7 +11,7 @@
 #include <cereal/types/string.hpp>
 #include <cereal/types/vector.hpp>
 
-namespace stars {
+namespace starid {
 
 struct Star {
     int starndx;
@@ -29,7 +29,7 @@ class Sky {
 
 public:
 
-    std::vector<stars::Star> stars;
+    std::vector<starid::Star> stars;
     std::vector<std::string> catalog_lines;
 
     void init(std::string fcatalog);
