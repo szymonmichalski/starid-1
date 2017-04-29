@@ -4,9 +4,8 @@ import id.tf1
 
 def tf1(image):
     FLAGS = tf.app.flags.FLAGS
-    tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/id/tf1_data', '')
     tf.reset_default_graph()
-    image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
+    image = tf.cast(image, tf.float32) - 0.5
     image = tf.reshape(image, [28, 28, 1])
     softmax = id.tf1.inference(image)
     saver = tf.train.Saver()

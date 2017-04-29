@@ -36,7 +36,7 @@ starid::image_matrix starid::pointing_vectors::new_image_matrix(int starndx, sta
         int axjndx = std::floor( axj / starid::image_pixel_unit_vector_plane );
         if (axjndx < 0 || axjndx > 27) continue;
         if (axindx < 0 || axindx > 27) continue;
-        imgmat(axjndx, axindx) = 255.0;
+        imgmat(axjndx, axindx) = 1.0;
     }
 
     return imgmat;

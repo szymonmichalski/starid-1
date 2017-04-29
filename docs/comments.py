@@ -38,8 +38,7 @@ with open(outfile, 'w') as f:
     f.write('%s' % commenter(idroot + 'star_identifier.h'))
     f.write('%s' % commenter(idroot + 'triangle.h'))
     f.write('%s' % commenter(idroot + 'triangle_side.h'))
-    f.write('%s' % commenter(idroot + 'tf1_train.py'))
-    f.write('%s' % commenter(idroot + 'tf1_eval.py'))
+    f.write('%s' % commenter(idroot + 'tf1.py'))
 
     f.write('%s' % commenter(starsroot + 'stars.cpp'))
     f.write('%s' % commenter(starsroot + 'sky.h'))

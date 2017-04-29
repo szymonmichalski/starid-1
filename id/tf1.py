@@ -1,10 +1,16 @@
-### *tf1 model*
+### *tf1*
 ###
 import tensorflow as tf
 
 from tensorflow.python.platform import gfile
-import numpy
+import numpy as np
 import tensorflow as tf
+import time
+
+FLAGS = tf.app.flags.FLAGS
+tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/id/tf1_data', '')
+tf.app.flags.DEFINE_string('ckpt', '/home/noah/starid/id/tf1_data/model.ckpt', '')
+
 
 def weight_variable(shape):
     initial = tf.truncated_normal(shape, stddev=0.1)
@@ -47,12 +53,6 @@ def inference(images):
     b_fc2 = bias_variable([10])
     softmax = tf.nn.softmax(tf.matmul(h_fc1_drop, w_fc2) + b_fc2)
     return softmax
-
-
-
-from tensorflow.python.platform import gfile
-import numpy
-import tensorflow as tf
 
 
 def get_example(filename_queue):
@@ -118,8 +118,8 @@ def _bytes_feature(value):
 
 
 def _read32(bytestream):
-    dt = numpy.dtype(numpy.uint32).newbyteorder('>')
-    return numpy.frombuffer(bytestream.read(4), dtype=dt)[0]
+    dt = np.dtype(np.uint32).newbyteorder('>')
+    return np.frombuffer(bytestream.read(4), dtype=dt)[0]
 
 
 def read_images(filename):
@@ -131,7 +131,7 @@ def read_images(filename):
         rows = _read32(bytestream)
         cols = _read32(bytestream)
         buf = bytestream.read()  # read(rows * cols * num_images)
-        data = numpy.frombuffer(buf, dtype=numpy.uint8)
+        data = np.frombuffer(buf, dtype=np.uint8)
         data = data.reshape(num_images, rows, cols, 1)
         return data
 
@@ -143,7 +143,7 @@ def read_labels(filename, one_hot=False, num_classes=10):
             raise ValueError('magic number error %s' % (magic, filename))
         num_items = _read32(bytestream)
         buf = bytestream.read()  # read(num_items)
-        labels = numpy.frombuffer(buf, dtype=numpy.uint8)
+        labels = np.frombuffer(buf, dtype=np.uint8)
         if one_hot:
             return dense_to_one_hot(labels, num_classes)
         return labels
@@ -151,8 +151,8 @@ def read_labels(filename, one_hot=False, num_classes=10):
 
 def dense_to_one_hot(labels_dense, num_classes):
     num_labels = labels_dense.shape[0]
-    index_offset = numpy.arange(num_labels) * num_classes
-    labels_one_hot = numpy.zeros((num_labels, num_classes))
+    index_offset = np.arange(num_labels) * num_classes
+    labels_one_hot = np.zeros((num_labels, num_classes))
     labels_one_hot.flat[index_offset + labels_dense.ravel()] = 1
     return labels_one_hot
 
@@ -181,18 +181,65 @@ def convert_to_tfrecords(images, labels, filename):
     writer.close()
 
 
-def main(argv):
-    images = read_images('/home/noah/starid/stars/tf1_data/train_examples')
-    labels = read_labels('/home/noah/starid/stars/tf1_data/train_labels')
-    convert_to_tfrecords(images, labels, '/home/noah/starid/id1/tf1_data/train')
-    images = read_images('/home/noah/starid/stars/tf1_data/eval_examples')
-    labels = read_labels('/home/noah/starid/stars/tf1_data/eval_labels')
-    convert_to_tfrecords(images, labels, '/home/noah/starid/id1/tf1_data/eval')
+def train():
+    tf.app.flags.DEFINE_string('examples', '/home/noah/starid/id/tf1_data/train', '')
+    tf.app.flags.DEFINE_string('num_examples', 60000, '')
+    tf.app.flags.DEFINE_integer('batch_size', 100, '')
+    tf.app.flags.DEFINE_integer('max_steps', 600, '')
+    images, labels = inputs(FLAGS)
+    softmax = inference(images)
+    cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=softmax, labels=labels)
+    loss = tf.reduce_mean(cross_entropy)
+    train_op = tf.train.AdamOptimizer(1e-4).minimize(loss)
 
-    # imgndx = 0
-    # print (np.array_str(images[imgndx,:,:,0], max_line_width=500))
-    # starndxs = 800 * (labels + 1)
-    # print (np.array_str(starndxs[0:25], max_line_width=500))
+    init = tf.global_variables_initializer()
+    img = tf.summary.image('test', images)
+    saver = tf.train.Saver()
+    sess = tf.Session()
+    sess.run(init)
+    summary = tf.summary.merge_all()
+    summary_writer = tf.summary.FileWriter(FLAGS.checkpoint_dir, sess.graph)
+    tf.train.start_queue_runners(sess=sess)
+    for batch in range(FLAGS.max_steps):
+        t1 = time.time()
+        _, lossval, img_summary = sess.run([train_op, loss, img])
+        if batch % 10 == 0:
+            print('b %d, cost %.2f, %.3f s/b' % (batch + 10, lossval, float(time.time() - t1)))
+        if batch % 100 == 0:
+            summary_str = sess.run(summary)
+            summary_writer.add_summary(summary_str, batch)
+            summary_writer.add_summary(img_summary)
+    saver.save(sess, FLAGS.ckpt)
+
+
+def eval():
+    tf.app.flags.DEFINE_string('examples', '/home/noah/starid/id/tf1_data/eval', '')
+    tf.app.flags.DEFINE_string('num_examples', 10000, '')
+    tf.app.flags.DEFINE_string('batch_size', 100, '')
+    tf.app.flags.DEFINE_integer('max_steps', 100, '')
+    images, labels = inputs(FLAGS)
+    softmax = inference(images)
+    prediction = tf.nn.in_top_k(softmax, labels, 1)
+    saver = tf.train.Saver()
+    ckpt = tf.train.get_checkpoint_state(FLAGS.checkpoint_dir)
+    sess = tf.Session()
+    saver.restore(sess, ckpt.model_checkpoint_path)
+    coord = tf.train.Coordinator()
+    threads = []
+    for qr in tf.get_collection(tf.GraphKeys.QUEUE_RUNNERS):
+        threads.extend(qr.create_threads(sess, coord=coord, daemon=True, start=True))
+    goodcnt = 0
+    for step in range(FLAGS.max_steps):
+        predictions = sess.run([prediction])
+        goodcnt += np.sum(predictions)
+    precision = goodcnt / FLAGS.num_examples
+    print('%.3f correct' % precision)
+    coord.request_stop()
+    coord.join(threads, stop_grace_period_secs=10)
+
+
+def main(argv):
+    return
 
 
 if __name__ == '__main__':

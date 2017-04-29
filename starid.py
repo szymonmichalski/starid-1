@@ -4,7 +4,6 @@
 ###
 
 import libstarid.libstarid as ls
-import id.id as id
 libstarid = ls.libstarid()
 libstarid.load_pairs()
 
