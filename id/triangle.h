@@ -10,7 +10,7 @@
 #include "pairs.h"
 #include <Eigen/Core>
 
-namespace id {
+namespace starid {
 
 class Triangle
 {
@@ -29,17 +29,17 @@ public:
              double ang2,
              double ang3,
              double tolerance,
-             stars::Pairs& pairs,
+             starid::Pairs& pairs,
              int teststar,
              Eigen::Vector3d vecstar3);
 
-    id::TriangleSide side1;
-    id::TriangleSide side2;
-    id::TriangleSide side3;
+    starid::TriangleSide side1;
+    starid::TriangleSide side2;
+    starid::TriangleSide side3;
     int loops_cnt;
     int teststar;
     double tolerance;
-    stars::Pairs &pairs;
+    starid::Pairs &pairs;
     Eigen::Vector3d vecstar3;
 
 private:

@@ -30,6 +30,14 @@ for adding, finding, removing, etc star pairs to a triangle side. one objective 
 
 *append iterations* append the iterations contained in another side
 
+*tf1 train*
+
+convnet model training from tfrecords files.
+
+*tf1 eval*
+
+star identification of images from tfrecords files.
+
 *stars*
 
 sky representation and image generation

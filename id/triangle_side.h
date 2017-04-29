@@ -10,7 +10,7 @@
 #include <unordered_map>
 #include <map>
 
-namespace id {
+namespace starid {
 
 class TriangleSide {
 
@@ -36,7 +36,7 @@ public:
 
     TriangleSide(double ang,
                  double tolerance,
-                 stars::Pairs& pairs,
+                 starid::Pairs& pairs,
                  int teststar);
 
     TriangleSide(int teststar);

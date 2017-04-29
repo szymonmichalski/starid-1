@@ -15,14 +15,14 @@
 #include <unordered_map>
 #include <map>
 
-namespace id {
+namespace starid {
 
 class star_identifier
 {
 
 public:
 
-    star_identifier(stars::image_matrix &imgmat, stars::Pairs &pairs);
+    star_identifier(starid::image_matrix &imgmat, starid::Pairs &pairs);
 
     /// *identify central star* this is the main function
     ///
@@ -32,7 +32,7 @@ private:
 
     bool get_angs_c();
     bool get_angs_d();
-    stars::Pairs pairs;
+    starid::Pairs pairs;
     Eigen::MatrixXd pvecs;
     double tolerance;
     double min_ang;

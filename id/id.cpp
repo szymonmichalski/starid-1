@@ -83,36 +83,36 @@ int main(int argc, char* argv[])
     }
 
     if (options[TEST]) {
-        stars::Sky sky;
+        starid::Sky sky;
         std::ifstream is1(std::string(datadir + "sky"));
         cereal::BinaryInputArchive iarchive1(is1);
         iarchive1(sky);
-        stars::Pairs pairs;
+        starid::Pairs pairs;
         std::ifstream is2(std::string(datadir + "pairs"));
         cereal::BinaryInputArchive iarchive2(is2);
         iarchive2(pairs);
 
-        stars::image_matrix imgmat = stars::pointing_vectors::new_image_matrix(starndx, sky);
-        id::star_identifier ider(imgmat, pairs);
+        starid::image_matrix imgmat = starid::pointing_vectors::new_image_matrix(starndx, sky);
+        starid::star_identifier ider(imgmat, pairs);
         int result = ider.id();
         std::cout << result << std::endl;
     }
 
     if (!options[TEST]) {
         util::Stopwatch stopwatch;
-        stars::Sky sky;
+        starid::Sky sky;
         std::ifstream is1(std::string(datadir + "sky"));
         cereal::BinaryInputArchive iarchive1(is1);
         iarchive1(sky);
-        stars::Pairs pairs;
+        starid::Pairs pairs;
         std::ifstream is2(std::string(datadir + "pairs"));
         cereal::BinaryInputArchive iarchive2(is2);
         iarchive2(pairs);
-        stars::image_matrix imgmat = stars::pointing_vectors::new_image_matrix(starndx, sky);
+        starid::image_matrix imgmat = starid::pointing_vectors::new_image_matrix(starndx, sky);
         std::cout << "sky, pairs, image msecs = " << stopwatch.end() << std::endl;
 
         stopwatch.reset();
-        id::star_identifier ider(imgmat, pairs);
+        starid::star_identifier ider(imgmat, pairs);
         int result = ider.id(teststar);
         std::cout << "triangles msecs = " << stopwatch.end() << std::endl;
 
