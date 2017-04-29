@@ -9,7 +9,7 @@
 #include "sky.h"
 #include "pointing_vectors.h"
 #include "pairs.h"
-#include "star_identifier.h"
+#include "triangles.h"
 
 #include "cereal/archives/binary.hpp"
 #include <Eigen/Core>

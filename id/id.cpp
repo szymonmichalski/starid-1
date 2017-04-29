@@ -3,7 +3,7 @@
 /// given an input image of a star pattern, output an integer identifying the star at the center using methods based on geometry, pairs, triangles, etc. the transformation from the input x to the output y is rather direct and deterministic, but noise in the input complicates things. in particular, loss of angular resolution due to position quantization is effectively a large noise source.
 ///
 
-#include "star_identifier.h"
+#include "triangles.h"
 #include "pointing_vectors.h"
 #include "sky.h"
 #include "globals.h"
@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
         iarchive2(pairs);
 
         starid::image_matrix imgmat = starid::pointing_vectors::new_image_matrix(starndx, sky);
-        starid::star_identifier ider(imgmat, pairs);
+        starid::triangles ider(imgmat, pairs);
         int result = ider.id();
         std::cout << result << std::endl;
     }
@@ -112,7 +112,7 @@ int main(int argc, char* argv[])
         std::cout << "sky, pairs, image msecs = " << stopwatch.end() << std::endl;
 
         stopwatch.reset();
-        starid::star_identifier ider(imgmat, pairs);
+        starid::triangles ider(imgmat, pairs);
         int result = ider.id(teststar);
         std::cout << "triangles msecs = " << stopwatch.end() << std::endl;
 

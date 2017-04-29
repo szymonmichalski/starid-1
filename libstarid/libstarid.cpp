@@ -20,7 +20,7 @@ Eigen::MatrixXd libstarid::image(int starndx) {
 }
 
 int libstarid::id(starid::image_matrix imgmat) {
-    starid::star_identifier ider(imgmat, pairs);
+    starid::triangles ider(imgmat, pairs);
     int result = ider.id();
     return result;
 }
