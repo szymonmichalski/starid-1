@@ -30,7 +30,9 @@ for adding, finding, removing, etc star pairs to a triangle side. one objective 
 
 *append iterations* append the iterations contained in another side
 
-*tf1 model*
+*cnn1* cnn using tfrecords
+
+*cnn2* cnn using libstarid
 
 *stars*
 
