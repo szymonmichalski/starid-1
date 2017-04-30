@@ -26,35 +26,29 @@ def inference(images):
     full3 = tf.matmul(tf.reshape(pool2, [-1, 7*7*64]), w3) + b3
     relu3 = tf.nn.relu(full3)
     drop3 = tf.nn.dropout(relu3, 1.0)
-    full4 = tf.matmul(drop3, w4) + b4
-    return tf.nn.softmax(full4)
+    return tf.matmul(drop3, w4) + b4
 
-def loss(logits, labels):
-    return tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=labels))
-
-def inputs():
-    images = np.zeros((100, 28, 28, 1), dtype=np.float32)
-    labels = np.zeros((100), dtype=np.int32)
-    for cnt in range(1, 100):
+def inputs(batch_size):
+    images = np.zeros((batch_size, 28, 28, 1), dtype=np.float32)
+    labels = np.zeros((batch_size), dtype=np.int32)
+    for cnt in range(1, batch_size):
         starndx = random.randint(0, 9)
         image = libstarid.image(starndx=starndx)
         images[cnt, :, :, 0] = image
         labels[cnt] = starndx
     return images, labels
 
-def train(lossval):
-    return tf.train.AdamOptimizer(1e-4).minimize(lossval)
-
-def evaluate():
-    images, labels = inputs()
+def evaluate(batch_size):
+    images, labels = inputs(batch_size)
     predicted = tf.cast(tf.arg_max(inference(images), 1), tf.int32)
     return tf.reduce_mean( tf.cast(tf.equal(predicted, labels), tf.float32) )
 
-images, labels = inputs()
+images, labels = inputs(batch_size=100)
 logits = inference(images)
-lossval = loss(logits, labels)
-trainop = train(lossval)
-accuracy = evaluate()
+crossent = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=labels)
+loss = tf.reduce_mean(crossent)
+trainop = tf.train.AdamOptimizer(1e-4).minimize(loss)
+accuracy = evaluate(batch_size=100)
 training_steps = 1000
 saver = tf.train.Saver()
 coord = tf.train.Coordinator()
@@ -64,7 +58,7 @@ with tf.Session() as sess:
     for step in range(training_steps):
         sess.run(trainop)
         if step % 100 == 0:
-            print('step %d loss %3.2f accuracy %3.2f' % (step, sess.run(lossval), sess.run(accuracy)))
+            print('step %d loss %3.2f accuracy %3.2f' % (step, sess.run(loss), sess.run(accuracy)))
     saver.save(sess, 'data_cnn2/model', global_step=training_steps)
 coord.request_stop()
 coord.join(threads)

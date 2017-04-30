@@ -54,9 +54,7 @@ def inference(images):
 
     w_fc2 = weight_variable([1024, 10])
     b_fc2 = bias_variable([10])
-    softmax = tf.nn.softmax(tf.matmul(h_fc1_drop, w_fc2) + b_fc2)
-    return softmax
-
+    return tf.matmul(h_fc1_drop, w_fc2) + b_fc2
 
 def get_example(filename_queue):
     reader = tf.TFRecordReader()
@@ -186,8 +184,8 @@ def convert_to_tfrecords(images, labels, filename):
 
 def train():
     images, labels = inputs(FLAGS)
-    softmax = inference(images)
-    cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=softmax, labels=labels)
+    logits = inference(images)
+    cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=labels)
     loss = tf.reduce_mean(cross_entropy)
     train_op = tf.train.AdamOptimizer(1e-4).minimize(loss)
 
