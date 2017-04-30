@@ -44,16 +44,17 @@ logits = inference(images)
 loss = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=labels))
 train = tf.train.AdamOptimizer(1e-4).minimize(loss)
 accuracy = evaluate(batch_size=100)
+steps = 200
 saver = tf.train.Saver()
 coord = tf.train.Coordinator()
 with tf.Session() as sess:
     tf.global_variables_initializer().run()
     threads = tf.train.start_queue_runners(sess=sess, coord=coord)
-    for step in range(0, 100):
+    for step in range(0, steps)
         sess.run(train)
         if step % 10 == 0:
             print('step %d loss %3.2f accuracy %3.2f' % (step, sess.run(loss), sess.run(accuracy)))
-    saver.save(sess, 'data_cnn2/model', global_step=step)
+    saver.save(sess, 'data_cnn2/model', global_step=steps)
 coord.request_stop()
 coord.join(threads)
 sess.close()
