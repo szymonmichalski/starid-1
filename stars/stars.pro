@@ -4,6 +4,7 @@ TARGET = stars
 
 DIR=/home/noah/starid
 include($$DIR/stars/stars.pri)
+include($$DIR/identification/identification.pri)
 INCLUDEPATH += \
     $$DIR/stars \
     $$DIR/lib
