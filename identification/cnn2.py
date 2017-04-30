@@ -13,8 +13,8 @@ b3 = tf.Variable(tf.constant(0.1, shape=[1024]), dtype=tf.float32)
 w4 = tf.Variable(tf.truncated_normal([1024, 10], stddev=0.1), dtype=tf.float32)
 b4 = tf.Variable(tf.constant(0.1, shape=[10]), dtype=tf.float32)
 
-def inference(x):
-    conv1 = tf.nn.conv2d(x, w1, strides=[1, 1, 1, 1], padding='SAME') + b1
+def inference(images):
+    conv1 = tf.nn.conv2d(images, w1, strides=[1, 1, 1, 1], padding='SAME') + b1
     acti1 = tf.nn.relu(conv1)
     pool1 = tf.nn.max_pool(acti1, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
     conv2 = tf.nn.conv2d(pool1, w2, strides=[1, 1, 1, 1], padding='SAME') + b2
@@ -26,41 +26,39 @@ def inference(x):
     full4 = tf.matmul(drop3, w4) + b4
     return tf.nn.softmax(full4)
 
-def loss(ypred, y):
-    cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=ypred, labels=y)
-    return tf.reduce_mean(cross_entropy)
+def loss(logits, labels):
+    return tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=labels))
 
 def inputs():
-    x = np.zeros((10, 28, 28, 1), dtype=np.float32)
-    y = np.zeros((10), dtype=np.int32)
-    return x, y
+    images = np.zeros((10, 28, 28, 1), dtype=np.float32)
+    labels = np.zeros((10), dtype=np.int32)
+    labels[0] = 1
+    return images, labels
 
 def train(lossval):
     return tf.train.AdamOptimizer(1e-4).minimize(lossval)
 
-def evaluate(sess, x, y):
-    return
+def evaluate(images, labels):
+    predicted = tf.cast(tf.arg_max(inference(images), 1), tf.int32)
+    return tf.reduce_mean( tf.cast(tf.equal(predicted, labels), tf.float32) )
 
 saver = tf.train.Saver()
 with tf.Session() as sess:
     tf.global_variables_initializer().run()
-    x, y = inputs()
-    ypred = inference(x)
-    lossval = loss(ypred, y)
+    images, labels = inputs()
+    logits = inference(images)
+    lossval = loss(logits, labels)
     trainop = train(lossval)
+    accuracy = evaluate(images, labels)
     coord = tf.train.Coordinator()
     threads = tf.train.start_queue_runners(sess=sess, coord=coord)
-
     training_steps = 1000
     for step in range(training_steps):
         # sess.run([trainop])
         if step % 100 == 0:
-            print('loss ')
-            # print('loss ', sess.run([lossval]))
+            print('accuracy', sess.run(accuracy))
         if step % 500 == 0:
             saver.save(sess, 'data_cnn2/model', global_step=step)
-
-    evaluate(sess, x, y)
     saver.save(sess, 'data_cnn2/model', global_step=training_steps)
     coord.request_stop()
     coord.join(threads)
