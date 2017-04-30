@@ -18,23 +18,19 @@ b4 = tf.Variable(tf.constant(0.1, shape=[10]), dtype=tf.float32)
 
 def inference(images):
     conv1 = tf.nn.conv2d(images, w1, strides=[1, 1, 1, 1], padding='SAME') + b1
-    relu1 = tf.nn.relu(conv1)
-    pool1 = tf.nn.max_pool(relu1, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+    pool1 = tf.nn.max_pool(tf.nn.relu(conv1), ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
     conv2 = tf.nn.conv2d(pool1, w2, strides=[1, 1, 1, 1], padding='SAME') + b2
-    relu2 = tf.nn.relu(conv2)
-    pool2 = tf.nn.max_pool(relu2, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+    pool2 = tf.nn.max_pool(tf.nn.relu(conv2), ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
     full3 = tf.matmul(tf.reshape(pool2, [-1, 7*7*64]), w3) + b3
-    relu3 = tf.nn.relu(full3)
-    drop3 = tf.nn.dropout(relu3, 1.0)
+    drop3 = tf.nn.dropout(tf.nn.relu(full3), 1.0)
     return tf.matmul(drop3, w4) + b4
 
 def inputs(batch_size):
     images = np.zeros((batch_size, 28, 28, 1), dtype=np.float32)
     labels = np.zeros((batch_size), dtype=np.int32)
-    for cnt in range(1, batch_size):
+    for cnt in range(0, batch_size):
         starndx = random.randint(0, 9)
-        image = libstarid.image(starndx=starndx)
-        images[cnt, :, :, 0] = image
+        images[cnt, :, :, 0] = libstarid.image(starndx=starndx)
         labels[cnt] = starndx
     return images, labels
 
