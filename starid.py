@@ -3,7 +3,7 @@
 ### test and demo
 ###
 
-import id.id as id
+import identification.id as id
 import libstarid.libstarid as ls
 libstarid = ls.libstarid()
 libstarid.load_pairs()

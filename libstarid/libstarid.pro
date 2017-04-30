@@ -4,12 +4,12 @@ CONFIG -= qt
 CONFIG += c++14 warn_off debug
 
 DIR=/home/noah/starid
-include($$DIR/stars/stars.pri)
-include($$DIR/id/id.pri)
+include($$DIR/star/star.pri)
+include($$DIR/identification/identification.pri)
 INCLUDEPATH += \
-    $$DIR/stars \
-    $$DIR/id \
-    $$DIR/stars/Eigen \
+    $$DIR/star \
+    $$DIR/identification \
+    $$DIR/lib \
     /usr/include/python3.5m \
 
 SOURCES += libstarid.cpp

@@ -6,8 +6,8 @@
 #include "pointing_vectors.h"
 #include "pairs.h"
 
-#include "util/stopwatch.h"
-#include "util/optionparser.h"
+#include "stopwatch.h"
+#include "optionparser.h"
 #include "cereal/archives/binary.hpp"
 #include <fstream>
 

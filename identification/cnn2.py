@@ -1,4 +1,4 @@
-### *rnn2* rnn using libstarid
+### *cnn2* cnn using libstarid
 ###
 
 import numpy as np
@@ -42,9 +42,10 @@ with tf.Session() as sess:
             print('loss ')
             # print('loss ', sess.run([lossval]))
         if step % 500 == 0:
-            saver.save(sess, 'data_rnn2/model', global_step=step)
+            saver.save(sess, 'data_cnn2/model', global_step=step)
 
     evaluate(sess, x, y)
+    saver.save(sess, 'data_cnn2/model', global_step=training_steps)
     coord.request_stop()
     coord.join(threads)
     sess.close()

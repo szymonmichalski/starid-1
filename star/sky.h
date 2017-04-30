@@ -7,9 +7,9 @@
 #define STARS_H
 
 #include <float_int_table.h>
-#include <cereal/access.hpp>
-#include <cereal/types/string.hpp>
-#include <cereal/types/vector.hpp>
+#include <../lib/cereal/access.hpp>
+#include <../lib/cereal/types/string.hpp>
+#include <../lib/cereal/types/vector.hpp>
 
 namespace starid {
 

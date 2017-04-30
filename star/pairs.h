@@ -7,12 +7,12 @@
 #include <pointing_vectors.h>
 #include <float_int_table.h>
 #include <unordered_map>
-#include <cereal/access.hpp>
-#include <cereal/types/string.hpp>
-#include <cereal/types/tuple.hpp>
-#include <cereal/types/vector.hpp>
-#include <cereal/types/unordered_map.hpp>
-#include <Eigen/Core>
+#include <../lib/cereal/access.hpp>
+#include <../lib/cereal/types/string.hpp>
+#include <../lib/cereal/types/tuple.hpp>
+#include <../lib/cereal/types/vector.hpp>
+#include <../lib/cereal/types/unordered_map.hpp>
+#include <../lib/Eigen/Core>
 #include <globals.h>
 
 namespace starid {

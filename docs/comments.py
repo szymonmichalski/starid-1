@@ -27,21 +27,21 @@ def commenter(filename):
 
 outfile = 'comments.md'
 root = '../'
-idroot = '../id/'
-starsroot = '../stars/'
+idroot = '../identification/'
+starsroot = '../star/'
 libstarid = '../libstarid/'
 
 with open(outfile, 'w') as f:
     f.write('%s' % commenter(root + 'starid.py'))
 
-    f.write('%s' % commenter(idroot + 'id.cpp'))
+    f.write('%s' % commenter(idroot + 'identification.cpp'))
     f.write('%s' % commenter(idroot + 'triangles.h'))
     f.write('%s' % commenter(idroot + 'triangle.h'))
     f.write('%s' % commenter(idroot + 'triangle_side.h'))
     f.write('%s' % commenter(idroot + 'cnn1.py'))
     f.write('%s' % commenter(idroot + 'cnn2.py'))
 
-    f.write('%s' % commenter(starsroot + 'stars.cpp'))
+    f.write('%s' % commenter(starsroot + 'star.cpp'))
     f.write('%s' % commenter(starsroot + 'sky.h'))
     f.write('%s' % commenter(starsroot + 'pointing_vectors.h'))
     f.write('%s' % commenter(starsroot + 'pairs.h'))

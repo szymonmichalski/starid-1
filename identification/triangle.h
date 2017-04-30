@@ -8,7 +8,7 @@
 #include "triangle_side.h"
 #include "sky.h"
 #include "pairs.h"
-#include <Eigen/Core>
+#include "../lib/Eigen/Core"
 
 namespace starid {
 

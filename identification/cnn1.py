@@ -7,9 +7,9 @@ import tensorflow as tf
 import time
 
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/id/data_cnn1', '')
-tf.app.flags.DEFINE_string('ckpt', '/home/noah/starid/id/data_cnn1/model.ckpt', '')
-tf.app.flags.DEFINE_string('examples', '/home/noah/starid/id/data_cnn1/train', '')
+tf.app.flags.DEFINE_string('checkpoint_dir', '/home/noah/starid/identification/data_cnn1', '')
+tf.app.flags.DEFINE_string('ckpt', '/home/noah/starid/identification/data_cnn1/model.ckpt', '')
+tf.app.flags.DEFINE_string('examples', '/home/noah/starid/identification/data_cnn1/train', '')
 tf.app.flags.DEFINE_string('num_examples', 60000, '')
 tf.app.flags.DEFINE_integer('batch_size', 100, '')
 tf.app.flags.DEFINE_integer('max_steps', 600, '')
@@ -126,7 +126,7 @@ def _read32(bytestream):
 
 
 def read_images(filename):
-    with gfile.Open(filename, 'id') as bytestream:
+    with gfile.Open(filename, 'identification') as bytestream:
         magic = _read32(bytestream)
         if magic != 2051:
             raise ValueError('magic number error %s' % (magic, filename))
@@ -140,7 +140,7 @@ def read_images(filename):
 
 
 def read_labels(filename, one_hot=False, num_classes=10):
-    with gfile.Open(filename, 'id') as bytestream:
+    with gfile.Open(filename, 'identification') as bytestream:
         magic = _read32(bytestream)
         if magic != 2049:
             raise ValueError('magic number error %s' % (magic, filename))
@@ -212,7 +212,7 @@ def train():
 
 
 def eval():
-    tf.app.flags.DEFINE_string('examples', '/home/noah/starid/id/data_cnn1/eval', '')
+    tf.app.flags.DEFINE_string('examples', '/home/noah/starid/identification/data_cnn1/eval', '')
     tf.app.flags.DEFINE_string('num_examples', 10000, '')
     tf.app.flags.DEFINE_string('batch_size', 100, '')
     tf.app.flags.DEFINE_integer('max_steps', 100, '')
