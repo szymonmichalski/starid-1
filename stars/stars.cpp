@@ -11,8 +11,9 @@
 #include "cereal/archives/binary.hpp"
 #include <fstream>
 
-std::string datadir = "/home/noah/starid/stars/data/";
-enum  optionIndex { UNKNOWN, HELP, DATADIR, STARS, IMAGES, TEST };
+std::string pairsdata = "/home/noah/starid/identification/data/";
+std::string skydata = "/home/noah/starid/star/data/";
+enum  optionIndex { UNKNOWN, HELP, STARS, IMAGES, TEST };
 
 struct Arg: public option::Arg {
     static void printError(const char* msg1, const option::Option& opt, const char* msg2) {
@@ -37,7 +38,6 @@ struct Arg: public option::Arg {
 const option::Descriptor usage[] = {
     {UNKNOWN, 0, "", "", option::Arg::None, "\nusage: stars [options]\n\noptions:" },
     {HELP, 0, "h", "help", option::Arg::None, "  -h, --help  \tprint usage and exit" },
-    {DATADIR, 0, "d", "data", Arg::Required, "  -d, --data  \tdata dir" },
     {STARS, 0, "s", "", Arg::None, "  -s  \tcreate star data files" },
     {IMAGES, 0, "m", "", Arg::None, "  -i  \tcreate images container files" },
     {TEST, 0, "t", "", Arg::None, "  -t  \ttest" },
@@ -58,12 +58,6 @@ int main(int argc, char* argv[])
         return 0;
     }
 
-    if (options[DATADIR]) {
-        datadir = options[DATADIR].arg;
-    } else {
-        std::cout << "using default datadir " << datadir << std::endl;
-    }
-
     if (options[TEST]) {
 
     }
@@ -71,14 +65,14 @@ int main(int argc, char* argv[])
     if (options[STARS]) {
         util::Stopwatch stopwatch;
         starid::Sky sky;
-        sky.init(std::string(datadir + "skymap.txt"));
-        std::ofstream os1(std::string(datadir + "sky"));
+        sky.init(std::string(skydata + "skymap.txt"));
+        std::ofstream os1(std::string(skydata + "sky"));
         cereal::BinaryOutputArchive oarchive1(os1);
         oarchive1(sky);
 
         starid::Pairs pairs;
         pairs.init(starid::star_pair_angle_limit, sky);
-        std::ofstream os2(std::string(datadir + "pairs"));
+        std::ofstream os2(std::string(pairsdata + "pairs"));
         cereal::BinaryOutputArchive oarchive2(os2);
         oarchive2(pairs);
         std::cout << "star data files " << stopwatch.end() << std::endl;
@@ -86,7 +80,7 @@ int main(int argc, char* argv[])
 
     if (options[IMAGES]) {
         starid::Sky sky;
-        sky.init(std::string(datadir + "skymap.txt"));
+        sky.init(std::string(skydata + "skymap.txt"));
     }
 
     return 0;

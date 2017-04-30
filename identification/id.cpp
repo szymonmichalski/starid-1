@@ -13,10 +13,11 @@
 #include <fstream>
 #include <cmath>
 
-std::string datadir = "/home/noah/starid/stars/data/";
+std::string pairsdata = "/home/noah/starid/identification/data/";
+std::string skydata = "/home/noah/starid/star/data/";
 int starndx = 0;
 int teststar = -1;
-enum  optionIndex { UNKNOWN, HELP, DATADIR, STARNDX, TESTSTAR, TEST };
+enum  optionIndex { UNKNOWN, HELP, STARNDX, TESTSTAR, TEST };
 
 struct Arg: public option::Arg {
     static void printError(const char* msg1, const option::Option& opt, const char* msg2) {
@@ -41,7 +42,6 @@ struct Arg: public option::Arg {
 const option::Descriptor usage[] = {
     {UNKNOWN, 0, "", "", option::Arg::None, "\nusage: rb [options]\n\noptions:" },
     {HELP, 0, "h", "help", option::Arg::None, "  -h, --help  \tprint usage and exit" },
-    {DATADIR, 0, "", "datadir", Arg::Required, "  --datadir  \tdata dir" },
     {STARNDX, 0, "", "starndx", Arg::Required, "  --starndx  \timage ndx" },
     {TESTSTAR, 0, "", "teststar", Arg::Required, "  --teststar  \ttest star ndx" },
     {TEST, 0, "t", "", Arg::None, "  -t  \ttest" },
@@ -61,13 +61,6 @@ int main(int argc, char* argv[])
         return 0;
     }
 
-    if (options[DATADIR]) {
-        datadir = options[DATADIR].arg;
-        std::cout << "using datadir = " << datadir << std::endl;
-    } else {
-        std::cout << "using default datadir = " << datadir << std::endl;
-    }
-
     if (options[STARNDX]) {
         starndx = atoi(options[STARNDX].arg);
         std::cout << "using starndx = " << starndx << std::endl;
@@ -84,11 +77,11 @@ int main(int argc, char* argv[])
 
     if (options[TEST]) {
         starid::Sky sky;
-        std::ifstream is1(std::string(datadir + "sky"));
+        std::ifstream is1(std::string(skydata + "sky"));
         cereal::BinaryInputArchive iarchive1(is1);
         iarchive1(sky);
         starid::Pairs pairs;
-        std::ifstream is2(std::string(datadir + "pairs"));
+        std::ifstream is2(std::string(pairsdata + "pairs"));
         cereal::BinaryInputArchive iarchive2(is2);
         iarchive2(pairs);
 
@@ -101,11 +94,11 @@ int main(int argc, char* argv[])
     if (!options[TEST]) {
         util::Stopwatch stopwatch;
         starid::Sky sky;
-        std::ifstream is1(std::string(datadir + "sky"));
+        std::ifstream is1(std::string(skydata + "sky"));
         cereal::BinaryInputArchive iarchive1(is1);
         iarchive1(sky);
         starid::Pairs pairs;
-        std::ifstream is2(std::string(datadir + "pairs"));
+        std::ifstream is2(std::string(pairsdata + "pairs"));
         cereal::BinaryInputArchive iarchive2(is2);
         iarchive2(pairs);
         starid::image_matrix imgmat = starid::pointing_vectors::new_image_matrix(starndx, sky);
