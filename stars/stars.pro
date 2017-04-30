@@ -3,9 +3,9 @@ CONFIG = c++14 warn_on debug
 TARGET = stars
 
 DIR=/home/noah/starid
-include($$DIR/star/star.pri)
+include($$DIR/stars/stars.pri)
 INCLUDEPATH += \
-    $$DIR/star \
+    $$DIR/stars \
     $$DIR/lib
 
 SOURCES += stars.cpp

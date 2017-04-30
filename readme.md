@@ -2,13 +2,13 @@
 
 [notes](http://starid.org), [history](http://starid.org/about), [related papers](http://starid.org/references)
 
-*star*
+*stars*
 
-star images from pointing vectors. two coordinates are independent and expressed in a plane tangent to the sky and its image in a sensor. shift the image to center the star to be identified.
+images from pointing vectors. two coordinates are independent and expressed in a plane tangent to the sky and its image in a sensor. images are centered on the star to be identified.
 
 *identification*
 
-star identification using convolutional and recurrent networks, triangular structure, etc.
+convolutional and recurrent networks, triangular structure.
 
 *libstarid*
 

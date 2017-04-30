@@ -28,7 +28,7 @@ def commenter(filename):
 outfile = 'comments.md'
 root = '../'
 idroot = '../identification/'
-starsroot = '../star/'
+starsroot = '../stars/'
 libstarid = '../libstarid/'
 
 with open(outfile, 'w') as f:
@@ -41,7 +41,7 @@ with open(outfile, 'w') as f:
     f.write('%s' % commenter(idroot + 'cnn1.py'))
     f.write('%s' % commenter(idroot + 'cnn2.py'))
 
-    f.write('%s' % commenter(starsroot + 'star.cpp'))
+    f.write('%s' % commenter(starsroot + 'stars.cpp'))
     f.write('%s' % commenter(starsroot + 'sky.h'))
     f.write('%s' % commenter(starsroot + 'pointing_vectors.h'))
     f.write('%s' % commenter(starsroot + 'pairs.h'))
