@@ -31,8 +31,8 @@ def loss(ypred, y):
     return tf.reduce_mean(cross_entropy)
 
 def inputs():
-    x = np.zeros((20, 28, 28, 1), dtype=np.float32)
-    y = np.zeros((20), dtype=np.int32)
+    x = np.zeros((10, 28, 28, 1), dtype=np.float32)
+    y = np.zeros((10), dtype=np.int32)
     return x, y
 
 def train(lossval):
