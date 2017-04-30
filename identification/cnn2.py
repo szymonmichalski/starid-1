@@ -41,8 +41,7 @@ def evaluate(batch_size):
 
 images, labels = inputs(batch_size=100)
 logits = inference(images)
-crossent = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=labels)
-loss = tf.reduce_mean(crossent)
+loss = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=labels))
 train = tf.train.AdamOptimizer(1e-4).minimize(loss)
 accuracy = evaluate(batch_size=100)
 saver = tf.train.Saver()
