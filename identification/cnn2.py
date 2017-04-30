@@ -41,25 +41,24 @@ def inputs(batch_size):
 def evaluate(batch_size):
     images, labels = inputs(batch_size)
     predicted = tf.cast(tf.arg_max(inference(images), 1), tf.int32)
-    return tf.reduce_mean( tf.cast(tf.equal(predicted, labels), tf.float32) )
+    return tf.reduce_mean(tf.cast(tf.equal(predicted, labels), tf.float32))
 
 images, labels = inputs(batch_size=100)
 logits = inference(images)
 crossent = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=labels)
 loss = tf.reduce_mean(crossent)
-trainop = tf.train.AdamOptimizer(1e-4).minimize(loss)
+train = tf.train.AdamOptimizer(1e-4).minimize(loss)
 accuracy = evaluate(batch_size=100)
-training_steps = 1000
 saver = tf.train.Saver()
 coord = tf.train.Coordinator()
 with tf.Session() as sess:
     tf.global_variables_initializer().run()
     threads = tf.train.start_queue_runners(sess=sess, coord=coord)
-    for step in range(training_steps):
-        sess.run(trainop)
-        if step % 100 == 0:
+    for step in range(0, 100):
+        sess.run(train)
+        if step % 10 == 0:
             print('step %d loss %3.2f accuracy %3.2f' % (step, sess.run(loss), sess.run(accuracy)))
-    saver.save(sess, 'data_cnn2/model', global_step=training_steps)
+    saver.save(sess, 'data_cnn2/model', global_step=step)
 coord.request_stop()
 coord.join(threads)
 sess.close()
