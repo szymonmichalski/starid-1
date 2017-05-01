@@ -19,9 +19,9 @@ Eigen::MatrixXd libstarid::image(int starndx) {
     return img;
 }
 
-Eigen::MatrixXd libstarid::yaw_sequence_vector(int starndx) {
-    Eigen::MatrixXd yawseqvec = starid::pointing_vectors::new_yaw_sequence_vector(starndx, sky);;
-    return yawseqvec;
+Eigen::MatrixXd libstarid::ang_seq_vec(int starndx) {
+    Eigen::MatrixXd angseqvec = starid::pointing_vectors::new_ang_seq_vec(starndx, sky);;
+    return angseqvec;
 }
 
 int libstarid::id(starid::image_matrix imgmat) {

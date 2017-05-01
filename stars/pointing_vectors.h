@@ -12,7 +12,7 @@
 namespace starid {
 
 using image_matrix = Eigen::Matrix<double, 28, 28>;
-using yaw_seq_vec = Eigen::Matrix<double, 36, 1>;
+using ang_seq_vec = Eigen::Matrix<double, 36, 1>;
 
 class pointing_vectors {
 
@@ -24,7 +24,7 @@ public:
 
     /// *new yaw series* yaw series for use by recurrent networks
     ///
-    static yaw_seq_vec new_yaw_sequence_vector(int starndx, starid::Sky &sky);
+    static ang_seq_vec new_ang_seq_vec(int starndx, starid::Sky &sky);
 
     /// *get pointing vectors* get pointing vector representation of an image
     ///

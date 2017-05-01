@@ -29,7 +29,7 @@ public:
     void load_pairs();
 
     Eigen::MatrixXd image(int starndx);
-    Eigen::MatrixXd yaw_sequence_vector(int starndx);
+    Eigen::MatrixXd ang_seq_vec(int starndx);
 
     int id(starid::image_matrix image);
 };
@@ -39,6 +39,7 @@ PYBIND11_PLUGIN(libstarid) {
     pybind11::class_<libstarid>(pymodule, "libstarid")
         .def(pybind11::init<>())
         .def("image", &libstarid::image, "create star image", pybind11::arg("starndx"))
+        .def("ang_seq_vec", &libstarid::ang_seq_vec, "create angle sequence vector", pybind11::arg("starndx"))
         .def("load_pairs", &libstarid::load_pairs, "load pairs")
         .def("id", &libstarid::id, "id");
     return pymodule.ptr();

@@ -41,9 +41,9 @@ starid::image_matrix starid::pointing_vectors::new_image_matrix(int starndx, sta
     return imgmat;
 }
 
-starid::yaw_seq_vec starid::pointing_vectors::new_yaw_sequence_vector(int starndx, starid::Sky &sky) {
+starid::ang_seq_vec starid::pointing_vectors::new_ang_seq_vec(int starndx, starid::Sky &sky) {
     using namespace Eigen;
-    yaw_seq_vec yawvec = yaw_seq_vec::Zero();
+    ang_seq_vec angvec = ang_seq_vec::Zero();
 
     Vector3d pointing;
     pointing << sky.stars[starndx].x, sky.stars[starndx].y, sky.stars[starndx].z;
@@ -69,17 +69,18 @@ starid::yaw_seq_vec starid::pointing_vectors::new_yaw_sequence_vector(int starnd
         int axjndx = std::floor( axj / starid::image_pixel_unit_vector_plane );
         if (axindx < 0 || axindx > 27) continue;
         if (axjndx < 0 || axjndx > 27) continue;
-        float pixelx = (float)axindx - 13.5;
-        float pixely = 13.5 - (float)axjndx;
-        float yawrad = std::atan2(pixely, pixelx); // yaw positive counterclock from x axis
-        float yawdeg = yawrad * 180.0 / starid::pi;
+        double pixelx = (double)axindx - 13.5;
+        double pixely = 13.5 - (double)axjndx;
+        if (std::sqrt(pixelx*pixelx + pixely*pixely) > 13.0) continue;
+        double yawrad = std::atan2(pixely, pixelx); // yaw positive counterclock from x axis
+        double yawdeg = yawrad * 180.0 / starid::pi;
         if (yawdeg < 0.0) yawdeg = 360.0 + yawdeg;
         if (yawdeg == 360.0) yawdeg = 359.9;
         int yawvecndx = std::floor(yawdeg / 10.0);
-        ++yawvec(yawvecndx);
+        ++angvec(yawvecndx);
     }
 
-    return yawvec;
+    return angvec;
 }
 
 Eigen::MatrixXd starid::pointing_vectors::get_pvecs_from_imgmat(starid::image_matrix &imgmat) {
