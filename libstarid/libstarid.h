@@ -24,8 +24,13 @@ public:
     starid::Pairs pairs;
 
     libstarid();
+
+
     void load_pairs();
+
     Eigen::MatrixXd image(int starndx);
+    Eigen::MatrixXd yaw_sequence_vector(int starndx);
+
     int id(starid::image_matrix image);
 };
 

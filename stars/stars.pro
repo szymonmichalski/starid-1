@@ -7,6 +7,7 @@ include($$DIR/stars/stars.pri)
 include($$DIR/identification/identification.pri)
 INCLUDEPATH += \
     $$DIR/stars \
+    $$DIR/identification \
     $$DIR/lib
 
 SOURCES += stars.cpp

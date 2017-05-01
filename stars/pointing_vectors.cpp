@@ -22,11 +22,10 @@ starid::image_matrix starid::pointing_vectors::new_image_matrix(int starndx, sta
         ++pvecsndx;
     }
     pvecs.conservativeResize(pvecsndx, 3);
-
-    double yaw = unitscatter(e1) * 2 * starid::pi;
     Eigen::Matrix3d attitude = rotation_matrix(pointing);
     pvecs = (attitude.transpose() * pvecs.transpose()).transpose();
 
+    double yaw = unitscatter(e1) * 2 * starid::pi;
     for (int ndx = 0; ndx < pvecsndx; ++ndx) {
         double x = std::cos(yaw) * pvecs(ndx,0) - std::sin(yaw) * pvecs(ndx,1);
         double y = std::sin(yaw) * pvecs(ndx,0) + std::cos(yaw) * pvecs(ndx,1);
@@ -40,6 +39,47 @@ starid::image_matrix starid::pointing_vectors::new_image_matrix(int starndx, sta
     }
 
     return imgmat;
+}
+
+starid::yaw_seq_vec starid::pointing_vectors::new_yaw_sequence_vector(int starndx, starid::Sky &sky) {
+    using namespace Eigen;
+    yaw_seq_vec yawvec = yaw_seq_vec::Zero();
+
+    Vector3d pointing;
+    pointing << sky.stars[starndx].x, sky.stars[starndx].y, sky.stars[starndx].z;
+    std::vector<int> starndxs = sky.starsNearPoint(pointing(0), pointing(1), pointing(2));
+
+    Eigen::MatrixXd pvecs = Eigen::MatrixXd::Zero(100,3);
+    int pvecsndx = 0;
+    for (auto ndx : starndxs) {
+        pvecs.row(pvecsndx) << sky.stars[ndx].x, sky.stars[ndx].y, sky.stars[ndx].z;
+        ++pvecsndx;
+    }
+    pvecs.conservativeResize(pvecsndx, 3);
+    Eigen::Matrix3d attitude = rotation_matrix(pointing);
+    pvecs = (attitude.transpose() * pvecs.transpose()).transpose();
+
+    double yaw = unitscatter(e1) * 2 * starid::pi;
+    for (int ndx = 0; ndx < pvecsndx; ++ndx) {
+        double x = std::cos(yaw) * pvecs(ndx,0) - std::sin(yaw) * pvecs(ndx,1);
+        double y = std::sin(yaw) * pvecs(ndx,0) + std::cos(yaw) * pvecs(ndx,1);
+        double axi = x + starid::image_radius_unit_vector_plane;
+        double axj = -y + starid::image_radius_unit_vector_plane;
+        int axindx = std::floor( axi / starid::image_pixel_unit_vector_plane );
+        int axjndx = std::floor( axj / starid::image_pixel_unit_vector_plane );
+        if (axindx < 0 || axindx > 27) continue;
+        if (axjndx < 0 || axjndx > 27) continue;
+        float pixelx = (float)axindx - 13.5;
+        float pixely = 13.5 - (float)axjndx;
+        float yawrad = std::atan2(pixely, pixelx); // yaw positive counterclock from x axis
+        float yawdeg = yawrad * 180.0 / starid::pi;
+        if (yawdeg < 0.0) yawdeg = 360.0 + yawdeg;
+        if (yawdeg == 360.0) yawdeg = 359.9;
+        int yawvecndx = std::floor(yawdeg / 10.0);
+        ++yawvec(yawvecndx);
+    }
+
+    return yawvec;
 }
 
 Eigen::MatrixXd starid::pointing_vectors::get_pvecs_from_imgmat(starid::image_matrix &imgmat) {

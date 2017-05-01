@@ -12,6 +12,7 @@
 namespace starid {
 
 using image_matrix = Eigen::Matrix<double, 28, 28>;
+using yaw_seq_vec = Eigen::Matrix<double, 36, 1>;
 
 class pointing_vectors {
 
@@ -20,6 +21,10 @@ public:
     /// *new image matrix* create an axi axj image matrix for the star, with a random yaw
     ///
     static image_matrix new_image_matrix(int starndx, starid::Sky &sky);
+
+    /// *new yaw series* yaw series for use by recurrent networks
+    ///
+    static yaw_seq_vec new_yaw_sequence_vector(int starndx, starid::Sky &sky);
 
     /// *get pointing vectors* get pointing vector representation of an image
     ///
