@@ -35,8 +35,5 @@ for i in range(epoch):
         inp, out = train_input[ptr:ptr+batch_size], train_output[ptr:ptr+batch_size]
         ptr+=batch_size
         sess.run(minimize,{data: inp, target: out})
-    print "Epoch ",str(i)
-incorrect = sess.run(error,{data: test_input, target: test_output})
-print sess.run(prediction,{data: [[[1],[0],[0],[1],[1],[0],[1],[1],[1],[0],[1],[0],[0],[1],[1],[0],[1],[1],[1],[0]]]})
-print('Epoch {:2d} error {:3.1f}%'.format(i + 1, 100 * incorrect))
+    print "epoch ",str(i)
 sess.close()
