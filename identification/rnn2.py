@@ -4,7 +4,6 @@
 import numpy as np
 import tensorflow as tf
 
-
 data = tf.placeholder(tf.float32, [None, 36,1]) # number of sequences, length of sequences, dimension of each sequence step
 target = tf.placeholder(tf.float32, [None, 1])
 
