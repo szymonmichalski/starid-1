@@ -1,6 +1,6 @@
 *30.4.2017*
 
-cnn2 convnet using runtime images from libstarid now working. this is a much cleaner implementation than cnn1, and not just because image file handling is not needed.
+cnn2 convnet using runtime images from libstarid is working. code is much cleaner than cnn1, and not just because of libstarid.
 
 *27.4.2017*
 
