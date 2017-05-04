@@ -4,6 +4,8 @@
 import functools
 import numpy as np
 import tensorflow as tf
+import libstarid.libstarid as ls
+libstarid = ls.libstarid()
 
 def lazy_property(function):
     attribute = '_' + function.__name__

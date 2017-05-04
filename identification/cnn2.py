@@ -28,7 +28,7 @@ def inference(images):
 def inputs(batch_size):
     images = np.zeros((batch_size, 28, 28, 1), dtype=np.float32)
     labels = np.zeros((batch_size), dtype=np.int32)
-    for cnt in range(0, batch_size):
+    for cnt in range(batch_size):
         starndx = random.randint(0, 9)
         images[cnt, :, :, 0] = libstarid.image(starndx=starndx)
         labels[cnt] = starndx
@@ -44,17 +44,16 @@ logits = inference(images)
 loss = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=labels))
 train = tf.train.AdamOptimizer(1e-4).minimize(loss)
 accuracy = evaluate(batch_size=100)
-steps = 200
 saver = tf.train.Saver()
 coord = tf.train.Coordinator()
 with tf.Session() as sess:
     tf.global_variables_initializer().run()
     threads = tf.train.start_queue_runners(sess=sess, coord=coord)
-    for step in range(0, steps)
+    for batchndx in range(200):
         sess.run(train)
-        if step % 10 == 0:
-            print('step %d loss %3.2f accuracy %3.2f' % (step, sess.run(loss), sess.run(accuracy)))
-    saver.save(sess, 'data_cnn2/model', global_step=steps)
+        if batchndx % 10 == 0:
+            print('batchndx %d loss %3.2f accuracy %3.2f' % (batchndx, sess.run(loss), sess.run(accuracy)))
+    saver.save(sess, 'data_cnn2/model', global_step=batchndx)
 coord.request_stop()
 coord.join(threads)
 sess.close()

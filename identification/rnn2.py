@@ -3,8 +3,10 @@
 
 import numpy as np
 import tensorflow as tf
+import libstarid.libstarid as ls
+libstarid = ls.libstarid()
 
-data = tf.placeholder(tf.float32, [None, 36,1]) # number of sequences, length of sequences, dimension of each sequence step
+data = tf.placeholder(tf.float32, [None, 36,1])
 target = tf.placeholder(tf.float32, [None, 1])
 
 num_hidden = 24
