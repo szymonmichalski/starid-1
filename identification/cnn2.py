@@ -47,15 +47,17 @@ cross_entropy = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(lo
 optimizer = tf.train.AdamOptimizer()
 minimize = optimizer.minimize(cross_entropy)
 accuracy = evaluate(batch_size=100)
+
 saver = tf.train.Saver()
-with tf.Session() as sess:
-    tf.global_variables_initializer().run()
-    for batchndx in range(200):
-        images, labels = inputs(batch_size=100)
-        sess.run([minimize], feed_dict={data: images, target: labels})
-        if batchndx % 10 == 0:
-            print('batchndx %d loss %3.2f accuracy %3.2f'
-                  % (batchndx, sess.run(cross_entropy, feed_dict={data: images, target: labels}),
-                     sess.run(accuracy, feed_dict={data: images, target: labels})))
-    saver.save(sess, 'data_cnn2/model', global_step=batchndx)
+init = tf.initialize_all_variables()
+sess = tf.Session()
+sess.run(init)
+for batchndx in range(200):
+    images, labels = inputs(batch_size=100)
+    sess.run([minimize], feed_dict={data: images, target: labels})
+    if batchndx % 10 == 0:
+        print('batchndx %d loss %3.2f accuracy %3.2f'
+              % (batchndx, sess.run(cross_entropy, feed_dict={data: images, target: labels}),
+                 sess.run(accuracy, feed_dict={data: images, target: labels})))
+saver.save(sess, 'data_cnn2/model', global_step=batchndx)
 sess.close()

@@ -8,19 +8,19 @@ import libstarid.libstarid as ls
 libstarid = ls.libstarid()
 
 data = tf.placeholder(tf.float32, [None, 36,1])
-target = tf.placeholder(tf.float32, [None, 1])
+target = tf.placeholder(tf.float32, [None, 10])
 
 def inputs(batch_size):
     angseqs = np.zeros((batch_size, 36, 1), dtype=np.float32)
-    starndxs = np.zeros((batch_size), dtype=np.int32)
-    for cnt in range(batch_size):
+    starndxs = np.zeros((batch_size, 10), dtype=np.int32)
+    for batchndx in range(batch_size):
         starndx = random.randint(0, 9)
-        angseqs[cnt, :, :] = libstarid.ang_seq_vec(starndx=starndx)
-        starndxs[cnt] = starndx
+        angseqs[batchndx, :, :] = libstarid.ang_seq_vec(starndx=starndx)
+        starndxs[batchndx, starndx] = 1
     return angseqs, starndxs
 
 num_hidden = 24
-cell = tf.nn.rnn_cell.LSTMCell(num_hidden,state_is_tuple=True)
+cell = tf.contrib.rnn.BasicLSTMCell(num_hidden,state_is_tuple=True)
 val, _ = tf.nn.dynamic_rnn(cell, data, dtype=tf.float32)
 val = tf.transpose(val, [1, 0, 2])
 last = tf.gather(val, int(val.get_shape()[0]) - 1)
@@ -32,12 +32,18 @@ cross_entropy = -tf.reduce_sum(target * tf.log(tf.clip_by_value(prediction, 1e-1
 optimizer = tf.train.AdamOptimizer()
 minimize = optimizer.minimize(cross_entropy)
 mistakes = tf.not_equal(tf.argmax(target, 1), tf.argmax(prediction, 1))
-error = tf.reduce_mean(tf.cast(mistakes, tf.float32))
-init_op = tf.initialize_all_variables()
+accuracy = 1 - tf.reduce_mean(tf.cast(mistakes, tf.float32))
+
+saver = tf.train.Saver()
+init = tf.initialize_all_variables()
 sess = tf.Session()
-sess.run(init_op)
-for batchndx in range(200):
+sess.run(init)
+for batchndx in range(500):
     angseqs, starndxs = inputs(batch_size=100)
     sess.run(minimize, {data: angseqs, target: starndxs})
-    print('batchndx %d' % (batchndx))
+    if batchndx % 10 == 0:
+        print('batchndx %d loss %3.2f accuracy %3.2f'
+              % (batchndx, sess.run(cross_entropy, feed_dict={data: angseqs, target: starndxs}),
+                 sess.run(accuracy, feed_dict={data: angseqs, target: starndxs})))
+saver.save(sess, 'data_rnn2/model', global_step=batchndx)
 sess.close()
