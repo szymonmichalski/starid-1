@@ -1,10 +1,10 @@
 *5.5.2017*
 
-rrn2 lstm and cnn2 convnet working in parallel on top of libstarid.
+lstm rnn and convnet rnn working in parallel on top of libstarid.
 
 *30.4.2017*
 
-cnn2 convnet using runtime images from libstarid is working. code is much cleaner than cnn1, and not just because of libstarid.
+convnet using runtime images from libstarid is working. code is much cleaner without all the filesystem stuff.
 
 *27.4.2017*
 
