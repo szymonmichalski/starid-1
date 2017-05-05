@@ -1,6 +1,6 @@
 *5.5.2017*
 
-lstm rnn and convnet rnn working in parallel on top of libstarid.
+lstm and convnet working in parallel on top of libstarid.
 
 *30.4.2017*
 
