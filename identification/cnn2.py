@@ -5,9 +5,9 @@ import numpy as np
 import tensorflow as tf
 import libstarid.libstarid as ls
 libstarid = ls.libstarid()
-stars = 10
+stars = 100
 batch = 100
-batches = 100
+batches = 200
 
 def inputs(batch, stars):
     images = np.zeros((batch, 28, 28, 1), dtype=np.float32)
@@ -50,5 +50,5 @@ for batchndx in range(batches):
     if batchndx % 10 == 0:
         images, labels = inputs(batch, stars)
         print('%5d %5.2f %5.2f' % (batchndx, sess.run(cross_entropy, {data: images, target: labels}), sess.run(accuracy, {data: images, target: labels})))
-# saver.save(sess, 'data_cnn2/model', global_step=batchndx)
+saver.save(sess, 'data_cnn2/model', global_step=batchndx)
 sess.close()

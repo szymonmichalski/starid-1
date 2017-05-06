@@ -1,6 +1,10 @@
+*6.5.2017*
+
+increased the number of stars identified by rnn and cnn beyond ten for the first time. first increase was to one hundred stars. training is slower but still very reasonable on a six year old laptop. the path seems clear to push towards all 8876 stars. r2017b released.
+
 *5.5.2017*
 
-lstm and convnet working in parallel on top of libstarid.
+recurrent and convolutional networks now working in parallel on top of libstarid.
 
 *30.4.2017*
 
