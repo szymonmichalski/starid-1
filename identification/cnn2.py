@@ -28,16 +28,18 @@ w3 = tf.Variable(tf.truncated_normal([7 * 7 * 64, 1024], stddev=0.1), dtype=tf.f
 b3 = tf.Variable(tf.constant(0.1, shape=[1024]), dtype=tf.float32)
 w4 = tf.Variable(tf.truncated_normal([1024, stars], stddev=0.1), dtype=tf.float32)
 b4 = tf.Variable(tf.constant(0.1, shape=[stars]), dtype=tf.float32)
+
 conv1 = tf.nn.conv2d(data, w1, strides=[1, 1, 1, 1], padding='SAME') + b1
 pool1 = tf.nn.max_pool(tf.nn.relu(conv1), ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 conv2 = tf.nn.conv2d(pool1, w2, strides=[1, 1, 1, 1], padding='SAME') + b2
 pool2 = tf.nn.max_pool(tf.nn.relu(conv2), ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 full3 = tf.matmul(tf.reshape(pool2, [-1, 7 * 7 * 64]), w3) + b3
 drop3 = tf.nn.dropout(tf.nn.relu(full3), 1.0)
-logits = tf.matmul(drop3, w4) + b4
-cross_entropy = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=target))
+output = tf.matmul(drop3, w4) + b4
+
+cross_entropy = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(output, target))
 minimize = tf.train.AdamOptimizer().minimize(cross_entropy)
-prediction = tf.cast(tf.arg_max((logits), 1), tf.int32)
+prediction = tf.cast(tf.arg_max((output), 1), tf.int32)
 accuracy = tf.reduce_mean(tf.cast(tf.equal(prediction, target), tf.float32))
 
 saver = tf.train.Saver()
