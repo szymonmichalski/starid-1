@@ -36,8 +36,8 @@ full3 = tf.matmul(tf.reshape(pool2, [-1, 7 * 7 * 64]), w3) + b3
 drop3 = tf.nn.dropout(tf.nn.relu(full3), 1.0)
 logits = tf.matmul(drop3, w4) + b4
 
-cross_entropy = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=target))
-minimize = tf.train.AdamOptimizer().minimize(cross_entropy)
+cost = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=target))
+train = tf.train.AdamOptimizer().minimize(cost)
 prediction = tf.cast(tf.arg_max((logits), 1), tf.int32)
 accuracy = tf.reduce_mean(tf.cast(tf.equal(prediction, target), tf.float32))
 saver = tf.train.Saver()
@@ -45,10 +45,11 @@ init = tf.global_variables_initializer()
 sess = tf.Session()
 sess.run(init)
 for batchndx in range(batches):
-    images, labels = inputs(batch, stars)
-    sess.run(minimize, {data: images, target: labels})
+    trainin, trainlab = inputs(batch, stars)
+    sess.run(train, {data: trainin, target: trainlab})
     if batchndx % 10 == 0:
-        images, labels = inputs(batch, stars)
-        print('%5d %5.2f %5.2f' % (batchndx, sess.run(cross_entropy, {data: images, target: labels}), sess.run(accuracy, {data: images, target: labels})))
+        testin, testlab = inputs(batch, stars)
+        testcost, testacc = sess.run([cost, accuracy], {data: testin, target: testlab})
+        print('%5d %5.2f %5.2f' % (batchndx, testcost, testacc))
 # saver.save(sess, 'data_cnn2/model', global_step=batchndx)
 sess.close()
