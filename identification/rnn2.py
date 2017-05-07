@@ -24,7 +24,6 @@ data = tf.placeholder(tf.float32, [batch, 36,1])
 target = tf.placeholder(tf.int32, [batch])
 w1 = tf.Variable(tf.truncated_normal([lstmsize, stars]))
 b1 = tf.Variable(tf.constant(0.1, shape=[stars]))
-
 lstm = tf.contrib.rnn.BasicLSTMCell(lstmsize, state_is_tuple=True)
 outj, state = tf.nn.dynamic_rnn(lstm, data, dtype=tf.float32)
 outj = tf.transpose(outj, [1, 0, 2])
@@ -35,7 +34,6 @@ cross_entropy = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(lo
 minimize = tf.train.AdamOptimizer().minimize(cross_entropy)
 prediction = tf.cast(tf.arg_max((logits), 1), tf.int32)
 accuracy = tf.reduce_mean(tf.cast(tf.equal(prediction, target), tf.float32))
-
 saver = tf.train.Saver()
 init = tf.global_variables_initializer()
 sess = tf.Session()
