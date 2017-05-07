@@ -13,15 +13,15 @@ lstmsize = 100
 
 def inputs(batch, stars):
     angseqs = np.zeros((batch, 36, 1), dtype=np.float32)
-    labels = np.zeros((batch, stars), dtype=np.int32)
+    labels = np.zeros((batch), dtype=np.int32)
     for batchndx in range(batch):
         starndx = random.randint(0, stars-1)
         angseqs[batchndx, :, :] = libstarid.ang_seq_vec(starndx)
-        labels[batchndx, starndx] = 1
+        labels[batchndx] = starndx
     return angseqs, labels
 
 data = tf.placeholder(tf.float32, [batch, 36,1])
-target = tf.placeholder(tf.float32, [batch, stars])
+target = tf.placeholder(tf.int32, [batch])
 w1 = tf.Variable(tf.truncated_normal([lstmsize, stars]))
 b1 = tf.Variable(tf.constant(0.1, shape=[stars]))
 
@@ -29,12 +29,12 @@ lstm = tf.contrib.rnn.BasicLSTMCell(lstmsize, state_is_tuple=True)
 outj, state = tf.nn.dynamic_rnn(lstm, data, dtype=tf.float32)
 outj = tf.transpose(outj, [1, 0, 2])
 outf = tf.gather(outj, int(outj.get_shape()[0]-1))
-output = tf.nn.softmax(tf.matmul(outf, w1) + b1)
+logits = tf.matmul(outf, w1) + b1
 
-cross_entropy = -tf.reduce_sum(target * tf.log(tf.clip_by_value(output, 1e-10, 1.0)))
+cross_entropy = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=target))
 minimize = tf.train.AdamOptimizer().minimize(cross_entropy)
-prediction = tf.argmax((output), 1)
-accuracy = tf.reduce_mean(tf.cast(tf.equal(prediction, tf.argmax(target,1)), tf.float32))
+prediction = tf.cast(tf.arg_max((logits), 1), tf.int32)
+accuracy = tf.reduce_mean(tf.cast(tf.equal(prediction, target), tf.float32))
 
 saver = tf.train.Saver()
 init = tf.global_variables_initializer()

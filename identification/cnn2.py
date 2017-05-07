@@ -35,11 +35,11 @@ conv2 = tf.nn.conv2d(pool1, w2, strides=[1, 1, 1, 1], padding='SAME') + b2
 pool2 = tf.nn.max_pool(tf.nn.relu(conv2), ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 full3 = tf.matmul(tf.reshape(pool2, [-1, 7 * 7 * 64]), w3) + b3
 drop3 = tf.nn.dropout(tf.nn.relu(full3), 1.0)
-output = tf.matmul(drop3, w4) + b4
+logits = tf.matmul(drop3, w4) + b4
 
-cross_entropy = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(output, target))
+cross_entropy = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits, target))
 minimize = tf.train.AdamOptimizer().minimize(cross_entropy)
-prediction = tf.cast(tf.arg_max((output), 1), tf.int32)
+prediction = tf.cast(tf.arg_max((logits), 1), tf.int32)
 accuracy = tf.reduce_mean(tf.cast(tf.equal(prediction, target), tf.float32))
 
 saver = tf.train.Saver()
