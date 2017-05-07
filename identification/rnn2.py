@@ -9,7 +9,7 @@ libstarid = ls.libstarid()
 stars = 100
 batch = 100
 batches = 1000
-lstmsize = 24
+lstmsize = 100
 
 def inputs(batch, stars):
     angseqs = np.zeros((batch, 36, 1), dtype=np.float32)
