@@ -9,6 +9,7 @@ libstarid = ls.libstarid()
 stars = 100
 batch = 100
 batches = 500
+hidden = 24
 
 def inputs(batch, stars):
     angseqs = np.zeros((batch, 36, 1), dtype=np.float32)
@@ -21,14 +22,13 @@ def inputs(batch, stars):
 
 data = tf.placeholder(tf.float32, [batch, 36,1])
 target = tf.placeholder(tf.float32, [batch, stars])
-num_hidden = 24
-cell = tf.contrib.rnn.BasicLSTMCell(num_hidden,state_is_tuple=True)
-val, state = tf.nn.dynamic_rnn(cell, data, dtype=tf.float32)
-val = tf.transpose(val, [1, 0, 2])
-last = tf.gather(val, int(val.get_shape()[0]-1))
-weight = tf.Variable(tf.truncated_normal([num_hidden, stars]))
+cell = tf.contrib.rnn.BasicLSTMCell(hidden, state_is_tuple=True)
+out, state = tf.nn.dynamic_rnn(cell, data, dtype=tf.float32)
+out = tf.transpose(out, [1, 0, 2])
+outf = tf.gather(out, int(out.get_shape()[0]-1))
+weight = tf.Variable(tf.truncated_normal([hidden, stars]))
 bias = tf.Variable(tf.constant(0.1, shape=[stars]))
-softmax = tf.nn.softmax(tf.matmul(last, weight) + bias)
+softmax = tf.nn.softmax(tf.matmul(outf, weight) + bias)
 cross_entropy = -tf.reduce_sum(target * tf.log(tf.clip_by_value(softmax, 1e-10, 1.0)))
 minimize = tf.train.AdamOptimizer().minimize(cross_entropy)
 errvec = tf.not_equal(tf.argmax(target, 1), tf.argmax(softmax, 1))
@@ -44,5 +44,5 @@ for batchndx in range(batches):
     if batchndx % 10 == 0:
         images, labels = inputs(batch, stars)
         print('%5d %5.2f %5.2f' % (batchndx, sess.run(cross_entropy, {data: images, target: labels}), sess.run(accuracy, {data: images, target: labels})))
-saver.save(sess, 'data_rnn2/model', global_step=batchndx)
+# saver.save(sess, 'data_rnn2/model', global_step=batchndx)
 sess.close()
