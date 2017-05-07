@@ -1,6 +1,6 @@
 <img src="docs/images/star4b.png" align="right" height="250" width="250"/><img src="docs/images/star4a.png" align="right" height="250" width="250"/>
 
-[history](http://starid.org/history), [papers](http://starid.org/references)
+[about](http://starid.org/about), [papers](http://starid.org/references)
 
 *stars*
 
