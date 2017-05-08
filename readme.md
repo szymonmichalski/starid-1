@@ -4,7 +4,7 @@
 
 *stars*
 
-images from pointing vectors. two coordinates are independent and expressed in a plane tangent to the sky and its image in a sensor. images are centered on the star to be identified.
+star image generation using the nasa skymap star catalog.
 
 *identification*
 
