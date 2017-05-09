@@ -10,7 +10,7 @@ batch = 100
 batches = 20
 lstmsize = 100
 lstmlayers = 1
-lstmdropout = 0.5
+dropkeep = 0.5
 
 def inputs(batch, stars):
     angseqs = np.zeros((batch, 36, 1), dtype=np.float32)
@@ -27,7 +27,7 @@ w1 = tf.Variable(tf.truncated_normal([lstmsize, stars]))
 b1 = tf.Variable(tf.constant(0.1, shape=[stars]))
 
 lstm = tf.contrib.rnn.BasicLSTMCell(lstmsize, state_is_tuple=True)
-lstm = tf.contrib.rnn.DropoutWrapper(lstm, output_keep_prob=lstmdropout)
+lstm = tf.contrib.rnn.DropoutWrapper(lstm, output_keep_prob=dropkeep)
 lstm = tf.contrib.rnn.MultiRNNCell([lstm] * lstmlayers, state_is_tuple=True)
 
 outj, state = tf.nn.dynamic_rnn(lstm, data, dtype=tf.float32)
