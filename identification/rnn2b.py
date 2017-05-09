@@ -43,3 +43,8 @@ for batchndx in range(batches):
         testin, testlab = inputs(batch, stars)
         testcost, testacc = sess.run([cost, accuracy], {data: testin, target: testlab})
         print('%5d %5.2f %5.2f' % (batchndx, testcost, testacc))
+
+
+# saver = tf.train.Saver()
+# saver.save(sess, 'data_rnn2/model', global_step=batchndx)
+sess.close()
