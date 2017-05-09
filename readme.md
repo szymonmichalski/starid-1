@@ -4,7 +4,7 @@
 
 *stars*
 
-star image generation using the nasa skymap catalog.
+star image generation based on nasa skymap.
 
 *identification*
 
