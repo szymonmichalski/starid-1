@@ -8,7 +8,7 @@ libstarid = ls.libstarid()
 stars = 100
 batch = 100
 batches = 100
-dropkeep = 0.5
+dropout = 0.5
 
 def inputs(batch, stars):
     images = np.zeros((batch, 28, 28, 1), dtype=np.float32)
@@ -47,7 +47,7 @@ sess = tf.Session()
 sess.run(init)
 for batchndx in range(batches):
     trainin, trainlab = inputs(batch, stars)
-    sess.run(train, {data: trainin, target: trainlab, keep: dropkeep})
+    sess.run(train, {data: trainin, target: trainlab, keep: dropout})
     if batchndx % 10 == 0:
         testin, testlab = inputs(batch, stars)
         testcost, testacc = sess.run([cost, accuracy], {data: testin, target: testlab, keep: 1.0})

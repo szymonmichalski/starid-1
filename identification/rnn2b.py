@@ -10,7 +10,7 @@ batch = 100
 batches = 20
 lstmsize = 100
 lstmlayers = 1
-dropkeep = 0.5
+dropout = 0.5
 
 def inputs(batch, stars):
     angseqs = np.zeros((batch, 36, 1), dtype=np.float32)
@@ -27,7 +27,7 @@ w1 = tf.Variable(tf.truncated_normal([lstmsize, stars]))
 b1 = tf.Variable(tf.constant(0.1, shape=[stars]))
 
 lstm = tf.contrib.rnn.BasicLSTMCell(lstmsize, state_is_tuple=True)
-lstm = tf.contrib.rnn.DropoutWrapper(lstm, output_keep_prob=dropkeep)
+lstm = tf.contrib.rnn.DropoutWrapper(lstm, output_keep_prob=dropout)
 lstm = tf.contrib.rnn.MultiRNNCell([lstm] * lstmlayers, state_is_tuple=True)
 
 outj, state = tf.nn.dynamic_rnn(lstm, data, dtype=tf.float32)
@@ -49,7 +49,6 @@ for batchndx in range(batches):
         testin, testlab = inputs(batch, stars)
         testcost, testacc = sess.run([cost, accuracy], {data: testin, target: testlab})
         print('%5d %5.2f %5.2f' % (batchndx, testcost, testacc))
-
 
 # saver = tf.train.Saver()
 # saver.save(sess, 'data_rnn2/model', global_step=batchndx)
