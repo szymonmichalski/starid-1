@@ -71,7 +71,3 @@ std::vector<int> starid::Sky::starsInRing(double p, double radius, util::FloatIn
 void starid::Sky::status() {
     std::cout << "number of stars " << stars.size() << "\n";
 }
-
-//double UnixTimeToJ2000Offset = 946684800.0;
-//std::chrono::time_point<std::chrono::system_clock> tcurrent {std::chrono::system_clock::now()};
-//double t {(double(std::chrono::system_clock::to_time_t(tcurrent)) - UnixTimeToJ2000Offset) / 31557600.0}; // julian years
