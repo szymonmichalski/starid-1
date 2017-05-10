@@ -1,6 +1,5 @@
 TARGET = starid
 TEMPLATE = lib
-CONFIG -= qt
 CONFIG += c++14 warn_off debug
 
 DIR=/home/noah/starid
