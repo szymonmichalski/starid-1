@@ -34,6 +34,7 @@ outj, state = tf.nn.dynamic_rnn(lstm, data, dtype=tf.float32)
 outj = tf.transpose(outj, [1, 0, 2])
 outf = tf.gather(outj, int(outj.get_shape()[0]-1))
 output = tf.matmul(outf, w1) + b1
+
 cost = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=output, labels=target))
 train = tf.train.AdamOptimizer().minimize(cost)
 prediction = tf.cast(tf.arg_max((output), 1), tf.int32)

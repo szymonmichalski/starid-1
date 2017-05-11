@@ -34,6 +34,7 @@ conv2 = tf.nn.conv2d(pool1, w2, strides=[1, 1, 1, 1], padding='SAME') + b2
 pool2 = tf.nn.max_pool(tf.nn.relu(conv2), ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 full3 = tf.matmul(tf.reshape(pool2, [-1, 7 * 7 * 64]), w3) + b3
 output = tf.matmul(full3, w4) + b4
+
 cost = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=output, labels=target))
 train = tf.train.AdamOptimizer().minimize(cost)
 prediction = tf.cast(tf.arg_max((output), 1), tf.int32)
