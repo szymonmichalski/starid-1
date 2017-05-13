@@ -1,6 +1,6 @@
 *13.5.2017*
 
-moving on towards networks for more stars, time to introduce regularization. the concept is to force the networks to build simpler models, based on patterns seen more often. picturing the network as a set of weight vectors, we want them to be smaller rather than larger, with less inertia and more adaptivity. working in cnn2b and rnn2b, dropout and l2 weight decay introduced. 
+introducing regularization so the networks build simpler models, reflecting more common patterns. picturing the network as a set of weight vectors, regularization prefers smaller weights. dropout and weight decay introduced. 
 
 *6.5.2017*
 
