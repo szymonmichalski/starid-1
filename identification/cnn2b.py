@@ -9,6 +9,7 @@ stars = 100
 batch = 100
 batches = 100
 dropout = 0.5
+beta = 0.01
 
 def inputs(batch, stars):
     images = np.zeros((batch, 28, 28, 1), dtype=np.float32)
@@ -24,23 +25,28 @@ target = tf.placeholder(tf.int32, [batch])
 keep = tf.placeholder(tf.float32)
 w1 = tf.Variable(tf.truncated_normal([5, 5, 1, 32], stddev=0.1), dtype=tf.float32)
 b1 = tf.Variable(tf.constant(0.1, shape=[32]), dtype=tf.float32)
+r1 = tf.nn.l2_loss(w1) * beta
 w2 = tf.Variable(tf.truncated_normal([5, 5, 32, 64], stddev=0.1), dtype=tf.float32)
 b2 = tf.Variable(tf.constant(0.1, shape=[64]), dtype=tf.float32)
+r2 = tf.nn.l2_loss(w2) * beta
 w3 = tf.Variable(tf.truncated_normal([7 * 7 * 64, 1024], stddev=0.1), dtype=tf.float32)
 b3 = tf.Variable(tf.constant(0.1, shape=[1024]), dtype=tf.float32)
+r3 = tf.nn.l2_loss(w3) * beta
 w4 = tf.Variable(tf.truncated_normal([1024, stars], stddev=0.1), dtype=tf.float32)
 b4 = tf.Variable(tf.constant(0.1, shape=[stars]), dtype=tf.float32)
+r4 = tf.nn.l2_loss(w4) * beta
 conv1 = tf.nn.conv2d(data, w1, strides=[1, 1, 1, 1], padding='SAME') + b1
 pool1 = tf.nn.max_pool(tf.nn.relu(conv1), ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 conv2 = tf.nn.conv2d(pool1, w2, strides=[1, 1, 1, 1], padding='SAME') + b2
 pool2 = tf.nn.max_pool(tf.nn.relu(conv2), ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 full3 = tf.matmul(tf.reshape(pool2, [-1, 7 * 7 * 64]), w3) + b3
 drop3 = tf.nn.dropout(tf.nn.relu(full3), keep)
-output = tf.matmul(drop3, w4) + b4
+logits = tf.matmul(drop3, w4) + b4
 
-cost = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=output, labels=target))
-train = tf.train.AdamOptimizer().minimize(cost)
-prediction = tf.cast(tf.arg_max((output), 1), tf.int32)
+loss = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=target))
+loss = tf.reduce_mean(loss + r1 + r2 + r3 + r4)
+train = tf.train.AdamOptimizer().minimize(loss)
+prediction = tf.cast(tf.arg_max((logits), 1), tf.int32)
 accuracy = tf.reduce_mean(tf.cast(tf.equal(prediction, target), tf.float32))
 
 init = tf.global_variables_initializer()
@@ -51,7 +57,7 @@ for batchndx in range(batches):
     sess.run(train, {data: trainin, target: trainlab, keep: dropout})
     if batchndx % 10 == 0:
         testin, testlab = inputs(batch, stars)
-        testcost, testacc = sess.run([cost, accuracy], {data: testin, target: testlab, keep: 1.0})
+        testcost, testacc = sess.run([loss, accuracy], {data: testin, target: testlab, keep: 1.0})
         print('%5d %5.2f %5.2f' % (batchndx, testcost, testacc))
 
 # saver = tf.train.Saver()

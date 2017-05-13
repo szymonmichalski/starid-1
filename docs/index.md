@@ -1,3 +1,7 @@
+*13.5.2017*
+
+moving on towards networks for more stars, time to introduce regularization. the concept is to force the networks to build simpler models, based on patterns seen more often. picturing the network as a set of weight vectors, we want them to be smaller rather than larger, with less inertia and more adaptive. working in cnn2b and rnn2b, dropout and l2 weight decay introduced. 
+
 *6.5.2017*
 
 increased the number of stars identified by rnn and cnn beyond ten for the first time. first increase was to one hundred stars. training is slower but still very reasonable on a six year old laptop. the path seems clear to push towards all 8876 stars. r2017b released.

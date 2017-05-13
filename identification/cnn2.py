@@ -33,11 +33,11 @@ pool1 = tf.nn.max_pool(tf.nn.relu(conv1), ksize=[1, 2, 2, 1], strides=[1, 2, 2, 
 conv2 = tf.nn.conv2d(pool1, w2, strides=[1, 1, 1, 1], padding='SAME') + b2
 pool2 = tf.nn.max_pool(tf.nn.relu(conv2), ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 full3 = tf.matmul(tf.reshape(pool2, [-1, 7 * 7 * 64]), w3) + b3
-output = tf.matmul(full3, w4) + b4
+logits = tf.matmul(full3, w4) + b4
 
-cost = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=output, labels=target))
-train = tf.train.AdamOptimizer().minimize(cost)
-prediction = tf.cast(tf.arg_max((output), 1), tf.int32)
+loss = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=target))
+train = tf.train.AdamOptimizer().minimize(loss)
+prediction = tf.cast(tf.arg_max((logits), 1), tf.int32)
 accuracy = tf.reduce_mean(tf.cast(tf.equal(prediction, target), tf.float32))
 
 init = tf.global_variables_initializer()
@@ -48,5 +48,5 @@ for batchndx in range(batches):
     sess.run(train, {data: trainin, target: trainlab})
     if batchndx % 10 == 0:
         testin, testlab = inputs(batch, stars)
-        testcost, testacc = sess.run([cost, accuracy], {data: testin, target: testlab})
+        testcost, testacc = sess.run([loss, accuracy], {data: testin, target: testlab})
         print('%5d %5.2f %5.2f' % (batchndx, testcost, testacc))

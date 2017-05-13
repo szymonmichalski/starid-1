@@ -11,6 +11,7 @@ batches = 20
 lstmsize = 100
 lstmlayers = 1
 dropout = 0.5
+beta = 0.01
 
 def inputs(batch, stars):
     angseqs = np.zeros((batch, 36, 1), dtype=np.float32)
@@ -25,19 +26,21 @@ data = tf.placeholder(tf.float32, [batch, 36,1])
 target = tf.placeholder(tf.int32, [batch])
 w1 = tf.Variable(tf.truncated_normal([lstmsize, stars]))
 b1 = tf.Variable(tf.constant(0.1, shape=[stars]))
+r1 = tf.nn.l2_loss(w1) * beta
 
 lstm = tf.contrib.rnn.BasicLSTMCell(lstmsize, state_is_tuple=True)
 lstm = tf.contrib.rnn.DropoutWrapper(lstm, output_keep_prob=dropout)
 lstm = tf.contrib.rnn.MultiRNNCell([lstm] * lstmlayers, state_is_tuple=True)
 
-outj, state = tf.nn.dynamic_rnn(lstm, data, dtype=tf.float32)
-outj = tf.transpose(outj, [1, 0, 2])
-outf = tf.gather(outj, int(outj.get_shape()[0]-1))
-output = tf.matmul(outf, w1) + b1
+out, state = tf.nn.dynamic_rnn(lstm, data, dtype=tf.float32)
+out = tf.transpose(out, [1, 0, 2])
+outf = tf.gather(out, int(out.get_shape()[0]-1))
+logits = tf.matmul(outf, w1) + b1
 
-cost = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=output, labels=target))
-train = tf.train.AdamOptimizer().minimize(cost)
-prediction = tf.cast(tf.arg_max((output), 1), tf.int32)
+loss = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=target))
+loss = tf.reduce_mean(loss + r1)
+train = tf.train.AdamOptimizer().minimize(loss)
+prediction = tf.cast(tf.arg_max((logits), 1), tf.int32)
 accuracy = tf.reduce_mean(tf.cast(tf.equal(prediction, target), tf.float32))
 
 init = tf.global_variables_initializer()
@@ -48,7 +51,7 @@ for batchndx in range(batches):
     sess.run(train, {data: trainin, target: trainlab})
     if batchndx % 10 == 0:
         testin, testlab = inputs(batch, stars)
-        testcost, testacc = sess.run([cost, accuracy], {data: testin, target: testlab})
+        testcost, testacc = sess.run([loss, accuracy], {data: testin, target: testlab})
         print('%5d %5.2f %5.2f' % (batchndx, testcost, testacc))
 
 # saver = tf.train.Saver()
