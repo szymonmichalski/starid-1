@@ -60,7 +60,7 @@ it soon became clear that there were still no public solutions for the star iden
 
 *2016*
 
-another thirteen years had passed, and i’d been working in hamburg for the previous two years. there was finally time to really solve the problem, and a year of hobbyist effort did the trick. 
+another thirteen years had passed, and at last there was freedom to really solve the problem. a year of hobbyist effort did the trick, see march fifth [here](starid.org/index). to be continued. 
 
 *notes*
 
