@@ -1,6 +1,6 @@
 *1990, [photos](http://photos.starid.org) and [pdf](papers/1986 hemenway.pdf), [pdf](papers/1986 pierce.pdf), [pdf](papers/1987 hemenway.pdf)*
 
-in the summer of ninety i was a twenty one year old astronomy undergrad in austin. in recent months, the berlin wall had fallen, and the hubble space telescope had finally reached orbit. i was living in a one room apartment by the back patio of a historic house, just north of campus. my landlady, martha ann zively, an eighty three year old local legend, lived overhead. rent was a hundred and fifty dollars per month. mobile phones, laptops, and the web were still over the horizon. twin peaks would appear in a few months, and the austin garage rock scene was again building steam.
+in the summer of ninety i was a twenty one year old astronomy undergrad. in recent months, the berlin wall had fallen, and the hubble space telescope had finally reached orbit. i was living in a one room apartment by the back patio of a historic house, just north of campus. my landlady, martha ann zively, an eighty three year old local legend, lived overhead. rent was a hundred and fifty dollars per month. mobile phones, laptops, and the web were still over the horizon. twin peaks would appear in a few months, and the austin garage rock scene was again building steam.
 
 the previous fall i’d become a research assistant with the hubble space telescope astrometry group. the group had members from the astronomy department, mcdonald observatory, the aerospace department, and the center for space research. my supervisor, paul hemenway, was a research scientist associated with all of these organizations. paul explained the group’s projects and where i might be able to help. he described how hubble was designed for very exact and stable pointing, since high angular resolution is very sensitive to smearing by motion. in a unique and highly sophisticated approach, three optical interferometers were mounted on robotic arms in the hubble focal plane. these were the fine guidance sensors. they'd monitor guide stars and provide feedback to the pointing control system. to evaluate and calibrate this system, very exact reference points were needed.
 
@@ -60,13 +60,4 @@ it soon became clear that there were still no public solutions for the star iden
 
 *2016*
 
-another thirteen years had passed, and at last there was freedom to really solve the problem. a year of hobbyist effort did the trick, see march fifth [here](index). to be continued. 
-
-*notes*
-
-[the story of mel](http://www.pbm.com/~lindahl/mel.html)
-
-[wahba problem](https://en.wikipedia.org/wiki/Wahba's_problem)
-
-[the quest for better attitudes](papers/2006 shuster.pdf)
-
+another thirteen years had passed, and at last there was freedom to really solve the problem. a year of hobbyist effort did the trick. to be continued. 
