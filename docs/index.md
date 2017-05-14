@@ -1,6 +1,6 @@
 *13.5.2017*
 
-introducing regularization so the networks build simpler models, reflecting more common patterns. picturing the network as a set of weight vectors, regularization prefers smaller weights. dropout and weight decay introduced. 
+introducing regularization so the networks build simpler models, reflecting more common patterns. picturing the network as a set of weight vectors, regularization prefers smaller weights. weight decay and dropout implemented. 
 
 *6.5.2017*
 
