@@ -1,5 +1,6 @@
 ### *cnn2* cnn using libstarid
 ###
+import datetime
 import random
 import numpy as np
 import tensorflow as tf
@@ -58,7 +59,7 @@ for batchndx in range(batches):
     if batchndx % 10 == 0:
         testin, testlab = inputs(batch, stars)
         testcost, testacc = sess.run([loss, accuracy], {data: testin, target: testlab, keep: 1.0})
-        print('%5d %5.2f %5.2f' % (batchndx, testcost, testacc))
+        print('%25s %7d %7.2f %7.2f' % (datetime.datetime.now(), batchndx, testcost, testacc))
 
 # saver = tf.train.Saver()
 # saver.save(sess, 'data_cnn2/model', global_step=batchndx)
