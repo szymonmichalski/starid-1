@@ -1,6 +1,7 @@
 ### *cnn2* cnn using libstarid
 ###
 import datetime
+import time
 import random
 import numpy as np
 import tensorflow as tf
@@ -8,9 +9,10 @@ import libstarid.libstarid as ls
 libstarid = ls.libstarid()
 stars = 100
 batch = 100
-batches = 100
+batches = 1000
 dropout = 0.5
 beta = 0.01
+loginterval = 100 # batches
 
 def inputs(batch, stars):
     images = np.zeros((batch, 28, 28, 1), dtype=np.float32)
@@ -53,14 +55,16 @@ accuracy = tf.reduce_mean(tf.cast(tf.equal(prediction, target), tf.float32))
 init = tf.global_variables_initializer()
 sess = tf.Session()
 sess.run(init)
+t0 = time.time()
 for batchndx in range(batches):
     trainin, trainlab = inputs(batch, stars)
     sess.run(train, {data: trainin, target: trainlab, keep: dropout})
-    if batchndx % 10 == 0:
+    if batchndx % loginterval == 0:
         testin, testlab = inputs(batch, stars)
         testcost, testacc = sess.run([loss, accuracy], {data: testin, target: testlab, keep: 1.0})
-        print('%25s %7d %7.2f %7.2f' % (datetime.datetime.now(), batchndx, testcost, testacc))
+        print('%s, %.3f, %d, %.2f, %.2f' % (datetime.datetime.now(), time.time()-t0, batchndx, testcost, testacc))
+        t0 = time.time()
 
-# saver = tf.train.Saver()
-# saver.save(sess, 'data_cnn2/model', global_step=batchndx)
+saver = tf.train.Saver()
+saver.save(sess, 'data_cnn2/model', global_step=batchndx)
 sess.close()
