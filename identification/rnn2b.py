@@ -7,11 +7,12 @@ import libstarid.libstarid as ls
 libstarid = ls.libstarid()
 stars = 100
 batch = 100
-batches = 20
+batches = 200
 lstmsize = 100
-lstmlayers = 1
+rnnlayers = 1
 dropout = 0.5
 beta = 0.01
+outdir = 'data_rnn2/model'
 
 def inputs(batch, stars):
     angseqs = np.zeros((batch, 36, 1), dtype=np.float32)
@@ -24,17 +25,15 @@ def inputs(batch, stars):
 
 data = tf.placeholder(tf.float32, [batch, 36,1])
 target = tf.placeholder(tf.int32, [batch])
+rnn1 = tf.contrib.rnn.BasicLSTMCell(lstmsize, state_is_tuple=True)
+rnn1 = tf.contrib.rnn.DropoutWrapper(rnn1, output_keep_prob=dropout)
+rnn1 = tf.contrib.rnn.MultiRNNCell([rnn1] * rnnlayers, state_is_tuple=True)
+out, state = tf.nn.dynamic_rnn(rnn1, data, dtype=tf.float32)
+out = tf.transpose(out, [1, 0, 2])
+outf = tf.gather(out, int(out.get_shape()[0]-1))
 w1 = tf.Variable(tf.truncated_normal([lstmsize, stars]))
 b1 = tf.Variable(tf.constant(0.1, shape=[stars]))
 r1 = tf.nn.l2_loss(w1) * beta
-
-lstm = tf.contrib.rnn.BasicLSTMCell(lstmsize, state_is_tuple=True)
-lstm = tf.contrib.rnn.DropoutWrapper(lstm, output_keep_prob=dropout)
-lstm = tf.contrib.rnn.MultiRNNCell([lstm] * lstmlayers, state_is_tuple=True)
-
-out, state = tf.nn.dynamic_rnn(lstm, data, dtype=tf.float32)
-out = tf.transpose(out, [1, 0, 2])
-outf = tf.gather(out, int(out.get_shape()[0]-1))
 logits = tf.matmul(outf, w1) + b1
 
 loss = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=target))
@@ -43,17 +42,29 @@ train = tf.train.AdamOptimizer().minimize(loss)
 prediction = tf.cast(tf.arg_max((logits), 1), tf.int32)
 accuracy = tf.reduce_mean(tf.cast(tf.equal(prediction, target), tf.float32))
 
+tf.summary.histogram('w1', w1)
+tf.summary.histogram('b1', b1)
+tf.summary.histogram('r1', r1)
+tf.summary.histogram('logits', logits)
+tf.summary.scalar('loss', loss)
+tf.summary.scalar('accuracy', accuracy)
+stats = tf.summary.merge_all()
+saver = tf.train.Saver()
+writer = tf.summary.FileWriter(outdir)
+
 init = tf.global_variables_initializer()
 sess = tf.Session()
 sess.run(init)
+writer.add_graph(sess.graph)
 for batchndx in range(batches):
     trainin, trainlab = inputs(batch, stars)
     sess.run(train, {data: trainin, target: trainlab})
     if batchndx % 10 == 0:
         testin, testlab = inputs(batch, stars)
-        testcost, testacc = sess.run([loss, accuracy], {data: testin, target: testlab})
+        testcost, testacc, teststats = sess.run([loss, accuracy, stats], {data: testin, target: testlab})
+        writer.add_summary(teststats, batchndx)
         print('%5d %5.2f %5.2f' % (batchndx, testcost, testacc))
 
-# saver = tf.train.Saver()
-# saver.save(sess, 'data_rnn2/model', global_step=batchndx)
+saver = tf.train.Saver()
+saver.save(sess, outdir, global_step=batchndx)
 sess.close()
