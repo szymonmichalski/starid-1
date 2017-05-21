@@ -1,6 +1,6 @@
 *21.5.2017*
 
-for identifying one hundred stars, both rnn and cnn are getting better than ninety percent accuracy for roughly ten minutes of training, so we're quickly jumping to a thousand stars. this is clearly much more of a challenge. cnn pushes accuracy up from 0.001 to only 0.002 for fifteen minutes of training.  
+for identifying one hundred stars, both rnn and cnn are getting better than ninety percent accuracy for roughly ten minutes of training, so we're quickly jumping to a thousand stars. this is clearly much more of a challenge. cnn pushes accuracy up from 0.001 to only 0.002 for fifteen minutes of training. rnn gets up to around 0.005.
 
 *13.5.2017*
 
