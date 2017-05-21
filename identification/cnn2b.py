@@ -9,10 +9,10 @@ import libstarid.libstarid as ls
 libstarid = ls.libstarid()
 stars = 1000
 batch = 1000
-batches = 1
+batches = 100
 dropout = 0.5
 beta = 0.01
-loginterval = 1 # batches
+loginterval = 10 # batches
 outdir = '/home/noah/run' + time.strftime('%m%d%H%M%S')
 
 def inputs(batch, stars):
