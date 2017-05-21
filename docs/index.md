@@ -1,3 +1,7 @@
+*21.5.2017*
+
+for identifying one hundred stars, both rnn and cnn are getting better than ninety percent accuracy for roughly ten minutes of training, so we're quickly jumping to a thousand stars. this is clearly much more of a challenge. for fifteen minutes of training, cnn is only able to push accuracy up from baseline 0.001 to 0.002.  
+
 *13.5.2017*
 
 introducing regularization so the networks build simpler models, reflecting more common patterns. picturing the network as a set of weight vectors, regularization prefers smaller weights. weight decay and dropout implemented. 

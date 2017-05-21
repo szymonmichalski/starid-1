@@ -67,6 +67,6 @@ for batchndx in range(batches):
         testin, testlab = inputs(batch, stars)
         testcost, testacc, teststats = sess.run([loss, accuracy, stats], {data: testin, target: testlab})
         writer.add_summary(teststats, batchndx)
-        print('%s, %.3f, %d, %.2f, %.2f' % (datetime.datetime.now(), time.time()-t0, batchndx, testcost, testacc))
+        print('%s, %.3f, %d, %.4f, %.4f' % (time.strftime('%H%M%S'), time.time()-t0, batchndx, testcost, testacc))
 saver.save(sess, outdir + '-' + time.strftime('%Y%m%d%H%M%S'), global_step=batchndx)
 sess.close()
