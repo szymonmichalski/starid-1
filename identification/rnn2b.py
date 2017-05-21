@@ -4,14 +4,17 @@ import random
 import numpy as np
 import tensorflow as tf
 import libstarid.libstarid as ls
+import datetime
+import time
 libstarid = ls.libstarid()
 stars = 100
 batch = 100
-batches = 200
+batches = 10000
 lstmsize = 100
 rnnlayers = 1
 dropout = 0.5
 beta = 0.01
+loginterval = 100 # batches
 outdir = 'data_rnn2/model'
 
 def inputs(batch, stars):
@@ -56,15 +59,14 @@ init = tf.global_variables_initializer()
 sess = tf.Session()
 sess.run(init)
 writer.add_graph(sess.graph)
+t0 = time.time()
 for batchndx in range(batches):
     trainin, trainlab = inputs(batch, stars)
     sess.run(train, {data: trainin, target: trainlab})
-    if batchndx % 10 == 0:
+    if batchndx % loginterval == 0:
         testin, testlab = inputs(batch, stars)
         testcost, testacc, teststats = sess.run([loss, accuracy, stats], {data: testin, target: testlab})
         writer.add_summary(teststats, batchndx)
-        print('%5d %5.2f %5.2f' % (batchndx, testcost, testacc))
-
-saver = tf.train.Saver()
-saver.save(sess, outdir, global_step=batchndx)
+        print('%s, %.3f, %d, %.2f, %.2f' % (datetime.datetime.now(), time.time()-t0, batchndx, testcost, testacc))
+saver.save(sess, outdir + '-' + time.strftime('%Y%m%d%H%M%S'), global_step=batchndx)
 sess.close()

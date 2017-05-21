@@ -9,10 +9,11 @@ import libstarid.libstarid as ls
 libstarid = ls.libstarid()
 stars = 100
 batch = 100
-batches = 1000
+batches = 1
 dropout = 0.5
 beta = 0.01
 loginterval = 100 # batches
+outdir = 'data_cnn2/model'
 
 def inputs(batch, stars):
     images = np.zeros((batch, 28, 28, 1), dtype=np.float32)
@@ -52,19 +53,29 @@ train = tf.train.AdamOptimizer().minimize(loss)
 prediction = tf.cast(tf.arg_max((logits), 1), tf.int32)
 accuracy = tf.reduce_mean(tf.cast(tf.equal(prediction, target), tf.float32))
 
+tf.summary.histogram('w4', w4)
+tf.summary.histogram('b4', b4)
+tf.summary.histogram('r4', r4)
+tf.summary.histogram('logits', logits)
+tf.summary.scalar('loss', loss)
+tf.summary.scalar('accuracy', accuracy)
+stats = tf.summary.merge_all()
+saver = tf.train.Saver()
+writer = tf.summary.FileWriter(outdir)
+
 init = tf.global_variables_initializer()
 sess = tf.Session()
 sess.run(init)
+writer.add_graph(sess.graph)
 t0 = time.time()
 for batchndx in range(batches):
     trainin, trainlab = inputs(batch, stars)
     sess.run(train, {data: trainin, target: trainlab, keep: dropout})
     if batchndx % loginterval == 0:
         testin, testlab = inputs(batch, stars)
-        testcost, testacc = sess.run([loss, accuracy], {data: testin, target: testlab, keep: 1.0})
+        testcost, testacc, teststats = sess.run([loss, accuracy, stats], {data: testin, target: testlab, keep: 1.0})
+        writer.add_summary(teststats, batchndx)
         print('%s, %.3f, %d, %.2f, %.2f' % (datetime.datetime.now(), time.time()-t0, batchndx, testcost, testacc))
-        t0 = time.time()
-
 saver = tf.train.Saver()
-saver.save(sess, 'data_cnn2/model', global_step=batchndx)
+saver.save(sess, outdir + '-' + time.strftime('%Y%m%d%H%M%S'), global_step=batchndx)
 sess.close()
