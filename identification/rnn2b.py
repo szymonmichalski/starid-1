@@ -7,15 +7,15 @@ import libstarid.libstarid as ls
 import datetime
 import time
 libstarid = ls.libstarid()
-stars = 100
-batch = 100
-batches = 10000
+stars = 1000
+batch = 1000
+batches = 1
 lstmsize = 100
 rnnlayers = 1
 dropout = 0.5
 beta = 0.01
 loginterval = 100 # batches
-outdir = 'data_rnn2/model'
+outdir = '/home/noah/run' + time.strftime('%m%d%H%M%S')
 
 def inputs(batch, stars):
     angseqs = np.zeros((batch, 36, 1), dtype=np.float32)
@@ -68,5 +68,6 @@ for batchndx in range(batches):
         testcost, testacc, teststats = sess.run([loss, accuracy, stats], {data: testin, target: testlab})
         writer.add_summary(teststats, batchndx)
         print('%s, %.3f, %d, %.4f, %.4f' % (time.strftime('%H%M%S'), time.time()-t0, batchndx, testcost, testacc))
-saver.save(sess, outdir + '-' + time.strftime('%Y%m%d%H%M%S'), global_step=batchndx)
+saver = tf.train.Saver()
+saver.save(sess, outdir+'/model', global_step=batchndx)
 sess.close()

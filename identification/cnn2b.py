@@ -9,11 +9,11 @@ import libstarid.libstarid as ls
 libstarid = ls.libstarid()
 stars = 1000
 batch = 1000
-batches = 100
+batches = 1
 dropout = 0.5
 beta = 0.01
-loginterval = 10 # batches
-outdir = 'data_cnn2/model'
+loginterval = 1 # batches
+outdir = '/home/noah/run' + time.strftime('%m%d%H%M%S')
 
 def inputs(batch, stars):
     images = np.zeros((batch, 28, 28, 1), dtype=np.float32)
@@ -77,5 +77,5 @@ for batchndx in range(batches):
         writer.add_summary(teststats, batchndx)
         print('%s, %.3f, %d, %.4f, %.4f' % (time.strftime('%H%M%S'), time.time()-t0, batchndx, testcost, testacc))
 saver = tf.train.Saver()
-saver.save(sess, outdir + '-' + time.strftime('%Y%m%d%H%M%S'), global_step=batchndx)
+saver.save(sess, outdir+'/model', global_step=batchndx)
 sess.close()
