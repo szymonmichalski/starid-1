@@ -1,3 +1,7 @@
+*23.5.2017*
+
+for a thousand stars, the basic rnn and cnn are there, but train slowly. conceptually, the recurrent approach is more powerful, as it's not as sensitive to image yaw. with the idea of making a thousand stars practical as quickly as possible on a six year old laptop, the focus for now will be rnn performance.
+
 *21.5.2017*
 
 for identifying one hundred stars, both rnn and cnn are getting better than ninety percent accuracy for roughly ten minutes of training, so we're quickly jumping to a thousand stars. this is clearly much more of a challenge. accuracy increases from 0.001 to about 0.005 for fifteen minutes of training
