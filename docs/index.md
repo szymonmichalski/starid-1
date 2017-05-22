@@ -1,6 +1,6 @@
 *23.5.2017*
 
-for a thousand stars, the basic rnn and cnn are there, but train slowly. conceptually, the recurrent approach is more powerful, as it's not as sensitive to image yaw. with the idea of making a thousand stars practical as quickly as possible on a six year old laptop, the focus for now will be rnn performance.
+for a thousand stars, rnn and cnn train slowly. the sequential, recurrent approach should be easier to speed up, as it's less sensitive to image yaw. to make training practical on a six year old laptop, the focus will be on improved rnn design.
 
 *21.5.2017*
 
