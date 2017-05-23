@@ -1,4 +1,4 @@
-### machine learning using cpp eigen kernel and tensorflow training and inference
+### python numpy, cpp eigen kernel, tensorflow training and inference
 ###
 import time
 import random
