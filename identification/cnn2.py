@@ -1,5 +1,6 @@
 ### *cnn2* cnn using libstarid
 ###
+import time
 import random
 import numpy as np
 import tensorflow as tf
@@ -7,7 +8,7 @@ import libstarid.libstarid as ls
 libstarid = ls.libstarid()
 stars = 100
 batch = 100
-batches = 100
+batches = 300
 
 def inputs(batch, stars):
     images = np.zeros((batch, 28, 28, 1), dtype=np.float32)
@@ -43,10 +44,11 @@ accuracy = tf.reduce_mean(tf.cast(tf.equal(prediction, target), tf.float32))
 init = tf.global_variables_initializer()
 sess = tf.Session()
 sess.run(init)
+t0 = time.time()
 for batchndx in range(batches):
     trainin, trainlab = inputs(batch, stars)
     sess.run(train, {data: trainin, target: trainlab})
     if batchndx % 10 == 0:
         testin, testlab = inputs(batch, stars)
         testcost, testacc = sess.run([loss, accuracy], {data: testin, target: testlab})
-        print('%5d %5.2f %5.2f' % (batchndx, testcost, testacc))
+        print('%s, %.1f, %d, %.4f, %.4f' % (time.strftime('%H%M%S'), time.time()-t0, batchndx, testcost, testacc))

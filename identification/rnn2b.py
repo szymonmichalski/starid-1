@@ -4,7 +4,6 @@ import random
 import numpy as np
 import tensorflow as tf
 import libstarid.libstarid as ls
-import datetime
 import time
 libstarid = ls.libstarid()
 stars = 1000
@@ -67,7 +66,7 @@ for batchndx in range(batches):
         testin, testlab = inputs(batch, stars)
         testcost, testacc, teststats = sess.run([loss, accuracy, stats], {data: testin, target: testlab})
         writer.add_summary(teststats, batchndx)
-        print('%s, %.3f, %d, %.4f, %.4f' % (time.strftime('%H%M%S'), time.time()-t0, batchndx, testcost, testacc))
+        print('%s, %.1f, %d, %.4f, %.4f' % (time.strftime('%H%M%S'), time.time()-t0, batchndx, testcost, testacc))
 saver = tf.train.Saver()
 saver.save(sess, outdir+'/model', global_step=batchndx)
 sess.close()
