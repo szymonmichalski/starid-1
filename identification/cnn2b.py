@@ -1,6 +1,5 @@
 ### *cnn2* cnn using libstarid
 ###
-import datetime
 import time
 import random
 import numpy as np

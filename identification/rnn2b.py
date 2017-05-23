@@ -4,7 +4,6 @@ import random
 import numpy as np
 import tensorflow as tf
 import libstarid.libstarid as ls
-import datetime
 import time
 libstarid = ls.libstarid()
 stars = 1000
