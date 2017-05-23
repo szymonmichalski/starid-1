@@ -1,4 +1,4 @@
-### *rnn2* rnn using libstarid
+### recursive network using libstarid cpp eigen kernel and tensorflow training and inference
 ###
 import random
 import numpy as np

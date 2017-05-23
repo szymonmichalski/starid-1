@@ -1,4 +1,4 @@
-### *rnn2* rnn using libstarid
+### machine learning using cpp eigen kernel and tensorflow training and inference
 ###
 import time
 import random
