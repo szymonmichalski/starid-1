@@ -14,6 +14,4 @@ convolutional and recurrent networks, triangular structure.
 
 interface cpp eigen and python numpy.
 
-*lib*
-
 thanks to [tensorflow](http://github.com/tensorflow/tensorflow), [eigen](http://eigen.tuxfamily.org/index.php), [pybind11](https://github.com/pybind/pybind11), [armadillo](http://arma.sourceforge.net), [openblas](http://www.openblas.net/), [lapack](http://www.netlib.org/lapack/), [cereal](http://github.com/USCiLab/cereal), [optionparser](http://optionparser.sourceforge.net)
