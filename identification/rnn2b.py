@@ -7,9 +7,10 @@ import libstarid.libstarid as ls
 import time
 libstarid = ls.libstarid()
 stars = 1000
-batch = 1000
-batches = 100
-num_units = 64
+sequence_length = 36
+batch_size = 1000
+batches = 1
+state_size = 64
 rnnlayers = 1
 output_keep_prob = 0.5
 beta = 0.01
@@ -17,7 +18,7 @@ loginterval = 10 # batches
 outdir = '/home/noah/run' + time.strftime('%m%d%H%M%S')
 
 def inputs(batch, stars):
-    angseqs = np.zeros((batch, 36, 1), dtype=np.float32)
+    angseqs = np.zeros((batch, sequence_length, 1), dtype=np.float32)
     labels = np.zeros((batch), dtype=np.int32)
     for batchndx in range(batch):
         starndx = random.randint(0, stars-1)
@@ -25,18 +26,20 @@ def inputs(batch, stars):
         labels[batchndx] = starndx
     return angseqs, labels
 
-data = tf.placeholder(tf.float32, [batch, 36,1])
-target = tf.placeholder(tf.int32, [batch])
-cell = tf.contrib.rnn.GRUCell(num_units)
+data = tf.placeholder(tf.float32, [batch_size, sequence_length, 1])
+target = tf.placeholder(tf.int32, [batch_size])
+cell = tf.contrib.rnn.GRUCell(state_size)
 cell = tf.contrib.rnn.DropoutWrapper(cell, output_keep_prob=output_keep_prob)
 cell = tf.contrib.rnn.MultiRNNCell([cell] * rnnlayers, state_is_tuple=True)
-out, state = tf.nn.dynamic_rnn(cell, data, dtype=tf.float32)
-out = tf.transpose(out, [1, 0, 2])
-outf = tf.gather(out, int(out.get_shape()[0]-1))
-w1 = tf.Variable(tf.truncated_normal([num_units, stars]))
+
+init_state = cell.zero_state(batch_size, tf.float32)
+rnn_outputs, final_state = tf.nn.dynamic_rnn(cell, data, initial_state=init_state)
+rnn_outputs = tf.gather(tf.transpose(rnn_outputs, [1, 0, 2]), sequence_length-1)
+
+w1 = tf.Variable(tf.truncated_normal([state_size, stars]))
 b1 = tf.Variable(tf.constant(0.1, shape=[stars]))
 r1 = tf.nn.l2_loss(w1) * beta
-logits = tf.matmul(outf, w1) + b1
+logits = tf.matmul(rnn_outputs, w1) + b1
 
 loss = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=target))
 loss = tf.reduce_mean(loss + r1)
@@ -60,10 +63,10 @@ sess.run(init)
 writer.add_graph(sess.graph)
 t0 = time.time()
 for batchndx in range(batches):
-    trainin, trainlab = inputs(batch, stars)
+    trainin, trainlab = inputs(batch_size, stars)
     sess.run(train, {data: trainin, target: trainlab})
     if batchndx % loginterval == 0:
-        testin, testlab = inputs(batch, stars)
+        testin, testlab = inputs(batch_size, stars)
         testcost, testacc, teststats = sess.run([loss, accuracy, stats], {data: testin, target: testlab})
         writer.add_summary(teststats, batchndx)
         print('%s, %.1f, %d, %.4f, %.4f' % (time.strftime('%H%M%S'), time.time()-t0, batchndx, testcost, testacc))
