@@ -8,12 +8,12 @@ import time
 libstarid = ls.libstarid()
 stars = 1000
 batch = 1000
-batches = 1
-lstmsize = 100
+batches = 100
+num_units = 64
 rnnlayers = 1
-dropout = 0.5
+output_keep_prob = 0.5
 beta = 0.01
-loginterval = 100 # batches
+loginterval = 10 # batches
 outdir = '/home/noah/run' + time.strftime('%m%d%H%M%S')
 
 def inputs(batch, stars):
@@ -27,13 +27,13 @@ def inputs(batch, stars):
 
 data = tf.placeholder(tf.float32, [batch, 36,1])
 target = tf.placeholder(tf.int32, [batch])
-rnn1 = tf.contrib.rnn.BasicLSTMCell(lstmsize, state_is_tuple=True)
-rnn1 = tf.contrib.rnn.DropoutWrapper(rnn1, output_keep_prob=dropout)
-rnn1 = tf.contrib.rnn.MultiRNNCell([rnn1] * rnnlayers, state_is_tuple=True)
-out, state = tf.nn.dynamic_rnn(rnn1, data, dtype=tf.float32)
+cell = tf.contrib.rnn.GRUCell(num_units)
+cell = tf.contrib.rnn.DropoutWrapper(cell, output_keep_prob=output_keep_prob)
+cell = tf.contrib.rnn.MultiRNNCell([cell] * rnnlayers, state_is_tuple=True)
+out, state = tf.nn.dynamic_rnn(cell, data, dtype=tf.float32)
 out = tf.transpose(out, [1, 0, 2])
 outf = tf.gather(out, int(out.get_shape()[0]-1))
-w1 = tf.Variable(tf.truncated_normal([lstmsize, stars]))
+w1 = tf.Variable(tf.truncated_normal([num_units, stars]))
 b1 = tf.Variable(tf.constant(0.1, shape=[stars]))
 r1 = tf.nn.l2_loss(w1) * beta
 logits = tf.matmul(outf, w1) + b1

@@ -9,7 +9,7 @@ libstarid = ls.libstarid()
 stars = 100
 batch = 100
 batches = 300
-lstmsize = 100
+num_units = 64
 
 def inputs(batch, stars):
     angseqs = np.zeros((batch, 36, 1), dtype=np.float32)
@@ -22,10 +22,10 @@ def inputs(batch, stars):
 
 data = tf.placeholder(tf.float32, [batch, 36,1])
 target = tf.placeholder(tf.int32, [batch])
-w1 = tf.Variable(tf.truncated_normal([lstmsize, stars]))
+w1 = tf.Variable(tf.truncated_normal([num_units, stars]))
 b1 = tf.Variable(tf.constant(0.1, shape=[stars]))
-lstm = tf.contrib.rnn.BasicLSTMCell(lstmsize, state_is_tuple=True)
-outj, state = tf.nn.dynamic_rnn(lstm, data, dtype=tf.float32)
+cell = tf.contrib.rnn.BasicLSTMCell(num_units, state_is_tuple=True)
+outj, state = tf.nn.dynamic_rnn(cell, data, dtype=tf.float32)
 outj = tf.transpose(outj, [1, 0, 2])
 outf = tf.gather(outj, int(outj.get_shape()[0]-1))
 logits = tf.matmul(outf, w1) + b1
