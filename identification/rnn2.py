@@ -25,6 +25,7 @@ data = tf.placeholder(tf.float32, [batch_size, sequence_length, 1])
 target = tf.placeholder(tf.int32, [batch_size])
 w1 = tf.Variable(tf.truncated_normal([num_units, stars]))
 b1 = tf.Variable(tf.constant(0.1, shape=[stars]))
+
 cell = tf.contrib.rnn.BasicLSTMCell(num_units, state_is_tuple=True)
 init_state = cell.zero_state(batch_size, tf.float32)
 rnn_outputs, final_state = tf.nn.dynamic_rnn(cell, data, initial_state=init_state)
