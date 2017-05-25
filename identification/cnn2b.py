@@ -9,10 +9,11 @@ libstarid = ls.libstarid()
 stars = 1000
 batch = 1000
 batches = 100
-dropout = 0.5
+output_keep_prob = 0.5
 beta = 0.01
 loginterval = 10 # batches
 outdir = '/home/noah/run' + time.strftime('%m%d%H%M%S')
+keep_prob = tf.placeholder(tf.float32)
 
 def inputs(batch, stars):
     images = np.zeros((batch, 28, 28, 1), dtype=np.float32)
@@ -25,7 +26,6 @@ def inputs(batch, stars):
 
 data = tf.placeholder(tf.float32, [batch, 28, 28, 1])
 target = tf.placeholder(tf.int32, [batch])
-keep = tf.placeholder(tf.float32)
 w1 = tf.Variable(tf.truncated_normal([5, 5, 1, 32], stddev=0.1), dtype=tf.float32)
 b1 = tf.Variable(tf.constant(0.1, shape=[32]), dtype=tf.float32)
 r1 = tf.nn.l2_loss(w1) * beta
@@ -38,12 +38,13 @@ r3 = tf.nn.l2_loss(w3) * beta
 w4 = tf.Variable(tf.truncated_normal([1024, stars], stddev=0.1), dtype=tf.float32)
 b4 = tf.Variable(tf.constant(0.1, shape=[stars]), dtype=tf.float32)
 r4 = tf.nn.l2_loss(w4) * beta
+
 conv1 = tf.nn.conv2d(data, w1, strides=[1, 1, 1, 1], padding='SAME') + b1
 pool1 = tf.nn.max_pool(tf.nn.relu(conv1), ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 conv2 = tf.nn.conv2d(pool1, w2, strides=[1, 1, 1, 1], padding='SAME') + b2
 pool2 = tf.nn.max_pool(tf.nn.relu(conv2), ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 full3 = tf.matmul(tf.reshape(pool2, [-1, 7 * 7 * 64]), w3) + b3
-drop3 = tf.nn.dropout(tf.nn.relu(full3), keep)
+drop3 = tf.nn.dropout(tf.nn.relu(full3), keep_prob)
 logits = tf.matmul(drop3, w4) + b4
 
 loss = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=target))
@@ -69,10 +70,10 @@ writer.add_graph(sess.graph)
 t0 = time.time()
 for batchndx in range(batches):
     trainin, trainlab = inputs(batch, stars)
-    sess.run(train, {data: trainin, target: trainlab, keep: dropout})
+    sess.run(train, {data: trainin, target: trainlab, keep_prob: output_keep_prob})
     if batchndx % loginterval == 0:
         testin, testlab = inputs(batch, stars)
-        testcost, testacc, teststats = sess.run([loss, accuracy, stats], {data: testin, target: testlab, keep: 1.0})
+        testcost, testacc, teststats = sess.run([loss, accuracy, stats], {data: testin, target: testlab, keep_prob: 1.0})
         writer.add_summary(teststats, batchndx)
         print('%s, %.1f, %d, %.4f, %.4f' % (time.strftime('%H%M%S'), time.time()-t0, batchndx, testcost, testacc))
 saver = tf.train.Saver()

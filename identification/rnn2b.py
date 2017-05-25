@@ -28,17 +28,16 @@ def inputs(batch, stars):
 
 data = tf.placeholder(tf.float32, [batch_size, sequence_length, 1])
 target = tf.placeholder(tf.int32, [batch_size])
-cell = tf.contrib.rnn.GRUCell(state_size)
-cell = tf.contrib.rnn.DropoutWrapper(cell, output_keep_prob=output_keep_prob)
-cell = tf.contrib.rnn.MultiRNNCell([cell] * rnnlayers, state_is_tuple=True)
-
-init_state = cell.zero_state(batch_size, tf.float32)
-rnn_outputs, final_state = tf.nn.dynamic_rnn(cell, data, initial_state=init_state)
-rnn_outputs = tf.gather(tf.transpose(rnn_outputs, [1, 0, 2]), sequence_length-1)
-
 w1 = tf.Variable(tf.truncated_normal([state_size, stars]))
 b1 = tf.Variable(tf.constant(0.1, shape=[stars]))
 r1 = tf.nn.l2_loss(w1) * beta
+
+cell = tf.contrib.rnn.GRUCell(state_size)
+cell = tf.contrib.rnn.DropoutWrapper(cell, output_keep_prob=output_keep_prob)
+cell = tf.contrib.rnn.MultiRNNCell([cell] * rnnlayers, state_is_tuple=True)
+init_state = cell.zero_state(batch_size, tf.float32)
+rnn_outputs, final_state = tf.nn.dynamic_rnn(cell, data, initial_state=init_state)
+rnn_outputs = tf.gather(tf.transpose(rnn_outputs, [1, 0, 2]), sequence_length-1)
 logits = tf.matmul(rnn_outputs, w1) + b1
 
 loss = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=target))
