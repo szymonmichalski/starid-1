@@ -1,4 +1,4 @@
-*machine learning using python numpy, cpp eigen, and tensorflow*
+*star identification machine learning using python numpy, cpp eigen, and tensorflow*
 
 [recurrent network](https://github.com/noahhsmith/starid/blob/master/identification/rnn2.py)
 
