@@ -56,7 +56,7 @@ its roots go back to old school celestial navigation. the technology evolved fro
  
 it soon became clear that there were still no public solutions for the star identification problem. it seemed that each time star identification software had been developed, it had been for a government or commercial project. if you were serious about star identification, you probably wanted to sell star trackers. that’s a mature industry now, with plenty of sellers and not a lot of buyers. there’s no motivation to think that way anymore. eventually i’d meet with the university intellectual property office concerning open source licensing of the software we were developing. 
  
-*2016*
+*2016, [photos](https://goo.gl/photos/gSWh1w6pUt8VUnbN7)*
  
 another thirteen years had passed. excitement was growing about advances in deep neural networks, especially at google, which had just open sourced tensorflow. for a number of reasons, it was clearly time to tackle the problem directly, using both rules based and machine learning methods in parallel. 
  
