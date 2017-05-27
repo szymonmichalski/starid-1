@@ -58,8 +58,9 @@ it soon became clear that there were still no public solutions for the star iden
  
 *2016*
  
-another thirteen years had passed. excitement was growing about the advances being made with deep neural networks, especially at google, which had just open sourced its tensorflow machine learning framework. for a number of reasons, it was clearly time to tackle the problem directly, using both heuristic rules based methods and machine learning methods in parallel. 
+another thirteen years had passed. excitement was growing about advances being made with deep neural networks, especially at google, which had just open sourced its tensorflow machine learning framework. for a number of reasons, it was clearly time to tackle the problem directly, using both rules based and machine learning methods in parallel. 
  
-the concept was to create the code from scratch as a github open source project, and to design it from the beginning for use with tensorflow. this meant working in c++ and python numpy. the only external input needed was a star catalog, and nasa’s skymap catalog was ideal. its history, and how it’s used for generating star images, are interesting stories in themselves and well worth a digression here. 
+the concept was to start from scratch as a github open source project, and to integrate tensorflow from the beginning. this meant working in c++ and python numpy. the only external input was to be a list of star positions, for which nasa’s skymap star catalog was ideal. skymap was created in the nineties specifically for use with star trackers, and for icesat we had used it extensively and collaborated with its creators. when hubble was launched, one of the problems that were soon discovered was bad guide stars and poor star catalog information. as part of the overall hubble recovery effort, nasa funded the efforts resulting in the skymap catalog we have today. it’s purpose is to describe the sky as seen by the standard star trackers of the nineties, and more generally by typical digital imagers. 
  
+focusing on skymap simply as a list of star positions, how does one generate a star image? in other words, for a particular point on the sky, which stars are nearby? an identical problem is, for a list of landmark positions across the surface of the earth, which are near a particular latitude and longitude. 
  
