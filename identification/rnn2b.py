@@ -9,7 +9,7 @@ libstarid = ls.libstarid()
 stars = 1000
 sequence_length = 36
 batch_size = 1000
-batches = 1
+batches = 10
 state_size = 64
 rnnlayers = 1
 output_keep_prob = 0.5
@@ -18,13 +18,14 @@ loginterval = 10 # batches
 outdir = '/home/noah/run' + time.strftime('%m%d%H%M%S')
 
 def inputs(batch, stars):
-    angseqs = np.zeros((batch, sequence_length, 1), dtype=np.float32)
+    sequences = np.zeros((batch, sequence_length, 1), dtype=np.float32)
     labels = np.zeros((batch), dtype=np.int32)
     for batchndx in range(batch):
         starndx = random.randint(0, stars-1)
-        angseqs[batchndx, :, :] = libstarid.ang_seq_vec(starndx)
+        sequence = libstarid.ang_seq_vec(starndx)
+        sequences[batchndx, :, :] = sequence
         labels[batchndx] = starndx
-    return angseqs, labels
+    return sequences, labels
 
 data = tf.placeholder(tf.float32, [batch_size, sequence_length, 1])
 target = tf.placeholder(tf.int32, [batch_size])
