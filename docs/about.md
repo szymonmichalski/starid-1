@@ -1,6 +1,6 @@
 [1990](#1990), [2003](#2003), [2016](#2016)
 
-<a name="1990"/>*1990, [photos](http://photos.starid.org) and [pdf](papers/1986 hemenway.pdf), [pdf](papers/1986 pierce.pdf), [pdf](papers/1987 hemenway.pdf)*</a>
+<a name="1990"/>*1990, [photos](http://photos.starid.org) and [pdf](papers/1986 hemenway.pdf), [pdf](papers/1986 pierce.pdf), [pdf](papers/1987 hemenway.pdf)*
  
 in the summer of ninety i was a twenty one year old astronomy undergrad. in recent months, the berlin wall had fallen, and the hubble space telescope had finally reached orbit. i was living in a one room apartment by the back patio of a historic house, just north of campus. my landlady, martha ann zively, an eighty three year old local legend, lived overhead. rent was a hundred and fifty dollars per month. mobile phones, laptops, and the web were still over the horizon. twin peaks would appear in a few months, and the austin garage rock scene was again building steam.
  
@@ -42,7 +42,7 @@ the controller was a tall rack with electronics mounted in cases standing in the
  
 a few days after scanning that first plate, i went to meet with paul and ray in the aerospace building. i can clearly remember stopping in the texas sun. overhead was the typical hard blue summer sky with little white clouds, and i was already sweating just seconds after stepping outside. exactly which stars were on that plate? how could we identify them in order to determine the position of the asteroid? was there a program on the astronomy or aerospace computers to do this? the answer was no, there was not an easy or obvious solution. helping to figure out a practical method for our particular plates was part of my job, not that an undergrad was expected to solve the problem, but at least to get a feel for the questions involved. how did one recognize stars? humans could do it, but could an eighties computer system?
  
-<a name="2003"/>*2003, [photos](https://goo.gl/photos/TbwSuETNgM9b85AF7)*</a>
+<a name="2003"/>*2003, [photos](https://goo.gl/photos/TbwSuETNgM9b85AF7)*
  
 thirteen years later, i entered the aerospace graduate program and went to work at the center for space research. bob schutz was my boss for the next eleven years. my job concerned star trackers, descendents of old school celestial navigation sextants. once again i was dealing with images containing a scattering of unknown stars. within aerospace it’s a classic and has its own name, the lost in space problem. given an image of some stars, what are we looking at? aerospace has its own perspectives, cultural bents, and tools. astronomers didn’t generally think in terms of three dimensional unit vectors, rotation matrices, quaternions, and vector matrix notation, and it was soon apparent that the concerns and methods in aerospace were much more widely applicable than those in astronomy, bringing together optimization, control, data fusion, high performance computing, and machine learning. 
  
@@ -58,7 +58,7 @@ its roots go back to old school celestial navigation. the technology evolved fro
  
 it soon became clear that there were still no public solutions for the star identification problem. it seemed that each time star identification software had been developed, it had been for a government or commercial project. if you were serious about star identification, you probably wanted to sell star trackers. that’s a mature industry now, with plenty of sellers and not a lot of buyers. there’s no motivation to think that way anymore. eventually i’d meet with the university intellectual property office concerning open source licensing of the software we were developing. 
  
-<a name="2016"/>*2016, [photos](https://goo.gl/photos/gSWh1w6pUt8VUnbN7)*</a>
+<a name="2016"/>*2016, [photos](https://goo.gl/photos/gSWh1w6pUt8VUnbN7)*
  
 another thirteen years had passed. excitement was growing about advances in deep neural networks, especially at google, which had just open sourced tensorflow. for a number of reasons, it was clearly time to tackle the problem directly, using both rules based and machine learning methods in parallel. 
  
