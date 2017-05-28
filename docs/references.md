@@ -1,6 +1,6 @@
-references relating to [personal publications](#personal-publications), [star identification](#star-identification), [spacecraft attitude](#spacecraft-attitude), [texas minor planet project](#texas-minor-planet-project)
+references relating to [personal publications](#anchor1), [star identification](#anchor2), [spacecraft attitude](#anchor3), [texas minor planet project](#anchor4)
 
-<a name="personal publications"/>*personal publications*
+<a name="anchor1"/>*personal publications*
 
 2017 - effect of sun shade performance on icesat-2 laser reference sensor alignment estimation - patel, smith, bae, schutz - advances in the astronautical sciences - [pdf](papers/2017 aas.pdf)
 
@@ -28,7 +28,7 @@ references relating to [personal publications](#personal-publications), [star id
 
 2008 - precision orbit and attitude determination for icesat - schutz, bae, smith, sirota - advances in the astronautical sciences - [pdf](papers/2008 aas.pdf)
 
-<a name="star identification"/>*star identification*
+<a name="anchor2"/>*star identification*
 
 1977 - star pattern recognition for real time attitude determination - junkins - [pdf](papers/1977 junkins.pdf)
 
@@ -60,11 +60,11 @@ references relating to [personal publications](#personal-publications), [star id
 
 2015 - an autonomous star identification algortihm based on one dimensional vector pattern for star sensors - luo - [pdf](papers/2015 luo.pdf)
 
-<a name="spacecraft attitude"/>*spacecraft attitude*
+<a name="anchor3"/>*spacecraft attitude*
 
 2006 - the quest for better attitudes - shuster - [pdf](papers/2006 shuster.pdf)
 
-<a name="texas minor planet project"/>*texas minor planet project*
+<a name="anchor4"/>*texas minor planet project*
 
 1986 - the use of space telescope to tie the hipparcos reference frame to an extragalactic reference frame - hemenway, duncombe - astrometric techniques - [pdf](papers/1986 hemenway.pdf)
 
