@@ -1,3 +1,7 @@
+*28.5.2017*
+
+it's turning out that arbitrary phase offsets of the input sequences, corresponding to random yaw of star images, may be an interesting challenge for recurrent networks. basically, it's usually just assumed you know where the beginning of the sequence is, whereas here we have what are essentially circular sequences with no natural beginning or end. because the sequences are one dimensional, it's definitely easy to introduce a heuristic definition of sequence beginning, for example the largest values, and that may be the most direct way forward. 
+
 *23.5.2017*
 
 for a thousand stars, rnn and cnn train slowly. the sequential, recurrent approach should be easier to speed up, as it's less sensitive to image yaw. to make training practical on a six year old laptop, the focus will be on improved rnn design.

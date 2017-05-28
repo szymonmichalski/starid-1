@@ -25,6 +25,9 @@ def inputs(batch, stars):
         sequence = libstarid.ang_seq_vec(starndx)
         sequences[batchndx, :, :] = sequence
         labels[batchndx] = starndx
+        hist, bin_edges = np.histogram(sequence, bins=[0, 1, 2, 3, 4, 5, 6])
+        print(hist)
+    print("max sequence value %d" % np.max(sequences)) # max value is 6 for stars = 1000
     return sequences, labels
 
 data = tf.placeholder(tf.float32, [batch_size, sequence_length, 1])
