@@ -1,6 +1,6 @@
 *28.5.2017*
 
-it's turning out that random input sequence phase offsets are a challenge for recurrent networks. it's usually assumed one knows where the sequences begin, whereas here they're circular wrapped. since they're one dimensional, it's straightforward to introduce heuristic unwrapping.
+it's turning out that random input sequence phase offsets are a challenge for recurrent networks. it's usually assumed one knows where the sequences begin, whereas here they're circular wrapped. since they're one dimensional, it's fairly straightforward to introduce deterministic unwrapping.
 
 *23.5.2017*
 
