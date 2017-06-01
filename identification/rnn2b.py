@@ -18,16 +18,16 @@ loginterval = 10 # batches
 outdir = '/home/noah/run' + time.strftime('%m%d%H%M%S')
 
 def unwrap(sequence):
-    unwrapped = sequence
+    unwrapped = np.zeros([sequence_length, 1], dtype=np.float32)
     hist, bins = np.histogram(sequence, bins=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
     max_hist_bin = np.max(np.nonzero(hist))
 
-    print(max_hist_bin)
+    print(hist, max_hist_bin, hist[max_hist_bin])
     return unwrapped
 
 def inputs(batch, stars):
-    sequences = np.zeros((batch, sequence_length, 1), dtype=np.float32)
-    labels = np.zeros((batch), dtype=np.int32)
+    sequences = np.zeros([batch, sequence_length, 1], dtype=np.float32)
+    labels = np.zeros([batch], dtype=np.int32)
     for batchndx in range(batch):
         starndx = random.randint(0, stars-1)
         sequence = libstarid.ang_seq_vec(starndx)
