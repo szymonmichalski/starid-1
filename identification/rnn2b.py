@@ -20,9 +20,12 @@ outdir = '/home/noah/run' + time.strftime('%m%d%H%M%S')
 def unwrap(sequence):
     unwrapped = np.zeros([sequence_length, 1], dtype=np.float32)
     hist, bins = np.histogram(sequence, bins=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-    max_hist_bin = np.max(np.nonzero(hist))
-
-    print(hist, max_hist_bin, hist[max_hist_bin])
+    max_bin = np.max(np.nonzero(hist))
+    if hist[max_bin] == 1: # unwrap starting at this ndx
+        start_ndx = np.argmax(sequence)
+    else: # there's not yet a clear starting point
+        start_ndx = 0
+    print(hist, max_bin, hist[max_bin], start_ndx, sequence[start_ndx])
     return unwrapped
 
 def inputs(batch, stars):
