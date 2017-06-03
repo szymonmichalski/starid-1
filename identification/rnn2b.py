@@ -24,14 +24,13 @@ def unwrap(sequence):
     max_ndxs = np.argwhere(sequence == max_bin)
     if max_ndxs.shape[0] == 1:
         start_ndx = np.argmax(sequence)
-    else: # choose based on center of mass
-        for ndx in np.nditer(max_ndxs[:,0]):
+    else:
+        centers_of_mass = np.zeros(max_ndxs.shape[0])
+        for cnt, ndx in enumerate(np.nditer(max_ndxs[:,0])):
             massndxs = np.arange(1, 36)
             massvec = sequence[np.mod(massndxs + ndx, 36)]
-            com = np.dot(massndxs, massvec) / massvec.sum()
-            print(com)
-        start_ndx = 0
-    print(hist, max_bin, max_ndxs[:,0], start_ndx)
+            centers_of_mass[cnt] = np.dot(massndxs, massvec) / massvec.sum()
+        start_ndx = max_ndxs[np.argmax(centers_of_mass), 0]
     return unwrapped
 
 def inputs(batch, stars):
