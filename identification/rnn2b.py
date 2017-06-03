@@ -21,11 +21,17 @@ def unwrap(sequence):
     unwrapped = np.zeros([sequence_length, 1], dtype=np.float32)
     hist, bins = np.histogram(sequence, bins=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
     max_bin = np.max(np.nonzero(hist))
-    if hist[max_bin] == 1: # unwrap starting at this ndx
+    max_ndxs = np.argwhere(sequence == max_bin)
+    if max_ndxs.shape[0] == 1:
         start_ndx = np.argmax(sequence)
-    else: # there's not yet a clear starting point
+    else: # choose based on center of mass
+        for ndx in np.nditer(max_ndxs[:,0]):
+            massndxs = np.arange(1, 36)
+            massvec = sequence[np.mod(massndxs + ndx, 36)]
+            com = np.dot(massndxs, massvec) / massvec.sum()
+            print(com)
         start_ndx = 0
-    print(hist, max_bin, hist[max_bin], start_ndx, sequence[start_ndx])
+    print(hist, max_bin, max_ndxs[:,0], start_ndx)
     return unwrapped
 
 def inputs(batch, stars):
@@ -81,6 +87,6 @@ for batchndx in range(batches):
         testcost, testacc, teststats = sess.run([loss, accuracy, stats], {data: testin, target: testlab})
         writer.add_summary(teststats, batchndx)
         print('%s, %.1f, %d, %.4f, %.4f' % (time.strftime('%H%M%S'), time.time()-t0, batchndx, testcost, testacc))
-saver = tf.train.Saver()
-saver.save(sess, outdir+'/model', global_step=batchndx)
+# saver = tf.train.Saver()
+# saver.save(sess, outdir+'/model', global_step=batchndx)
 sess.close()
