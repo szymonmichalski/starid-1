@@ -7,25 +7,25 @@ import tensorflow as tf
 import libstarid.libstarid as ls
 libstarid = ls.libstarid()
 stars = 1000
-batch = 1000
+batch_size = 100
 batches = 100
 output_keep_prob = 0.5
 beta = 0.01
 loginterval = 10 # batches
-outdir = '/home/noah/run' + time.strftime('%m%d%H%M%S')
+outdir = '/home/noah/runs/' + time.strftime('%m%d%H%M%S')
 keep_prob = tf.placeholder(tf.float32)
 
-def inputs(batch, stars):
-    images = np.zeros((batch, 28, 28, 1), dtype=np.float32)
-    labels = np.zeros((batch), dtype=np.int32)
-    for cnt in range(batch):
+def inputs(batch_size, stars):
+    images = np.zeros((batch_size, 28, 28, 1), dtype=np.float32)
+    labels = np.zeros((batch_size), dtype=np.int32)
+    for cnt in range(batch_size):
         starndx = random.randint(0, stars-1)
         images[cnt, :, :, 0] = libstarid.image(starndx)
         labels[cnt] = starndx
     return images, labels
 
-data = tf.placeholder(tf.float32, [batch, 28, 28, 1])
-target = tf.placeholder(tf.int32, [batch])
+data = tf.placeholder(tf.float32, [batch_size, 28, 28, 1])
+target = tf.placeholder(tf.int32, [batch_size])
 w1 = tf.Variable(tf.truncated_normal([5, 5, 1, 32], stddev=0.1), dtype=tf.float32)
 b1 = tf.Variable(tf.constant(0.1, shape=[32]), dtype=tf.float32)
 r1 = tf.nn.l2_loss(w1) * beta
@@ -69,13 +69,13 @@ sess.run(init)
 writer.add_graph(sess.graph)
 t0 = time.time()
 for batchndx in range(batches):
-    trainin, trainlab = inputs(batch, stars)
+    trainin, trainlab = inputs(batch_size, stars)
     sess.run(train, {data: trainin, target: trainlab, keep_prob: output_keep_prob})
     if batchndx % loginterval == 0:
-        testin, testlab = inputs(batch, stars)
+        testin, testlab = inputs(batch_size, stars)
         testcost, testacc, teststats = sess.run([loss, accuracy, stats], {data: testin, target: testlab, keep_prob: 1.0})
         writer.add_summary(teststats, batchndx)
-        print('%s, %.1f, %d, %.4f, %.4f' % (time.strftime('%H%M%S'), time.time()-t0, batchndx, testcost, testacc))
+        print('%s, %.1f, %d, %.2f, %.2f' % (time.strftime('%H%M%S'), time.time()-t0, batchndx, testcost, testacc))
 saver = tf.train.Saver()
 saver.save(sess, outdir+'/model', global_step=batchndx)
 sess.close()

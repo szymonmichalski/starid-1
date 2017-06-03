@@ -8,17 +8,16 @@ import time
 libstarid = ls.libstarid()
 stars = 1000
 sequence_length = 36
-batch_size = 1000
-batches = 10
+batch_size = 100
+batches = 1000
 state_size = 64
 rnnlayers = 1
 output_keep_prob = 0.5
 beta = 0.01
-loginterval = 10 # batches
-outdir = '/home/noah/run' + time.strftime('%m%d%H%M%S')
+loginterval = 100 # batches
+outdir = '/home/noah/runs/' + time.strftime('%m%d%H%M%S')
 
-def unwrap(sequence):
-    unwrapped = np.zeros([sequence_length, 1], dtype=np.float32)
+def unwrap_sequence(sequence):
     hist, bins = np.histogram(sequence, bins=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
     max_bin = np.max(np.nonzero(hist))
     max_ndxs = np.argwhere(sequence == max_bin)
@@ -31,15 +30,16 @@ def unwrap(sequence):
             massvec = sequence[np.mod(massndxs + ndx, 36)]
             centers_of_mass[cnt] = np.dot(massndxs, massvec) / massvec.sum()
         start_ndx = max_ndxs[np.argmax(centers_of_mass), 0]
+    unwrapped = sequence[np.mod(np.arange(0, 36) + start_ndx, 36)]
     return unwrapped
 
-def inputs(batch, stars):
-    sequences = np.zeros([batch, sequence_length, 1], dtype=np.float32)
-    labels = np.zeros([batch], dtype=np.int32)
-    for batchndx in range(batch):
+def inputs(batch_size, stars):
+    sequences = np.zeros([batch_size, sequence_length, 1], dtype=np.float32)
+    labels = np.zeros([batch_size], dtype=np.int32)
+    for batchndx in range(batch_size):
         starndx = random.randint(0, stars-1)
         sequence = libstarid.ang_seq_vec(starndx)
-        sequences[batchndx, :, :] = unwrap(sequence)
+        sequences[batchndx, :, :] = unwrap_sequence(sequence)
         labels[batchndx] = starndx
     return sequences, labels
 
@@ -85,7 +85,7 @@ for batchndx in range(batches):
         testin, testlab = inputs(batch_size, stars)
         testcost, testacc, teststats = sess.run([loss, accuracy, stats], {data: testin, target: testlab})
         writer.add_summary(teststats, batchndx)
-        print('%s, %.1f, %d, %.4f, %.4f' % (time.strftime('%H%M%S'), time.time()-t0, batchndx, testcost, testacc))
+        print('%s, %.1f, %d, %.2f, %.2f' % (time.strftime('%H%M%S'), time.time()-t0, batchndx, testcost, testacc))
 # saver = tf.train.Saver()
 # saver.save(sess, outdir+'/model', global_step=batchndx)
 sess.close()
