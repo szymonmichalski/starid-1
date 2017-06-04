@@ -11,11 +11,11 @@
 #include "../libstarid/Eigen/Core"
 #include <unordered_map>
 #include <map>
-#include "../libstarid/cereal/access.hpp"
-#include "../libstarid/cereal/types/string.hpp"
-#include "../libstarid/cereal/types/tuple.hpp"
-#include "../libstarid/cereal/types/vector.hpp"
-#include "../libstarid/cereal/types/unordered_map.hpp"
+#include <cereal/access.hpp>
+#include <cereal/types/vector.hpp>
+#include <cereal/types/string.hpp>
+#include <cereal/types/tuple.hpp>
+#include <cereal/types/unordered_map.hpp>
 
 namespace starid {
 
