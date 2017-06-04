@@ -39,7 +39,7 @@ with open(outfile, 'w') as f:
     f.write('%s' % commenter(idroot + 'triangle.h'))
     f.write('%s' % commenter(idroot + 'triangle_side.h'))
     f.write('%s' % commenter(idroot + 'cnn1.py'))
-    f.write('%s' % commenter(idroot + 'cnn2.py'))
+    f.write('%s' % commenter(idroot + 'ml_convolutional_minimalist.py'))
 
     f.write('%s' % commenter(starsroot + 'stars.cpp'))
     f.write('%s' % commenter(starsroot + 'sky.h'))

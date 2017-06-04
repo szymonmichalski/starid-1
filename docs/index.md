@@ -1,3 +1,13 @@
+*4.6.2017*
+
+unwrapping sequences is a breakthrough for learning a thousand stars with a recurrent network. accuracy for guessing is 0.001. here are results for a gru cell, first with two hundred states
+ 
+    235652, 5819.3, 9700, 4.53, 0.43 (clock, seconds, batch, loss, accuracy)
+
+then three hundred states
+
+    070320, 9089.9, 9800, 3.72, 0.62
+
 *28.5.2017*
 
 it's turning out that random input sequence phase offsets are a challenge for recurrent networks. it's usually assumed one knows where the sequences begin, whereas here they're circular wrapped. since they're one dimensional, it's fairly straightforward to introduce deterministic unwrapping.

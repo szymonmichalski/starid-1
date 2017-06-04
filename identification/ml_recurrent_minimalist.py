@@ -47,4 +47,4 @@ for batchndx in range(batches):
     if batchndx % 10 == 0:
         testin, testlab = inputs(batch_size, stars)
         testcost, testacc = sess.run([loss, accuracy], {data: testin, target: testlab})
-        print('%s, %.1f, %d, %.4f, %.4f' % (time.strftime('%H%M%S'), time.time()-t0, batchndx, testcost, testacc))
+        print('%s, %.1f, %d, %.2f, %.2f' % (time.strftime('%H%M%S'), time.time()-t0, batchndx, testcost, testacc))

@@ -9,8 +9,8 @@ libstarid = ls.libstarid()
 stars = 1000
 sequence_length = 36
 batch_size = 100
-batches = 1000
-state_size = 64
+batches = 10000
+state_size = 300
 rnnlayers = 1
 output_keep_prob = 0.5
 beta = 0.01
@@ -86,6 +86,6 @@ for batchndx in range(batches):
         testcost, testacc, teststats = sess.run([loss, accuracy, stats], {data: testin, target: testlab})
         writer.add_summary(teststats, batchndx)
         print('%s, %.1f, %d, %.2f, %.2f' % (time.strftime('%H%M%S'), time.time()-t0, batchndx, testcost, testacc))
-# saver = tf.train.Saver()
-# saver.save(sess, outdir+'/model', global_step=batchndx)
+saver = tf.train.Saver()
+saver.save(sess, outdir+'/model', global_step=batchndx)
 sess.close()
