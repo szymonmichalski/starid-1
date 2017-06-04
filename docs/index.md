@@ -1,8 +1,8 @@
 *4.6.2017*
 
-unwrapping sequences is a breakthrough for learning a thousand stars with a recurrent network. accuracy for guessing is 0.001. here are results for a gru cell, first with two hundred states
+unwrapping sequences is a breakthrough for learning a thousand stars with a recurrent network. accuracy for guessing is 0.001. here are results for training a gru cell, first with two hundred states. clock, seconds, batch, loss, accuracy
  
-    235652, 5819.3, 9700, 4.53, 0.43 (clock, seconds, batch, loss, accuracy)
+    235652, 5819.3, 9700, 4.53, 0.43
 
 then three hundred states
 
