@@ -92,9 +92,275 @@ bool starid::triangles::get_angs_c() {
     return angsok;
 }
 
+void starid::Pairs::init(double max_ang, starid::Sky& sky)
+{
+    int pairndx = 0;
+
+    for(auto star : sky.stars) {
+        std::vector<int> starndxs = sky.starsNearPoint(star.x, star.y, star.z);
+        starndxs.push_back(star.starndx);
+
+        for (auto starndx1 : starndxs) {
+
+            for (auto starndx2 : starndxs) {
+                if (starndx1 == starndx2) continue;
+
+                std::string key = pairsKey(sky.stars[starndx1].starndx, sky.stars[starndx2].starndx);
+                auto search = starpairs_map.find(key);
+                if (search != starpairs_map.end()) continue; // check map that pair is unique
+
+                double angle = std::acos( (sky.stars[starndx1].x * sky.stars[starndx2].x) + (sky.stars[starndx1].y * sky.stars[starndx2].y) + (sky.stars[starndx1].z * sky.stars[starndx2].z));
+                if (std::abs(angle) > max_ang) continue; // max pair angle
+
+                std::tuple<double, int, int> starpair {angle, starndx1, starndx2};
+                starpairs.push_back(starpair);
+                starpairs_map.insert({key, pairndx}); // update map of unique pairs
+                angletable.addPair(angle, pairndx);
+                ++pairndx;
+            }
+        }
+    }
+    angletable.sort();
+}
+
+std::unordered_map<int, std::unordered_map<int, int>> starid::Pairs::pairs_map(double angle, double tol_radius) {
+    std::unordered_map<int, std::unordered_map<int, int>> stars;
+
+    double ang1 = angle - tol_radius;
+    double ang2 = angle + tol_radius;
+    double epsilon = 1.0;
+
+    if (ang1 <= 0) ang1 = 0;
+    if (ang2 <= epsilon * tol_radius) ang2 = epsilon * tol_radius;
+
+    if (ang1 >= starid::star_pair_angle_limit - epsilon * tol_radius) ang1 = starid::star_pair_angle_limit - epsilon * tol_radius;
+    if (ang2 >= starid::star_pair_angle_limit) ang2 = starid::star_pair_angle_limit;
+
+    std::vector<int> intsFromTable = angletable.findInts(ang1, ang2);
+    for (auto ndx : intsFromTable) {
+        int star1 = std::get<1>(starpairs[ndx]);
+        int star2 = std::get<2>(starpairs[ndx]);
+
+        auto it1 = stars.find(star1);
+        if (it1 != stars.end()) {
+            auto &pairs1 = it1->second;
+            pairs1.emplace(std::make_pair(star2,0)); // initial value for pair star key is 0
+        } else {
+            std::unordered_map<int, int> pairs1;
+            pairs1.emplace(std::make_pair(star2,1));
+            stars.emplace(std::make_pair(star1,pairs1));
+        }
+
+        auto it2 = stars.find(star2);
+        if (it2 != stars.end()) {
+            auto &pairs2 = it2->second;
+            pairs2.emplace(std::make_pair(star1,0)); // initial value for pair star key is 0
+        } else {
+            std::unordered_map<int, int> pairs2;
+            pairs2.emplace(std::make_pair(star1,1));
+            stars.emplace(std::make_pair(star2,pairs2));
+        }
+    }
+
+    return stars;
+};
+
+std::string starid::Pairs::pairsKey(int catndx1, int catndx2) {
+    if (catndx1 > catndx2) {
+        int tmp = catndx1;
+        catndx1 = catndx2;
+        catndx2 = tmp;
+    }
+    std::string key = std::to_string(catndx1) + std::to_string(catndx2);
+    return key;
+}
+
+starid::Triangle::Triangle(double ang1,
+                          double ang2,
+                          double ang3,
+                          double tolerance,
+                          starid::Pairs &pairs,
+                          int teststar,
+                          Eigen::Vector3d vecin)
+    : side1(ang1, tolerance, pairs, teststar),
+      side2(ang2, tolerance, pairs, teststar),
+      side3(ang3, tolerance, pairs, teststar),
+      teststar(teststar),
+      tolerance(tolerance),
+      pairs(pairs),
+      vecstar3(vecin)
+{
+    vecstar3 << vecin(0), vecin(1), vecin(2);
+}
+
+void starid::Triangle::close_loops_abda(std::vector<Triangle> &triangles) {
+
+    int maxtriangles = triangles.size();
+    for (int trianglendx = 0; trianglendx < maxtriangles; ++trianglendx) {
+
+        double cdang = std::acos(vecstar3.transpose() * triangles[trianglendx].vecstar3);
+        TriangleSide cd(cdang, tolerance, pairs, teststar);
+
+        loops_cnt = 0;
+        for (auto it11 = side1.stars.begin(), end = side1.stars.end(); it11 != end; ++it11) {
+            auto &pairs1 = it11->second;
+
+            int star1side1 = it11->first;                     // star1 side1
+            auto star1side3 = side3.stars.find(star1side1);   // star1 side3
+            if (star1side3 == side3.stars.end()) continue;
+            auto &pairs3 = star1side3->second;
+
+            for (auto pairs1it = pairs1.begin(), end = pairs1.end(); pairs1it != end; ++pairs1it) {
+
+                int star2side1 = pairs1it->first;               // star2 side1
+                auto star2side2 = side2.stars.find(star2side1); // star2 side2
+                if (star2side2 == side2.stars.end()) continue;
+                auto &pairs2 = star2side2->second;
+
+                for (auto pairs2it = pairs2.begin(), end = pairs2.end(); pairs2it != end; ++pairs2it) {
+
+                    int star3side2 = pairs2it->first;             // star3 side2
+                    auto star3side3 = pairs3.find(star3side2);    // star3 side3
+                    if (star3side3 == pairs3.end()) continue;
+
+                    bool dok = false; // is this d star possible
+                    auto cdd = cd.stars.find(star3side2);
+                    auto aca = triangles[trianglendx].side3.stars.find(star1side1);
+                    if (cdd != cd.stars.end() && aca != triangles[trianglendx].side3.stars.end()) {
+                        auto &pairscdc = cdd->second;
+                        auto &pairsacc = aca->second;
+                        for (auto pairscdcit = pairscdc.begin(), end = pairscdc.end(); pairscdcit != end; ++pairscdcit) {
+                            auto pairsaccit = pairsacc.find(pairscdcit->first);
+                            if (pairsaccit != pairsacc.end()) {
+                                dok = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!dok) continue;
+
+                    pairs1it->second = 1;
+                    pairs2it->second = 1;
+                    star3side3->second = 1;
+                    ++loops_cnt;
+                }
+            }
+        }
+        side1.trim_pairs();
+        side2.trim_pairs();
+        side3.trim_pairs();
+        if (side1.stars.size() == 1) break;
+    }
+}
+
+void starid::Triangle::close_loops_abca() {
+    loops_cnt = 0;
+
+    for (auto it11 = side1.stars.begin(), end = side1.stars.end(); it11 != end; ++it11) {
+        auto &pairs1 = it11->second;
+
+        int star1side1 = it11->first;                     // star1 side1
+        auto star1side3 = side3.stars.find(star1side1);   // star1 side3
+        if (star1side3 == side3.stars.end()) continue;
+        auto &pairs3 = star1side3->second;
+
+        for (auto pairs1it = pairs1.begin(), end = pairs1.end(); pairs1it != end; ++pairs1it) {
+
+            int star2side1 = pairs1it->first;               // star2 side1
+            auto star2side2 = side2.stars.find(star2side1); // star2 side2
+            if (star2side2 == side2.stars.end()) continue;
+            auto &pairs2 = star2side2->second;
+
+            for (auto pairs2it = pairs2.begin(), end = pairs2.end(); pairs2it != end; ++pairs2it) {
+
+                int star3side2 = pairs2it->first;             // star3 side2
+                auto star3side3 = pairs3.find(star3side2);    // star3 side3
+                if (star3side3 == pairs3.end()) continue;
+
+                pairs1it->second = 1;
+                pairs2it->second = 1;
+                star3side3->second = 1;
+                ++loops_cnt;
+            }
+        }
+    }
+    side1.trim_pairs();
+    side2.trim_pairs();
+    side3.trim_pairs();
+}
+
+starid::TriangleSide::TriangleSide(double ang,
+                                  double tolerance,
+                                  starid::Pairs& pairs,
+                                  int starndx)
+    : teststar(starndx)
+{
+    stars = pairs.pairs_map(ang, tolerance);
+}
+
+starid::TriangleSide::TriangleSide(int teststar)
+    : teststar(teststar)
+{
+}
+
+void starid::TriangleSide::append_iterations(TriangleSide &side) {
+    stars = side.stars;
+    for (auto tmp : side.log_pair_count) log_pair_count.push_back(tmp);
+    for (auto tmp : side.log_star_count) log_star_count.push_back(tmp);
+    for (auto tmp : side.log_teststar) log_teststar.push_back(tmp);
+    has_teststar = side.has_teststar;
+}
+
+void::starid::TriangleSide::trim_pairs() {
+
+    for (auto star1 = stars.begin(), end = stars.end(); star1 != end; ++star1) {
+        auto &pairs = star1->second;
+
+        for (auto star2 = pairs.begin(); star2 != pairs.end(); ) {
+
+            if (star2->second == 0) {
+                star2 = pairs.erase(star2);
+            } else {
+                star2->second = 0;
+                ++star2;
+            }
+        }
+    }
+
+    for (auto star1 = stars.begin(); star1 != stars.end(); ) {
+        auto &pairs = star1->second;
+        if (pairs.empty())
+            star1 = stars.erase(star1);
+        else
+            ++star1;
+    }
+
+    has_teststar = check_teststar(teststar);
+    log_star_count.push_back(stars.size());
+    log_pair_count.push_back(pair_count());
+    log_teststar.push_back(has_teststar);
+}
+
+int starid::TriangleSide::pair_count() {
+    int result = 0;
+    for (auto it1 = stars.begin(), end = stars.end(); it1 != end; ++it1) {
+        result += it1->second.size();
+    }
+    return result;
+}
 
 
+std::map<int, int> starid::TriangleSide::summary() {
+    std::map<int, int> result;
+    for (auto it = stars.begin(), end = stars.end(); it != end; ++it) {
+        auto &inner = it->second;
+        result.emplace(it->first, inner.size());
+    }
+    return result;
+}
 
-
-
-
+bool starid::TriangleSide::check_teststar(int starndx) {
+    auto it = stars.find(starndx);
+    if (it == stars.end()) return false;
+    return true;
+}

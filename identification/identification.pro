@@ -1,12 +1,27 @@
 TEMPLATE = app
-CONFIG = c++14 warn_off debug
 TARGET = identification
+CONFIG = c++14 warn_off debug
+CONFIG -= qt
 
 DIR=/home/noah/starid
-include($$DIR/stars/stars.pri)
-include($$DIR/identification/identification.pri)
+
 INCLUDEPATH += \
     $$DIR/stars \
     $$DIR/libstarid
 
 SOURCES += identification.cpp
+
+SOURCES += \
+    $$DIR/identification/triangles.cpp \
+
+HEADERS += \
+    $$DIR/identification/triangles.h \
+
+SOURCES += \
+    $$DIR/stars/globals.cpp \
+    $$DIR/stars/sky.cpp \
+
+HEADERS += \
+    $$DIR/stars/globals.h \
+    $$DIR/stars/sky.h \
+

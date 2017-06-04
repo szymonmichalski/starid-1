@@ -3,11 +3,9 @@
 /// given an input image of a star pattern, output an integer identifying the star at the center using methods based on geometry, pairs, triangles, etc. the transformation from the input x to the output y is rather direct and deterministic, but noise in the input complicates things. in particular, loss of angular resolution due to position quantization is effectively a large noise source.
 ///
 
-#include "triangles.h"
-#include "pointing_vectors.h"
 #include "sky.h"
 #include "globals.h"
-#include "../libstarid/stopwatch.h"
+#include "triangles.h"
 #include "../libstarid/optionparser.h"
 #include "cereal/archives/binary.hpp"
 #include <fstream>
@@ -92,7 +90,7 @@ int main(int argc, char* argv[])
     }
 
     if (!options[TEST]) {
-        util::Stopwatch stopwatch;
+        starid::stopwatch stopwatch;
         starid::Sky sky;
         std::ifstream is1(std::string(skydata + "sky"));
         cereal::BinaryInputArchive iarchive1(is1);

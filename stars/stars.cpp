@@ -3,13 +3,12 @@
 /// sky representation and image generation
 ///
 
-#include "pointing_vectors.h"
-#include "pairs.h"
-
-#include "stopwatch.h"
-#include "optionparser.h"
+#include "../libstarid/optionparser.h"
 #include "cereal/archives/binary.hpp"
 #include <fstream>
+#include "sky.h"
+#include "globals.h"
+#include "triangles.h"
 
 std::string pairsdata = "/home/noah/starid/identification/data/";
 std::string skydata = "/home/noah/starid/star/data/";
@@ -63,7 +62,7 @@ int main(int argc, char* argv[])
     }
 
     if (options[STARS]) {
-        util::Stopwatch stopwatch;
+        starid::stopwatch stopwatch;
         starid::Sky sky;
         sky.init(std::string(skydata + "skymap.txt"));
         std::ofstream os1(std::string(skydata + "sky"));

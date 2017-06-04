@@ -6,9 +6,8 @@
 #ifndef LIBSTARID_H
 #define LIBSTARID_H
 
+#include "globals.h"
 #include "sky.h"
-#include "pointing_vectors.h"
-#include "pairs.h"
 #include "triangles.h"
 
 #include "cereal/archives/binary.hpp"

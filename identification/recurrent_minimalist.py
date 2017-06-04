@@ -10,7 +10,7 @@ stars = 100
 sequence_length = 36
 batch_size = 100
 batches = 100
-num_units = 64
+num_units = 100
 
 def inputs(batch, stars):
     angseqs = np.zeros((batch, sequence_length, 1), dtype=np.float32)
