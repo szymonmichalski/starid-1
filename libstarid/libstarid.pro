@@ -16,15 +16,12 @@ SOURCES += libstarid.cpp
 HEADERS += libstarid.h
 
 SOURCES += \
-    $$DIR/stars/globals.cpp \
+    $$DIR/libstarid/globals.cpp \
     $$DIR/stars/sky.cpp \
-
-HEADERS += \
-    $$DIR/stars/globals.h \
-    $$DIR/stars/sky.h \
-
-SOURCES += \
     $$DIR/identification/triangles.cpp \
 
 HEADERS += \
+    $$DIR/libstarid/globals.h \
+    $$DIR/stars/sky.h \
     $$DIR/identification/triangles.h \
+

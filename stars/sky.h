@@ -5,15 +5,18 @@
 
 #ifndef STARS_H
 #define STARS_H
-
+#include <Eigen/Core>
 #include <cereal/access.hpp>
 #include <cereal/types/utility.hpp>
 #include <cereal/types/vector.hpp>
 #include <cereal/types/string.hpp>
 #include <string>
 #include <vector>
-#include "../libstarid/Eigen/Core"
 #include <fstream>
+#include <cmath>
+#include <algorithm>
+#include <random>
+#include "globals.h"
 
 namespace starid {
 
@@ -21,24 +24,24 @@ class float_int_table {
 
 public:
 
-    void addPair(double newFloat, int newInt);
+    void add_pair(double newFloat, int newInt);
 
     void sort();
 
-    std::vector<int> findInts(double lowerFloat, double upperFloat);
+    std::vector<int> find_ints(double lowerFloat, double upperFloat);
 
 private:
 
-    std::vector<std::pair<double,int>> floatIntTable;
+    std::vector<std::pair<double,int>> float_int_table;
 
     friend class cereal::access;
     template <class Archive> void serialize(Archive& ar) {
-        ar(floatIntTable);
+        ar(float_int_table);
     }
 
 };
 
-struct Star {
+struct star {
     int starndx;
     int skymap_number;
     double mv;
@@ -50,16 +53,16 @@ struct Star {
     }
 };
 
-class Sky {
+class sky {
 
 public:
 
-    std::vector<starid::Star> stars;
+    std::vector<starid::star> stars;
     std::vector<std::string> catalog_lines;
 
     void init(std::string fcatalog);
 
-    std::vector<int> starsNearPoint(double x, double y, double z);
+    std::vector<int> stars_near_point(double x, double y, double z);
 
     void status();
 
@@ -71,7 +74,7 @@ private:
     starid::float_int_table ytable;
     starid::float_int_table ztable;
 
-    std::vector<int> starsInRing(double p, double radius, starid::float_int_table& table);
+    std::vector<int> stars_in_ring(double p, double radius, starid::float_int_table& table);
 
     friend class cereal::access;
     template <class Archive> void serialize(Archive& ar) {
@@ -102,7 +105,7 @@ struct star_record {
     double pmdec_arcsec_per_year;
     double decsign;
     double pmdecsign;
-    std::string fileLine;
+    std::string fileline;
 };
 
 class star_catalog {
@@ -111,7 +114,7 @@ public:
 
     star_catalog(std::string fcat);
     std::vector<starid::star_record> star_records;
-    int dimStars;
+    int dim_stars;
 
 };
 
@@ -124,11 +127,11 @@ public:
 
     /// *new image matrix* create an axi axj image matrix for the star, with a random yaw
     ///
-    static image_matrix new_image_matrix(int starndx, starid::Sky &sky);
+    static image_matrix new_image_matrix(int starndx, starid::sky &sky);
 
     /// *new yaw series* yaw series for use by recurrent networks
     ///
-    static ang_seq_vec new_ang_seq_vec(int starndx, starid::Sky &sky);
+    static ang_seq_vec new_ang_seq_vec(int starndx, starid::sky &sky);
 
     /// *get pointing vectors* get pointing vector representation of an image
     ///

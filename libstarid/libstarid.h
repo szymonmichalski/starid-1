@@ -5,22 +5,20 @@
 
 #ifndef LIBSTARID_H
 #define LIBSTARID_H
-
-#include "globals.h"
-#include "sky.h"
-#include "triangles.h"
-
-#include "cereal/archives/binary.hpp"
+#include <cereal/archives/binary.hpp>
 #include <Eigen/Core>
 #include <pybind11/pybind11.h>
 #include <pybind11/eigen.h>
+#include "globals.h"
+#include "sky.h"
+#include "triangles.h"
 
 class libstarid {
 
 public:
 
-    starid::Sky sky;
-    starid::Pairs pairs;
+    starid::sky sky;
+    starid::pairs pairs;
 
     libstarid();
 

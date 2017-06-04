@@ -13,15 +13,13 @@ SOURCES += identification.cpp
 
 SOURCES += \
     $$DIR/identification/triangles.cpp \
-
-HEADERS += \
-    $$DIR/identification/triangles.h \
-
-SOURCES += \
-    $$DIR/stars/globals.cpp \
+    $$DIR/libstarid/globals.cpp \
     $$DIR/stars/sky.cpp \
 
 HEADERS += \
-    $$DIR/stars/globals.h \
+    $$DIR/identification/triangles.h \
+    $$DIR/libstarid/globals.h \
     $$DIR/stars/sky.h \
+
+
 

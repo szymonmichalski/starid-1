@@ -3,15 +3,15 @@
 /// sky representation and image generation
 ///
 
-#include "../libstarid/optionparser.h"
-#include "cereal/archives/binary.hpp"
+#include <optionparser/optionparser.h>
+#include <cereal/archives/binary.hpp>
 #include <fstream>
 #include "sky.h"
 #include "globals.h"
 #include "triangles.h"
 
-std::string pairsdata = "/home/noah/starid/identification/data/";
-std::string skydata = "/home/noah/starid/star/data/";
+std::string pairsdata = "/home/noah/starid/identification/";
+std::string skydata = "/home/noah/starid/star/";
 enum  optionIndex { UNKNOWN, HELP, STARS, IMAGES, TEST };
 
 struct Arg: public option::Arg {
@@ -63,13 +63,13 @@ int main(int argc, char* argv[])
 
     if (options[STARS]) {
         starid::stopwatch stopwatch;
-        starid::Sky sky;
+        starid::sky sky;
         sky.init(std::string(skydata + "skymap.txt"));
         std::ofstream os1(std::string(skydata + "sky"));
         cereal::BinaryOutputArchive oarchive1(os1);
         oarchive1(sky);
 
-        starid::Pairs pairs;
+        starid::pairs pairs;
         pairs.init(starid::star_pair_angle_limit, sky);
         std::ofstream os2(std::string(pairsdata + "pairs"));
         cereal::BinaryOutputArchive oarchive2(os2);
@@ -78,7 +78,7 @@ int main(int argc, char* argv[])
     }
 
     if (options[IMAGES]) {
-        starid::Sky sky;
+        starid::sky sky;
         sky.init(std::string(skydata + "skymap.txt"));
     }
 

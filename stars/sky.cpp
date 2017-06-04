@@ -1,13 +1,9 @@
 #include "sky.h"
-#include "globals.h"
-#include <cmath>
-#include <algorithm>
-#include <random>
 
-void starid::Sky::init(std::string fcatin) {
+void starid::sky::init(std::string fcatin) {
     fcatalog = fcatin;
     t = 0.0;
-    Star star;
+    star star;
 
     starid::star_catalog skymapCatalog(fcatalog);
     int starndx = 0;
@@ -24,11 +20,11 @@ void starid::Sky::init(std::string fcatin) {
         star.x = std::cos(ra) * std::cos(dec);
         star.y = std::sin(ra) * cos(dec);
         star.z = std::sin(dec);
-        xtable.addPair(star.x, starndx);
-        ytable.addPair(star.y, starndx);
-        ztable.addPair(star.z, starndx);
+        xtable.add_pair(star.x, starndx);
+        ytable.add_pair(star.y, starndx);
+        ztable.add_pair(star.z, starndx);
         stars.push_back(star);
-        catalog_lines.push_back(rec.fileLine);
+        catalog_lines.push_back(rec.fileline);
         ++starndx;
     }
     xtable.sort();
@@ -36,11 +32,11 @@ void starid::Sky::init(std::string fcatin) {
     ztable.sort();
 }
 
-std::vector<int> starid::Sky::starsNearPoint(double x, double y, double z) {
+std::vector<int> starid::sky::stars_near_point(double x, double y, double z) {
     double max_ang = 1.4 * starid::image_radius_radians;
-    std::vector<int> xring = starsInRing(x, max_ang, xtable);
-    std::vector<int> yring = starsInRing(y, max_ang, ytable);
-    std::vector<int> zring = starsInRing(z, max_ang, ztable);
+    std::vector<int> xring = stars_in_ring(x, max_ang, xtable);
+    std::vector<int> yring = stars_in_ring(y, max_ang, ytable);
+    std::vector<int> zring = stars_in_ring(z, max_ang, ztable);
     std::vector<int> xy;
     std::set_intersection(xring.begin(), xring.end(), yring.begin(), yring.end(), std::back_inserter(xy));
     std::vector<int> xyz;
@@ -52,7 +48,7 @@ std::vector<int> starid::Sky::starsNearPoint(double x, double y, double z) {
     return ndxs;
 }
 
-std::vector<int> starid::Sky::starsInRing(double p, double radius, starid::float_int_table& table)
+std::vector<int> starid::sky::stars_in_ring(double p, double radius, starid::float_int_table& table)
 {
     double pmin, pmax;
     if (p >= cos(radius)) {
@@ -65,30 +61,30 @@ std::vector<int> starid::Sky::starsInRing(double p, double radius, starid::float
         pmin = p*cos(radius) - sqrt(1-(p*p))*sin(radius);
         pmax = p*cos(radius) + sqrt(1-(p*p))*sin(radius);
     }
-    return table.findInts(pmin, pmax);
+    return table.find_ints(pmin, pmax);
 }
 
-void starid::Sky::status() {
+void starid::sky::status() {
     std::cout << "number of stars " << stars.size() << "\n";
 }
 
-void starid::float_int_table::addPair(double newFloat, int newInt)
+void starid::float_int_table::add_pair(double newFloat, int newInt)
 {
     std::pair<double,int> pair {newFloat, newInt};
-    floatIntTable.push_back(pair);
+    float_int_table.push_back(pair);
 }
 
 void starid::float_int_table::sort()
 {
-    std::sort(floatIntTable.begin(), floatIntTable.end());
+    std::sort(float_int_table.begin(), float_int_table.end());
 }
 
-std::vector<int> starid::float_int_table::findInts(double lowerFloat, double upperFloat)
+std::vector<int> starid::float_int_table::find_ints(double lowerFloat, double upperFloat)
 {
     std::vector<int> intsFromTable;
-    auto itlow = std::lower_bound(floatIntTable.begin(), floatIntTable.end(),
+    auto itlow = std::lower_bound(float_int_table.begin(), float_int_table.end(),
                                   std::make_pair(lowerFloat, 0));
-    auto ithi = std::upper_bound(floatIntTable.begin(), floatIntTable.end(),
+    auto ithi = std::upper_bound(float_int_table.begin(), float_int_table.end(),
                                  std::make_pair(upperFloat, 0));
     if (itlow == ithi) {
         return intsFromTable;
@@ -110,7 +106,7 @@ starid::star_catalog::star_catalog(std::string fcat) {
             try {
                 try {rec.mv1 = std::stof(line.substr(232,6));} catch(...){}
                 if (rec.mv1 > starid::star_brightness_limit) {
-                    ++dimStars;
+                    ++dim_stars;
                     continue;
                 }
                 rec.iau_identifier = line.substr(0,27);
@@ -136,7 +132,7 @@ starid::star_catalog::star_catalog(std::string fcat) {
                     rec.decsign = -1.0;
                 if (line.substr(157,1) == "-")
                     rec.pmdecsign = -1.0;
-                rec.fileLine = line;
+                rec.fileline = line;
                 star_records.push_back(rec);
             } catch (...) {
             }
@@ -149,13 +145,13 @@ std::random_device r;
 std::default_random_engine e1(r());
 std::uniform_real_distribution<double> unitscatter(0, 1);
 
-starid::image_matrix starid::pointing_vectors::new_image_matrix(int starndx, starid::Sky &sky) {
+starid::image_matrix starid::pointing_vectors::new_image_matrix(int starndx, starid::sky &sky) {
     using namespace Eigen;
     image_matrix imgmat = image_matrix::Zero();
 
     Vector3d pointing;
     pointing << sky.stars[starndx].x, sky.stars[starndx].y, sky.stars[starndx].z;
-    std::vector<int> starndxs = sky.starsNearPoint(pointing(0), pointing(1), pointing(2));
+    std::vector<int> starndxs = sky.stars_near_point(pointing(0), pointing(1), pointing(2));
 
     Eigen::MatrixXd pvecs = Eigen::MatrixXd::Zero(100,3);
     int pvecsndx = 0;
@@ -183,13 +179,13 @@ starid::image_matrix starid::pointing_vectors::new_image_matrix(int starndx, sta
     return imgmat;
 }
 
-starid::ang_seq_vec starid::pointing_vectors::new_ang_seq_vec(int starndx, starid::Sky &sky) {
+starid::ang_seq_vec starid::pointing_vectors::new_ang_seq_vec(int starndx, starid::sky &sky) {
     using namespace Eigen;
     ang_seq_vec angvec = ang_seq_vec::Zero();
 
     Vector3d pointing;
     pointing << sky.stars[starndx].x, sky.stars[starndx].y, sky.stars[starndx].z;
-    std::vector<int> starndxs = sky.starsNearPoint(pointing(0), pointing(1), pointing(2));
+    std::vector<int> starndxs = sky.stars_near_point(pointing(0), pointing(1), pointing(2));
 
     Eigen::MatrixXd pvecs = Eigen::MatrixXd::Zero(100,3);
     int pvecsndx = 0;

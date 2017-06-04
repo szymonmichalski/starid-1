@@ -6,13 +6,13 @@
 #include "sky.h"
 #include "globals.h"
 #include "triangles.h"
-#include "../libstarid/optionparser.h"
-#include "cereal/archives/binary.hpp"
+#include <optionparser/optionparser.h>
+#include <cereal/archives/binary.hpp>
 #include <fstream>
 #include <cmath>
 
-std::string pairsdata = "/home/noah/starid/identification/data/";
-std::string skydata = "/home/noah/starid/star/data/";
+std::string pairsdata = "/home/noah/starid/identification/";
+std::string skydata = "/home/noah/starid/star/";
 int starndx = 0;
 int teststar = -1;
 enum  optionIndex { UNKNOWN, HELP, STARNDX, TESTSTAR, TEST };
@@ -74,11 +74,11 @@ int main(int argc, char* argv[])
     }
 
     if (options[TEST]) {
-        starid::Sky sky;
+        starid::sky sky;
         std::ifstream is1(std::string(skydata + "sky"));
         cereal::BinaryInputArchive iarchive1(is1);
         iarchive1(sky);
-        starid::Pairs pairs;
+        starid::pairs pairs;
         std::ifstream is2(std::string(pairsdata + "pairs"));
         cereal::BinaryInputArchive iarchive2(is2);
         iarchive2(pairs);
@@ -91,11 +91,11 @@ int main(int argc, char* argv[])
 
     if (!options[TEST]) {
         starid::stopwatch stopwatch;
-        starid::Sky sky;
+        starid::sky sky;
         std::ifstream is1(std::string(skydata + "sky"));
         cereal::BinaryInputArchive iarchive1(is1);
         iarchive1(sky);
-        starid::Pairs pairs;
+        starid::pairs pairs;
         std::ifstream is2(std::string(pairsdata + "pairs"));
         cereal::BinaryInputArchive iarchive2(is2);
         iarchive2(pairs);

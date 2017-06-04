@@ -5,21 +5,20 @@
 
 #ifndef STARIDENTIFIER_H
 #define STARIDENTIFIER_H
-
-#include "sky.h"
-#include "globals.h"
-#include "../libstarid/Eigen/Core"
-#include <unordered_map>
-#include <map>
+#include <Eigen/Core>
 #include <cereal/access.hpp>
 #include <cereal/types/vector.hpp>
 #include <cereal/types/string.hpp>
 #include <cereal/types/tuple.hpp>
 #include <cereal/types/unordered_map.hpp>
+#include <unordered_map>
+#include <map>
+#include "sky.h"
+#include "globals.h"
 
 namespace starid {
 
-class Pairs {
+class pairs {
 
 public:
 
@@ -29,7 +28,7 @@ public:
 
     /// *init* creates the pairs data structures for all star pairs with a separation less than maximum angle.
     ///
-    void init(double max_ang, starid::Sky& sky);
+    void init(double max_ang, starid::sky& sky);
 
 private:
 
@@ -39,7 +38,7 @@ private:
 
     std::unordered_map<std::string, int> starpairs_map; // starpairkey, starpairsndx
 
-    std::string pairsKey(int catndx1, int catndx2); // hash key
+    std::string pairs_key(int catndx1, int catndx2); // hash key
 
     friend class cereal::access;
     template <class Archive> void serialize(Archive& ar) {
@@ -52,7 +51,7 @@ class triangles
 
 public:
 
-    triangles(starid::image_matrix &imgmat, starid::Pairs &pairs);
+    triangles(starid::image_matrix &imgmat, starid::pairs &pairs);
 
     /// *identify central star* this is the main function
     ///
@@ -62,7 +61,7 @@ private:
 
     bool get_angs_c();
     bool get_angs_d();
-    starid::Pairs pairs;
+    starid::pairs pairs;
     Eigen::MatrixXd pvecs;
     double tolerance;
     double min_ang;
@@ -77,7 +76,7 @@ private:
 
 };
 
-class TriangleSide {
+class triangle_side {
 
 public:
 
@@ -91,7 +90,7 @@ public:
 
     /// *append iterations* append the iterations contained in another side
     ///
-    void append_iterations(TriangleSide &side);
+    void append_iterations(triangle_side &side);
 
     std::vector<int> log_star_count;
     std::vector<int> log_pair_count;
@@ -99,12 +98,12 @@ public:
     int teststar;
     bool has_teststar;
 
-    TriangleSide(double ang,
+    triangle_side(double ang,
                  double tolerance,
-                 starid::Pairs& pairs,
+                 starid::pairs& pairs,
                  int teststar);
 
-    TriangleSide(int teststar);
+    triangle_side(int teststar);
 
     std::map<int, int> summary();
     bool check_teststar(int teststar);
@@ -114,7 +113,7 @@ private:
 
 };
 
-class Triangle
+class triangle
 {
 
 public:
@@ -125,23 +124,23 @@ public:
 
     /// *close loops abda* travel around sides connecting by pairs.
     ///
-    void close_loops_abda(std::vector<Triangle> &triangles);
+    void close_loops_abda(std::vector<triangle> &triangles);
 
-    Triangle(double ang1,
+    triangle(double ang1,
              double ang2,
              double ang3,
              double tolerance,
-             starid::Pairs& pairs,
+             starid::pairs& pairs,
              int teststar,
              Eigen::Vector3d vecstar3);
 
-    starid::TriangleSide side1;
-    starid::TriangleSide side2;
-    starid::TriangleSide side3;
+    starid::triangle_side side1;
+    starid::triangle_side side2;
+    starid::triangle_side side3;
     int loops_cnt;
     int teststar;
     double tolerance;
-    starid::Pairs &pairs;
+    starid::pairs &pairs;
     Eigen::Vector3d vecstar3;
 
 private:

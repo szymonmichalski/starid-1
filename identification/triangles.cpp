@@ -1,6 +1,6 @@
 #include "triangles.h"
 
-starid::triangles::triangles(starid::image_matrix &imgmat, starid::Pairs &pairs) : pairs(pairs)
+starid::triangles::triangles(starid::image_matrix &imgmat, starid::pairs &pairs) : pairs(pairs)
 {
     pvecs = starid::pointing_vectors::get_pvecs_from_imgmat(imgmat);
     double epsilon = 0.0;
@@ -9,12 +9,12 @@ starid::triangles::triangles(starid::image_matrix &imgmat, starid::Pairs &pairs)
 
 int starid::triangles::id(int teststar) {
 
-    std::vector<TriangleSide> abs;
+    std::vector<triangle_side> abs;
     for (ndxb = 1; ndxb < pvecs.rows(); ++ndxb) {
 
         uveca = pvecs.row(0);
         uvecb = pvecs.row(ndxb);
-        TriangleSide ab(std::acos(uveca.transpose() * uvecb), tolerance, pairs, teststar);
+        triangle_side ab(std::acos(uveca.transpose() * uvecb), tolerance, pairs, teststar);
 
         int prev_stars = 0;
         int repeatcnt = 0;
@@ -22,17 +22,17 @@ int starid::triangles::id(int teststar) {
         for (ndxc = 1; ndxc < pvecs.rows(); ++ndxc) {
             if (converged || !get_angs_c()) continue;
 
-            Triangle abca(angs_c[0], angs_c[1], angs_c[2], tolerance, pairs, teststar, pvecs.row(ndxc).transpose());
+            triangle abca(angs_c[0], angs_c[1], angs_c[2], tolerance, pairs, teststar, pvecs.row(ndxc).transpose());
             abca.side1.stars = ab.stars;
             abca.close_loops_abca();
             ab.append_iterations(abca.side1);
 
-            std::vector<Triangle> triangles;
+            std::vector<triangle> triangles;
             triangles.push_back(abca);
             for (ndxd = 1; ndxd < pvecs.rows(); ++ndxd) {
                 if (converged || !get_angs_d()) continue;
 
-                Triangle abda(angs_d[0], angs_d[4], angs_d[3], tolerance, pairs, teststar, pvecs.row(ndxd).transpose());
+                triangle abda(angs_d[0], angs_d[4], angs_d[3], tolerance, pairs, teststar, pvecs.row(ndxd).transpose());
                 abda.side1.stars = ab.stars;
                 abda.close_loops_abda(triangles);
                 ab.append_iterations(abda.side1);
@@ -92,12 +92,12 @@ bool starid::triangles::get_angs_c() {
     return angsok;
 }
 
-void starid::Pairs::init(double max_ang, starid::Sky& sky)
+void starid::pairs::init(double max_ang, starid::sky& sky)
 {
     int pairndx = 0;
 
     for(auto star : sky.stars) {
-        std::vector<int> starndxs = sky.starsNearPoint(star.x, star.y, star.z);
+        std::vector<int> starndxs = sky.stars_near_point(star.x, star.y, star.z);
         starndxs.push_back(star.starndx);
 
         for (auto starndx1 : starndxs) {
@@ -105,7 +105,7 @@ void starid::Pairs::init(double max_ang, starid::Sky& sky)
             for (auto starndx2 : starndxs) {
                 if (starndx1 == starndx2) continue;
 
-                std::string key = pairsKey(sky.stars[starndx1].starndx, sky.stars[starndx2].starndx);
+                std::string key = pairs_key(sky.stars[starndx1].starndx, sky.stars[starndx2].starndx);
                 auto search = starpairs_map.find(key);
                 if (search != starpairs_map.end()) continue; // check map that pair is unique
 
@@ -115,7 +115,7 @@ void starid::Pairs::init(double max_ang, starid::Sky& sky)
                 std::tuple<double, int, int> starpair {angle, starndx1, starndx2};
                 starpairs.push_back(starpair);
                 starpairs_map.insert({key, pairndx}); // update map of unique pairs
-                angletable.addPair(angle, pairndx);
+                angletable.add_pair(angle, pairndx);
                 ++pairndx;
             }
         }
@@ -123,7 +123,7 @@ void starid::Pairs::init(double max_ang, starid::Sky& sky)
     angletable.sort();
 }
 
-std::unordered_map<int, std::unordered_map<int, int>> starid::Pairs::pairs_map(double angle, double tol_radius) {
+std::unordered_map<int, std::unordered_map<int, int>> starid::pairs::pairs_map(double angle, double tol_radius) {
     std::unordered_map<int, std::unordered_map<int, int>> stars;
 
     double ang1 = angle - tol_radius;
@@ -136,7 +136,7 @@ std::unordered_map<int, std::unordered_map<int, int>> starid::Pairs::pairs_map(d
     if (ang1 >= starid::star_pair_angle_limit - epsilon * tol_radius) ang1 = starid::star_pair_angle_limit - epsilon * tol_radius;
     if (ang2 >= starid::star_pair_angle_limit) ang2 = starid::star_pair_angle_limit;
 
-    std::vector<int> intsFromTable = angletable.findInts(ang1, ang2);
+    std::vector<int> intsFromTable = angletable.find_ints(ang1, ang2);
     for (auto ndx : intsFromTable) {
         int star1 = std::get<1>(starpairs[ndx]);
         int star2 = std::get<2>(starpairs[ndx]);
@@ -165,7 +165,7 @@ std::unordered_map<int, std::unordered_map<int, int>> starid::Pairs::pairs_map(d
     return stars;
 };
 
-std::string starid::Pairs::pairsKey(int catndx1, int catndx2) {
+std::string starid::pairs::pairs_key(int catndx1, int catndx2) {
     if (catndx1 > catndx2) {
         int tmp = catndx1;
         catndx1 = catndx2;
@@ -175,11 +175,11 @@ std::string starid::Pairs::pairsKey(int catndx1, int catndx2) {
     return key;
 }
 
-starid::Triangle::Triangle(double ang1,
+starid::triangle::triangle(double ang1,
                           double ang2,
                           double ang3,
                           double tolerance,
-                          starid::Pairs &pairs,
+                          starid::pairs &pairs,
                           int teststar,
                           Eigen::Vector3d vecin)
     : side1(ang1, tolerance, pairs, teststar),
@@ -193,13 +193,13 @@ starid::Triangle::Triangle(double ang1,
     vecstar3 << vecin(0), vecin(1), vecin(2);
 }
 
-void starid::Triangle::close_loops_abda(std::vector<Triangle> &triangles) {
+void starid::triangle::close_loops_abda(std::vector<triangle> &triangles) {
 
     int maxtriangles = triangles.size();
     for (int trianglendx = 0; trianglendx < maxtriangles; ++trianglendx) {
 
         double cdang = std::acos(vecstar3.transpose() * triangles[trianglendx].vecstar3);
-        TriangleSide cd(cdang, tolerance, pairs, teststar);
+        triangle_side cd(cdang, tolerance, pairs, teststar);
 
         loops_cnt = 0;
         for (auto it11 = side1.stars.begin(), end = side1.stars.end(); it11 != end; ++it11) {
@@ -253,7 +253,7 @@ void starid::Triangle::close_loops_abda(std::vector<Triangle> &triangles) {
     }
 }
 
-void starid::Triangle::close_loops_abca() {
+void starid::triangle::close_loops_abca() {
     loops_cnt = 0;
 
     for (auto it11 = side1.stars.begin(), end = side1.stars.end(); it11 != end; ++it11) {
@@ -289,21 +289,21 @@ void starid::Triangle::close_loops_abca() {
     side3.trim_pairs();
 }
 
-starid::TriangleSide::TriangleSide(double ang,
+starid::triangle_side::triangle_side(double ang,
                                   double tolerance,
-                                  starid::Pairs& pairs,
+                                  starid::pairs& pairs,
                                   int starndx)
     : teststar(starndx)
 {
     stars = pairs.pairs_map(ang, tolerance);
 }
 
-starid::TriangleSide::TriangleSide(int teststar)
+starid::triangle_side::triangle_side(int teststar)
     : teststar(teststar)
 {
 }
 
-void starid::TriangleSide::append_iterations(TriangleSide &side) {
+void starid::triangle_side::append_iterations(triangle_side &side) {
     stars = side.stars;
     for (auto tmp : side.log_pair_count) log_pair_count.push_back(tmp);
     for (auto tmp : side.log_star_count) log_star_count.push_back(tmp);
@@ -311,7 +311,7 @@ void starid::TriangleSide::append_iterations(TriangleSide &side) {
     has_teststar = side.has_teststar;
 }
 
-void::starid::TriangleSide::trim_pairs() {
+void::starid::triangle_side::trim_pairs() {
 
     for (auto star1 = stars.begin(), end = stars.end(); star1 != end; ++star1) {
         auto &pairs = star1->second;
@@ -341,7 +341,7 @@ void::starid::TriangleSide::trim_pairs() {
     log_teststar.push_back(has_teststar);
 }
 
-int starid::TriangleSide::pair_count() {
+int starid::triangle_side::pair_count() {
     int result = 0;
     for (auto it1 = stars.begin(), end = stars.end(); it1 != end; ++it1) {
         result += it1->second.size();
@@ -350,7 +350,7 @@ int starid::TriangleSide::pair_count() {
 }
 
 
-std::map<int, int> starid::TriangleSide::summary() {
+std::map<int, int> starid::triangle_side::summary() {
     std::map<int, int> result;
     for (auto it = stars.begin(), end = stars.end(); it != end; ++it) {
         auto &inner = it->second;
@@ -359,7 +359,7 @@ std::map<int, int> starid::TriangleSide::summary() {
     return result;
 }
 
-bool starid::TriangleSide::check_teststar(int starndx) {
+bool starid::triangle_side::check_teststar(int starndx) {
     auto it = stars.find(starndx);
     if (it == stars.end()) return false;
     return true;

@@ -1,14 +1,14 @@
 #include "libstarid.h"
 
 libstarid::libstarid() {
-    std::string skydata = "/home/noah/starid/stars/data/";
+    std::string skydata = "/home/noah/starid/stars/";
     std::ifstream is1(std::string(skydata + "sky"));
     cereal::BinaryInputArchive iarchive1(is1);
     iarchive1(sky);
 }
 
 void libstarid::load_pairs() {
-    std::string pairsdata = "/home/noah/starid/identification/data/";
+    std::string pairsdata = "/home/noah/starid/identification/";
     std::ifstream is2(std::string(pairsdata + "pairs"));
     cereal::BinaryInputArchive iarchive2(is2);
     iarchive2(pairs);
