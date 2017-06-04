@@ -12,7 +12,7 @@ four hundred states
 
     10674.1, 7500, 3.27, 0.75
     
-a slow, noisy, overheating, six year old laptop learning to recognize a thousand stars. r2017b released.
+a slow, noisy, overheating, six year old laptop learning to recognize a thousand stars. r2017c released.
 
 *28.5.2017*
 
