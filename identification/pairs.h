@@ -10,12 +10,12 @@
 #include "float_int_table.h"
 
 #include <unordered_map>
-#include "../lib/cereal/access.hpp"
-#include "../lib/cereal/types/string.hpp"
-#include "../lib/cereal/types/tuple.hpp"
-#include "../lib/cereal/types/vector.hpp"
-#include "../lib/cereal/types/unordered_map.hpp"
-#include "../lib/Eigen/Core"
+#include "../libstarid/cereal/access.hpp"
+#include "../libstarid/cereal/types/string.hpp"
+#include "../libstarid/cereal/types/tuple.hpp"
+#include "../libstarid/cereal/types/vector.hpp"
+#include "../libstarid/cereal/types/unordered_map.hpp"
+#include "../libstarid/Eigen/Core"
 
 namespace starid {
 

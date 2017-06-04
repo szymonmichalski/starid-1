@@ -1,12 +1,12 @@
 TEMPLATE = app
 CONFIG = c++14 warn_off debug
-TARGET = id
+TARGET = identification
 
 DIR=/home/noah/starid
 include($$DIR/stars/stars.pri)
 include($$DIR/identification/identification.pri)
 INCLUDEPATH += \
     $$DIR/stars \
-    $$DIR/lib
+    $$DIR/libstarid
 
-SOURCES += id.cpp
+SOURCES += identification.cpp

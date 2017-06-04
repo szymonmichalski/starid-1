@@ -7,8 +7,8 @@
 #include "pointing_vectors.h"
 #include "sky.h"
 #include "globals.h"
-#include "../lib/stopwatch.h"
-#include "../lib/optionparser.h"
+#include "../libstarid/stopwatch.h"
+#include "../libstarid/optionparser.h"
 #include "cereal/archives/binary.hpp"
 #include <fstream>
 #include <cmath>

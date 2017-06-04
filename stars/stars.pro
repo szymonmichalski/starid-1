@@ -8,6 +8,6 @@ include($$DIR/identification/identification.pri)
 INCLUDEPATH += \
     $$DIR/stars \
     $$DIR/identification \
-    $$DIR/lib
+    $$DIR/libstarid
 
 SOURCES += stars.cpp

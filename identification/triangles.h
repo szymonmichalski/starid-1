@@ -11,7 +11,7 @@
 #include "pairs.h"
 #include "globals.h"
 #include "pointing_vectors.h"
-#include "../lib/Eigen/Core"
+#include "../libstarid/Eigen/Core"
 #include <unordered_map>
 #include <map>
 
