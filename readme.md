@@ -2,7 +2,7 @@
 
 [about](http://starid.org/about), [references](http://starid.org/references)
 
-*stars* - image generation from the nasa skymap catalog.
+*stars* - image generation from the [nasa skymap catalog](http://adsabs.harvard.edu/cgi-bin/nph-bib_query?bibcode=2001yCat.5109....0M).
 
 *identification* - convolutional and recurrent networks, triangular structure. examples - [recurrent network](https://github.com/noahhsmith/starid/blob/master/identification/recurrent_minimalist.py), [experimental rnn](https://github.com/noahhsmith/starid/blob/master/identification/recurrent.py), [convolutional network](https://github.com/noahhsmith/starid/blob/master/identification/convolutional_minimalist.py), [experimental cnn](https://github.com/noahhsmith/starid/blob/master/identification/convolutional.py)
 
