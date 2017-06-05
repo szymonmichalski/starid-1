@@ -1,6 +1,4 @@
-references relating to [personal publications](#anchor1), [star identification](#anchor2), [spacecraft attitude](#anchor3), [texas minor planet project](#anchor4)
-
-<a name="anchor1"/>*personal publications*
+[star identification](#anchor2), [spacecraft attitude](#anchor3), [texas minor planet project](#anchor4)
 
 2017 - effect of sun shade performance on icesat-2 laser reference sensor alignment estimation - patel, smith, bae, schutz - advances in the astronautical sciences - [pdf](papers/2017 aas.pdf)
 
