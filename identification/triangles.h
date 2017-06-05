@@ -1,6 +1,4 @@
-/// *star identifier*
-///
-/// find star triangles in the image, and candidate stars that meet the constraints implicit within the triangle. these constraints are effectively the rules for candidate stars. for example, if a triangle consists of star pairs ab and bc, then the third side is ac.
+/// *triangles* find star triangles in the image, and candidate stars that meet the constraints implicit within the triangle. these constraints are effectively the rules for candidate stars. for example, if a triangle consists of star pairs ab and bc, then the third side is ac.
 ///
 
 #ifndef STARIDENTIFIER_H
@@ -22,12 +20,8 @@ class pairs {
 
 public:
 
-    /// *pairs map* each star is a map key whose value is a map of star keys it pairs with.
-    ///
     std::unordered_map<int, std::unordered_map<int, int>> pairs_map(double angle, double tol_radius);
 
-    /// *init* creates the pairs data structures for all star pairs with a separation less than maximum angle.
-    ///
     void init(double max_ang, starid::sky& sky);
 
 private:
@@ -53,8 +47,6 @@ public:
 
     triangles(starid::image_matrix &imgmat, starid::pairs &pairs);
 
-    /// *identify central star* this is the main function
-    ///
     int id(int teststar = -1);
 
 private:
@@ -80,16 +72,10 @@ class triangle_side {
 
 public:
 
-    /// *stars* each star is a map key whose value is a map of star keys it pairs with
-    ///
     std::unordered_map<int, std::unordered_map<int, int>> stars;
 
-    /// *trim pairs* remove pairs that have value zero or are no longer stars. then remove stars that have no pairs.
-    ///
     void trim_pairs();
 
-    /// *append iterations* append the iterations contained in another side
-    ///
     void append_iterations(triangle_side &side);
 
     std::vector<int> log_star_count;
@@ -118,12 +104,8 @@ class triangle
 
 public:
 
-    /// *close loops abca* travel around sides connecting by pairs.
-    ///
     void close_loops_abca();
 
-    /// *close loops abda* travel around sides connecting by pairs.
-    ///
     void close_loops_abda(std::vector<triangle> &triangles);
 
     triangle(double ang1,

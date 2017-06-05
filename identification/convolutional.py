@@ -1,4 +1,4 @@
-### *cnn2* cnn using libstarid
+### *convolutional network* cnn using libstarid cpp eigen kernel and tensorflow training and inference
 ###
 import time
 import random
