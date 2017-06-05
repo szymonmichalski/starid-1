@@ -1,5 +1,4 @@
-<img src="docs/images/star4b.png" align="right" height="250" width="250"/> 
-<img src="docs/images/star4a.png" align="right" height="250" width="250"/>
+<img src="docs/images/star4b.png" align="right" height="250" width="250"/><img src="docs/images/star4a.png" align="right" height="250" width="250"/>
 
 [about](http://starid.org/about), [references](http://starid.org/references)
 
