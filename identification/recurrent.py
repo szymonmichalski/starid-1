@@ -1,4 +1,4 @@
-### *recurrent neural network* rnn using libstarid cpp eigen kernel and tensorflow training and inference
+### *recurrent neural network* rnns are about sequential processing and patterns in sequential data. they’re natural for time series and time varying systems. from an aerospace perspective, they’re the kalman filter, as opposed to the convnet’s static batch least squares.
 ###
 import random
 import numpy as np
