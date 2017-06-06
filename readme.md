@@ -8,8 +8,8 @@
 
 <br>
 
-*recurrent neural network* - rnns are about sequential processing and patterns in sequential data. they’re natural for time series and time varying systems. from an aerospace perspective, they’re analogous to kalman filtering.
+*recurrent neural network, rnn* - recurrent networks are about sequential processing and patterns in sequential data. they’re natural for time series and time varying systems. sequences may be an indirect perspective for star images, but we're concerned with randomly rotated star images. the curious fact is, rotations should not effect image sequences. this gives rnns a powerful advantage for star identification, and here they were first to be capable of identifying thousands of stars.
 
-*convolutional network* - with cnns, sequences and time are not a factor. they’re natural for images, and more analogous to batch least squares. 
+*convolutional network, cnn* - the central concept here is static unchanging data and patterns, as naturally found in images. cnns at first glance appear to be a direct solution for star identification, but our star images are randomly rotated. for a given star, you can't simply overlay one image on another and see how well they match.
 
 *triangles* - find star triangles in the image, and candidate stars that meet the constraints implicit within the triangle. these constraints are effectively the rules for candidate stars. for example, if a triangle consists of star pairs ab and bc, then the third side is ac.
