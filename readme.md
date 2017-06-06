@@ -12,4 +12,4 @@
 
 *convolutional networks* - the concept here is static unchanging data and patterns, as naturally found in images. this at first glance appear to be a direct solution for star identification, but our star images are randomly rotated. for a given star, you can't simply overlay one image on another and see how well they match.
 
-*triangular patterns and structure* - find star triangles in the image, and candidate stars that meet the constraints implicit within the triangle. these constraints are used in practice as rules for rejecting candidate stars that can't be correct. for a particular image, we start with 8,876 candidate identifications and reject 8,875 of them as impossible, leaving the correct result.
+*triangular patterns and structure* - find star triangles in the image, and candidate stars that meet the constraints implicit within the triangle. these constraints are used in practice as rules for rejecting candidate stars that can't be correct. for a particular image, we start with thousands of candidate identifications and iteratively reject all but one of them as impossible.
