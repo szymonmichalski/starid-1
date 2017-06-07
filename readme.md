@@ -12,4 +12,4 @@
 
 *convolutional networks* - convnets are about static unchanging patterns. this seems to be a direct approach, but our star images are randomly rotated. for a given star, you can't simply compare one image with another, without accounting for rotation.
 
-*triangular patterns and structure* - find star triangles in the image, and candidate stars that meet the constraints implicit within the triangles. these constraints are used as rules for rejecting candidate stars that can't be correct. for a particular image, we start with thousands of candidate identifications and reject all but one of them as impossible.
+*triangular patterns and structure* - find star triangles in the image, and stars that are possible for the triangles. the triangles imply rules for setting aside candidate stars that can't be correct. for a particular image, we start with thousands of candidates and set aside all but one.
