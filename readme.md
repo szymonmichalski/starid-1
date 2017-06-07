@@ -8,8 +8,8 @@
 
 <br>
 
-*recurrent neural networks* - recurrent networks are about sequential processing and patterns in sequential data. they’re natural for time series and time varying systems. sequences may be an indirect perspective for star images, but we're concerned with randomly rotated star images. rotations shouldn't effect image sequences, and recurrent networks were capable of identifying thousands of stars before convolutional networks.
+*recurrent neural networks* - recurrent networks are about patterns in sequential events. they’re natural for time series and time varying systems. sequences may seem an indirect perspective for star images, but we're concerned with randomly rotated images. rotations shouldn't effect sequences, and recurrent networks were quickly able to identify thousands of stars.
 
-*convolutional networks* - the concept here is static unchanging data and patterns, as naturally found in images. this at first glance appear to be a direct solution for star identification, but our star images are randomly rotated. for a given star, you can't simply overlay one image on another and see how well they match.
+*convolutional networks* - convnets are about static unchanging data and patterns, as naturally found in images. this seems to be a direct solution for star identification, but our star images are randomly rotated. for a given star, you can't simply compare one image with another, without accounting for rotation.
 
-*triangular patterns and structure* - find star triangles in the image, and candidate stars that meet the constraints implicit within the triangle. these constraints are used in practice as rules for rejecting candidate stars that can't be correct. for a particular image, we start with thousands of candidate identifications and iteratively reject all but one of them as impossible.
+*triangular patterns and structure* - find star triangles in the image, and candidate stars that meet the constraints implicit within the triangles. these constraints are used as rules for rejecting candidate stars that can't be correct. for a particular image, we start with thousands of candidate identifications and reject all but one of them as impossible.
