@@ -12,7 +12,8 @@ batch_size = 100
 batches = 10000
 state_size = 400
 rnnlayers = 1
-output_keep_prob = 0.5
+input_keep_prob = 0.9
+output_keep_prob = 0.9
 beta = 0.01
 loginterval = 100 # batches
 outdir = '/home/noah/runs/' + time.strftime('%m%d%H%M%S')
@@ -50,7 +51,7 @@ b1 = tf.Variable(tf.constant(0.1, shape=[stars]))
 r1 = tf.nn.l2_loss(w1) * beta
 
 cell = tf.contrib.rnn.GRUCell(state_size)
-cell = tf.contrib.rnn.DropoutWrapper(cell, output_keep_prob=output_keep_prob)
+cell = tf.contrib.rnn.DropoutWrapper(cell, input_keep_prob=input_keep_prob, output_keep_prob=output_keep_prob)
 cell = tf.contrib.rnn.MultiRNNCell([cell] * rnnlayers, state_is_tuple=True)
 init_state = cell.zero_state(batch_size, tf.float32)
 rnn_outputs, final_state = tf.nn.dynamic_rnn(cell, data, initial_state=init_state)
