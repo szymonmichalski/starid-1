@@ -4,7 +4,7 @@
 
 *stars* - image generation from the nasa skymap catalog - [skmap description](https://drive.google.com/file/d/0B50jA_ROMYdHRjF6VUhKTkxvU0U/view?usp=sharing), [skmap data file](https://drive.google.com/file/d/0B50jA_ROMYdHMTNoenMzYkpNdXc/view?usp=sharing)
 
-*identification* - recurrent neural networks, convnets, triangular patterns and structure - [minimalist rnn](https://github.com/noahhsmith/starid/blob/master/identification/recurrent_minimalist.py), [recurrent network](https://github.com/noahhsmith/starid/blob/master/identification/recurrent.py), [minimalist cnn](https://github.com/noahhsmith/starid/blob/master/identification/convolutional_minimalist.py), [convolutional network](https://github.com/noahhsmith/starid/blob/master/identification/convolutional.py), [triangle heuristics](https://github.com/noahhsmith/starid/blob/master/identification/triangles.h)
+*identification* - recurrent neural networks, convnets, triangular patterns and structure - [minimalist rnn](https://github.com/noahhsmith/starid/blob/master/identification/recurrent_minimalist.py), [recurrent network](https://github.com/noahhsmith/starid/blob/master/identification/recurrent.py), [minimalist cnn](https://github.com/noahhsmith/starid/blob/master/identification/convolutional_minimalist.py), [convolutional network](https://github.com/noahhsmith/starid/blob/master/identification/convolutional.py), [triangular patterns](https://github.com/noahhsmith/starid/blob/master/identification/triangles.cpp)
 
 <br>
 
