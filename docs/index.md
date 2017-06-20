@@ -1,3 +1,7 @@
+*20.6.2017*
+
+a nice machine learning project at work has been taking up a lot of time, but it's not a bad time for a pause. with both triangles and rnn working well, the next focus is cnn, and this clearly means incorporating batch normalization and catching up on the literature there.
+
 *4.6.2017*
 
 unwrapping sequences is a breakthrough for learning with a recurrent network. here are results for training a gru cell. seconds, batch, loss, accuracy with two hundred states
