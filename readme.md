@@ -10,6 +10,6 @@
 
 *recurrent neural networks* - recurrent networks are about patterns in sequential events. they’re natural for time series and time varying systems. sequences may seem an indirect perspective for star images, but we're concerned with randomly rotated images. rotations shouldn't effect sequences, and recurrent networks were quickly able to identify thousands of stars.
 
-*convolutional networks* - convnets are about static unchanging patterns. this seems to be a direct approach, but our star images are randomly rotated. for a given star, comparison of two images is complicated by their relative rotation.
+*convolutional networks* - convnets are about static unchanging patterns. this seems to be a direct approach, but our star images are randomly rotated. for a given star, comparison of two patterns is complicated by their relative rotation.
 
 *triangular patterns and structure* - start with a set of star identities and iteratively set aside those that can’t be correct, until only one remains.
