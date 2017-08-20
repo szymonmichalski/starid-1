@@ -1,6 +1,6 @@
 *20.8.2017*
 
-from here, i might occasionally try posting on linkedin as well. this will probably be obvious because capitalization will be used. conformance rather than aesthetics.
+from here, i might occasionally cross post on linkedin. this will probably be obvious from capitalization. conformance rather than aesthetics.
 
 After a week on the beach in southern Italy, here are some end of summer thoughts. The ML project at Voipfuture during June and July went well, with a prototype deployed at a large customer. In brief, a predictive model for network KPIs on day-of-week and hour-of-day time scales. It fits with other concepts of growing interest. 
 
