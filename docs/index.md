@@ -1,12 +1,12 @@
 *20.8.2017*
 
-after a week of vacation in italy, time to reorient. the ml project at work went well. within june and july, went from zero to a prototype deployed at a large customer. in brief, it's a predictive model for thousands of network entities, on day-of-week and hour-of-day time scales. the underlying concepts do fit together with the next steps for starid, where the focus is clearly to be attention...
+after a week of vacation in italy, time to reorient. the ml project at work went well. within june and july, went from zero to a prototype deployed at a large customer. in brief, it's a predictive model for thousands of network entities, on day-of-week and hour-of-day time scales. the underlying concepts do fit together with the next steps for starid, where the focus is attention...
 
-in summary, advances from recurrent networks have entered a new frontier region that we'll refer to as attention.
+advances from recurrent networks have entered a frontier referred to as attention.
 
 *20.6.2017*
 
-a nice machine learning project at work has been taking up a lot of time, but it's not a bad time for a pause. with both triangles and rnn working well, the next focus is cnn, and this clearly means incorporating batch normalization and catching up on the literature there.
+a nice machine learning project at work has been taking up a lot of time, but it's not a bad time for a pause. with both triangles and rnn working well, the next focus may be convents and incorporating batch normalization.
 
 *4.6.2017*
 
