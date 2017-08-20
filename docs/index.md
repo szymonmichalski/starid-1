@@ -1,8 +1,10 @@
 *20.8.2017*
 
-after a week of vacation in italy, time to reorient. the ml project at work went well. within june and july, went from zero to a prototype deployed at a large customer. in brief, it's a predictive model for thousands of network entities, on day-of-week and hour-of-day time scales. the underlying concepts do fit together with the next steps for starid, where the focus is attention...
+from here, i might occasionally try posting on linkedin as well. this will probably be obvious because capitalization will be used. conformance rather than aesthetics.
 
-advances from recurrent networks have entered a frontier referred to as attention.
+After a week on the beach in southern Italy, here are some thoughts. The ML project at work went well, with a prototype deployed at a large customer. In brief, a predictive model for network KPIs on day-of-week and hour-of-day time scales. The underlying concepts fit together with the next steps for Starid, where the focus is attention...
+
+ML is beginning to explore a frontier referred to as attention. One perspective on this is, increased emphasis on vectorized, dot-product-based, linear algebra parallelization of the core decision processes. 
 
 *20.6.2017*
 
