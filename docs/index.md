@@ -2,9 +2,9 @@
 
 from here, i might occasionally try posting on linkedin as well. this will probably be obvious because capitalization will be used. conformance rather than aesthetics.
 
-After a week on the beach in southern Italy, here are some thoughts. The ML project at work went well, with a prototype deployed at a large customer. In brief, a predictive model for network KPIs on day-of-week and hour-of-day time scales. The underlying concepts fit together with the next steps for Starid, where the focus is attention...
+After a week on the beach in southern Italy, here are some end of summer contemplations. The ML project at Voipfuture during June and July went well, with a prototype deployed at a large customer. In brief, a predictive model for network KPIs on day-of-week and hour-of-day time scales. It points in interesting directions. 
 
-ML is beginning to explore a frontier referred to as attention. One perspective on this is, increased emphasis on vectorized, dot-product-based, linear algebra parallelization of the core decision processes. 
+ML is beginning to explore a frontier referred to as attention. One perspective on this is, increased emphasis on vectorized, dot product based, numerical parallelization of decision processes. Increased avoidance of sequential, loop based, thread based bottlenecks. 
 
 *20.6.2017*
 
