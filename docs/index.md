@@ -4,9 +4,7 @@ from here, i might occasionally try posting on linkedin as well. this will proba
 
 After a week on the beach in southern Italy, here are some end of summer thoughts. The ML project at Voipfuture during June and July went well, with a prototype deployed at a large customer. In brief, a predictive model for network KPIs on day-of-week and hour-of-day time scales. It fits with other concepts of growing interest. 
 
-ML is beginning to explore a frontier referred to as attention. One perspective on this is, increased emphasis on vectorized, dot product based, numerical parallelization of decisions. Attention is about dot products between tensors to determine significance.
-
-
+ML is beginning to explore a frontier referred to as attention. A perspective on this is, increased emphasis on vectorized, dot product based, numerical parallelization of decisions. Attention is about dot products between tensors to determine significance.
 
 *20.6.2017*
 
