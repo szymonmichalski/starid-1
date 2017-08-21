@@ -1,10 +1,12 @@
 *20.8.2017*
 
-from here, i might occasionally cross post on linkedin. this will probably be obvious from capitalization. standardisation rather than aesthetics.
+from here, i might occasionally cross post on linkedin.
 
-After a week on the beach in southern Italy, here are some end-of-summer thoughts. The summer ML project went well, with a prototype deployed at a large customer. In brief, predictive models for network performance on day-of-week and hour-of-day time scales. The methods used fit nicely with a topic of growing interest... 
+After a week on the beach in southern Italy, here are some end-of-summer thoughts. The summer ML project went well, with a prototype deployed at a large customer. In brief, predictive models for network performance on day-of-week and hour-of-day time scales. The methods used fit nicely with a topic of growing interest...
 
-ML is beginning to explore a concept referred to as attention. A perspective on this is, increased emphasis on vectorized, dot product based, numerical parallelization of decisions. Attention is about dot products between tensors to determine significance.
+ML is beginning to explore a concept referred to as attention. There's an increased emphasis on vectorized, dot product based, parallelization of decisions. Dot products determining similarity and significance. Focusing on and preferring parts of the available information, in a way that allows feedback based learning.
+
+For star identification, it should be possible to more directly learn particular geometric structures or particular radial sequences.
 
 *20.6.2017*
 
