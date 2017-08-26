@@ -1,3 +1,5 @@
+<img src="images/linkedin cover 744 by 400.png" align="center"/>
+
 *20.8.2017*
 
 from here, i might occasionally cross post on linkedin.
