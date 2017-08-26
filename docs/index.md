@@ -4,12 +4,6 @@
 
 from here, i might occasionally cross post on linkedin.
 
-After a week on the beach in southern Italy, here are some end-of-summer thoughts. The summer ML project went well, with a prototype deployed at a large customer. In brief, predictive models for network performance on day-of-week and hour-of-day time scales. The methods used fit nicely with a topic of growing interest...
-
-ML is beginning to explore a concept referred to as attention. There's an increased emphasis on vectorized, dot product based, parallelization of decisions. Dot products determining similarity and significance. Focusing on and preferring parts of the available information, in a way that allows feedback based learning.
-
-For star identification, it should be possible to more directly learn particular geometric structures or particular radial sequences.
-
 *20.6.2017*
 
 a nice machine learning project at work has been taking up a lot of time, but it's not a bad time for a pause. with both triangles and rnn working well, the next focus may be convents and incorporating batch normalization.
