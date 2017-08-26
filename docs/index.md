@@ -2,7 +2,7 @@
 
 *20.8.2017*
 
-from here, i may occasionally post on linkedin.
+from here, i may occasionally [post on linkedin](https://www.linkedin.com/pulse/machine-learning-attention-star-identification-noah-smith).
 
 *20.6.2017*
 
