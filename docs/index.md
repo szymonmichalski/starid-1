@@ -2,7 +2,7 @@
 
 *20.8.2017*
 
-from here, i might occasionally cross post on linkedin.
+from here, i may occasionally post on linkedin.
 
 *20.6.2017*
 
