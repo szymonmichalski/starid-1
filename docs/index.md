@@ -1,5 +1,7 @@
 <img src="images/linkedin cover 744 by 400.png" align="center"/>
 
+[about](http://starid.org/about), [references](http://starid.org/references)
+
 *20.8.2017*
 
 from here, i may occasionally [post on linkedin](https://www.linkedin.com/pulse/machine-learning-attention-star-identification-noah-smith).
