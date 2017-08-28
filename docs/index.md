@@ -1,4 +1,4 @@
-<img src="images/linkedin cover 744 by 400.png" align="center"/>
+![image](images/linkedin cover 744 by 400.png)
 
 [about](http://starid.org/about), [references](http://starid.org/references)
 

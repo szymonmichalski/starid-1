@@ -11,5 +11,5 @@ image = libstarid.image(starndx=4)
 angseq = libstarid.ang_seq_vec(starndx=4)
 print(angseq)
 
-# plt.matshow(-1 * image, cmap='Greys', interpolation='nearest')
-# plt.show()
+plt.matshow(-1 * image, cmap='Greys', interpolation='nearest')
+plt.show()
