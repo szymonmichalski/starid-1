@@ -119,7 +119,6 @@ final adjustment.
 
 <img src="images/ab4.png"/> 
 
-
 *6.3.2017*
 
 next two weeks will pretty much be about vacation, so time for a bit of planning. r2017a with parallel image input into lb and rb is first. this heads towards a cpp kernel for dynamically generating images within tensorflow.
