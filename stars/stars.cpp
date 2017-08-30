@@ -11,7 +11,7 @@
 #include "triangles.h"
 
 std::string pairsdata = "/home/noah/starid/identification/";
-std::string skydata = "/home/noah/starid/star/";
+std::string skydata = "/home/noah/starid/stars/";
 enum  optionIndex { UNKNOWN, HELP, STARS, IMAGES, TEST };
 
 struct Arg: public option::Arg {
