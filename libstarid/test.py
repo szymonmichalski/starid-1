@@ -9,7 +9,7 @@ image = libstarid.image(starndx=4)
 # print(libstarid.id(image))
 
 angseq = libstarid.ang_seq_vec(starndx=4)
-print(angseq)
+# print(angseq)
 
 plt.matshow(-1 * image, cmap='Greys', interpolation='nearest')
 plt.show()
