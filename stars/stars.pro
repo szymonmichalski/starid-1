@@ -16,3 +16,6 @@ HEADERS += $$DIR/stars/sky.h
 SOURCES += $$DIR/stars/sky.cpp
 HEADERS += $$DIR/identification/triangles.h
 SOURCES += $$DIR/identification/triangles.cpp
+
+DISTFILES += \
+    CMakeLists.txt
