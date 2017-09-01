@@ -8,6 +8,7 @@ HEADERS += libstarid.h
 SOURCES += libstarid.cpp
 
 DIR=/home/noah/starid
+INCLUDEPATH += $$DIR/thirdparty
 INCLUDEPATH += $$DIR/libstarid
 INCLUDEPATH += $$DIR/stars
 INCLUDEPATH += $$DIR/identification

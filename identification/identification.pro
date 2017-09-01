@@ -6,6 +6,7 @@ CONFIG -= qt
 SOURCES += identification.cpp
 
 DIR=/home/noah/starid
+INCLUDEPATH += $$DIR/thirdparty
 INCLUDEPATH += $$DIR/libstarid
 INCLUDEPATH += $$DIR/stars
 INCLUDEPATH += $$DIR/identification
