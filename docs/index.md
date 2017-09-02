@@ -2,6 +2,10 @@
 
 [about](http://starid.org/about), [references](http://starid.org/references)
 
+*1.9.2017*
+
+papers from around 2014-2015 concerning attention have a control systems perspective and tone, which hasn't been so noticeable in pure cnn and rnn papers. this may just be reflecting the fact that reinforcement, task based, non differentiable learning are involved. different communities and priorities. in any case, it's welcome, and strengthens the picture that has been developing of parallel developments in aerospace and computer science from the beginning of the space age.
+
 *20.8.2017*
 
 from here, i may occasionally [post on linkedin](https://www.linkedin.com/pulse/machine-learning-attention-star-identification-noah-smith).
