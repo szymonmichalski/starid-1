@@ -2,7 +2,7 @@
 
 [references](http://starid.org/references), [about](http://starid.org/about), [white rose](https://en.wikipedia.org/wiki/White_Rose)
 
-[personal](#anchor1), [star identification](#anchor2), [spacecraft attitude](#anchor3), [texas minor planet project](#anchor4)
+publications [personal](#anchor1), [star identification](#anchor2), [spacecraft attitude](#anchor3), [texas minor planet project](#anchor4)
 
 <a name="anchor1"/>*personal*
 
