@@ -1,6 +1,6 @@
 <img src="docs/images/linkedin cover 744 by 400.png" align="right" height="300" width="558"/>
 
-[about](http://starid.org/about), [references](http://starid.org/references)
+[references](http://starid.org/references), [about](http://starid.org/about), [white rose](https://en.wikipedia.org/wiki/White_Rose)
 
 *stars* image generation from the nasa skymap catalog [skymap description](https://drive.google.com/file/d/0B50jA_ROMYdHRjF6VUhKTkxvU0U/view?usp=sharing), [skymap data file](https://drive.google.com/file/d/0B50jA_ROMYdHMTNoenMzYkpNdXc/view?usp=sharing)
 

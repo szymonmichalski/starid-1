@@ -1,6 +1,6 @@
 ![image](images/linkedin cover 744 by 400.png)
 
-[about](http://starid.org/about), [references](http://starid.org/references)
+[references](http://starid.org/references), [about](http://starid.org/about), [white rose](https://en.wikipedia.org/wiki/White_Rose)
 
 *1.9.2017*
 
