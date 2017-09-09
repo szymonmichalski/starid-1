@@ -1,6 +1,6 @@
 ![image](images/linkedin cover 744 by 400.png)
 
-[references](http://starid.org/references), [about](http://starid.org/about), [white rose](https://en.wikipedia.org/wiki/White_Rose)
+[about](http://starid.org/about), [white rose](https://en.wikipedia.org/wiki/White_Rose)
 
 publications [personal](#anchor1), [star identification](#anchor2), [spacecraft attitude](#anchor3), [texas minor planet project](#anchor4)
 

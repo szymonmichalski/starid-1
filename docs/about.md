@@ -1,6 +1,6 @@
 ![image](images/linkedin cover 744 by 400.png)
 
-[references](http://starid.org/references), [about](http://starid.org/about), [white rose](https://en.wikipedia.org/wiki/White_Rose)
+[references](http://starid.org/references), [white rose](https://en.wikipedia.org/wiki/White_Rose)
 
 here's some of the story so far [1990](#1990), [2003](#2003), [2016](#2016)
 
