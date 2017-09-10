@@ -4,7 +4,7 @@
 
 *10.9.2017*
 
-interesting paper about [time series uncertainties and rnns](https://eng.uber.com/neural-networks-uncertainty-estimation/). this could be directly applicable to the kpi modeling project at work, and a separate direction going forward. pure times series stuff is a topic with little obvious relation to star identification... 
+interesting paper about [time series uncertainties and bnns](https://eng.uber.com/neural-networks-uncertainty-estimation/). this could be directly applicable to the kpi modeling project at work, and a separate direction going forward. pure times series stuff is a topic with little obvious relation to star identification... 
 
 *1.9.2017*
 
