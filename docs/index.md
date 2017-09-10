@@ -2,6 +2,10 @@
 
 [references](http://starid.org/references), [about](http://starid.org/about), [white rose](https://en.wikipedia.org/wiki/White_Rose)
 
+*10.9.2017*
+
+interesting paper about [time series uncertainties and rnns](https://eng.uber.com/neural-networks-uncertainty-estimation/). this could be directly applicable to the kpi modeling project at work, and a separate direction going forward. pure times series stuff is a topic with little obvious relation to star identification... 
+
 *1.9.2017*
 
 papers from around 2014-2015 concerning attention have a control systems perspective, which hasn't been so noticeable in pure cnn and rnn papers. this may just be reflecting the fact that reinforcement, task based, non differentiable learning are involved. different communities and priorities. in any case, it's welcome, and strengthens the picture that has been developing of parallel developments in aerospace and computer science from the beginning of the space age.
