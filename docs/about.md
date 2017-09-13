@@ -1,8 +1,4 @@
-![image](images/linkedin cover 744 by 400.png)
-
-[references](http://starid.org/references), [white rose](https://en.wikipedia.org/wiki/White_Rose)
-
-here's some of the story so far [1990](#1990), [2003](#2003), [2016](#2016)
+[1990](#1990), [2003](#2003), [2016](#2016)
 
 <a name="1990"/>*1990, [photos](http://photos.starid.org) and [pdf](papers/1986 hemenway.pdf), [pdf](papers/1986 pierce.pdf), [pdf](papers/1987 hemenway.pdf)*
  
