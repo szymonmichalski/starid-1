@@ -2,6 +2,10 @@
 
 [references](http://starid.org/references), [about](http://starid.org/about), [white rose](https://en.wikipedia.org/wiki/White_Rose)
 
+*17.9.2017*
+
+studying two recent papers, one about visual attention and the other about time series prediction, seemingly separate topics, here's a curious fact. both involve encoder-decoder dual rnns. it seems this will be the focus in the coming months, for both star identification and time series.
+
 *10.9.2017*
 
 interesting paper about [time series uncertainties and bnns](https://eng.uber.com/neural-networks-uncertainty-estimation/). this could be directly applicable to the kpi modeling project at work, and a separate direction going forward. pure times series stuff is a topic with little obvious relation to star identification... 
