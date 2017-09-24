@@ -2,6 +2,10 @@
 
 [references](http://starid.org/references), [about](http://starid.org/about), [white rose](https://en.wikipedia.org/wiki/White_Rose)
 
+*24.9.2017*
+
+after a few iterations, reached some enlightenment from the montreal papers about the core concept of attention. attention is about one thing paying attention to another. it has a fundamentally dual nature. it's sequential. the thing giving attention is an rnn. basically, we either have an rnn giving attention to an rnn, or an rnn giving attention to a cnn.
+
 *17.9.2017*
 
 studying two recent papers, one about visual attention and the other about time series prediction, seemingly separate topics, here's a curious fact. both involve encoder-decoder dual rnns. it seems this will be the focus in the coming months, for both star identification and time series.
