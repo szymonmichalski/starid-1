@@ -1,6 +1,6 @@
 *24.9.2017*
 
-after a few iterations, reached some enlightenment from the montreal papers about the core concept of attention. it's about something giving attention to something else. it has a fundamentally dual nature. it's sequential. the something giving attention is an rnn. basically, we either have an rnn giving attention to an rnn, or an rnn giving attention to a cnn.
+after a few iterations, reached some enlightenment from the montreal papers about the core concept of attention. it's about something giving attention to something else. it has a fundamentally dual nature. it's sequential. the something giving attention is an rnn. basically, we either have an rnn giving attention to another rnn, or an rnn giving attention to a cnn.
 
 *17.9.2017*
 
