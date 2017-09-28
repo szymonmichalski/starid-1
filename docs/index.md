@@ -1,7 +1,3 @@
-![image](images/linkedin cover 744 by 400.png)
-
-[references](http://starid.org/references), [about](http://starid.org/about)
-
 *24.9.2017*
 
 after a few iterations, reached some enlightenment from the montreal papers about the core concept of attention. attention is about one thing paying attention to another. it has a fundamentally dual nature. it's sequential. the thing giving attention is an rnn. basically, we either have an rnn giving attention to an rnn, or an rnn giving attention to a cnn.
