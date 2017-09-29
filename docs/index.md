@@ -1,3 +1,7 @@
+*29.9.2017*
+
+here's a curious thought. when a person identifies stars, it can have a verbal, sentence-like sequential nature. there's orions belt, and up there's his upraised arm, and there's betelgeuse, and then down there are his legs, etc. this has similarities to the attention-giving decoder rnn in machine translation and image captioning.
+
 *24.9.2017*
 
 after a few iterations, reached some enlightenment from the montreal papers about the core concept of attention. it's about something giving attention to something else. it has a fundamentally dual nature. it's sequential. the something giving attention is an rnn. basically, we either have an rnn giving attention to another rnn, or an rnn giving attention to a cnn.
