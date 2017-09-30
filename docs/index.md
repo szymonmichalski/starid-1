@@ -4,7 +4,7 @@ here's a curious thought. when a person identifies stars, it can have a verbal, 
 
 *24.9.2017*
 
-after a few iterations, reached some enlightenment from the montreal papers about the core concept of attention. it's about something giving attention to something else. it has a fundamentally dual nature. it's sequential. the something giving attention is an rnn. basically, we either have an rnn giving attention to another rnn, or an rnn giving attention to a cnn.
+after a few iterations, reached some enlightenment from the montreal papers about the core concept of attention. it's about something giving attention to something else. it has a fundamentally dual nature. it's sequential. the something giving attention is an rnn. basically, we either have an rnn giving attention to another rnn, or an rnn giving attention to a cnn. note a google paper from earlier this year dispenses with rnns and cnns, leaving pure attention. they refer to it as self attention, implying something giving attention to itself.
 
 *17.9.2017*
 
