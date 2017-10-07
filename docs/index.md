@@ -1,6 +1,14 @@
+*8.10.2017*
+
+the more i think about it, the more this verbal, encoder and attention giving decoder approach feels right, for a number of reasons. let' start sketching out some thoughts about the encoder side and the attention side.
+
+on the encoder side, there is some kind of unsupervised clustering happening. it's invariant to rotations. it gives us a sequence of phrases describing the star field.
+
+on the attention side, there is a sequence of recognitions happening. there's orions belt, there's his arm, there's betelgeuse, etc.
+
 *29.9.2017*
 
-here's a curious thought. when a person identifies stars, it can have a verbal, sentence-like sequential nature. there's orions belt, and up there's his upraised arm, and there's betelgeuse, and then down there are his legs, etc. this has similarities to the attention-giving decoder rnn in machine translation and image captioning.
+here's a curious thought. when a person identifies stars, it can have a verbal, sentence-like sequential nature. there's orions belt, and up there's his upraised arm, and there's betelgeuse, and then down there's his legs, etc. this has similarities to the attention giving decoder rnn in machine translation and image captioning.
 
 *24.9.2017*
 
