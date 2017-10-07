@@ -1,6 +1,6 @@
 *8.10.2017*
 
-the more i think about it, the more this verbal, encoder and attention giving decoder approach feels right, for a number of reasons. let' start sketching out some thoughts about the encoder side and the attention side.
+the more you about it, the more this verbal, encoder and attention giving decoder approach feels right. let' start sketching out some thoughts about the encoder side and the attention side.
 
 on the encoder side, there is some kind of unsupervised clustering happening. it's invariant to rotations. it gives us a sequence of phrases describing the star field.
 
