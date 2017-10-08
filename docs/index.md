@@ -1,10 +1,10 @@
 *8.10.2017*
 
-the more you think about it, the more this verbalish languageish encoder, attention, decoder approach feels right. let' start sketching out some thoughts about the encoder side and the attention side.
+the more you think about it, the more attractive the encoder decoder with an attentional interface approach grows. let' start sketching out some thoughts about the two halves.
 
-on the encoder side, there's unsupervised clustering happening. it's giving us a sequence of phrases describing the star field that's the same regardless of rotation. this could be tougher than it sounds for low resolution images, as the pixelation means instability of relative positions and even numbers of stars with rotation. one possibility is, the sequence of phrases describes the field in a radial sense, outward from the center, rather than a rastering or circular sense.
+on the encoder side, there's unsupervised clustering happening. it's giving us a sequence of phrases describing the star field that's the same regardless of rotation. this could be tougher than it sounds for low resolution images, as the pixelation means instability of relative positions and even the numbers of stars. a possibility is for the sequence of phrases to describe the field in a radial sense, outward from the center, rather than a rastering or circular sense.
 
-on the attention side, there is a sequence of recognitions happening. there's orions belt, there's his arm, there's betelgeuse, etc.
+on the decoder side, there's a sequence of recognitions happening. there's orions belt, there's his arm, there's betelgeuse, etc.
 
 *29.9.2017*
 
