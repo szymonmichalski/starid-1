@@ -4,7 +4,9 @@ the more you think about it, the more attractive the encoder decoder with an att
 
 on the encoder side, there's unsupervised clustering happening. it's giving us a sequence of phrases describing the star field that's the same regardless of rotation. this could be tougher than it sounds for low resolution images, as the pixelation means instability of relative positions and even the numbers of stars. a possibility is for the sequence of phrases to describe the field in a radial sense, outward from the center, rather than a rastering or circular sense.
 
-on the decoder side, there's a sequence of recognitions happening. there's orions belt, there's his arm, there's betelgeuse, etc.
+on the decoder side, there's a sequence of recognitions happening. there's orions belt, there's his arm, there's betelgeuse, etc. the encoder maps a variable length source sequence to a fixed length vector, and the decoder maps the vector back to a variable length target sequence. the attentional interface replaces the fixed length vector between. they're trained to give the correct target sequence for a source sequence.
+
+we change an image recognition problem into a translation problem. given a sequence of symbols representing a star field, translate it into a sequence of star identifications.
 
 *29.9.2017*
 
