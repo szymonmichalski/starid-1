@@ -247,10 +247,9 @@ more automation with the the mnist style dataset
 
     /usr/bin/python3.5 /home/noah/dev/starid/system.py
 
-n 100 | ok | t
------- | ------ | -----
-lb | 0.500 | 0.548
-rb | 0.900 | 0.334
+for n=100, percent ok and time in seconds
+lb, 0.5, 0.548
+rb, 0.9, 0.334
 
 *5.1.2017*
 
