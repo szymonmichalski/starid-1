@@ -1,3 +1,5 @@
+<img src="images/linkedin cover 744 by 400.png" align="center" height="300" width="558"/>
+
 [references](http://starid.org/references), [about](http://starid.org/about)
 
 *8.10.2017*
