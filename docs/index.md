@@ -1,12 +1,14 @@
+[references](http://starid.org/references), [about](http://starid.org/about)
+
 *8.10.2017*
 
-the more you think about it, the more attractive the encoder decoder with an attentional interface approach grows. let' start sketching out some thoughts about the two halves.
+the more one thinks about it, the more attractive a star identification encoder decoder with an attentional interface approach grows. let's start sketching out some thoughts about the two halves.
 
-on the encoder side, there's unsupervised clustering happening. it's giving us a sequence of phrases describing the star field that's the same regardless of rotation. this could be tougher than it sounds for low resolution images, as the pixelation means instability of relative positions and even the numbers of stars. a possibility is for the sequence of phrases to describe the field in a radial sense, outward from the center, rather than a rastering or circular sense.
+on the encoder side, there's unsupervised clustering happening. it's giving us a sequence of phrases describing the star field that's the same regardless of rotation. this could be tougher than it sounds for low resolution images, as the pixelation means instability of relative positions and even the numbers of stars. a possibility is for the sequence of phrases to describe the star field in a radial sense, outward and inward, rather than a rastering or rotational sense.
 
-on the decoder side, there's a sequence of translations happening. the encoder maps a variable length source sequence to a fixed length vector, and the decoder maps the vector back to a variable length target sequence, with the attentional interface replacing the fixed length vector between. they're trained to give the correct target sequence for a source sequence.
+on the decoder side, there's a sequence of translations happening. the encoder maps a variable length source sequence to a fixed length vector, and the decoder maps the vector back to a variable length target sequence, with the attentional interface augmenting the fixed length vector between. they're trained to give the correct target sequence for a source sequence.
 
-we change an image recognition problem into a translation problem. given a sequence of symbols representing a star field, translate it into a sequence of star identifications.
+we change an image recognition problem into a translation problem. given a sequence of phrases representing a star field, translate it into a sequence of star identifications.
 
 *29.9.2017*
 
