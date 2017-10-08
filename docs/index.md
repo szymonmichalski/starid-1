@@ -1,4 +1,4 @@
-<img src="images/linkedin cover 744 by 400.png" align="center" height="100" width="186"/>
+<img src="images/linkedin cover 744 by 400.png" align="center" height="200" width="372"/>
 
 [references](http://starid.org/references), [about](http://starid.org/about)
 
