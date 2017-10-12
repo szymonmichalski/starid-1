@@ -1,4 +1,4 @@
-<img src="docs/images/linkedin cover 744 by 400.png" align="right" height="300" width="558"/>
+<img src="docs/images/nouns and verbs level0.png" align="right" width="426" height="202"/>
 
 [references](http://starid.org/references), [about](http://starid.org/about)
 
