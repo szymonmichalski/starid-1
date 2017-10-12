@@ -4,11 +4,9 @@
 
 *12.10.2017*
 
-on the encoder side, here's an example of nouns and verbs can be built. the verbs are green and indicate something connecting or relating to something else.
+on the encoder side, here's an example of nouns and verbs can be built. the verbs are green and indicate something connecting or relating to something else. the numerical lengths of the sides can be used to build symbols representing the nouns and verbs. for a noun with sides 2.3, 5.1, 4.9 we could have the symbol 235149.
 
 ![nouns and verbs](images/nouns and verbs.png)
-
-the numerical lengths of the sides can be used to build symbols representing the nouns and verbs. for a noun with sides 2.3, 5.1, 4.9 we could have the symbol 235149.
 
 *8.10.2017*
 
