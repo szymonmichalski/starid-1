@@ -1,4 +1,4 @@
-<img src="images/nouns and verbs level0.png" align="right" width="426" height="202"/>
+<img src="images/nouns and verbs level0.png" align="center" width="426" height="202"/>
 
 [references](http://starid.org/references), [about](http://starid.org/about)
 
