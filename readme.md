@@ -14,6 +14,7 @@
 
 *triangular patterns and structure* start with a set of star identities and iteratively set aside those that can’t be correct, until only one remains.
 
-*translation* current work is foused on transforming an image recognition problem into a translation problem. given a sequence of phrases representing a star field, translate it into a sequence of star identifications, using an encoder and decoder with an attention interface between. on the encoder side, here's an example of generating symbols representing nouns, blue, and verbs, green. we can build symbols from numerical lengths. for a noun with sides 2.3, 5.1, 4.9 we could have the symbol 235149. on the decoder side, symbols are built from numerical starids.
 
-![nouns and verbs](docs/images/nouns and verbs.png)
+<img src="docs/images/nouns and verbs.png" align="right"/>
+
+*translation* current work is foused on transforming an image recognition problem into a translation problem. given a sequence of phrases representing a star field, translate it into a sequence of star identifications, using an encoder and decoder with an attention interface between. on the encoder side, here's an example of generating symbols representing nouns, blue, and verbs, green. we can build symbols from numerical lengths. for a noun with sides 2.3, 5.1, 4.9 we could have the symbol 235149. on the decoder side, symbols are built from numerical starids.
