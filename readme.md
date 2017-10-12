@@ -17,4 +17,4 @@
 
 <img src="docs/images/nouns and verbs.png" align="right" height="150" width="279"/>
 
-*machine translation* transforms the image recognition problem into a machine translation problem. given a sequence of symbols representing a star field, translate it into a sequence of symbols representing star identifications, using an encoder and decoder with an attention interface between. on the encoder side are symbols representing nouns, blue, and verbs, green. for example with sides 2.3, 5.1, 4.9 we could have the symbol 235149. on the decoder side are symbols built from numerical starids.
+*machine translation* transform a geometry recognition problem into a machine translation problem. given a sequence of symbols representing a star field, translate it into a sequence of symbols representing star identifications, using an encoder and decoder with an attention interface between. on the encoder side are symbols representing nouns, blue, and verbs, green. for example with sides 2.3, 5.1, 4.9 we could have the symbol 235149. on the decoder side are symbols built from numerical starids.
