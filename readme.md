@@ -4,7 +4,7 @@
 
 *stars* image generation from the nasa skymap catalog [skymap description](https://drive.google.com/file/d/0B50jA_ROMYdHRjF6VUhKTkxvU0U/view?usp=sharing), [skymap data file](https://drive.google.com/file/d/0B50jA_ROMYdHMTNoenMzYkpNdXc/view?usp=sharing)
 
-*identification* recurrent neural networks, convnets, triangular patterns and structure [minimalist rnn](https://github.com/noahhsmith/starid/blob/master/identification/recurrent_minimalist.py), [recurrent network](https://github.com/noahhsmith/starid/blob/master/identification/recurrent.py), [minimalist cnn](https://github.com/noahhsmith/starid/blob/master/identification/convolutional_minimalist.py), [convolutional network](https://github.com/noahhsmith/starid/blob/master/identification/convolutional.py), [triangular patterns](https://github.com/noahhsmith/starid/blob/master/identification/triangles.cpp)
+*identification* recurrent neural networks, convnets, triangular patterns and structure, machine translation [minimalist rnn](https://github.com/noahhsmith/starid/blob/master/identification/recurrent_minimalist.py), [recurrent network](https://github.com/noahhsmith/starid/blob/master/identification/recurrent.py), [minimalist cnn](https://github.com/noahhsmith/starid/blob/master/identification/convolutional_minimalist.py), [convolutional network](https://github.com/noahhsmith/starid/blob/master/identification/convolutional.py), [triangular patterns](https://github.com/noahhsmith/starid/blob/master/identification/triangles.cpp), [machine translation](https://www.linkedin.com/pulse/star-identification-translation-noah-smith/)
 
 <br>
 
@@ -17,4 +17,4 @@
 
 <img src="docs/images/nouns and verbs.png" align="right" height="150" width="279"/>
 
-*machine translation* current work is foused on transforming the image recognition problem into a machine translation problem. given a sequence of symbols representing a star field, translate it into a sequence of symbols representing star identifications, using an encoder and decoder with an attention interface between. on the encoder side are symbols representing nouns, blue, and verbs, green. for example with sides 2.3, 5.1, 4.9 we could have the symbol 235149. on the decoder side are symbols built from numerical starids.
+*machine translation* current work is foused on transforming the image recognition problem into a machine translation problem. given a sequence of symbols representing a star field, translate it into a sequence of symbols representing star identifications, using a sequence to sequnce encoder and decoder with an attention interface between. on the encoder side are symbols representing nouns, blue, and verbs, green. for example with sides 2.3, 5.1, 4.9 we could have the symbol 235149. on the decoder side are symbols built from numerical starids.
