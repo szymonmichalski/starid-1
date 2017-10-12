@@ -15,4 +15,4 @@
 
 <img src="docs/images/nouns and verbs.png" align="right" width="426" height="202"/>
 
-*sequence to sequence translation* transforms geometry recognition into language translation. given a sequence of symbols representing a star field, translate it into a sequence of symbols representing star identifications, using an encoder and decoder with an attention interface between. on the encoder side are symbols representing nouns, blue, and verbs, green. for example with sides 2.3, 5.1, 4.9 we could have the symbol 235149. on the decoder side are symbols built from numerical starids.
+*sequence to sequence translation* transforms geometry recognition into language translation. given a sequence of symbols representing a star field, translate it into a sequence of symbols representing star identifications, using an encoder and decoder with an attention interface between. on the encoder side are symbols representing nouns, blue, and verbs, green. for distances 2.3, 5.1, 4.9 we could use the symbol 235149. on the decoder side are symbols built from numerical starids.
