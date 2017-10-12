@@ -15,6 +15,6 @@
 *triangular patterns and structure* start with a set of star identities and iteratively set aside those that can’t be correct, until only one remains.
 
 
-<img src="docs/images/nouns and verbs.png" align="right" width="426" height="202/>
+<img src="docs/images/nouns and verbs.png" align="right" width="426" height="202"/>
 
 *machine translation* transform a geometry recognition problem into a machine translation problem. given a sequence of symbols representing a star field, translate it into a sequence of symbols representing star identifications, using an encoder and decoder with an attention interface between. on the encoder side are symbols representing nouns, blue, and verbs, green. for example with sides 2.3, 5.1, 4.9 we could have the symbol 235149. on the decoder side are symbols built from numerical starids.
