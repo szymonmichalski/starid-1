@@ -3,7 +3,7 @@ TARGET = starid
 CONFIG += c++14 warn_off debug
 CONFIG -= qt
 
-INCLUDEPATH += /usr/include/python3.5m
+INCLUDEPATH += /usr/include/python3.6m
 HEADERS += libstarid.h
 SOURCES += libstarid.cpp
 
@@ -18,3 +18,4 @@ HEADERS += $$DIR/stars/sky.h
 SOURCES += $$DIR/stars/sky.cpp
 HEADERS += $$DIR/identification/triangles.h
 SOURCES += $$DIR/identification/triangles.cpp
+
