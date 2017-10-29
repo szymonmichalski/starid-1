@@ -1,5 +1,6 @@
 #include "libstarid.h"
 
+// default constructor automatically loads a sky object
 libstarid::libstarid() {
     std::string skydata = "/home/noah/starid/stars/";
     std::ifstream is1(std::string(skydata + "sky"));
@@ -7,6 +8,7 @@ libstarid::libstarid() {
     iarchive1(sky);
 }
 
+// load a pairs object
 void libstarid::load_pairs() {
     std::string pairsdata = "/home/noah/starid/identification/";
     std::ifstream is2(std::string(pairsdata + "pairs"));
