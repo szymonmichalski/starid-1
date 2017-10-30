@@ -4,7 +4,7 @@
 
 *30.10.2017*
 
-with lots of contemplation and reading over a two week vacation in texas, there's an [overall picture of what star identification as neural machine translation means](https://www.linkedin.com/pulse/small-deltas-from-neural-machine-translation-noah-smith/). this is a good place to mention that as implementation picks up speed, tensorflow should be joined by keras in the tool stack.
+with lots of contemplation and reading over a two week vacation, there's an [overall picture](https://www.linkedin.com/pulse/small-deltas-from-neural-machine-translation-noah-smith/) of what star identification as neural machine translation looks like.
 
 next step is to get the information needed for creating two languages available in python. this will come from the cpp stars app via libstarid and pybind11.
 
