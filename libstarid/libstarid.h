@@ -28,7 +28,7 @@ public:
     // 28 by 28 image as a matrix
     Eigen::MatrixXd image(int starndx);
     // image info, pixels and starids, as a matrix
-    Eigen::MatrixXd pixels_and_starids(int starndx);
+    Eigen::MatrixXd image_pixels_and_starndxs(int starndx);
     // sequence of angular observations as a vector
     Eigen::MatrixXd ang_seq_vec(int starndx);
 

@@ -21,7 +21,7 @@ Eigen::MatrixXd libstarid::image(int starndx) {
     return img;
 }
 
-Eigen::MatrixXd libstarid::pixels_and_starids(int starndx) {
+Eigen::MatrixXd libstarid::image_pixels_and_starndxs(int starndx) {
     Eigen::MatrixXd image_info = starid::pointing_vectors::new_image_info(starndx, sky);;
     return image_info;
 }

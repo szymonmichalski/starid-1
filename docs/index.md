@@ -16,6 +16,8 @@ here's another example, betelgeuse, row 2063, starndx 2062. alpha orion, hd 3980
 
     SKY2000 J055510.30+072425.4	5550036	39801	113271	 BD+07	1055	   206105552+0724A	149643	58	alp Ori	alp   Ori
 
+there'll be something like an image_pixels_and_starndxs(target_starndx) function in libstarid, returning an image info matrix for the target starndx. by default the image will have random yaw rotation. image info has three columns, image matrix row, image matrix column, starndx. these are the pixels activated in the image. image matrix row and column are axjndx and axindx in the cpp code.
+
 *12.10.2017*
 
 on the encoder side, here's an example of generating symbols representing nouns, blue, and verbs, green. we can build symbols from numerical lengths. for a noun with sides 2.3, 5.1, 4.9 we could have the symbol 235149. on the decoder side, symbols are built from numerical starids.
