@@ -2,6 +2,22 @@
 
 [references](http://starid.org/references), [about](http://starid.org/about)
 
+*30.10.2017*
+
+with lots of contemplation and reading over a two week vacation in texas, there's an [overall picture](https://www.linkedin.com/pulse/small-deltas-from-neural-machine-translation-noah-smith/) of what star identification as neural machine translation looks like.
+
+next step is to get the information needed for creating two languages available in python. this will come from the cpp stars app via libstarid and pybind11.
+
+here's a quick memory refresh on the baseline sky known by the stars app. it's the 8876 stars brighter than visual magnitude 6.5. the skymap catalog rows for these stars are in the [skymap text file](https://raw.githubusercontent.com/noahhsmith/starid/master/stars/skymap.txt). we've now added a skymap ods spreadsheet with some basic parsing of the fixed width text file, so the hd, hr, and common name identifiers are easily accessible. for example starndx 3, used for many of the starid example images, is the fourth row
+
+    SKY2000 J000043.63+451512.0	114	224801	53568	 BD+44	4538	9080	42458			CG    And
+    
+cg andromeda, hd 224801, hr 9080. here's another example, betelgeuse, row 2063, starndx 2062
+
+    SKY2000 J055510.30+072425.4	5550036	39801	113271	 BD+07	1055	   206105552+0724A	149643	58	alp Ori	alp   Ori
+
+alpha orion, hd 39801, hr 2061
+
 *12.10.2017*
 
 on the encoder side, here's an example of generating symbols representing nouns, blue, and verbs, green. we can build symbols from numerical lengths. for a noun with sides 2.3, 5.1, 4.9 we could have the symbol 235149. on the decoder side, symbols are built from numerical starids.
