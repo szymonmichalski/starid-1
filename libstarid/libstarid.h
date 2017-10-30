@@ -27,8 +27,8 @@ public:
 
     // 28 by 28 image as a matrix
     Eigen::MatrixXd image(int starndx);
-    // image info, pixels and starids, as a matrix
-    Eigen::MatrixXd image_pixels_and_starndxs(int starndx);
+    // image info, pixels and starndxs, as a matrix
+    Eigen::MatrixXd image_info(int starndx);
     // sequence of angular observations as a vector
     Eigen::MatrixXd ang_seq_vec(int starndx);
 
@@ -41,6 +41,7 @@ PYBIND11_PLUGIN(libstarid) {
     pybind11::class_<libstarid>(pymodule, "libstarid")
         .def(pybind11::init<>())
         .def("image", &libstarid::image, "create star image", pybind11::arg("starndx"))
+        .def("image_info", &libstarid::image_info, "create star image info", pybind11::arg("starndx"))
         .def("ang_seq_vec", &libstarid::ang_seq_vec, "create angle sequence vector", pybind11::arg("starndx"))
         .def("load_pairs", &libstarid::load_pairs, "load pairs")
         .def("id", &libstarid::id, "id");

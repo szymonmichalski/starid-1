@@ -154,9 +154,11 @@ starid::image_matrix starid::pointing_vectors::new_image_matrix(int starndx, sta
     std::vector<int> starndxs = sky.stars_near_point(pointing(0), pointing(1), pointing(2));
 
     Eigen::MatrixXd pvecs = Eigen::MatrixXd::Zero(100,3);
+    Eigen::MatrixXd ndxs = Eigen::MatrixXd::Zero(100,1);
     int pvecsndx = 0;
     for (auto ndx : starndxs) {
         pvecs.row(pvecsndx) << sky.stars[ndx].x, sky.stars[ndx].y, sky.stars[ndx].z;
+        ndxs.row(pvecsndx) << ndx;
         ++pvecsndx;
     }
     pvecs.conservativeResize(pvecsndx, 3);
@@ -171,6 +173,7 @@ starid::image_matrix starid::pointing_vectors::new_image_matrix(int starndx, sta
         double axj = -y + starid::image_radius_unit_vector_plane;
         int axindx = std::floor( axi / starid::image_pixel_unit_vector_plane );
         int axjndx = std::floor( axj / starid::image_pixel_unit_vector_plane );
+        if (ndxs(ndx,0) == starndx) continue;
         if (axjndx < 0 || axjndx > 27) continue;
         if (axindx < 0 || axindx > 27) continue;
         imgmat(axjndx, axindx) = 1.0;
@@ -181,16 +184,18 @@ starid::image_matrix starid::pointing_vectors::new_image_matrix(int starndx, sta
 
 starid::image_info starid::pointing_vectors::new_image_info(int starndx, starid::sky &sky) {
     using namespace Eigen;
-    image_info imginfo = image_info::Zero();
+    image_info imginfo = image_info::Zero(100,3);
 
     Vector3d pointing;
     pointing << sky.stars[starndx].x, sky.stars[starndx].y, sky.stars[starndx].z;
     std::vector<int> starndxs = sky.stars_near_point(pointing(0), pointing(1), pointing(2));
 
     Eigen::MatrixXd pvecs = Eigen::MatrixXd::Zero(100,3);
+    Eigen::MatrixXd ndxs = Eigen::MatrixXd::Zero(100,1);
     int pvecsndx = 0;
     for (auto ndx : starndxs) {
         pvecs.row(pvecsndx) << sky.stars[ndx].x, sky.stars[ndx].y, sky.stars[ndx].z;
+        ndxs.row(pvecsndx) << ndx;
         ++pvecsndx;
     }
     pvecs.conservativeResize(pvecsndx, 3);
@@ -198,6 +203,7 @@ starid::image_info starid::pointing_vectors::new_image_info(int starndx, starid:
     pvecs = (attitude.transpose() * pvecs.transpose()).transpose();
 
     double yaw = unitscatter(e1) * 2 * starid::pi;
+    int imginfondx = 0;
     for (int ndx = 0; ndx < pvecsndx; ++ndx) {
         double x = std::cos(yaw) * pvecs(ndx,0) - std::sin(yaw) * pvecs(ndx,1);
         double y = std::sin(yaw) * pvecs(ndx,0) + std::cos(yaw) * pvecs(ndx,1);
@@ -205,10 +211,15 @@ starid::image_info starid::pointing_vectors::new_image_info(int starndx, starid:
         double axj = -y + starid::image_radius_unit_vector_plane;
         int axindx = std::floor( axi / starid::image_pixel_unit_vector_plane );
         int axjndx = std::floor( axj / starid::image_pixel_unit_vector_plane );
+        if (ndxs(ndx,0) == starndx) continue;
         if (axjndx < 0 || axjndx > 27) continue;
         if (axindx < 0 || axindx > 27) continue;
-//        imginfo(axjndx, axindx) = 1.0;
+        imginfo(imginfondx, 0) = axjndx;
+        imginfo(imginfondx, 1) = axindx;
+        imginfo(imginfondx, 2) = ndxs(ndx,0);
+        ++imginfondx;
     }
+    imginfo.conservativeResize(imginfondx, 3);
 
     return imginfo;
 }
@@ -222,9 +233,11 @@ starid::ang_seq_vec starid::pointing_vectors::new_ang_seq_vec(int starndx, stari
     std::vector<int> starndxs = sky.stars_near_point(pointing(0), pointing(1), pointing(2));
 
     Eigen::MatrixXd pvecs = Eigen::MatrixXd::Zero(100,3);
+    Eigen::MatrixXd ndxs = Eigen::MatrixXd::Zero(100,1);
     int pvecsndx = 0;
     for (auto ndx : starndxs) {
         pvecs.row(pvecsndx) << sky.stars[ndx].x, sky.stars[ndx].y, sky.stars[ndx].z;
+        ndxs.row(pvecsndx) << ndx;
         ++pvecsndx;
     }
     pvecs.conservativeResize(pvecsndx, 3);
@@ -239,6 +252,7 @@ starid::ang_seq_vec starid::pointing_vectors::new_ang_seq_vec(int starndx, stari
         double axj = -y + starid::image_radius_unit_vector_plane;
         int axindx = std::floor( axi / starid::image_pixel_unit_vector_plane );
         int axjndx = std::floor( axj / starid::image_pixel_unit_vector_plane );
+        if (ndxs(ndx,0) == starndx) continue;
         if (axindx < 0 || axindx > 27) continue;
         if (axjndx < 0 || axjndx > 27) continue;
         double pixelx = (double)axindx - 13.5;

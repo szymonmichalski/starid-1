@@ -119,7 +119,7 @@ public:
 };
 
 using image_matrix = Eigen::Matrix<double, 28, 28>;
-using image_info = Eigen::Matrix<double, 100, 3>; // axjndx=row axindx=col starndx
+using image_info = Eigen::MatrixXd; // axjndx=row axindx=col starndx
 using ang_seq_vec = Eigen::Matrix<double, 36, 1>;
 
 class pointing_vectors {
