@@ -119,6 +119,7 @@ public:
 };
 
 using image_matrix = Eigen::Matrix<double, 28, 28>;
+using image_info = Eigen::Matrix<double, 100, 3>; // axjndx=row axindx=col starndx
 using ang_seq_vec = Eigen::Matrix<double, 36, 1>;
 
 class pointing_vectors {
@@ -128,6 +129,10 @@ public:
     /// *new image matrix* create an axi axj image matrix for the star, with a random yaw
     ///
     static image_matrix new_image_matrix(int starndx, starid::sky &sky);
+
+    /// *new image info* create an axi axj image info for the star, with a random yaw
+    ///
+    static image_info new_image_info(int starndx, starid::sky &sky);
 
     /// *new yaw series* yaw series for use by recurrent networks
     ///

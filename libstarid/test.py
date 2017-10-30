@@ -5,10 +5,11 @@ import libstarid as ls
 libstarid = ls.libstarid()
 # libstarid.load_pairs()
 
-image = libstarid.image(starndx=4)
+# starndx 3 has been used for many example images
+image = libstarid.image(starndx=3)
 # print(libstarid.id(image))
 
-angseq = libstarid.ang_seq_vec(starndx=4)
+angseq = libstarid.ang_seq_vec(starndx=3)
 # print(angseq)
 
 plt.matshow(-1 * image, cmap='Greys', interpolation='nearest')

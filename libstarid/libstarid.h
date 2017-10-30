@@ -20,14 +20,19 @@ public:
     starid::sky sky;
     starid::pairs pairs;
 
+    // default constructor automatically loads a sky object
     libstarid();
-
-
+    // load a pairs object
     void load_pairs();
 
+    // 28 by 28 image as a matrix
     Eigen::MatrixXd image(int starndx);
+    // image info, pixels and starids, as a matrix
+    Eigen::MatrixXd pixels_and_starids(int starndx);
+    // sequence of angular observations as a vector
     Eigen::MatrixXd ang_seq_vec(int starndx);
 
+    // identifies the star at the center of the image from triangular structures
     int id(starid::image_matrix image);
 };
 
