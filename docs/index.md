@@ -8,7 +8,7 @@ with lots of contemplation and reading over a two week vacation in texas, there'
 
 next step is to get the information needed for creating two languages available in python. this will come from the cpp stars app via libstarid and pybind11.
 
-here's a quick memory refresh on the baseline sky known by the stars app. it's the 8876 stars brighter than visual magnitude 6.5. the skymap catalog rows for these stars are in the [skymap text file](https://raw.githubusercontent.com/noahhsmith/starid/master/stars/skymap.txt). we've now added a skymap ods spreadsheet with some basic parsing of the fixed width text file, so the hd, hr, and common name identifiers are easily accessible. for example starndx 3, used for many of the starid example images, is the fourth row. cg andromeda, hd 224801, hr 9080.
+here's a quick memory refresh on the baseline sky, as known by the stars app. it's the 8876 stars brighter than visual magnitude 6.5. the skymap catalog rows for these stars are in the [skymap text file](https://raw.githubusercontent.com/noahhsmith/starid/master/stars/skymap.txt). we've now added a skymap ods spreadsheet with some basic parsing of the fixed width text file, so the hd, hr, and common name identifiers are easily accessible. for example starndx 3, used for many of the starid example images, is the fourth row. cg andromeda, hd 224801, hr 9080.
 
     SKY2000 J000043.63+451512.0	114	224801	53568	 BD+44	4538	9080	42458			CG    And 
 
@@ -16,9 +16,7 @@ here's another example, betelgeuse, row 2063, starndx 2062. alpha orion, hd 3980
 
     SKY2000 J055510.30+072425.4	5550036	39801	113271	 BD+07	1055	   206105552+0724A	149643	58	alp Ori	alp   Ori
 
-there'll be something like an image_info(target_starndx) function in libstarid, returning an image info matrix for the target starndx. by default the image will have random yaw rotation. image info has three columns, image matrix row, image matrix column, starndx. these are the pixels activated in the image. image matrix row and column are axjndx and axindx in the cpp code.
-
-corrected a sign error for negative declinations. here's three rows of an info for starndx 3, showing starndxs 69, 91, and 97, and a plot of all pixels. last three columns are skymap number, ra degrees, dec degrees.
+there'll be something like an image_info(target_starndx) function in libstarid, returning an image info matrix for the target starndx. by default the image will have random yaw rotation. there'll be at least three columns. image matrix row, image matrix column, starndx. these are the pixels activated in the image. here's three rows of an info for starndx 3, showing starndxs 69, 91, and 97, and a plot of all pixels. last three columns are skymap number, ra degrees, dec degrees.
 
      [  4.00000000e+00   2.10000000e+01   6.90000000e+01   1.10134000e+05   2.99618791e+00   4.81523964e+01]
      [  2.00000000e+01   2.30000000e+01   9.10000000e+01   1.60054000e+05   4.08970500e+00   4.35950492e+01]
