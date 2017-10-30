@@ -18,7 +18,7 @@ here's another example, betelgeuse, row 2063, starndx 2062. alpha orion, hd 3980
 
 there'll be something like an image_info(target_starndx) function in libstarid, returning an image info matrix for the target starndx. by default the image will have random yaw rotation. image info has three columns, image matrix row, image matrix column, starndx. these are the pixels activated in the image. image matrix row and column are axjndx and axindx in the cpp code.
 
-found a bug while implementing. sign error for negative declinations. sigh. definitely correct now. here's three rows of an info for starndx 3, showing starndxs 69, 91, and 97, and a plot of all info pixels. last three columns are skymap number, ra degrees, dec degrees.
+corrected a bug, sign error for negative declinations. here's three rows of an info for starndx 3, showing starndxs 69, 91, and 97, and a plot of all info pixels. last three columns are skymap number, ra degrees, dec degrees.
 
      [  4.00000000e+00   2.10000000e+01   6.90000000e+01   1.10134000e+05   2.99618791e+00   4.81523964e+01]
      [  2.00000000e+01   2.30000000e+01   9.10000000e+01   1.60054000e+05   4.08970500e+00   4.35950492e+01]
