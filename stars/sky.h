@@ -45,11 +45,13 @@ struct star {
     int starndx;
     int skymap_number;
     double mv;
+    double ra_degrees;
+    double dec_degrees;
     double x;
     double y;
     double z;
     template <class Archive> void serialize(Archive& ar) {
-        ar(starndx, skymap_number, mv, x, y, z);
+        ar(starndx, skymap_number, mv, ra_degrees, dec_degrees, x, y, z);
     }
 };
 

@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+np.set_printoptions(linewidth=200)
 
 import libstarid as ls
 libstarid = ls.libstarid()

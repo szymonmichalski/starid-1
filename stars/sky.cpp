@@ -11,14 +11,14 @@ void starid::sky::init(std::string fcatin) {
         star.starndx = starndx;
         star.skymap_number = rec.skymap_number;
         star.mv = rec.mv1;
-        double ra_degrees = 15.0 * (rec.rah + rec.ram/60.0 + rec.ras/3600.0);
-        double dec_degrees = rec.decsign * (rec.decd + rec.decm/60.0 + rec.decs/3600.0);
-        ra_degrees += (t * rec.pmra_arcsec_per_year) / 3600.0;
-        dec_degrees += (t * rec.pmdecsign * rec.pmdec_arcsec_per_year) / 3600.0;
-        double ra = ra_degrees * starid::pi / 180.0;
-        double dec = dec_degrees * starid::pi / 180.0;
+        star.ra_degrees = 15.0 * (rec.rah + rec.ram/60.0 + rec.ras/3600.0);
+        star.dec_degrees = rec.decsign * (rec.decd + rec.decm/60.0 + rec.decs/3600.0);
+//        star.ra_degrees += (t * rec.pmra_arcsec_per_year) / 3600.0;
+//        star.dec_degrees += (t * rec.pmdecsign * rec.pmdec_arcsec_per_year) / 3600.0;
+        double ra = star.ra_degrees * starid::pi / 180.0;
+        double dec = star.dec_degrees * starid::pi / 180.0;
         star.x = std::cos(ra) * std::cos(dec);
-        star.y = std::sin(ra) * cos(dec);
+        star.y = std::sin(ra) * std::cos(dec);
         star.z = std::sin(dec);
         xtable.add_pair(star.x, starndx);
         ytable.add_pair(star.y, starndx);
@@ -128,9 +128,11 @@ starid::star_catalog::star_catalog(std::string fcat) {
                 rec.decs = std::stof(line.substr(134,6));
                 rec.pmra_arcsec_per_year = 15.0 * std::stof(line.substr(149,8));
                 rec.pmdec_arcsec_per_year = std::stof(line.substr(158,7));
-                if (line.substr(129,1) == "-")
+                rec.decsign = 1.0;
+                rec.pmdecsign = 1.0;
+                if (line.substr(129,1).compare("-") == 0)
                     rec.decsign = -1.0;
-                if (line.substr(157,1) == "-")
+                if (line.substr(157,1).compare("-") == 0)
                     rec.pmdecsign = -1.0;
                 rec.fileline = line;
                 star_records.push_back(rec);
@@ -184,18 +186,18 @@ starid::image_matrix starid::pointing_vectors::new_image_matrix(int starndx, sta
 
 starid::image_info starid::pointing_vectors::new_image_info(int starndx, starid::sky &sky) {
     using namespace Eigen;
-    image_info imginfo = image_info::Zero(100,3);
+    image_info imginfo = image_info::Zero(100,6);
 
     Vector3d pointing;
     pointing << sky.stars[starndx].x, sky.stars[starndx].y, sky.stars[starndx].z;
     std::vector<int> starndxs = sky.stars_near_point(pointing(0), pointing(1), pointing(2));
 
     Eigen::MatrixXd pvecs = Eigen::MatrixXd::Zero(100,3);
-    Eigen::MatrixXd ndxs = Eigen::MatrixXd::Zero(100,1);
+    Eigen::MatrixXd ndxs = Eigen::MatrixXd::Zero(100,4);
     int pvecsndx = 0;
     for (auto ndx : starndxs) {
         pvecs.row(pvecsndx) << sky.stars[ndx].x, sky.stars[ndx].y, sky.stars[ndx].z;
-        ndxs.row(pvecsndx) << ndx;
+        ndxs.row(pvecsndx) << sky.stars[ndx].starndx, sky.stars[ndx].skymap_number, sky.stars[ndx].ra_degrees, sky.stars[ndx].dec_degrees;
         ++pvecsndx;
     }
     pvecs.conservativeResize(pvecsndx, 3);
@@ -216,10 +218,13 @@ starid::image_info starid::pointing_vectors::new_image_info(int starndx, starid:
         if (axindx < 0 || axindx > 27) continue;
         imginfo(imginfondx, 0) = axjndx;
         imginfo(imginfondx, 1) = axindx;
-        imginfo(imginfondx, 2) = ndxs(ndx,0);
+        imginfo(imginfondx, 2) = ndxs(ndx,0); // starndx
+        imginfo(imginfondx, 3) = ndxs(ndx,1); // skymap_number
+        imginfo(imginfondx, 4) = ndxs(ndx,2); // ra
+        imginfo(imginfondx, 5) = ndxs(ndx,3); // dec
         ++imginfondx;
     }
-    imginfo.conservativeResize(imginfondx, 3);
+    imginfo.conservativeResize(imginfondx, 6);
 
     return imginfo;
 }
