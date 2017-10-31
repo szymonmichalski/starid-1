@@ -2,6 +2,20 @@
 
 [references](http://starid.org/references), [about](http://starid.org/about)
 
+*31.10.2017*
+
+just curious about a quick visit to orion, but turns out it's too big for our eight by eight degree field of view. we can at best only see the belt together, mintaka, alnilam, alnitak
+
+    betelgeuse, alpha, 39801, 2062
+    rigel, beta, 34085, 1719
+    bellatrix, gamma, 35468, 1805
+    mintaka, delta, 36486, 1861	
+    alnilam, epsilon, 37128, 1909
+    alnitak, zeta, 37742, 1952
+    saiph, kappa, 38771, 2005
+
+![orion](images/orion.svg)
+
 *30.10.2017*
 
 with lots of contemplation and reading over a two week vacation, there's an [overall picture](https://www.linkedin.com/pulse/small-deltas-from-neural-machine-translation-noah-smith/) of what star identification as neural machine translation looks like.
