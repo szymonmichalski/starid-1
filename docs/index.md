@@ -6,18 +6,6 @@
 
 with image info concerning active pixels and star ids in hand, next step is to implement initial iterations of our two languages, one reflecting geometric structures and relationships, the other reflecting catalog identififiers.
 
-*31.10.2017*
-
-after a bit of experimenting, turns out [orion's too big](images/orion.svg) for our eight by eight degree field of view. at most, we can only see the belt together, mintaka, alnilam, and alnitak. it's worth noting this field of view was a default, to match standard ninties era star trackers. and it did in fact accidentally have some nice properties once we also defaulted to low resolution 28 by 28 pixel images to match the mnist dataset, resulting in 1000 arcsecond pixels. last two columns here are hd number and starndx.
-
-    betelgeuse, alpha, 39801, 2062
-    rigel, beta, 34085, 1719
-    bellatrix, gamma, 35468, 1805
-    mintaka, delta, 36486, 1861	
-    alnilam, epsilon, 37128, 1909
-    alnitak, zeta, 37742, 1952
-    saiph, kappa, 38771, 2005
-
 *30.10.2017*
 
 with contemplation and reading over a two week vacation, there's an [overall picture](https://www.linkedin.com/pulse/small-deltas-from-neural-machine-translation-noah-smith/) of what star identification as neural machine translation looks like.
@@ -35,6 +23,16 @@ there'll be something like an image_info(target_starndx) function in libstarid, 
      [  5.00000000e+00   2.40000000e+01   9.70000000e+01   1.70028000e+05   4.28768208e+00   4.79474053e+01]
      
 ![image_info_example](images/starndx3_image_info_example.png)
+
+after a bit of experimenting, turns out [orion's too big](images/orion.svg) for our eight by eight degree field of view. at most, we can only see the belt together, mintaka, alnilam, and alnitak. it's worth noting this field of view was a default, to match standard ninties era star trackers. and it did in fact accidentally have some nice properties once we also defaulted to low resolution 28 by 28 pixel images to match the mnist dataset, resulting in 1000 arcsecond pixels. last two columns here are hd number and starndx.
+
+    betelgeuse, alpha, 39801, 2062
+    rigel, beta, 34085, 1719
+    bellatrix, gamma, 35468, 1805
+    mintaka, delta, 36486, 1861	
+    alnilam, epsilon, 37128, 1909
+    alnitak, zeta, 37742, 1952
+    saiph, kappa, 38771, 2005
 
 *12.10.2017*
 
