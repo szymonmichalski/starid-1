@@ -4,7 +4,7 @@
 
 *31.10.2017*
 
-with image info concerning active pixels and star ids in hand, next step is an initial iteration of our [two languages]((https://www.linkedin.com/pulse/small-deltas-from-neural-machine-translation-noah-smith/)), one reflecting geometric structures and relationships, the other reflecting catalog identifiers.
+with image info concerning active pixels and star ids in hand, next step is an initial iteration of our [two languages]((https://www.linkedin.com/pulse/small-deltas-from-neural-machine-translation-noah-smith/)), one reflecting geometric structures and relationships, the other reflecting star identifiers.
 
 the focus is a quick proof of concept using neural machine translation to identify ten stars, starndxs zero to nine. the languages are to be as simple as possible for this first iteration. this means the nouns and their orderings, and so the sentences, are always similar for a particular star. sentences are generated from images in a deterministic manner that's not sensitive to image yaw. in effect, first iteration sentences themselves are unique star identifiers, with flexibility and complexity set aside for later iterations.
 
