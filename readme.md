@@ -10,7 +10,7 @@
 
 *convolutional networks* are about static unchanging patterns. this seems to be a direct approach, but our star images are randomly rotated. for a given star, comparison of two patterns is complicated by their relative rotation.
 
-*triangular patterns and structure* starts with a set of star identities and iteratively sets aside those that can’t be correct, until only one remains.
+*triangular patterns and structure* starts with a set of star identities and iteratively sets aside those that can’t be correct until one remains.
 
 <img src="docs/images/nouns and verbs.png" align="right" width="426" height="202"/>
 
