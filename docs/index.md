@@ -4,7 +4,7 @@
 
 *31.10.2017*
 
-after a bit of experimenting, turns out orion's too big for our eight by eight degree field of view. at most can only see the belt, mintaka, alnilam, alnitak, together.
+after a bit of experimenting, turns out orion's too big for our eight by eight degree field of view. at most, can only see the belt together, mintaka, alnilam, and alnitak.
 
     betelgeuse, alpha, 39801, 2062
     rigel, beta, 34085, 1719
