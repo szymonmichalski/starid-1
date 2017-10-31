@@ -4,7 +4,7 @@
 
 *31.10.2017*
 
-after a bit of experimenting, turns out orion's too big for our eight by eight degree field of view. at most, can only see the belt together, mintaka, alnilam, and alnitak.
+after a bit of experimenting, turns out orion's too big for our eight by eight degree field of view. at most, can only see the belt together, mintaka, alnilam, and alnitak. worth noting this field of view was a default, to match standard ninties era star trackers. and it did in fact accidentally have some nice properties once we also defaulted to low resolution 28 by 28 pixel images to match the mnist dataset, resulting in 1000 arcsecond pixels.
 
     betelgeuse, alpha, 39801, 2062
     rigel, beta, 34085, 1719
