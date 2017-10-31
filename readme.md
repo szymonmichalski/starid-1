@@ -6,11 +6,11 @@
 
 *identification* recurrent neural networks, convnets, triangular patterns and structure, machine translation [minimalist rnn](https://github.com/noahhsmith/starid/blob/master/identification/recurrent_minimalist.py), [recurrent network](https://github.com/noahhsmith/starid/blob/master/identification/recurrent.py), [minimalist cnn](https://github.com/noahhsmith/starid/blob/master/identification/convolutional_minimalist.py), [convolutional network](https://github.com/noahhsmith/starid/blob/master/identification/convolutional.py), [triangular patterns](https://github.com/noahhsmith/starid/blob/master/identification/triangles.cpp), [neural machine translation](https://www.linkedin.com/pulse/star-identification-translation-noah-smith/)
 
-*recurrent neural networks* recurrent networks are about patterns in sequential events. they’re natural for time series and time varying systems. sequences may seem an indirect perspective for star images, but we're concerned with randomly rotated images. rotations shouldn't effect sequences, and recurrent networks were quickly able to identify thousands of stars.
+*recurrent neural networks* are natural for sequences and time varying systems. sequences may seem an indirect perspective for star images, but we're concerned with randomly rotated images. rotations shouldn't effect sequences beyond a phase offset, and recurrent networks were quickly able to identify thousands of stars.
 
-*convolutional networks* convnets are about static unchanging patterns. this seems to be a direct approach, but our star images are randomly rotated. for a given star, comparison of two patterns is complicated by their relative rotation.
+*convolutional networks* are about static unchanging patterns. this seems to be a direct approach, but our star images are randomly rotated. for a given star, comparison of two patterns is complicated by their relative rotation.
 
-*triangular patterns and structure* start with a set of star identities and iteratively set aside those that can’t be correct, until only one remains.
+*triangular patterns and structure* starts with a set of star identities and iteratively sets aside those that can’t be correct, until only one remains.
 
 <img src="docs/images/nouns and verbs.png" align="right" width="426" height="202"/>
 
