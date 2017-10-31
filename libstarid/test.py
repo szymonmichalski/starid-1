@@ -16,7 +16,7 @@ def image_info_to_image(image_info):
 image = libstarid.image(starndx=3)
 # print(libstarid.id(image))
 
-image_info = libstarid.image_info(starndx=1952)
+image_info = libstarid.image_info(starndx=1805)
 print(image_info)
 
 angseq = libstarid.ang_seq_vec(starndx=3)
