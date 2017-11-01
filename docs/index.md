@@ -2,6 +2,10 @@
 
 [references](http://starid.org/references), [about](http://starid.org/about)
 
+*1.11.2017*
+
+implementing a python class languages_starimg focused on writing sentences about star images using various custom languages, lang1, lang2, lang3, lang4, etc. initial objective is to evolve a language pair, for example lang37 and lang51, that are effective at representing geometric structure and star identifiers on the encoder and decoder sides of neural machine translation.
+
 *31.10.2017*
 
 with info concerning image pixels and star identifiers available via libstarid image_info(target_starndx), next step is an initial iteration of our [two languages]((https://www.linkedin.com/pulse/small-deltas-from-neural-machine-translation-noah-smith/)), one reflecting geometric structures and relationships, the other reflecting star identifiers.
