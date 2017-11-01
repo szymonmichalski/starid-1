@@ -12,6 +12,4 @@
 
 [*geometric structures*](https://github.com/noahhsmith/starid/blob/master/identification/triangles.cpp) starts with a set of star identities and iteratively sets aside those that can’t be correct geometrically, until one remains.
 
-<img src="docs/images/nouns and verbs.png" align="right" width="426" height="202"/>
-
-[*neural machine translation*](https://www.linkedin.com/pulse/star-identification-translation-noah-smith/) transforms geometry recognition into language translation. given a sequence of symbols representing a star field, translate it into a sequence of symbols representing star identifications, using an encoder and decoder with an attention interface between. on the encoder side are symbols representing nouns, blue, and verbs, green. for distances 2.3, 5.1, 4.9 we could use the symbol 235149. on the decoder side are symbols built from numerical starids.
+[*neural machine translation*](https://www.linkedin.com/pulse/star-identification-translation-noah-smith/) focuses on writing sentences about star images using various custom languages, lang1, lang2, lang3, lang4, etc. the objective's to evolve a language pair, for example lang37 and lang51, that's effective at representing geometric structure and star identifiers on the encoder and decoder sides of neural machine translation.
