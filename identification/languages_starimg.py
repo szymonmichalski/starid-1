@@ -24,15 +24,11 @@ class languages_starimg:
         self.langin = lang1(self.starlist)
         self.langout = lang2(self.starlist)
 
-    def print_image_info(self):
-        np.set_printoptions(linewidth=200)
-        print(self.info)
-
     def plot_image(self):
         plt.matshow(-1 * self.image, cmap='Greys', interpolation='nearest')
         plt.show()
 
-    def starlist_print(self):
+    def print_starlist(self):
         import pprint
         pprint.pprint(self.starlist)
 

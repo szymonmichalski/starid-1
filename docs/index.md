@@ -15,7 +15,7 @@ for writing nouns deterministically, regardless of yaw, the first ordering crite
      [8808, 7.5, -6.5, 10.0],
      [8815, 6.5, -7.5, 10.0],
 
-now we're ready to write nouns representing geometric structures. we'll choose two structures, each containing four stars, noun1 with the first four, noun2 with the fifth through eighth.
+we'll start with two structures of four stars for writing nouns, noun1 with the first four, noun2 with the fifth through eighth.
 
 *1.11.2017*
 

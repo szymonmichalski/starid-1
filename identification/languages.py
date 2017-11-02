@@ -1,15 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import languages_starimg
+from languages_starimg import languages_starimg
 import libstarid.libstarid as ls
 libstarid = ls.libstarid()
 
 target = 3 # starndx of target star
 
 info = libstarid.image_info(starndx=target)
-starimg = languages_starimg.languages_starimg(starndx=target, info=info)
-# starimg.print_image_info()
+starimg = languages_starimg(starndx=target, info=info)
 # starimg.plot_image()
-# starimg.starlist_print()
+# starimg.print_starlist()
 
 pass
