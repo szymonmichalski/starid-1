@@ -4,7 +4,7 @@
 
 *2.11.2017*
 
-for sentences written deterministically and insensitive to yaw, the first ordering criteria is distance from the center of the image, or equivalently, radial distance from target star.
+for sentences written deterministically, insensitive to yaw, the first ordering criteria is distance from the center of the image, or equivalently, radial distance from target star.
 
 we need a second ordering criteria, especially because of the low image resolution. consider star1 and star2, both three pixels from the center. they can be further ordered by their starndx.
 
