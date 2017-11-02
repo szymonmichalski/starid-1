@@ -4,16 +4,17 @@
 
 *2.11.2017*
 
-for writing nouns deterministically, regardless of yaw, the first ordering criteria is distance from the center of the image, so distance from the target star. we can also order by starndx. here's a section of starlist, showing starndx, x and y coordinates relative to the image center, and distance.
+for writing nouns deterministically, regardless of yaw, a first ordering criteria is distance from the target star, at the image center. there's some abiguity for stars at the same distance. here's a section of starlist, showing starndx, x and y coordinates relative to the image center, and distance.
 
     [[3, 0.0, 0.0, 0.0],
-     [64, -6.5, -1.5, 6.7],
-     [8854, 1.5, -7.5, 7.7],
-     [8834, 3.5, -8.5, 9.2],
-     [10, 1.5, 9.5, 9.7],
-     [8859, 4.5, 8.5, 9.7],
-     [8808, 7.5, -6.5, 10.0],
-     [8815, 6.5, -7.5, 10.0],
+     [64, 5.5, -2.5, 6.05],
+     [8854, 3.5, 6.5, 7.39],
+     [8859, -8.5, -3.5, 9.2],
+     [8815, -0.5, 9.5, 9.52],
+     [8808, -2.5, 9.5, 9.83],
+     [8834, 2.5, 9.5, 9.83],
+     [10, -7.5, -6.5, 9.93],
+
 
 we'll start with two structures of four stars for writing nouns, noun1 with the first four, noun2 with the fifth through eighth.
 

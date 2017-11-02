@@ -18,9 +18,9 @@ class languages_starimg:
             starndx = int(row[2])
             x = row[1] - 13.5
             y = 13.5 - row[0]
-            r = math.ceil(math.sqrt(x**2 + y**2) * 10.) / 10.
+            r = math.ceil(math.sqrt(x**2 + y**2) * 100.) / 100.
             self.starlist.append([starndx, x, y, r])
-        self.starlist = sorted(self.starlist, key = lambda x: (x[3], x[0]))
+        self.starlist = sorted(self.starlist, key = lambda x: (x[3])) # sorted(self.starlist, key = lambda x: (x[3], x[0]))
         self.langin = lang1(self.starlist)
         self.langout = lang2(self.starlist)
 
