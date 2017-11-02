@@ -28,9 +28,12 @@ class languages_starimg:
         for row in self.info:
             x = row[1] - 13.5
             y = 13.5 - row[0]
+            # rounding of r because of low res pixels.
+            # for a particular star, pixel r varies significantly with image yaw
+            # ceil() so only target target star had r = 0
             r = math.ceil(math.sqrt(x**2 + y**2))
             self.starlist.append([int(row[0]), int(row[1]), int(row[2]), int(r)])
-        # sort by distance and starndx
+        # sort by r and starndx
         self.starlist = sorted(self.starlist, key = lambda x: (x[3], x[2]))
 
     def starlist_print(self):
