@@ -4,15 +4,18 @@
 
 *2.11.2017*
 
-for sentences written deterministically, insensitive to yaw, the first ordering criteria is distance from the center of the image, or equivalently, radial distance from target star. we need a second ordering criteria, especially because of the low image resolution. consider star1 and star2, both three pixels from the center. they can be further ordered by their starndx. here's a section of starlist, showing pixel row, pixel column, starndx, and distance. distance is rounded, blurring its variation with yaw.
+for writing nouns deterministically, regardless of yaw, the first ordering criteria is distance from the center of the image, so radial distance from target star. we can also order by starndx. here's a section of starlist, showing starndx, x and y coordinates relative to the image center, and distance.
 
-     [5, 18, 8815, 10],
-     [7, 20, 8834, 10],
-     [12, 4, 8859, 10],
-     [3, 12, 8799, 11],
-     [4, 17, 8808, 11],
+    [[3, 0.0, 0.0, 0.0],
+     [64, -6.5, -1.5, 6.7],
+     [8854, 1.5, -7.5, 7.7],
+     [8834, 3.5, -8.5, 9.2],
+     [10, 1.5, 9.5, 9.7],
+     [8859, 4.5, 8.5, 9.7],
+     [8808, 7.5, -6.5, 10.0],
+     [8815, 6.5, -7.5, 10.0],
 
-now we're ready to write nouns representing geometric structures. we'll choose two structures, each containing four stars, geom1 with the first four rows of starlist, so the target star and three three neighbors, and geom2 with the fifth through eigth rows.
+now we're ready to write nouns representing geometric structures. we'll choose two structures, each containing four stars, geom1 with the first four rows of starlist, so the target star and three neighbors, and geom2 with the fifth through eighth rows.
 
 *1.11.2017*
 

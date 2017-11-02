@@ -9,7 +9,7 @@ target = 3 # starndx of target star
 info = libstarid.image_info(starndx=target)
 starimg = languages_starimg.languages_starimg(starndx=target, info=info)
 # starimg.print_image_info()
-# starimg.plot_image()
+starimg.plot_image()
 
 starimg.starlist_prepare()
 starimg.starlist_print()

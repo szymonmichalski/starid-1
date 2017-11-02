@@ -24,17 +24,15 @@ class languages_starimg:
 
     def starlist_prepare(self):
         # pixel axj=row, pixel axi=col, starndx, radial distance
-        self.starlist.append([0, 0, int(self.starndx), 0])
+        self.starlist.append([int(self.starndx), 0., 0., 0.])
         for row in self.info:
+            starndx = int(row[2])
             x = row[1] - 13.5
             y = 13.5 - row[0]
-            # rounding of r because of low res pixels.
-            # for a particular star, pixel r varies significantly with image yaw
-            # ceil() so only target target star had r = 0
-            r = math.ceil(math.sqrt(x**2 + y**2))
-            self.starlist.append([int(row[0]), int(row[1]), int(row[2]), int(r)])
+            r = math.ceil(math.sqrt(x**2 + y**2) * 10.) / 10.
+            self.starlist.append([starndx, x, y, r])
         # sort by r and starndx
-        self.starlist = sorted(self.starlist, key = lambda x: (x[3], x[2]))
+        self.starlist = sorted(self.starlist, key = lambda x: (x[3], x[0]))
 
     def starlist_print(self):
         import pprint
