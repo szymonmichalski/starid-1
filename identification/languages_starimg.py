@@ -13,7 +13,7 @@ class languages_starimg:
             self.image[int(self.info[rowndx, 0]), int(self.info[rowndx, 1])] = 1.0
         # starlist is for info ready for writing nouns, verbs, and sentences
         self.starlist = []
-        self.starlist.append([int(self.starndx), 0., 0., 0.])
+        # self.starlist.append([int(self.starndx), 0., 0., 0.])
         for row in self.info:
             starndx = int(row[2])
             x = row[1] - 13.5
@@ -36,8 +36,8 @@ class languages_starimg:
 class lang1:
 
     def __init__(self, starlist):
-        self.noun1 = lang1_noun(starlist[0:4])
-        self.noun2 = lang1_noun(starlist[4:8])
+        self.noun1 = lang1_noun(starlist[0:3])
+        self.noun2 = lang1_noun(starlist[3:6])
 
 class lang1_noun:
 
