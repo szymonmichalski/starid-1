@@ -4,7 +4,7 @@
 
 *2.11.2017*
 
-for sentences written deterministically, insensitive to yaw, the first ordering criteria is distance from the center of the image, or equivalently, radial distance from target star. we need a second ordering criteria, especially because of the low image resolution. consider star1 and star2, both three pixels from the center. they can be further ordered by their starndx. here's an example, pixel row, pixel column, starndx, and distance
+for sentences written deterministically, insensitive to yaw, the first ordering criteria is distance from the center of the image, or equivalently, radial distance from target star. we need a second ordering criteria, especially because of the low image resolution. consider star1 and star2, both three pixels from the center. they can be further ordered by their starndx. here's a section of starlist, showing pixel row, pixel column, starndx, and distance. distance is rounded, blurring its variation with yaw.
 
      [5, 18, 8815, 10],
      [7, 20, 8834, 10],
@@ -12,9 +12,7 @@ for sentences written deterministically, insensitive to yaw, the first ordering 
      [3, 12, 8799, 11],
      [4, 17, 8808, 11],
 
-distance is rounded to blur its variation with yaw.
-
-now we're ready to write nouns representing geometric structures.
+now we're ready to write nouns representing geometric structures. we'll choose two structures, each containing four stars, geom1 with the first four rows of starlist, so the target star and three three neighbors, and geom2 with the fifth through eigth rows.
 
 *1.11.2017*
 
