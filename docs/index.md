@@ -2,6 +2,12 @@
 
 [references](http://starid.org/references), [about](http://starid.org/about)
 
+*2.11.2017*
+
+for sentences written deterministically and insensitive to yaw, the first ordering criteria is distance from the center of the image, or equivalently, radial distance from target star.
+
+we need a second ordering criteria, especially because of the low image resolution. consider star1 and star2, both three pixels from the center. they can be further ordered by their starndx.
+
 *1.11.2017*
 
 implementing a python class languages_starimg focused on writing sentences about star images using various custom languages, lang1, lang2, lang3, lang4, etc. initial objective is to evolve a language pair, for example lang37 and lang51, that are effective at representing geometric structure and star identifiers on the encoder and decoder sides of neural machine translation.
