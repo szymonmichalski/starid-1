@@ -13,6 +13,16 @@ class languages_starimg:
             self.image[int(self.info[rowndx, 0]), int(self.info[rowndx, 1])] = 1.0
         # starlist is for info ready for writing nouns, verbs, and sentences
         self.starlist = []
+        self.starlist.append([int(self.starndx), 0., 0., 0.])
+        for row in self.info:
+            starndx = int(row[2])
+            x = row[1] - 13.5
+            y = 13.5 - row[0]
+            r = math.ceil(math.sqrt(x**2 + y**2) * 10.) / 10.
+            self.starlist.append([starndx, x, y, r])
+        self.starlist = sorted(self.starlist, key = lambda x: (x[3], x[0]))
+        self.langin = lang1(self.starlist)
+        self.langout = lang2(self.starlist)
 
     def print_image_info(self):
         np.set_printoptions(linewidth=200)
@@ -22,19 +32,29 @@ class languages_starimg:
         plt.matshow(-1 * self.image, cmap='Greys', interpolation='nearest')
         plt.show()
 
-    def starlist_prepare(self):
-        # pixel axj=row, pixel axi=col, starndx, radial distance
-        self.starlist.append([int(self.starndx), 0., 0., 0.])
-        for row in self.info:
-            starndx = int(row[2])
-            x = row[1] - 13.5
-            y = 13.5 - row[0]
-            r = math.ceil(math.sqrt(x**2 + y**2) * 10.) / 10.
-            self.starlist.append([starndx, x, y, r])
-        # sort by r and starndx
-        self.starlist = sorted(self.starlist, key = lambda x: (x[3], x[0]))
-
     def starlist_print(self):
         import pprint
         pprint.pprint(self.starlist)
 
+# lang1 represents geometric stuctures and relationships
+class lang1:
+
+    def __init__(self, starlist):
+        self.noun1 = lang1_noun(starlist[0:4])
+        self.noun2 = lang1_noun(starlist[4:8])
+
+class lang1_noun:
+
+    def __init__(self, starlist):
+        self.starlist = starlist
+
+# lang2 represents star identifiers
+class lang2:
+
+    def __init__(self, starlist):
+        self.noun1 = lang2_noun(starlist[0:4])
+        self.noun2 = lang2_noun(starlist[4:8])
+
+class lang2_noun:
+    def __init__(self, starlist):
+        self.starlist = starlist
