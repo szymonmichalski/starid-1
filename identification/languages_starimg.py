@@ -20,8 +20,8 @@ class languages_starimg:
             x = row[1] - 13.5
             y = 13.5 - row[0]
             r = math.ceil(math.sqrt(x**2 + y**2) * 100.) / 100.
-            self.starlist.append([starndx, x, y, r])
-        self.starlist = sorted(self.starlist, key = lambda x: (x[3])) # sorted(self.starlist, key = lambda x: (x[3], x[0])
+            self.starlist.append([starndx, int(row[0]), int(row[1]), x, y, r])
+        self.starlist = sorted(self.starlist, key = lambda x: (x[5])) # sorted(self.starlist, key = lambda x: (x[3], x[0])
         self.lang = lang1(self.starlist)
 
     def plot_image(self):

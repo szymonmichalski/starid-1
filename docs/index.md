@@ -4,14 +4,14 @@
 
 *3.11.2017*
 
-for writing nouns deterministically, stars can be ordered by distance from the image center. there's some ambiguity from variation of the distances with yaw because of pixelation. here's a section of starlist, showing starndx, x and y coordinates, and distance from the center. we'll start with noun1 representing the first three stars, and noun2 representing the fourth through sixth.
+for writing nouns deterministically, stars can be ordered by distance from the image center. there's some ambiguity from variation of the distances with yaw because of pixelation. here's a section of starlist, showing starndx, row and column, x and y coordinates, and distance from the center. we'll start with noun1 representing the first three stars, and noun2 representing the fourth through sixth.
 
-    [[64, 6.5, -2.5, 6.97],
-     [8854, 3.5, 7.5, 8.28],
-     [8815, -1.5, 9.5, 9.62],
-     [8834, 1.5, 9.5, 9.62],
-     [8859, -8.5, -4.5, 9.62],
-     [10, -6.5, -7.5, 9.93],
+    [[64, 19, 11, -2.5, -5.5, 6.05],
+     [8854, 17, 20, 6.5, -3.5, 7.39],
+     [8859, 5, 10, -3.5, 8.5, 9.2],
+     [8815, 13, 23, 9.5, 0.5, 9.52],
+     [8808, 11, 23, 9.5, 2.5, 9.83],
+     [8834, 16, 23, 9.5, -2.5, 9.83],
 
 <img src="images/starndx3_nouns.png" align="center" width="240" height="240"/>
 
