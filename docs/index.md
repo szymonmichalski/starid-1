@@ -2,7 +2,7 @@
 
 [references](http://starid.org/references), [about](http://starid.org/about)
 
-*2.11.2017*
+*3.11.2017*
 
 for writing nouns deterministically, stars can be ordered by distance from the image center. there's some ambiguity from variation of the distances with yaw because of pixelation. here's a section of starlist, showing starndx, x and y coordinates, and distance from the center. we'll start with noun1 representing the first three stars, and noun2 representing the fourth through sixth.
 
