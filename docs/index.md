@@ -13,7 +13,7 @@ for writing nouns deterministically, stars can be ordered by distance from the i
      [8859, -8.5, -4.5, 9.62],
      [10, -6.5, -7.5, 9.93],
 
-![image](images/starndx3_nouns.png)
+<img src="images/starndxs3_nouns.png" align="center" width="240" height="240"/>
 
 *1.11.2017*
 
@@ -41,8 +41,6 @@ there'll be something like an image_info(target_starndx) function in libstarid, 
      [  2.00000000e+01   2.30000000e+01   9.10000000e+01   1.60054000e+05   4.08970500e+00   4.35950492e+01]
      [  5.00000000e+00   2.40000000e+01   9.70000000e+01   1.70028000e+05   4.28768208e+00   4.79474053e+01]
      
-![image_info_example](images/starndx3_image_info_example.png)
-
 after a bit of experimenting, turns out [orion's too big](images/orion.svg) for our eight by eight degree field of view. at most, we can only see the belt together, mintaka, alnilam, and alnitak. it's worth noting this field of view was a default, to match standard ninties era star trackers. and it did in fact accidentally have some nice properties once we also defaulted to low resolution 28 by 28 pixel images to match the mnist dataset, resulting in 1000 arcsecond pixels. last two columns here are hd number and starndx.
 
     betelgeuse, alpha, 39801, 2062
