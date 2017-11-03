@@ -9,5 +9,3 @@ target = 3 # starndx of target star
 info = libstarid.image_info(starndx=target)
 starimg = languages_starimg(starndx=target, info=info)
 starimg.print_starlist()
-
-pass
