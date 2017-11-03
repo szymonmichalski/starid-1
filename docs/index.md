@@ -4,7 +4,7 @@
 
 *2.11.2017*
 
-for writing nouns deterministically regardless of yaw, stars can be ordered by distance from the target star at the image center. there's some abiguity for stars at the same distance, and there's variation of the distances with yaw because of pixelation. here's a section of starlist, showing starndx, x and y coordinates, and distance from the center.
+for writing nouns deterministically, regardless of yaw, stars can be ordered by distance the image center. there's some abiguity for stars at the same distance, and there's variation of the distances with yaw because of pixelation. here's a section of starlist, showing starndx, x and y coordinates, and distance from the center.
 
     [[64, -5.5, 3.5, 6.52],
      [8854, -4.5, -6.5, 7.91],

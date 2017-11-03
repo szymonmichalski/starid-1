@@ -14,6 +14,7 @@ class languages_starimg:
         # starlist is for info ready for writing nouns, verbs, and sentences
         self.starlist = []
         # self.starlist.append([int(self.starndx), 0., 0., 0.])
+        # todo check pixels are unique within starlist
         for row in self.info:
             starndx = int(row[2])
             x = row[1] - 13.5
