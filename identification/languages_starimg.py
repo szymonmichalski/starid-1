@@ -52,19 +52,19 @@ class lang1_noun:
             [1, 2, id[1], id[2], math.ceil(side12 / 4.), x[1], y[1], x[2], y[2]],
             [2, 0, id[2], id[0], math.ceil(side20 / 4.), x[2], y[2], x[0], y[0]]]
         sides = sorted(sides, key=lambda side: (side[4], side[0])) # increasing side length
-        stara = str(sides[0][4])
-        starb = str(sides[1][4])
-        starc = str(sides[2][4])
+        sideab = str(sides[0][4])
+        sidebc = str(sides[1][4])
+        sideca = str(sides[2][4])
         if (sides[0][0] == 0 and sides[1][0] == 1) \
                 or (sides[0][0] == 1 and sides[1][0] == 2) \
                 or (sides[0][0] == 2 and sides[1][0] == 0):
-            sideab = str(sides[0][2])
-            sidebc = str(sides[0][3])
-            sideca = str(sides[1][3])
+            stara = str(sides[0][2])
+            starb = str(sides[0][3])
+            starc = str(sides[1][3])
         else:
-            sideab = str(sides[0][3])
-            sidebc = str(sides[0][2])
-            sideca = str(sides[1][2])
+            stara = str(sides[0][3])
+            starb = str(sides[0][2])
+            starc = str(sides[1][2])
         self.sides = sides
         self.txtrep_geometric = 'n:' + sideab + ':' + sidebc + ':' + sideca
         self.txtrep_starids = 'n:' + stara + ':' + starb + ':' + starc
