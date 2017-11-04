@@ -40,36 +40,32 @@ class lang1:
 # each noun has two txt representations, geometric and starids
 class lang1_noun:
     def __init__(self, stars):
-        self.stars = stars # star input for just this noun
-        # use nounstarlist to update the two txt representations
-        self.txtrep_geometric = 'na'
-        self.txtrep_starids = 'na'
-        self.txtreps_valid = False # set true if both reps are ok
-        side01 = math.sqrt((self.stars[0][3] - self.stars[1][3])**2 + (self.stars[0][4] - self.stars[1][4])**2)
-        side12 = math.sqrt((self.stars[1][3] - self.stars[2][3])**2 + (self.stars[1][4] - self.stars[2][4])**2)
-        side20 = math.sqrt((self.stars[2][3] - self.stars[0][3])**2 + (self.stars[2][4] - self.stars[0][4])**2)
+        self.stars = stars # star input for just this noun, three stars
+        id = [self.stars[0][0], self.stars[1][0], self.stars[2][0]]
+        x = [self.stars[0][3], self.stars[1][3], self.stars[2][3]]
+        y = [self.stars[0][4], self.stars[1][4], self.stars[2][4]]
+        side01 = math.sqrt((x[0] - x[1])**2 + (y[0] - y[1])**2)
+        side12 = math.sqrt((x[1] - x[2])**2 + (y[1] - y[2])**2)
+        side20 = math.sqrt((x[2] - x[0])**2 + (y[2] - y[0])**2)
         sides = [
-            [0, 1, stars[0][0], stars[1][0], math.ceil(side01 / 4.)],
-            [1, 2, stars[1][0], stars[2][0], math.ceil(side12 / 4.)],
-            [2, 0, stars[2][0], stars[0][0], math.ceil(side20 / 4.)]]
-        sides = sorted(sides, key=lambda side: (side[4], side[0]))
-        txt0 = 'n:' + str(sides[0][4]) + ':' + str(sides[1][4]) + ':' + str(sides[2][4])
-        if sides[0][0] == 0:
-            if sides[1][0] == 1:
-                txt1 = 'n:' + str(sides[0][2]) + ':' + str(sides[0][3]) + ':' + str(sides[1][3])
-            else:
-                txt1 = 'n:' + str(sides[0][3]) + ':' + str(sides[0][2]) + ':' + str(sides[1][2])
-        elif sides[0][0] == 1:
-            if sides[1][0] == 2:
-                txt1 = 'n:' + str(sides[0][2]) + ':' + str(sides[0][3]) + ':' + str(sides[1][3])
-            else:
-                txt1 = 'n:' + str(sides[0][3]) + ':' + str(sides[0][2]) + ':' + str(sides[1][2])
-        elif sides[0][0] == 2:
-            if sides[1][0] == 0:
-                txt1 = 'n:' + str(sides[0][2]) + ':' + str(sides[0][3]) + ':' + str(sides[1][3])
-            else:
-                txt1 = 'n:' + str(sides[0][3]) + ':' + str(sides[0][2]) + ':' + str(sides[1][2])
-        self.txtrep_geometric = txt0
-        self.txtrep_starids = txt1
-        self.txtreps_valid = True
+            [0, 1, id[0], id[1], math.ceil(side01 / 4.), x[0], y[0], x[1], y[1]],
+            [1, 2, id[1], id[2], math.ceil(side12 / 4.), x[1], y[1], x[2], y[2]],
+            [2, 0, id[2], id[0], math.ceil(side20 / 4.), x[2], y[2], x[0], y[0]]]
+        sides = sorted(sides, key=lambda side: (side[4], side[0])) # increasing side length
+        stara = str(sides[0][4])
+        starb = str(sides[1][4])
+        starc = str(sides[2][4])
+        if (sides[0][0] == 0 and sides[1][0] == 1) \
+                or (sides[0][0] == 1 and sides[1][0] == 2) \
+                or (sides[0][0] == 2 and sides[1][0] == 0):
+            sideab = str(sides[0][2])
+            sidebc = str(sides[0][3])
+            sideca = str(sides[1][3])
+        else:
+            sideab = str(sides[0][3])
+            sidebc = str(sides[0][2])
+            sideca = str(sides[1][2])
+        self.sides = sides
+        self.txtrep_geometric = 'n:' + sideab + ':' + sidebc + ':' + sideca
+        self.txtrep_starids = 'n:' + stara + ':' + starb + ':' + starc
 

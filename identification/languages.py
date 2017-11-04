@@ -13,9 +13,11 @@ for cnt in range(1000):
     starimg = languages_starimg(starndx=target, info=info)
     # starimg.print_starlist()
     # starimg.plot_image()
-    str = starimg.lang.noun1.txtrep_geometric + ', ' + starimg.lang.noun1.txtrep_starids
+    langin = starimg.lang.noun1.txtrep_geometric + ', ' + starimg.lang.noun2.txtrep_geometric
+    langout = starimg.lang.noun1.txtrep_starids + ', ' + starimg.lang.noun2.txtrep_starids
+    str = langin + ' : ' + langout
     if str not in strs:
-        strs[str] = 1
+        strs[str] = [1, langin, langout]
     else:
-        strs[str] += 1
-pprint.pprint(sorted(strs.items(), key=lambda x: -x[1]))
+        strs[str][0] += 1
+pprint.pprint(sorted(strs.values(), key=lambda x: -x[0]))
