@@ -4,7 +4,7 @@
 
 *4.11.2017*
 
-initial languages are writing nouns. here's a look at noun1 results for a thousand images of star three. columns are geometric language, identifier language, and image count.
+initial languages are writing nouns. here's a look at noun1 results for a thousand images of star three. columns are geometric language, identifier language, and image count. clearly these nouns are sensitive to distance variations with yaw. we can decrease this by reducing the starlist, ideally leaving one star per distance zone from the center.
 
     [('n:3:4:5, n:8854:64:8859', 318),
      ('n:1:3:4, n:8834:8854:64', 222),
