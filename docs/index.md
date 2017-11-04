@@ -4,7 +4,7 @@
 
 *4.11.2017*
 
-our first language is generating its first nouns. we get a thousand randomly yawed images of starndx three, then ask what noun1's were written. here are results showing geometric and starid representations, and image count. 
+first language is writing first nouns. here's a look at geometric and starid representations, with image count, for a thousand images of star three. 
 
     [('n:3:4:5, n:8854:64:8859', 318),
      ('n:1:3:4, n:8834:8854:64', 222),
