@@ -4,7 +4,7 @@
 
 *4.11.2017*
 
-first language is writing first nouns. here's a look at geometric and starid representations, with image count, for a thousand images of star three. 
+initial languages are writing nouns. here's a look at geometric and starid nouns, with image count, for a thousand images of star three. 
 
     [('n:3:4:5, n:8854:64:8859', 318),
      ('n:1:3:4, n:8834:8854:64', 222),
