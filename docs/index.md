@@ -2,6 +2,17 @@
 
 [references](http://starid.org/references), [about](http://starid.org/about)
 
+*4.11.2017*
+
+our first language is generating its first nouns. we get a thousand randomly yawed images of starndx three, then ask what noun1's were written. here are results showing geometric and starid representations, and image count. 
+
+    [('n:3:4:5, n:8854:64:8859', 318),
+     ('n:1:3:4, n:8834:8854:64', 222),
+     ('n:2:3:4, n:8815:8854:64', 178),
+     ('n:3:4:4, n:64:8854:8859', 162),
+     ('n:2:3:4, n:8808:8854:64', 109),
+     ('n:3:4:5, n:8854:64:10', 11)]
+
 *3.11.2017*
 
 for writing nouns deterministically, stars can be ordered by distance from the image center. there's some ambiguity from variation of the distances with yaw because of pixelation. here's a section of starlist, showing starndx, row and column, x and y coordinates, and distance from the center. we'll start with noun1 representing the first three stars, and noun2 representing the fourth through sixth.

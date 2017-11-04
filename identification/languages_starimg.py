@@ -49,11 +49,11 @@ class lang1_noun:
         side12 = math.sqrt((self.stars[1][3] - self.stars[2][3])**2 + (self.stars[1][4] - self.stars[2][4])**2)
         side20 = math.sqrt((self.stars[2][3] - self.stars[0][3])**2 + (self.stars[2][4] - self.stars[0][4])**2)
         sides = [
-            [0, 1, stars[0][0], stars[1][0], side01],
-            [1, 2, stars[1][0], stars[2][0], side12],
-            [2, 0, stars[2][0], stars[0][0], side20]]
-        sides = sorted(sides, key=lambda side: side[4])
-        txt0 = 'n:' + str(math.ceil(sides[0][4])) + ':' + str(math.ceil(sides[1][4])) + ':' + str(math.ceil(sides[2][4]))
+            [0, 1, stars[0][0], stars[1][0], math.ceil(side01 / 4.)],
+            [1, 2, stars[1][0], stars[2][0], math.ceil(side12 / 4.)],
+            [2, 0, stars[2][0], stars[0][0], math.ceil(side20 / 4.)]]
+        sides = sorted(sides, key=lambda side: (side[4], side[0]))
+        txt0 = 'n:' + str(sides[0][4]) + ':' + str(sides[1][4]) + ':' + str(sides[2][4])
         if sides[0][0] == 0:
             if sides[1][0] == 1:
                 txt1 = 'n:' + str(sides[0][2]) + ':' + str(sides[0][3]) + ':' + str(sides[1][3])
