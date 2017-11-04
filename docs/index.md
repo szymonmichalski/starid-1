@@ -4,7 +4,7 @@
 
 *4.11.2017*
 
-initial languages are writing nouns. here's a look at noun1 results for a thousand images of star three. 
+initial languages are writing nouns. here's a look at noun1 results for a thousand images of star three. columns are geometric language, identifier language, and image count.
 
     [('n:3:4:5, n:8854:64:8859', 318),
      ('n:1:3:4, n:8834:8854:64', 222),
