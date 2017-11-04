@@ -21,7 +21,7 @@ class languages_starimg:
             y = 13.5 - row[0]
             r = math.ceil(math.sqrt(x**2 + y**2) * 100.) / 100.
             self.starlist.append([starndx, int(row[0]), int(row[1]), x, y, r])
-        self.starlist = sorted(self.starlist, key = lambda x: (x[5])) # sorted(self.starlist, key = lambda x: (x[3], x[0])
+        self.starlist = sorted(self.starlist, key=lambda x: x[5]) # sorted(self.starlist, key = lambda x: (x[3], x[0])
         self.lang = lang1(self.starlist)
 
     def plot_image(self):
@@ -39,10 +39,37 @@ class lang1:
 
 # each noun has two txt representations, geometric and starids
 class lang1_noun:
-    def __init__(self, nounstarlist):
-        self.nounstarlist = nounstarlist # star input for just this noun
+    def __init__(self, stars):
+        self.stars = stars # star input for just this noun
         # use nounstarlist to update the two txt representations
         self.txtrep_geometric = 'na'
         self.txtrep_starids = 'na'
         self.txtreps_valid = False # set true if both reps are ok
+        side01 = math.sqrt((self.stars[0][3] - self.stars[1][3])**2 + (self.stars[0][4] - self.stars[1][4])**2)
+        side12 = math.sqrt((self.stars[1][3] - self.stars[2][3])**2 + (self.stars[1][4] - self.stars[2][4])**2)
+        side20 = math.sqrt((self.stars[2][3] - self.stars[0][3])**2 + (self.stars[2][4] - self.stars[0][4])**2)
+        sides = [
+            [0, 1, stars[0][0], stars[1][0], side01],
+            [1, 2, stars[1][0], stars[2][0], side12],
+            [2, 0, stars[2][0], stars[0][0], side20]]
+        sides = sorted(sides, key=lambda side: side[4])
+        txt0 = 'n:' + str(math.ceil(sides[0][4])) + ':' + str(math.ceil(sides[1][4])) + ':' + str(math.ceil(sides[2][4]))
+        if sides[0][0] == 0:
+            if sides[1][0] == 1:
+                txt1 = 'n:' + str(sides[0][2]) + ':' + str(sides[0][3]) + ':' + str(sides[1][3])
+            else:
+                txt1 = 'n:' + str(sides[0][3]) + ':' + str(sides[0][2]) + ':' + str(sides[1][2])
+        elif sides[0][0] == 1:
+            if sides[1][0] == 2:
+                txt1 = 'n:' + str(sides[0][2]) + ':' + str(sides[0][3]) + ':' + str(sides[1][3])
+            else:
+                txt1 = 'n:' + str(sides[0][3]) + ':' + str(sides[0][2]) + ':' + str(sides[1][2])
+        elif sides[0][0] == 2:
+            if sides[1][0] == 0:
+                txt1 = 'n:' + str(sides[0][2]) + ':' + str(sides[0][3]) + ':' + str(sides[1][3])
+            else:
+                txt1 = 'n:' + str(sides[0][3]) + ':' + str(sides[0][2]) + ':' + str(sides[1][2])
+        self.txtrep_geometric = txt0
+        self.txtrep_starids = txt1
+        self.txtreps_valid = True
 
