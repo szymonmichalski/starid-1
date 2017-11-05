@@ -6,7 +6,8 @@
 
 writing sentences. here's examples of geometric language and identifier language. looks ready to move on to vector embeddings for each.
 
-noun1-verb1-noun0, verb2-noun2 
+noun1-verb1-noun0, verb2-noun2
+
 noun1 = triangle formed by the central three stars
 verb1 = distances from the noun1 stars to the target star
 noun0 = target star at the center of the image, starndx=3 here
