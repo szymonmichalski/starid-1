@@ -36,6 +36,8 @@ class lang1:
     def __init__(self, starlist):
         self.noun1 = lang1_noun(starlist[0:3])
         self.noun2 = lang1_noun(starlist[3:6])
+        self.geom = self.noun1.geom + ', ' + self.noun2.geom
+        self.ids = self.noun1.ids + ', ' + self.noun2.ids
 
 # each noun has two txt representations, geometric and starids
 class lang1_noun:
@@ -66,6 +68,6 @@ class lang1_noun:
             starb = str(sides[0][2])
             starc = str(sides[1][2])
         self.sides = sides
-        self.txtrep_geometric = 'n:' + sideab + ':' + sidebc + ':' + sideca
-        self.txtrep_starids = 'n:' + stara + ':' + starb + ':' + starc
+        self.geom = 'n:' + sideab + ':' + sidebc + ':' + sideca
+        self.ids = 'n:' + stara + ':' + starb + ':' + starc
 
