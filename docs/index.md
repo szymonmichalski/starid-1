@@ -4,7 +4,7 @@
 
 *5.11.2017*
 
-writing sentences in geometric language and identifier language. looks ready to move on to vector embeddings for each. 
+writing sentences in geometric and identifier languages. looks ready to move on to vector embeddings for each. 
 
 sentences have structure noun1 verb1 noun0, verb2 noun2. a subject-verb-object, verb-object pattern, with noun1 as the subject. noun1 is a triangle formed by the first three stars outward from image center. verb1 is distances from noun1 stars to noun0, the target star at image center, starndx three here. verb2 is distances from noun1 stars to noun2 stars, where noun2 is a triangle formed by the next three stars outward.
 
