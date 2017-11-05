@@ -2,11 +2,13 @@
 
 [references](http://starid.org/references), [about](http://starid.org/about)
 
+*6.11.2017*
+
+neural machine translation [framework](https://github.com/tensorflow/nmt) tested and working. next step is to get our geometric and identifier languages into this framework.
+
 *5.11.2017*
 
-writing sentences in geometric and identifier languages. looks ready to move onwards toward embeddings for each. 
-
-sentences have structure noun1 verb1 noun0, verb2 noun2. a subject-verb-object, verb-object pattern, with noun1 as the subject. noun1 is a triangle formed by the first three stars outward from image center. verb1 is distances from noun1 stars to noun0, the target star at image center, starndx three here. verb2 is distances from noun1 stars to noun2 stars, where noun2 is a triangle formed by the next three stars outward.
+writing sentences in geometric and identifier languages. looks ready to move onwards. sentences have structure noun1 verb1 noun0, verb2 noun2. a subject-verb-object, verb-object pattern, with noun1 as the subject. noun1 is a triangle formed by the first three stars outward from image center. verb1 is distances from noun1 stars to noun0, the target star at image center, starndx three here. verb2 is distances from noun1 stars to noun2 stars, where noun2 is a triangle formed by the next three stars outward.
 
     'n:3:4:4 v:2:2:3 n:na, v:4:2:5 n:1:1:2', 'n:64:8854:8859 v:2:2:3 n:3, v:4:2:5 n:8808:8815:8834'
     'n:2:3:4 v:3:2:3 n:na, v:2:4:1 n:1:4:5', 'n:8815:8854:64 v:3:2:3 n:3, v:2:4:1 n:8834:8808:8859'
