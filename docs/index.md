@@ -4,15 +4,7 @@
 
 *5.11.2017*
 
-writing sentences. here's examples of geometric language and identifier language. looks ready to move on to vector embeddings for each.
-
-noun1-verb1-noun0, verb2-noun2
-
-noun1 = triangle formed by the central three stars
-verb1 = distances from the noun1 stars to the target star
-noun0 = target star at the center of the image, starndx=3 here
-verb2 = distances from the noun1 stars to the noun2 stars
-noun2 = triangle formed by the next three stars outward
+writing sentences. here's examples of geometric language and identifier language. looks ready to move on to vector embeddings for each. sentences have structure noun1-verb1-noun0, verb2-noun2. noun1 is a triangle formed by the central three stars. verb1 is distances from the noun1 stars to the target star. noun0 is target star at the center of the image, starndx three here. verb2 is distances from the noun1 stars to the noun2 stars. noun2 is a triangle formed by the next three stars outward.
 
     'n:3:4:4 v:2:2:3 n:nan, v:4:2:5 n:1:1:2', 'n:64:8854:8859 v:2:2:3 n:3, v:4:2:5 n:8808:8815:8834'
     'n:2:3:4 v:3:2:3 n:nan, v:2:4:1 n:1:4:5', 'n:8815:8854:64 v:3:2:3 n:3, v:2:4:1 n:8834:8808:8859'
