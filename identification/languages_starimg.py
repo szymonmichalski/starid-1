@@ -21,7 +21,7 @@ class languages_starimg:
             r = math.ceil(math.sqrt(x**2 + y**2) * 100.) / 100.
             self.starlist.append([starndx, int(row[0]), int(row[1]), x, y, r])
         self.starlist = sorted(self.starlist, key=lambda x: x[5]) # sorted(self.starlist, key = lambda x: (x[3], x[0])
-        self.lang = lang1(self.starlist)
+        self.lang = lang1(self.starlist, self.starndx)
 
     def plot_image(self):
         plt.matshow(-1 * self.image, cmap='Greys', interpolation='nearest')
@@ -32,11 +32,32 @@ class languages_starimg:
         pprint.pprint(self.starlist)
 
 class lang1:
-    def __init__(self, starlist):
+    def __init__(self, starlist, starndx):
+        self.noun0g = 'n:nan'
+        self.noun0i = 'n:' + str(starndx)
         self.noun1 = self.noun(starlist[0:3])
         self.noun2 = self.noun(starlist[3:6])
-        self.geom = self.noun1.geom + ', ' + self.noun2.geom
-        self.ids = self.noun1.ids + ', ' + self.noun2.ids
+        self.verb1 = self.verb(self.noun1)
+        self.verb2 = self.verb(self.noun1, self.noun2)
+        self.geom = self.noun1.geom + ' ' + self.verb1.geom + ' ' + self.noun0g + ', ' \
+                    + self.verb2.geom + ' ' + self.noun2.geom
+        self.ids = self.noun1.ids + ' ' + self.verb1.ids + ' ' + self.noun0i + ', ' \
+                   + self.verb2.ids + ' ' + self.noun2.ids
+
+    class verb:
+        def __init__(self, nouna, nounb=None):
+            xa = [nouna.sides[0][5], nouna.sides[1][5], nouna.sides[2][5]]
+            ya = [nouna.sides[0][6], nouna.sides[1][6], nouna.sides[2][6]]
+            xb = [0., 0., 0.]
+            yb = [0., 0., 0.]
+            if nounb:
+                xb = [nounb.sides[0][5], nounb.sides[1][5], nounb.sides[2][5]]
+                yb = [nounb.sides[0][6], nounb.sides[1][6], nounb.sides[2][6]]
+            d0 = math.sqrt((xa[0] - xb[0]) ** 2 + (ya[0] - yb[0]) ** 2)
+            d1 = math.sqrt((xa[1] - xb[1]) ** 2 + (ya[1] - yb[1]) ** 2)
+            d2 = math.sqrt((xa[2] - xb[2]) ** 2 + (ya[2] - yb[2]) ** 2)
+            self.geom = 'v:' + str(math.ceil(d0 / 4.)) + ':' + str(math.ceil(d1 / 4.)) + ':' + str(math.ceil(d2 / 4.))
+            self.ids = self.geom
 
     class noun:
         def __init__(self, stars):

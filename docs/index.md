@@ -2,9 +2,25 @@
 
 [references](http://starid.org/references), [about](http://starid.org/about)
 
+*5.11.2017*
+
+writing sentences. here's examples of geometric language and identifier language. looks ready to move on to vector embeddings for each.
+
+    noun1-verb1-noun0, verb2-noun2 
+    noun0 = target star at the center of the image, starndx=3 here
+    noun1 = triangle formed by the central three stars
+    verb1 = distances from the noun1 stars to the target star
+    noun2 = triangle formed by the next three stars outward
+    verb2 = distances from the noun2 stars to the noun1 stars
+
+    'n:3:4:4 v:2:2:3 n:nan, v:4:2:5 n:1:1:2', 'n:64:8854:8859 v:2:2:3 n:3, v:4:2:5 n:8808:8815:8834'
+    'n:2:3:4 v:3:2:3 n:nan, v:2:4:1 n:1:4:5', 'n:8815:8854:64 v:3:2:3 n:3, v:2:4:1 n:8834:8808:8859'
+    'n:3:4:5 v:2:3:2 n:nan, v:4:4:1 n:1:1:2', 'n:8854:64:8859 v:2:3:2 n:3, v:4:4:1 n:8808:8815:8834'
+    'n:2:3:4 v:2:2:3 n:nan, v:2:4:4 n:1:5:5', 'n:8808:8854:64 v:2:2:3 n:3, v:2:4:4 n:8815:8834:8859'
+
 *4.11.2017*
 
-initial languages are writing nouns. here's noun1 for a thousand images of star three. columns are geometric language, identifier language, and image count. clearly these nouns are sensitive to distance variations with yaw. we'll try living with it for now and push onwards.
+initial languages are writing nouns. here's noun1 for a thousand images of star three. columns are geometric language, identifier language, and image count. clearly these nouns are sensitive to distance variations with yaw. we'll try living with it for now and move onwards.
 
     [('n:3:4:5, n:8854:64:8859', 318),
      ('n:1:3:4, n:8834:8854:64', 222),
