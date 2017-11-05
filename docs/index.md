@@ -8,10 +8,10 @@ writing sentences in geometric and identifier languages. looks ready to move onw
 
 sentences have structure noun1 verb1 noun0, verb2 noun2. a subject-verb-object, verb-object pattern, with noun1 as the subject. noun1 is a triangle formed by the first three stars outward from image center. verb1 is distances from noun1 stars to noun0, the target star at image center, starndx three here. verb2 is distances from noun1 stars to noun2 stars, where noun2 is a triangle formed by the next three stars outward.
 
-    'n:3:4:4 v:2:2:3 n:nan, v:4:2:5 n:1:1:2', 'n:64:8854:8859 v:2:2:3 n:3, v:4:2:5 n:8808:8815:8834'
-    'n:2:3:4 v:3:2:3 n:nan, v:2:4:1 n:1:4:5', 'n:8815:8854:64 v:3:2:3 n:3, v:2:4:1 n:8834:8808:8859'
-    'n:3:4:5 v:2:3:2 n:nan, v:4:4:1 n:1:1:2', 'n:8854:64:8859 v:2:3:2 n:3, v:4:4:1 n:8808:8815:8834'
-    'n:2:3:4 v:2:2:3 n:nan, v:2:4:4 n:1:5:5', 'n:8808:8854:64 v:2:2:3 n:3, v:2:4:4 n:8815:8834:8859'
+    'n:3:4:4 v:2:2:3 n:na, v:4:2:5 n:1:1:2', 'n:64:8854:8859 v:2:2:3 n:3, v:4:2:5 n:8808:8815:8834'
+    'n:2:3:4 v:3:2:3 n:na, v:2:4:1 n:1:4:5', 'n:8815:8854:64 v:3:2:3 n:3, v:2:4:1 n:8834:8808:8859'
+    'n:3:4:5 v:2:3:2 n:na, v:4:4:1 n:1:1:2', 'n:8854:64:8859 v:2:3:2 n:3, v:4:4:1 n:8808:8815:8834'
+    'n:2:3:4 v:2:2:3 n:na, v:2:4:4 n:1:5:5', 'n:8808:8854:64 v:2:2:3 n:3, v:2:4:4 n:8815:8834:8859'
 
 *4.11.2017*
 

@@ -33,7 +33,7 @@ class languages_starimg:
 
 class lang1:
     def __init__(self, starlist, starndx):
-        self.noun0g = 'n:nan'
+        self.noun0g = 'n:na'
         self.noun0i = 'n:' + str(starndx)
         self.noun1 = self.noun(starlist[0:3])
         self.noun2 = self.noun(starlist[3:6])
