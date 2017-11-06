@@ -4,20 +4,9 @@
 
 *6.11.2017*
 
-neural machine translation [baseline framework](https://github.com/tensorflow/nmt) is working. next step is getting geometric and identifier languages into the framework. this involves a vocabulary for each, containing the frequent words. we'll focus on identifying ten stars at first, and explore what their vocabularies look like. 
+neural machine translation [baseline framework](https://github.com/tensorflow/nmt) is working. next step is getting geometric and identifier languages into the framework. this involves a vocabulary for each, containing frequent words. we'll focus on identifying the first ten stars and explore what their vocabularies look like. 
 
-with initial vocabularies for ten stars, here's something curious. some of the stars have surprisingly empty images. here the first column is starndx and the second column is number of unique sentences. images with less than six stars are being dropped. there are less the six stars in the images for starndx four...
-
-    [[0, 7],
-     [1, 7],
-     [2, 26],
-     [3, 69],
-     [4, 0],
-     [5, 34],
-     [6, 25],
-     [7, 40],
-     [8, 27],
-     [9, 58]]
+initial vocabularies for ten stars are ready. images with less than six stars are being dropped, and turns out there are less than six stars in any of the images for starndx four. stars with few neighbors are hard to identify.
 
 *5.11.2017*
 
