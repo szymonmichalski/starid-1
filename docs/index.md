@@ -4,7 +4,7 @@
 
 *6.11.2017*
 
-neural machine translation [baseline framework](https://github.com/tensorflow/nmt) is working. next step is getting geometric and identifier languages into the framework, in the place of vietnamese and english in this case. this involves a vocabulary for each, containing the frequent nouns and verbs. we'll focus on identifying ten stars at first, and explore what their vocabularies look like. 
+neural machine translation [baseline framework](https://github.com/tensorflow/nmt) is working. next step is getting geometric and identifier languages into the framework. this involves a vocabulary for each, containing the frequent words. we'll focus on identifying ten stars at first, and explore what their vocabularies look like. 
 
 *5.11.2017*
 
