@@ -22,6 +22,9 @@ class Starimg:
             r = math.ceil(math.sqrt(x**2 + y**2) * 100.) / 100.
             self.starlist.append([starndx, int(row[0]), int(row[1]), x, y, r])
         self.starlist = sorted(self.starlist, key=lambda x: x[5]) # sorted(self.starlist, key = lambda x: (x[3], x[0])
+        if len(self.starlist) < 6: # too few stars
+            self.lang = None
+            return
         self.lang = Lang1(self.starlist, self.starndx)
 
     def plot_image(self):
@@ -41,10 +44,10 @@ class Lang1:
         self.noun2 = self.Noun(starlist[3:6])
         self.verb1 = self.Verb(self.noun1)
         self.verb2 = self.Verb(self.noun1, self.noun2)
-        self.sentence_geom = self.noun1.geom + ' ' + self.verb1.geom + ' ' + self.noun0g + ', ' \
-                             + self.verb2.geom + ' ' + self.noun2.geom
-        self.sentence_ids = self.noun1.ids + ' ' + self.verb1.ids + ' ' + self.noun0i + ', ' \
-                            + self.verb2.ids + ' ' + self.noun2.ids
+        self.sentence_geom = self.noun1.geom + ' ' + self.verb1.geom + ' ' + self.noun0g + ' , ' \
+                             + self.verb2.geom + ' ' + self.noun2.geom + ' .'
+        self.sentence_ids = self.noun1.ids + ' ' + self.verb1.ids + ' ' + self.noun0i + ' , ' \
+                            + self.verb2.ids + ' ' + self.noun2.ids + ' .'
 
     class Verb:
         def __init__(self, nouna, nounb=None):
@@ -64,7 +67,10 @@ class Lang1:
     class Noun:
         def __init__(self, stars):
             self.stars = stars # star input for just this noun, three stars
-            id = [self.stars[0][0], self.stars[1][0], self.stars[2][0]]
+            try:
+                id = [self.stars[0][0], self.stars[1][0], self.stars[2][0]]
+            except:
+                pass
             x = [self.stars[0][3], self.stars[1][3], self.stars[2][3]]
             y = [self.stars[0][4], self.stars[1][4], self.stars[2][4]]
             side01 = math.sqrt((x[0] - x[1])**2 + (y[0] - y[1])**2)

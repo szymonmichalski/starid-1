@@ -4,21 +4,56 @@ import operator, pprint
 
 from identification.languages_starimg import Starimg
 from libstarid.libstarid import Libstarid
+libstarid = Libstarid()
+
+class Vocabulary:
+    
+    def __init__(self):
+        self.starndxs = {}
+        self.geom = {}
+        self.ids = {}
+        self.geom['<unk>'] = 1000
+        self.geom['<s>'] = 1000
+        self.geom['</s>'] = 1000
+        self.ids['<unk>'] = 1000
+        self.ids['<s>'] = 1000
+        self.ids['</s>'] = 1000
+
+    def update(self, sentences, starndx):
+        if starndx not in self.starndxs:
+            self.starndxs[starndx] = len(sentences)
+        for key, value in sentences.items():
+            geom = value[1].split(' ')
+            for word in geom:
+                if word not in self.geom:
+                    self.geom[word] = 1
+                else:
+                    self.geom[word] += 1
+            ids = value[2].split(' ')
+            for word in ids:
+                if word not in self.ids:
+                    self.ids[word] = 1
+                else:
+                    self.ids[word] += 1
 
 def sentences_write(starndx, numsentences, verbose=False):
-    libstarid = Libstarid()
-    sentencesdict = {}
+    sentences = {}
     for cnt in range(numsentences):
         info = libstarid.image_info(starndx=starndx)
         starimg = Starimg(starndx=starndx, info=info)
+        if not starimg.lang: # too few stars
+            continue
         keytxt = starimg.lang.sentence_geom + ' : ' + starimg.lang.sentence_ids
-        if keytxt not in sentencesdict:
-            sentencesdict[keytxt] = [1, starimg.lang.sentence_geom, starimg.lang.sentence_ids]
+        if keytxt not in sentences:
+            sentences[keytxt] = [1, starimg.lang.sentence_geom, starimg.lang.sentence_ids]
         else:
-            sentencesdict[keytxt][0] += 1
+            sentences[keytxt][0] += 1
     if verbose:
-        pprint.pprint(sorted(sentencesdict.values(), key=lambda x: -x[0]))
-    return sentencesdict
+        pprint.pprint(sorted(sentences.values(), key=lambda x: -x[0]))
+    return sentences
 
 if __name__ == '__main__':
-    sentencesdict = sentences_write(starndx=3, numsentences=1000, verbose=True)
+    vocabulary = Vocabulary()
+    for starndx in range(10):
+        sentences = sentences_write(starndx=starndx, numsentences=1000, verbose=False)
+        vocabulary.update(sentences=sentences, starndx=starndx)
