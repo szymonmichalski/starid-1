@@ -37,8 +37,8 @@ public:
 };
 
 PYBIND11_PLUGIN(libstarid) {
-    pybind11::module pymodule("libstarid", "libstarid python module");
-    pybind11::class_<libstarid>(pymodule, "libstarid")
+    pybind11::module pymodule("Libstarid", "libstarid python module");
+    pybind11::class_<libstarid>(pymodule, "Libstarid")
         .def(pybind11::init<>())
         .def("image", &libstarid::image, "create star image", pybind11::arg("starndx"))
         .def("image_info", &libstarid::image_info, "create star image info", pybind11::arg("starndx"))

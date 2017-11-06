@@ -1,23 +1,23 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from languages_starimg import languages_starimg
-import libstarid.libstarid as ls
 import operator, pprint
-libstarid = ls.libstarid()
 
-target = 3 # starndx of target star
+from identification.languages_starimg import Starimg
+from libstarid.libstarid import Libstarid
 
-examples = {}
-for cnt in range(1000):
-    info = libstarid.image_info(starndx=target)
-    starimg = languages_starimg(starndx=target, info=info)
-    # starimg.print_starlist()
-    # starimg.plot_image()
-    
-    example = starimg.lang.geom + ' : ' + starimg.lang.ids
-    if example not in examples:
-        examples[example] = [1, starimg.lang.geom, starimg.lang.ids]
-    else:
-        examples[example][0] += 1
+def sentences(starndx, numsentences, verbose=False):
+    libstarid = Libstarid()
+    sentencesdict = {}
+    for cnt in range(numsentences):
+        info = libstarid.image_info(starndx=starndx)
+        starimg = Starimg(starndx=starndx, info=info)
+        keytxt = starimg.lang.sentence_geom + ' : ' + starimg.lang.sentence_ids
+        if keytxt not in sentencesdict:
+            sentencesdict[keytxt] = [1, starimg.lang.sentence_geom, starimg.lang.sentence_ids]
+        else:
+            sentencesdict[keytxt][0] += 1
+    if verbose:
+        pprint.pprint(sorted(sentencesdict.values(), key=lambda x: -x[0]))
 
-pprint.pprint(sorted(examples.values(), key=lambda x: -x[0]))
+if __name__ == '__main__':
+    sentences(starndx=3, numsentences=1000, verbose=True)
