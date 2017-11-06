@@ -6,6 +6,19 @@
 
 neural machine translation [baseline framework](https://github.com/tensorflow/nmt) is working. next step is getting geometric and identifier languages into the framework. this involves a vocabulary for each, containing the frequent words. we'll focus on identifying ten stars at first, and explore what their vocabularies look like. 
 
+with initial vocabularies for ten stars, here's something curious. some of the stars have surprisingly empty images. here the first column is starndx and the second column is number of unique sentences. images with less than six stars are being dropped. there are less the six stars in the images for starndx four...
+
+    [[0, 7],
+     [1, 7],
+     [2, 26],
+     [3, 69],
+     [4, 0],
+     [5, 34],
+     [6, 25],
+     [7, 40],
+     [8, 27],
+     [9, 58]]
+
 *5.11.2017*
 
 writing sentences in geometric and identifier languages. looks ready to move onwards. sentences have structure noun1 verb1 noun0, verb2 noun2. a subject-verb-object, verb-object pattern, with noun1 as the subject. noun1 is a triangle formed by the first three stars outward from image center. verb1 is distances from noun1 stars to noun0, the target star at image center, starndx three here. verb2 is distances from noun1 stars to noun2 stars, where noun2 is a triangle formed by the next three stars outward.

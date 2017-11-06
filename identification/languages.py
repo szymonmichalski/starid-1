@@ -9,7 +9,7 @@ libstarid = Libstarid()
 class Vocabulary:
     
     def __init__(self):
-        self.starndxs = {}
+        self.starndxs = []
         self.geom = {}
         self.ids = {}
         self.geom['<unk>'] = 1000
@@ -20,8 +20,7 @@ class Vocabulary:
         self.ids['</s>'] = 1000
 
     def update(self, sentences, starndx):
-        if starndx not in self.starndxs:
-            self.starndxs[starndx] = len(sentences)
+        self.starndxs.append([starndx, len(sentences)]) # number of unique sentences for this star
         for key, value in sentences.items():
             geom = value[1].split(' ')
             for word in geom:
@@ -57,3 +56,4 @@ if __name__ == '__main__':
     for starndx in range(10):
         sentences = sentences_write(starndx=starndx, numsentences=1000, verbose=False)
         vocabulary.update(sentences=sentences, starndx=starndx)
+    pprint.pprint(vocabulary.starndxs)
