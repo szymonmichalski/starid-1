@@ -5,7 +5,7 @@ import operator, pprint
 from identification.languages_starimg import Starimg
 from libstarid.libstarid import Libstarid
 
-def sentences(starndx, numsentences, verbose=False):
+def sentences_write(starndx, numsentences, verbose=False):
     libstarid = Libstarid()
     sentencesdict = {}
     for cnt in range(numsentences):
@@ -18,6 +18,7 @@ def sentences(starndx, numsentences, verbose=False):
             sentencesdict[keytxt][0] += 1
     if verbose:
         pprint.pprint(sorted(sentencesdict.values(), key=lambda x: -x[0]))
+    return sentencesdict
 
 if __name__ == '__main__':
-    sentences(starndx=3, numsentences=1000, verbose=True)
+    sentencesdict = sentences_write(starndx=3, numsentences=1000, verbose=True)
