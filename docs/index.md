@@ -6,7 +6,7 @@
 
 with vocabularies ready, next step is to prepare training, eval, and inference datasets. these can be text files of sentences in geometric and identifier languages. we'll use the newish tensorflow dataset iterator for input pipelines into three models in three graphs with three sessions for train, eval, infer.
 
-our languages are simple and small. train, eval, and infer datasets are similar. indiidual image yaws are random, but the overall file structures are similar. we'll mirror the baseline to ease comprehension, so separate files for each.
+our languages are simple and small. train, eval, and infer datasets are similar. individual image yaws are random, but the overall file structures are parallel. we'll mirror the baseline to ease comprehension, so separate files for each.
 
 *6.11.2017*
 

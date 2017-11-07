@@ -43,6 +43,6 @@ def create_sentence_files(path, prefix, sentences_per_itr, numitrs):
 if __name__ == '__main__':
     # create_vocabulary_files(output_path)
     create_sentence_files(path=output_path, prefix='train', sentences_per_itr=100, numitrs=10)
-    create_sentence_files(path=output_path, prefix='eval', sentences_per_itr=100, numitrs=10)
-    create_sentence_files(path=output_path, prefix='infer', sentences_per_itr=100, numitrs=10)
+    create_sentence_files(path=output_path, prefix='test1', sentences_per_itr=100, numitrs=10)
+    create_sentence_files(path=output_path, prefix='test2', sentences_per_itr=100, numitrs=10)
 
