@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
-
 def diststr(x):
     return str(math.ceil(x / .1))
 
@@ -69,7 +68,6 @@ class Lang1:
             self.geom = 'v:' + diststr(d0) + ':' + diststr(d1) + ':' + diststr(d2)
             self.ids = self.geom
 
-
     class Noun:
 
         def __init__(self, stars):
@@ -101,4 +99,3 @@ class Lang1:
             self.sides = sides
             self.geom = 'n:' + diststr(sideab) + ':' + diststr(sidebc) + ':' + diststr(sideca)
             self.ids = 'n:' + stara + ':' + starb + ':' + starc
-

@@ -6,7 +6,7 @@
 
 neural machine translation [baseline framework](https://github.com/tensorflow/nmt) is working. next step is getting geometric and identifier languages into the framework. this involves a vocabulary for each, containing frequent words. we'll focus on identifying the first ten stars and explore what their vocabularies look like. 
 
-initial vocabularies for ten stars are ready. images with less than six stars are being dropped, and turns out there are less than six stars in any of the images for starndx four. stars with fewer neighbors are harder to identify... this is something for later, more sophisticated, languages to describe.
+initial vocabularies for ten stars are ready. images with less than six stars are being dropped, and turns out there are less than six stars in any of the images for starndx four. stars with fewer neighbors are harder to identify... this is something for later, more sophisticated, languages to handle.
 
 *5.11.2017*
 
