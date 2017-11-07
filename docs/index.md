@@ -8,16 +8,6 @@ with vocabularies ready, next step is to prepare training, eval, and inference d
 
 our languages are simple and small. train, eval, and infer datasets are similar. indiidual image yaws are random, but the overall file structures are similar. we'll mirror the baseline to ease comprehension, so separate files for each.
 
-    noah@noah:~/nmt$ l -lh data2/*
-    -rw-r--r-- 1 noah noah 244K Nov  7 12:38 data2/eval.geom
-    -rw-r--r-- 1 noah noah 256K Nov  7 12:38 data2/eval.ids
-    -rw-r--r-- 1 noah noah 241K Nov  7 12:39 data2/infer.geom
-    -rw-r--r-- 1 noah noah 252K Nov  7 12:39 data2/infer.ids
-    -rw-r--r-- 1 noah noah 241K Nov  7 12:38 data2/train.geom
-    -rw-r--r-- 1 noah noah 253K Nov  7 12:38 data2/train.ids
-    -rw-r--r-- 1 noah noah  22K Nov  7 09:25 data2/vocab.geom
-    -rw-r--r-- 1 noah noah  14K Nov  7 09:25 data2/vocab.ids
-
 *6.11.2017*
 
 neural machine translation [baseline framework](https://github.com/tensorflow/nmt) is working. next step is getting geometric and identifier languages into the framework. this involves a vocabulary for each, containing frequent words. we'll focus on identifying the first ten stars and explore what their vocabularies look like. 
