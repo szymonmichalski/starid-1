@@ -2,6 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
+
+def diststr(x):
+    return str(math.ceil(x / .1))
+
 class Starimg:
 
     def __init__(self, starndx, info):
@@ -50,6 +54,7 @@ class Lang1:
                             + self.verb2.ids + ' ' + self.noun2.ids + ' .'
 
     class Verb:
+
         def __init__(self, nouna, nounb=None):
             xa = [nouna.sides[0][5], nouna.sides[1][5], nouna.sides[2][5]]
             ya = [nouna.sides[0][6], nouna.sides[1][6], nouna.sides[2][6]]
@@ -61,29 +66,28 @@ class Lang1:
             d0 = math.sqrt((xa[0] - xb[0]) ** 2 + (ya[0] - yb[0]) ** 2)
             d1 = math.sqrt((xa[1] - xb[1]) ** 2 + (ya[1] - yb[1]) ** 2)
             d2 = math.sqrt((xa[2] - xb[2]) ** 2 + (ya[2] - yb[2]) ** 2)
-            self.geom = 'v:' + str(math.ceil(d0 / 4.)) + ':' + str(math.ceil(d1 / 4.)) + ':' + str(math.ceil(d2 / 4.))
+            self.geom = 'v:' + diststr(d0) + ':' + diststr(d1) + ':' + diststr(d2)
             self.ids = self.geom
 
+
     class Noun:
+
         def __init__(self, stars):
             self.stars = stars # star input for just this noun, three stars
-            try:
-                id = [self.stars[0][0], self.stars[1][0], self.stars[2][0]]
-            except:
-                pass
+            id = [self.stars[0][0], self.stars[1][0], self.stars[2][0]]
             x = [self.stars[0][3], self.stars[1][3], self.stars[2][3]]
             y = [self.stars[0][4], self.stars[1][4], self.stars[2][4]]
             side01 = math.sqrt((x[0] - x[1])**2 + (y[0] - y[1])**2)
             side12 = math.sqrt((x[1] - x[2])**2 + (y[1] - y[2])**2)
             side20 = math.sqrt((x[2] - x[0])**2 + (y[2] - y[0])**2)
             sides = [
-                [0, 1, id[0], id[1], math.ceil(side01 / 4.), x[0], y[0], x[1], y[1]],
-                [1, 2, id[1], id[2], math.ceil(side12 / 4.), x[1], y[1], x[2], y[2]],
-                [2, 0, id[2], id[0], math.ceil(side20 / 4.), x[2], y[2], x[0], y[0]]]
+                [0, 1, id[0], id[1], side01, x[0], y[0], x[1], y[1]],
+                [1, 2, id[1], id[2], side12, x[1], y[1], x[2], y[2]],
+                [2, 0, id[2], id[0], side20, x[2], y[2], x[0], y[0]]]
             sides = sorted(sides, key=lambda side: (side[4], side[0])) # increasing side length
-            sideab = str(sides[0][4])
-            sidebc = str(sides[1][4])
-            sideca = str(sides[2][4])
+            sideab = sides[0][4]
+            sidebc = sides[1][4]
+            sideca = sides[2][4]
             if (sides[0][0] == 0 and sides[1][0] == 1) \
                     or (sides[0][0] == 1 and sides[1][0] == 2) \
                     or (sides[0][0] == 2 and sides[1][0] == 0):
@@ -95,6 +99,6 @@ class Lang1:
                 starb = str(sides[0][2])
                 starc = str(sides[1][2])
             self.sides = sides
-            self.geom = 'n:' + sideab + ':' + sidebc + ':' + sideca
+            self.geom = 'n:' + diststr(sideab) + ':' + diststr(sidebc) + ':' + diststr(sideca)
             self.ids = 'n:' + stara + ':' + starb + ':' + starc
 
