@@ -2,7 +2,7 @@ from identification.languages_starimg import Starimg
 from identification.languages_helper import Vocabulary
 from libstarid.libstarid import Libstarid
 libstarid = Libstarid()
-vocabulary_path = '/tmp/nmt_data_starid/'
+output_path = '/tmp/nmt_data_starid/'
 
 def generate_sentences_for_star(starndx, numsentences, verbose=False):
     sentences = {}
@@ -26,7 +26,7 @@ def create_vocabulary_files(path):
         sentences = generate_sentences_for_star(starndx=starndx, numsentences=1000, verbose=False)
         vocabulary.update(sentences=sentences, starndx=starndx)
     print(vocabulary.starndxs) # sentences per starndx
-    vocabulary.write_files(path=vocabulary_path)
+    vocabulary.write_files(path=output_path)
 
 if __name__ == '__main__':
-    create_vocabulary_files(vocabulary_path)
+    create_vocabulary_files(output_path)
