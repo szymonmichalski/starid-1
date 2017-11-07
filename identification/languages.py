@@ -22,9 +22,10 @@ def generate_sentences_for_star(starndx, numsentences, verbose=False):
 
 def create_vocabulary_files(path):
     vocabulary = Vocabulary()
-    for starndx in range(10):
+    for starndx in range(11): # starndx 4 has less than six stars, so include starndx 10
         sentences = generate_sentences_for_star(starndx=starndx, numsentences=1000, verbose=False)
         vocabulary.update(sentences=sentences, starndx=starndx)
+    print(vocabulary.starndxs) # sentences per starndx
     vocabulary.write_files(path=vocabulary_path)
 
 if __name__ == '__main__':

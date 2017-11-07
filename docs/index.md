@@ -2,6 +2,10 @@
 
 [references](http://starid.org/references), [about](http://starid.org/about)
 
+*7.11.2017*
+
+with vocabularies ready, next step is to prepare training, eval, and inference datasets. these can be text files of sentences in geometric and identifier languages. there are multiple ways to feed the tensorflow graphs. we'll use three models in three graphs with three sessions for train, eval, infer.
+
 *6.11.2017*
 
 neural machine translation [baseline framework](https://github.com/tensorflow/nmt) is working. next step is getting geometric and identifier languages into the framework. this involves a vocabulary for each, containing frequent words. we'll focus on identifying the first ten stars and explore what their vocabularies look like. 
