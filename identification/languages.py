@@ -23,10 +23,26 @@ def generate_sentences_for_star(starndx, numsentences, verbose=False):
 def create_vocabulary_files(path):
     vocabulary = Vocabulary()
     for starndx in range(11): # starndx 4 has less than six stars, so include starndx 10
-        sentences = generate_sentences_for_star(starndx=starndx, numsentences=1000, verbose=False)
+        sentences = generate_sentences_for_star(starndx=starndx, numsentences=1000)
         vocabulary.update(sentences=sentences, starndx=starndx)
     print(vocabulary.starndxs) # sentences per starndx
     vocabulary.write_files(path=output_path)
 
+def create_sentence_files(path, prefix, sentences_per_itr, numitrs):
+    fgeom = open(path + prefix + '.geom', 'w')
+    fids = open(path + prefix + '.ids', 'w')
+    for itr in range(numitrs):
+        for starndx in range(11): # starndx 4 has less than six stars, so include starndx 10
+            sentences = generate_sentences_for_star(starndx=starndx, numsentences=sentences_per_itr)
+            for key, value in sentences.items():
+                fgeom.write('%s\n' % value[1])
+                fids.write('%s\n' % value[2])
+    fgeom.close()
+    fids.close()
+
 if __name__ == '__main__':
-    create_vocabulary_files(output_path)
+    # create_vocabulary_files(output_path)
+    create_sentence_files(path=output_path, prefix='train', sentences_per_itr=100, numitrs=10)
+    create_sentence_files(path=output_path, prefix='eval', sentences_per_itr=100, numitrs=10)
+    create_sentence_files(path=output_path, prefix='infer', sentences_per_itr=100, numitrs=10)
+

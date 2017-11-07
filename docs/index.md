@@ -6,7 +6,17 @@
 
 with vocabularies ready, next step is to prepare training, eval, and inference datasets. these can be text files of sentences in geometric and identifier languages. we'll use the newish tensorflow dataset iterator for input pipelines into three models in three graphs with three sessions for train, eval, infer.
 
-our languages are simple and small. train, eval, and infer datasets are effectively the same. we'll mirror the baseline to ease comprehension, so separate files for each.
+our languages are simple and small. train, eval, and infer datasets are similar. indiidual image yaws are random, but the overall file structures are similar. we'll mirror the baseline to ease comprehension, so separate files for each.
+
+    noah@noah:~/nmt$ l -lh data2/*
+    -rw-r--r-- 1 noah noah 244K Nov  7 12:38 data2/eval.geom
+    -rw-r--r-- 1 noah noah 256K Nov  7 12:38 data2/eval.ids
+    -rw-r--r-- 1 noah noah 241K Nov  7 12:39 data2/infer.geom
+    -rw-r--r-- 1 noah noah 252K Nov  7 12:39 data2/infer.ids
+    -rw-r--r-- 1 noah noah 241K Nov  7 12:38 data2/train.geom
+    -rw-r--r-- 1 noah noah 253K Nov  7 12:38 data2/train.ids
+    -rw-r--r-- 1 noah noah  22K Nov  7 09:25 data2/vocab.geom
+    -rw-r--r-- 1 noah noah  14K Nov  7 09:25 data2/vocab.ids
 
 *6.11.2017*
 

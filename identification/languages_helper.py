@@ -30,8 +30,6 @@ class Vocabulary:
                     self.ids[word] += 1
 
     def write_files(self, path):
-        if not os.path.exists(path):
-            os.makedirs(path)
         with open(path + 'vocab.geom', 'w') as fout:
             for key in self.geom.keys():
                 fout.write('%s\n' % key)
