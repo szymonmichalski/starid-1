@@ -4,7 +4,7 @@
 
 *8.11.2017*
 
-nmt is learning to identify ten stars, and from the initial training run, it learns fast. looks good.
+nmt is learning to identify ten stars. and, based on initial results, it learns fast. looks good.
 
 *7.11.2017*
 
