@@ -2,6 +2,10 @@
 
 [references](http://starid.org/references), [about](http://starid.org/about)
 
+*8.11.2017*
+
+nmt is learning to identify ten stars, and from the initial training run, it learns fast. looks good.
+
 *7.11.2017*
 
 with vocabularies ready, next step is to prepare training, eval, and inference datasets. these can be text files of sentences in geometric and identifier languages. we'll use the newish tensorflow dataset iterator for input pipelines into three models in three graphs with three sessions for train, eval, infer.
