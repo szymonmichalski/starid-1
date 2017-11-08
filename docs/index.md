@@ -4,7 +4,7 @@
 
 *8.11.2017*
 
-nmt is learning to identify ten stars. and it learns fast, based on the first hello world style training. looks good.
+neural machine translation is learning to identify ten stars. and it's learning fast, based on the first hello world style training. looks good.
 
 *7.11.2017*
 
