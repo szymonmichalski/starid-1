@@ -4,7 +4,7 @@
 
 *10.11.2017*
 
-after [gathering some thoughts](https://www.linkedin.com/pulse/machine-attention-star-patterns-noah-smith/) about next steps, ready to start out on a minimalist-as-possible implementation of nmt as the foundation for experiments with attention. we'll bring the baseline framework into the project as a library, and find the bare minimum implementation of three graphs and sessions with dataset iterator inputs.
+after [gathering some thoughts](https://www.linkedin.com/pulse/machine-attention-star-patterns-noah-smith/) about next steps, ready to a minimalist-as-possible implementation for experiments with attention. we'll bring the nmt baseline framework into the project as a library, and find the bare minimum implementation of three graphs and sessions with dataset iterator inputs.
 
 *8.11.2017*
 
