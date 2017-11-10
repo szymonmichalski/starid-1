@@ -6,9 +6,9 @@
 
 2014 - laser reference sensor alignment tracking and star observations - smith, bae, schutz - journal of spacecraft and rockets - [pdf](papers/2014 jsr c.pdf)
 
-2014 - laser reference sensor alignment estimations using star observations - smith, bae, schutz - journal of spacecraft and rockets - [pdf](papers/2014 jsr b.pdf)
+2014 - laser reference sensor alignment estimation using star observations - smith, bae, schutz - journal of spacecraft and rockets - [pdf](papers/2014 jsr b.pdf)
 
-2014 - laser reference sensor alignment estimations using reference signal observations - smith, bae, schutz - journal of spacecraft and rockets - [pdf](papers/2014 jsr a.pdf)
+2014 - laser reference sensor alignment estimation using reference signal observations - smith, bae, schutz - journal of spacecraft and rockets - [pdf](papers/2014 jsr a.pdf)
 
 2013 - nasa icesat 2 pointing knowledge - smith, bae, schutz - nasa technical report - [pdf](papers/2014 nasa icesat b.pdf)
 
