@@ -4,7 +4,7 @@
 
 *10.11.2017*
 
-after [gathering some thoughts](https://www.linkedin.com/pulse/machine-attention-star-patterns-noah-smith/) about next steps, ready for a minimalist-as-possible implementation for experiments with attention. we'll bring the nmt baseline framework into the project as a library, and find the bare minimum implementation of three graphs and sessions with dataset iterator inputs. looks like it will be a good time to have a new release at that point, r2017d.
+after [gathering some thoughts](https://www.linkedin.com/pulse/machine-attention-star-patterns-noah-smith/) about next steps, ready for a minimalist-as-possible implementation for experiments with attention. we'll bring the nmt baseline framework into the project as a library, and find a bare minimum training implementation. that should be a good time to have a new release, r2017d.
 
 *8.11.2017*
 
@@ -12,9 +12,7 @@ neural machine translation is learning to identify ten stars. and it's learning 
 
 *7.11.2017*
 
-with vocabularies ready, next step is to prepare training, eval, and inference datasets. these can be text files of sentences in geometric and identifier languages. we'll use the newish tensorflow dataset iterator for input pipelines into three models in three graphs with three sessions for train, eval, infer.
-
-our languages are simple and small. train, eval, and infer datasets are similar. individual image yaws are random, but the overall file structures are parallel. we'll mirror the baseline to ease comprehension, so separate files for each.
+with vocabularies ready, next step is to prepare training, eval, and inference datasets. these can be text files of sentences in geometric and identifier languages. they're simple and small. train, eval, and infer datasets are similar. individual image yaws are random, but the overall file structures are parallel.
 
 *6.11.2017*
 

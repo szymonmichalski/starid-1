@@ -15,7 +15,7 @@ python3.6 -m nmt.nmt \
     --dev_prefix=data/test1  \
     --test_prefix=data/test2 \
     --out_dir=$DIRMODEL \
-    --num_train_steps=1000 \
+    --num_train_steps=2000 \
     --steps_per_stats=100 \
     --num_layers=2 \
     --num_units=128 \
