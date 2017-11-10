@@ -2,6 +2,10 @@
 
 [references](http://starid.org/references), [about](http://starid.org/about)
 
+*10.11.2017*
+
+after [gathering some thoughts about next steps](https://www.linkedin.com/pulse/machine-attention-star-patterns-noah-smith/), ready to start out on a minimalist-as-possible implementation of nmt as the foundation for experiments with attention. we'll bring the baseline framework into the project as a library, and find the bare minimum implementation of three graphs and sessions with dataset iterator inputs.
+
 *8.11.2017*
 
 neural machine translation is learning to identify ten stars. and it's learning fast, based on the first hello world style training. looks good.
