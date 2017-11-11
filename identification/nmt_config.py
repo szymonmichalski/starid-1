@@ -18,6 +18,7 @@ hparams = tf.contrib.training.HParams(
     unit_type='lstm',
     encoder_type='uni',
     residual=False,
+    num_residual_layers=0,
     time_major=True,
     num_embeddings_partitions=0,
 
@@ -44,6 +45,8 @@ hparams = tf.contrib.training.HParams(
     max_train=0,
     src_max_len=50,
     tgt_max_len=50,
+    src_max_len_infer=False,
+    tgt_max_len_infer=False,
     source_reverse=True,
 
     sos='<s>',
