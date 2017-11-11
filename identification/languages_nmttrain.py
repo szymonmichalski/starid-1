@@ -2,8 +2,8 @@ import tensorflow as tf
 from ..lib.nmt.utils import iterator_utils
 from ..lib.nmt.utils import misc_utils as utils
 from ..lib.nmt.utils import vocab_utils
-
-
+from . import languages_config
+global hparams
 
 # train_model = model_helper.create_train_model(model_creator, hparams, scope)
 
@@ -14,7 +14,7 @@ tgt_vocab_file = hparams.tgt_vocab_file
 
 graph = tf.Graph()
 
-with graph.as_default(), tf.container(scope or "train"):
+with graph.as_default(), tf.container('train'):
     src_vocab_table, tgt_vocab_table = vocab_utils.create_vocab_tables(
         src_vocab_file, tgt_vocab_file, hparams.share_vocab)
 
