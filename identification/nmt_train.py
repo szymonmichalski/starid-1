@@ -1,32 +1,27 @@
 import tensorflow as tf
+from lib.nmt import model as nmt_model
+from lib.nmt import model_helper
 from lib.nmt.utils import iterator_utils
 from lib.nmt.utils import misc_utils as utils
 from lib.nmt.utils import vocab_utils
 import nmt_config
 global hparams
 
-# train_model = model_helper.create_train_model(model_creator, hparams, scope)
+scope = None
+target_session = ''
 
-src_file = "%s.%s" % (hparams.train_prefix, hparams.src)
-tgt_file = "%s.%s" % (hparams.train_prefix, hparams.tgt)
-src_vocab_file = hparams.src_vocab_file
-tgt_vocab_file = hparams.tgt_vocab_file
+model_creator = nmt_model.Model
+train_model = model_helper.create_train_model(model_creator, hparams, scope)
 
-graph = tf.Graph()
+config_proto = utils.get_config_proto(log_device_placement=hparams.log_device_placement)
+train_sess = tf.Session(target=target_session, config=config_proto, graph=train_model.graph)
 
-with graph.as_default(), tf.container('train'):
-    src_vocab_table, tgt_vocab_table = vocab_utils.create_vocab_tables(
-        src_vocab_file, tgt_vocab_file, hparams.share_vocab)
+with train_model.graph.as_default():
+    loaded_train_model, global_step = model_helper.create_or_load_model(train_model.model, hparams.model_dir, train_sess, 'train')
 
-    src_dataset = tf.data.TextLineDataset(src_file)
-    tgt_dataset = tf.data.TextLineDataset(tgt_file)
-    skip_count_placeholder = tf.placeholder(shape=(), dtype=tf.int64)
+skip_count = hparams.batch_size * hparams.epoch_step
+train_sess.run(train_model.iterator.initializer, feed_dict={train_model.skip_count_placeholder: skip_count})
 
-    iterator = iterator_utils.get_iterator()
-
-
-    # train_sess = tf.Session(target=target_session, config=config_proto, graph=train_model.graph)
-#
 # while global_step < num_train_steps:
 #     try:
 #       step_result = loaded_train_model.train(train_sess)
