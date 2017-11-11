@@ -1,8 +1,8 @@
 import tensorflow as tf
-from ..lib.nmt.utils import iterator_utils
-from ..lib.nmt.utils import misc_utils as utils
-from ..lib.nmt.utils import vocab_utils
-from . import languages_config
+from lib.nmt.utils import iterator_utils
+from lib.nmt.utils import misc_utils as utils
+from lib.nmt.utils import vocab_utils
+import nmt_config
 global hparams
 
 # train_model = model_helper.create_train_model(model_creator, hparams, scope)

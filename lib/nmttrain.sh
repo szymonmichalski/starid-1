@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 #ln -s /tmp/nmt_model model
 #ln -s /tmp/nmt_data data
-#mkdir /tmp/nmt_data_starid
-#ln -s /tmp/nmt_data_starid data
 #ln -s $DIRMODEL model
 DIRMODEL="model"
 #rm -rf $DIRMODEL
