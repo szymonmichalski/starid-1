@@ -10,7 +10,7 @@ hparams = tf.contrib.training.HParams(
     dev_prefix='/tmp/nmt_data/test1',
     test_prefix='/tmp/nmt_data/test2',
     vocab_prefix='/tmp/nmt_data/vocab',
-    out_dir='/tmp/nmt_model',
+    out_dir='/tmp/nmt_modeltest',
 
     num_units=32,
     num_layers=2,
