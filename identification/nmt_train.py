@@ -1,9 +1,7 @@
 import tensorflow as tf
 from lib.nmt import model as nmt_model
 from lib.nmt import model_helper
-from lib.nmt.utils import iterator_utils
 from lib.nmt.utils import misc_utils as utils
-from lib.nmt.utils import vocab_utils
 import nmt_config
 global hparams
 

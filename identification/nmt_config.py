@@ -1,6 +1,7 @@
 import tensorflow as tf
 from lib.nmt.utils import vocab_utils
 from lib.nmt.utils import misc_utils as utils
+global hparams
 
 hparams = tf.contrib.training.HParams(
     src='geom',
