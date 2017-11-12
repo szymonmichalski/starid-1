@@ -6,11 +6,11 @@ global hparams
 hparams = tf.contrib.training.HParams(
     src='geom',
     tgt='ids',
-    dev_prefix='/tmp/nmt_data/test1',
-    test_prefix='/tmp/nmt_data/test2',
-    vocab_prefix='/tmp/nmt_data/vocab',
-    train_prefix='/tmp/nmt_data/train',
-    out_dir='/tmp/nmt_modeltest',
+    dev_prefix='/home/noah/nmt_data/test1',
+    test_prefix='/home/noah/nmt_data/test2',
+    vocab_prefix='/home/noah/nmt_data/vocab',
+    train_prefix='/home/noah/nmt_data/train',
+    out_dir='/home/noah/nmt_model',
 
     num_units=128,
     num_layers=2,
@@ -89,7 +89,3 @@ hparams.add_hparam("src_vocab_size", src_vocab_size)
 hparams.add_hparam("tgt_vocab_size", tgt_vocab_size)
 hparams.add_hparam("src_vocab_file", src_vocab_file)
 hparams.add_hparam("tgt_vocab_file", tgt_vocab_file)
-
-if not tf.gfile.Exists(hparams.out_dir):
-    utils.print_out("# Creating output directory %s ..." % hparams.out_dir)
-    tf.gfile.MakeDirs(hparams.out_dir)

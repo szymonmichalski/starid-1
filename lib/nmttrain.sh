@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-#ln -s /tmp/nmt_model model
-#ln -s /tmp/nmt_data data
+#ln -s /home/noah/nmt_model model
+#ln -s /home/noah/nmt_data data
 #ln -s $DIRMODEL model
 DIRMODEL="model"
 #rm -rf $DIRMODEL

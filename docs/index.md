@@ -2,6 +2,10 @@
 
 [references](http://starid.org/references), [about](http://starid.org/about)
 
+*12.11.2017*
+
+minimalist nmt training is [now working]((https://raw.githubusercontent.com/noahhsmith/starid/master/identification/nmt.py)).
+
 *10.11.2017*
 
 after [gathering some thoughts](https://www.linkedin.com/pulse/machine-attention-star-patterns-noah-smith/) about next steps, ready for a minimalist-as-possible implementation for experiments with attention. we'll bring the nmt baseline framework into the project as a library, and find a bare minimum training implementation. that should be a good time to have a new release, r2017d.
