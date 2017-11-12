@@ -4,7 +4,7 @@
 
 *12.11.2017*
 
-minimalist nmt training is [now working]((https://raw.githubusercontent.com/noahhsmith/starid/master/identification/nmt.py)).
+minimalist nmt training is [now working](https://github.com/noahhsmith/starid/blob/master/identification/nmt.py).
 
 *10.11.2017*
 
