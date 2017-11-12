@@ -6,13 +6,13 @@ global hparams
 hparams = tf.contrib.training.HParams(
     src='geom',
     tgt='ids',
-    train_prefix='/tmp/nmt_data/train',
     dev_prefix='/tmp/nmt_data/test1',
     test_prefix='/tmp/nmt_data/test2',
     vocab_prefix='/tmp/nmt_data/vocab',
+    train_prefix='/tmp/nmt_data/train',
     out_dir='/tmp/nmt_modeltest',
 
-    num_units=32,
+    num_units=128,
     num_layers=2,
     dropout=0.2,
     unit_type='lstm',
@@ -27,7 +27,7 @@ hparams = tf.contrib.training.HParams(
     pass_hidden_state=True,
 
     optimizer='sgd',
-    num_train_steps=1000,
+    num_train_steps=100,
     batch_size=128,
     init_op='uniform',
     init_weight=0.1,
@@ -53,21 +53,21 @@ hparams = tf.contrib.training.HParams(
     eos='</s>',
     subword_option='',
     check_special_token=True,
+    share_vocab=False,
 
     forget_bias=1.0,
     num_gpus=1,
     epoch_step=0,
     steps_per_stats=100,
     steps_per_external_eval=None,
-    share_vocab=False,
     metrics='bleu',
     log_device_placement=False,
     random_seed=None,
     override_loaded_hparams=False,
 )
 
-src_vocab_file = hparams.vocab_prefix + "." + hparams.src
-tgt_vocab_file = hparams.vocab_prefix + "." + hparams.tgt
+src_vocab_file = hparams.vocab_prefix + '.' + hparams.src
+tgt_vocab_file = hparams.vocab_prefix + '.' + hparams.tgt
 
 src_vocab_size, src_vocab_file = vocab_utils.check_vocab(
     src_vocab_file,
