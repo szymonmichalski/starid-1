@@ -7,7 +7,7 @@ from lib.nmt import inference
 from lib.nmt.utils import misc_utils as utils
 from nmt_config import hparams
 global hparams
-model_dir = hparams.out_dir
+model_dir = model_dir
 
 def train_minimalist():
 
@@ -19,10 +19,10 @@ def train_minimalist():
 
     with train_model.graph.as_default():
         loaded_train_model, global_step = model_helper.create_or_load_model(
-            train_model.model, hparams.out_dir, train_sess, 'train')
+            train_model.model, model_dir, train_sess, 'train')
 
     summary_name = 'train_log'
-    summary_writer = tf.summary.FileWriter(os.path.join(hparams.out_dir, summary_name), train_model.graph)
+    summary_writer = tf.summary.FileWriter(os.path.join(model_dir, summary_name), train_model.graph)
 
     skip_count = hparams.batch_size * hparams.epoch_step
     train_sess.run(train_model.iterator.initializer,
@@ -42,7 +42,7 @@ def train_minimalist():
             continue
         summary_writer.add_summary(step_summary, global_step)
 
-    loaded_train_model.saver.save(train_sess, os.path.join(hparams.out_dir, 'checkpoint.ckpt'), global_step=global_step)
+    loaded_train_model.saver.save(train_sess, os.path.join(model_dir, 'checkpoint.ckpt'), global_step=global_step)
 
     summary_writer.close()
 
@@ -58,10 +58,10 @@ def eval_minimalist():
 
     with train_model.graph.as_default():
         loaded_train_model, global_step = model_helper.create_or_load_model(
-            train_model.model, hparams.out_dir, train_sess, 'train')
+            train_model.model, model_dir, train_sess, 'train')
 
     summary_name = 'train_log'
-    summary_writer = tf.summary.FileWriter(os.path.join(hparams.out_dir, summary_name), train_model.graph)
+    summary_writer = tf.summary.FileWriter(os.path.join(model_dir, summary_name), train_model.graph)
 
     skip_count = hparams.batch_size * hparams.epoch_step
     train_sess.run(train_model.iterator.initializer,
@@ -84,7 +84,7 @@ def eval_minimalist():
             eval_model, eval_sess, model_dir, hparams, summary_writer)
         summary_writer.add_summary(step_summary, global_step)
 
-    loaded_train_model.saver.save(train_sess, os.path.join(hparams.out_dir, 'checkpoint.ckpt'), global_step=global_step)
+    loaded_train_model.saver.save(train_sess, os.path.join(model_dir, 'checkpoint.ckpt'), global_step=global_step)
 
     summary_writer.close()
 
@@ -105,10 +105,10 @@ def infer_minimalist():
 
     with train_model.graph.as_default():
         loaded_train_model, global_step = model_helper.create_or_load_model(
-            train_model.model, hparams.out_dir, train_sess, 'train')
+            train_model.model, model_dir, train_sess, 'train')
 
     summary_name = 'train_log'
-    summary_writer = tf.summary.FileWriter(os.path.join(hparams.out_dir, summary_name), train_model.graph)
+    summary_writer = tf.summary.FileWriter(os.path.join(model_dir, summary_name), train_model.graph)
 
     skip_count = hparams.batch_size * hparams.epoch_step
     train_sess.run(train_model.iterator.initializer,
@@ -134,12 +134,12 @@ def infer_minimalist():
     #         continue
     #     summary_writer.add_summary(step_summary, global_step)
 
-    loaded_train_model.saver.save(train_sess, os.path.join(hparams.out_dir, 'checkpoint.ckpt'), global_step=global_step)
+    loaded_train_model.saver.save(train_sess, os.path.join(model_dir, 'checkpoint.ckpt'), global_step=global_step)
 
     summary_writer.close()
 
 if __name__ == '__main__':
-    if not tf.gfile.Exists(hparams.out_dir): tf.gfile.MakeDirs(hparams.out_dir)
+    if not tf.gfile.Exists(model_dir): tf.gfile.MakeDirs(model_dir)
     # train_minimalist()
     # eval_minimalist()
     infer_minimalist()
