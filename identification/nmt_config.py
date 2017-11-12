@@ -49,6 +49,11 @@ hparams = tf.contrib.training.HParams(
     tgt_max_len_infer=False,
     source_reverse=True,
 
+    infer_batch_size=32,
+    beam_width=0,
+    length_penalty_weight=0.0,
+    num_translations_per_input=1,
+
     sos='<s>',
     eos='</s>',
     subword_option='',
@@ -60,7 +65,7 @@ hparams = tf.contrib.training.HParams(
     epoch_step=0,
     steps_per_stats=100,
     steps_per_external_eval=None,
-    metrics='bleu',
+    metrics=['bleu'],
     log_device_placement=False,
     random_seed=None,
     override_loaded_hparams=False,

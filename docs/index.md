@@ -4,7 +4,7 @@
 
 *12.11.2017*
 
-minimalist nmt training is [now working](https://github.com/noahhsmith/starid/blob/master/identification/nmt.py).
+minimalist nmt train, eval, and infer are [now working](https://github.com/noahhsmith/starid/blob/master/identification/nmt.py). seems fairly straigthforward to work with each mode independently.
 
 *10.11.2017*
 

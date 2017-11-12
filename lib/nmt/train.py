@@ -454,12 +454,12 @@ def _external_eval(model, global_step, sess, hparams, iterator,
       utils.add_summary(summary_writer, global_step, "%s_%s" % (label, metric),
                         scores[metric])
       # metric: larger is better
-      if save_on_best and scores[metric] > getattr(hparams, "best_" + metric):
-        setattr(hparams, "best_" + metric, scores[metric])
-        model.saver.save(
-            sess,
-            os.path.join(
-                getattr(hparams, "best_" + metric + "_dir"), "translate.ckpt"),
-            global_step=model.global_step)
+      # if save_on_best and scores[metric] > getattr(hparams, "best_" + metric):
+      #   setattr(hparams, "best_" + metric, scores[metric])
+      #   model.saver.save(
+      #       sess,
+      #       os.path.join(
+      #           getattr(hparams, "best_" + metric + "_dir"), "translate.ckpt"),
+      #       global_step=model.global_step)
     utils.save_hparams(out_dir, hparams)
   return scores
