@@ -15,8 +15,7 @@ def train_minimalist():
     with train_model.graph.as_default():
         loaded_train_model, global_step = model_helper.create_or_load_model(train_model.model, hparams.out_dir, train_sess, 'train')
     summary_writer = tf.summary.FileWriter(os.path.join(hparams.out_dir, 'train_log'), train_model.graph)
-    skip_count = hparams.batch_size * hparams.epoch_step
-    train_sess.run(train_model.iterator.initializer, feed_dict={train_model.skip_count_placeholder: skip_count})
+    train_sess.run(train_model.iterator.initializer, feed_dict={train_model.skip_count_placeholder: (hparams.batch_size * hparams.epoch_step)})
     global_step = 0
     while global_step < hparams.num_train_steps:
         try:
@@ -26,105 +25,55 @@ def train_minimalist():
             utils.print_out('# epoch completed, step %d' % global_step)
             train_sess.run(train_model.iterator.initializer, feed_dict={train_model.skip_count_placeholder: 0})
             continue
-        summary_writer.add_summary(step_summary, global_step)
+    summary_writer.add_summary(step_summary, global_step)
     loaded_train_model.saver.save(train_sess, os.path.join(hparams.out_dir, 'checkpoint.ckpt'), global_step=global_step)
     summary_writer.close()
 
 def eval_minimalist():
-
     model_creator = nmt_model.Model
     train_model = model_helper.create_train_model(model_creator, hparams)
     eval_model = model_helper.create_eval_model(model_creator, hparams)
-
-    config_proto = utils.get_config_proto(log_device_placement=hparams.log_device_placement)
-    train_sess = tf.Session(target='', config=config_proto, graph=train_model.graph)
-    eval_sess = tf.Session(target='', config=config_proto, graph=eval_model.graph)
-
+    train_sess = tf.Session(config=utils.get_config_proto(log_device_placement=hparams.log_device_placement), graph=train_model.graph)
+    eval_sess = tf.Session(config=utils.get_config_proto(log_device_placement=hparams.log_device_placement), graph=eval_model.graph)
     with train_model.graph.as_default():
-        loaded_train_model, global_step = model_helper.create_or_load_model(
-            train_model.model, hparams.out_dir, train_sess, 'train')
-
-    summary_name = 'train_log'
-    summary_writer = tf.summary.FileWriter(os.path.join(hparams.out_dir, summary_name), train_model.graph)
-
-    skip_count = hparams.batch_size * hparams.epoch_step
-    train_sess.run(train_model.iterator.initializer,
-                   feed_dict={train_model.skip_count_placeholder: skip_count})
-
+        loaded_train_model, global_step = model_helper.create_or_load_model(train_model.model, hparams.out_dir, train_sess, 'train')
+    summary_writer = tf.summary.FileWriter(os.path.join(hparams.out_dir, 'train_log'), train_model.graph)
+    train_sess.run(train_model.iterator.initializer, feed_dict={train_model.skip_count_placeholder: (hparams.batch_size * hparams.epoch_step)})
+    train.run_internal_eval(eval_model, eval_sess, hparams.out_dir, hparams, summary_writer)
     global_step = 0
     while global_step < hparams.num_train_steps:
         try:
-            (_, step_loss, step_predict_count, step_summary,
-             global_step, step_word_count, batch_size) \
-                = loaded_train_model.train(train_sess)
+            (_, step_loss, step_predict_count, step_summary, global_step, step_word_count, batch_size) = loaded_train_model.train(train_sess)
             global_step += 1
         except tf.errors.OutOfRangeError:
             utils.print_out('# epoch completed, step %d' % global_step)
-            train_sess.run(train_model.iterator.initializer,
-                           feed_dict={train_model.skip_count_placeholder: 0})
+            train_sess.run(train_model.iterator.initializer, feed_dict={train_model.skip_count_placeholder: 0})
             continue
-
-        dev_ppl, test_ppl = train.run_internal_eval(
-            eval_model, eval_sess, hparams.out_dir, hparams, summary_writer)
-        summary_writer.add_summary(step_summary, global_step)
-
+    train.run_internal_eval(eval_model, eval_sess, hparams.out_dir, hparams, summary_writer)
+    summary_writer.add_summary(step_summary, global_step)
     loaded_train_model.saver.save(train_sess, os.path.join(hparams.out_dir, 'checkpoint.ckpt'), global_step=global_step)
-
     summary_writer.close()
 
 def infer_minimalist():
-
     model_creator = nmt_model.Model
-    train_model = model_helper.create_train_model(model_creator, hparams)
     infer_model = model_helper.create_infer_model(model_creator, hparams)
-
     dev_src_file = "%s.%s" % (hparams.dev_prefix, hparams.src)
     dev_tgt_file = "%s.%s" % (hparams.dev_prefix, hparams.tgt)
     sample_src_data = inference.load_data(dev_src_file)
     sample_tgt_data = inference.load_data(dev_tgt_file)
-
-    config_proto = utils.get_config_proto(log_device_placement=hparams.log_device_placement)
-    train_sess = tf.Session(target='', config=config_proto, graph=train_model.graph)
-    infer_sess = tf.Session(target='', config=config_proto, graph=infer_model.graph)
-
-    with train_model.graph.as_default():
-        loaded_train_model, global_step = model_helper.create_or_load_model(
-            train_model.model, hparams.out_dir, train_sess, 'train')
-
-    summary_name = 'train_log'
-    summary_writer = tf.summary.FileWriter(os.path.join(hparams.out_dir, summary_name), train_model.graph)
-
-    skip_count = hparams.batch_size * hparams.epoch_step
-    train_sess.run(train_model.iterator.initializer,
-                   feed_dict={train_model.skip_count_placeholder: skip_count})
-
-    train.run_sample_decode(infer_model, infer_sess,
-                      hparams.out_dir, hparams, summary_writer, sample_src_data,
+    infer_sess = tf.Session(config=utils.get_config_proto(log_device_placement=hparams.log_device_placement), graph=infer_model.graph)
+    with infer_model.graph.as_default():
+        loaded_infer_model, global_step = model_helper.create_or_load_model(infer_model.model, hparams.out_dir, infer_sess, 'infer')
+    infer_sess.run(infer_model.iterator.initializer, feed_dict={infer_model.src_placeholder: sample_src_data, infer_model.batch_size_placeholder: hparams.infer_batch_size})
+    summary_writer = tf.summary.FileWriter(os.path.join(hparams.out_dir, 'infer_log'), infer_model.graph)
+    train.run_sample_decode(infer_model, infer_sess, hparams.out_dir, hparams, summary_writer, sample_src_data,
                       sample_tgt_data)
-
-    dev_scores, test_scores, _ = train.run_external_eval(infer_model, infer_sess, hparams.out_dir, hparams, summary_writer)
-
-    # global_step = 0
-    # while global_step < hparams.num_train_steps:
-    #     try:
-    #         (_, step_loss, step_predict_count, step_summary,
-    #          global_step, step_word_count, batch_size) \
-    #             = loaded_train_model.train(train_sess)
-    #         global_step += 1
-    #     except tf.errors.OutOfRangeError:
-    #         utils.print_out('# epoch completed, step %d' % global_step)
-    #         train_sess.run(train_model.iterator.initializer,
-    #                        feed_dict={train_model.skip_count_placeholder: 0})
-    #         continue
-    #     summary_writer.add_summary(step_summary, global_step)
-
-    loaded_train_model.saver.save(train_sess, os.path.join(hparams.out_dir, 'checkpoint.ckpt'), global_step=global_step)
-
+    train.run_external_eval(infer_model, infer_sess, hparams.out_dir, hparams, summary_writer)
     summary_writer.close()
 
 if __name__ == '__main__':
     if not tf.gfile.Exists(hparams.out_dir): tf.gfile.MakeDirs(hparams.out_dir)
-    train_minimalist()
+    # train_minimalist()
     # eval_minimalist()
-    # infer_minimalist()
+    infer_minimalist()
 

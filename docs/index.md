@@ -2,9 +2,11 @@
 
 [references](http://starid.org/references), [about](http://starid.org/about)
 
-*12.11.2017*
+*13.11.2017*
 
-minimalist nmt train, eval, and infer are [now working](https://github.com/noahhsmith/starid/blob/master/identification/nmt.py). so far, seems fairly straigthforward to work with each mode independently.
+minimalist nmt train, eval, and infer are [now working](https://github.com/noahhsmith/starid/blob/master/identification/nmt.py). 
+
+creating r2017d. onwards to the attention model. 
 
 *10.11.2017*
 
