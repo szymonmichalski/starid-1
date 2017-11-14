@@ -8,7 +8,7 @@
 
 [*identification*](https://github.com/noahhsmith/starid/tree/master/identification) is the heart of the project.
 
-[*triangles*](https://github.com/noahhsmith/starid/blob/master/identification/triangles.cpp) recurrently sets sets aside star identities that disagree geometrically, until only one remains.
+[*triangles*](https://github.com/noahhsmith/starid/blob/master/identification/triangles.cpp) recurrently sets aside star identities that disagree geometrically, until only one remains.
 
 [*convolutional neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/cnn.py) are about static patterns. these are sensitive to rotation.
 
