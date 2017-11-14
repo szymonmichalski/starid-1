@@ -12,6 +12,6 @@
 
 [*convolutional neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/cnn.py) are about static unchanging patterns.
 
-[*recurrent neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/rnn.py) are about sequences and time varying systems. there's less sensitivity to image rotation, beyond a phase offset.
+[*recurrent neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/rnn.py) focus on sequences and time varying systems. there's less sensitivity to image rotation, beyond a phase offset.
 
 [*neural machine translation*](https://github.com/noahhsmith/starid/blob/master/identification/nmt.py) writes sentences about star images using a language about geometry, and translates these sentences into a language about star identities.
