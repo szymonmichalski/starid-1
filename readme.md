@@ -8,7 +8,7 @@
 
 [*identification*](https://github.com/noahhsmith/starid/tree/master/identification) is the heart of the project.
 
-[*geometric structures*](https://github.com/noahhsmith/starid/blob/master/identification/triangles.cpp) starts with a set of star identities and iteratively sets aside those that can’t be correct geometrically, until one remains.
+[*geometric structures*](https://github.com/noahhsmith/starid/blob/master/identification/triangles.cpp) recursively sets sets aside star identities that can’t be correct, until one remains.
 
 [*convolutional neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/cnn.py) are about static unchanging patterns.
 
