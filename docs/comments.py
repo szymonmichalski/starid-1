@@ -27,9 +27,9 @@ def commenter(filename):
 
 with open('comments.md', 'w') as f:
 
-    f.write('%s' % commenter('../identification/recurrent.py'))
+    f.write('%s' % commenter('../identification/rnn.py'))
 
-    f.write('%s' % commenter('../identification/convolutional.py'))
+    f.write('%s' % commenter('../identification/cnn.py'))
 
     f.write('%s' % commenter('../identification/triangles.h'))
 
