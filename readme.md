@@ -14,4 +14,4 @@
 
 [*geometric structures*](https://github.com/noahhsmith/starid/blob/master/identification/triangles.cpp) starts with a set of star identities and iteratively sets aside those that can’t be correct geometrically, until one remains.
 
-[*neural machine translation*](https://github.com/noahhsmith/starid/blob/master/identification/languages.py) focuses on writing sentences about star images using a language about geometry, and translating these sentences into a language about star identifiers.
+[*neural machine translation*](https://github.com/noahhsmith/starid/blob/master/identification/nmt.py) focuses on writing sentences about star images using a language about geometry, and translating these sentences into a language about star identifiers.
