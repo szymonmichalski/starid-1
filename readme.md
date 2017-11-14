@@ -8,9 +8,9 @@
 
 [*identification*](https://github.com/noahhsmith/starid/tree/master/identification) is the heart of the project.
 
-[*recurrent neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/recurrent.py) are natural for sequences and time varying systems. sequences may seem an indirect perspective for star images, but we're concerned with randomly rotated images. rotations shouldn't effect sequences beyond a phase offset, and recurrent networks were quickly able to identify thousands of stars.
+[*recurrent neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/recurrent.py) are natural for sequences and time varying systems. rotations shouldn't effect sequences beyond a phase offset, and recurrent networks were quickly able to identify thousands of stars.
 
-[*convolutional neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/convolutional.py) are about static unchanging patterns. this seems to be a direct approach, but our star images are randomly rotated. for a given star, comparison of two patterns is complicated by their relative rotation.
+[*convolutional neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/convolutional.py) are about static unchanging patterns. for a given star, comparison of two patterns is complicated by their relative rotation.
 
 [*geometric structures*](https://github.com/noahhsmith/starid/blob/master/identification/triangles.cpp) starts with a set of star identities and iteratively sets aside those that can’t be correct geometrically, until one remains.
 
