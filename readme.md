@@ -8,10 +8,10 @@
 
 [*identification*](https://github.com/noahhsmith/starid/tree/master/identification) is the heart of the project.
 
-[*triangles*](https://github.com/noahhsmith/starid/blob/master/identification/triangles.cpp) recurrently sets aside star identities that disagree geometrically, until only one remains.
+[*triangles*](https://github.com/noahhsmith/starid/blob/master/identification/triangles.cpp) recurrently sets aside star identities that disagree geometrically, until one remains.
 
-[*convolutional neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/cnn.py) are about static patterns. these are sensitive to rotation.
+[*convolutional neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/cnn.py) are about static patterns.
 
-[*recurrent neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/rnn.py) are focused on sequential patterns. it's possible to reduce sensitivity to rotation.
+[*recurrent neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/rnn.py) are focused on sequences. it's possible to reduce sensitivity to rotation.
 
 [*neural machine translation*](https://github.com/noahhsmith/starid/blob/master/identification/nmt.py) writes sentences about star patterns using a geometrical language, and translates into an identifier language. this can be insensitive to rotation.
