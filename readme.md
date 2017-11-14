@@ -12,6 +12,6 @@
 
 [*convolutional neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/cnn.py) are about static unchanging patterns. these are sensitive to rotation.
 
-[*recurrent neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/rnn.py) are focused on sequential varying patterns. it's possible to reduce sensitivity to rotation.
+[*recurrent neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/rnn.py) are focused on sequential patterns. it's possible to reduce sensitivity to rotation.
 
 [*neural machine translation*](https://github.com/noahhsmith/starid/blob/master/identification/nmt.py) writes sentences about star patterns using a geometrical language, and translates these sentences into an identifier language. this can be insensitive to rotation.
