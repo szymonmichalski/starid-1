@@ -10,8 +10,8 @@
 
 [*triangles*](https://github.com/noahhsmith/starid/blob/master/identification/triangles.cpp) recurrently sets sets aside star identities that disagree geometrically, until only one remains.
 
-[*convolutional neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/cnn.py) are about static unchanging patterns.
+[*convolutional neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/cnn.py) are about static unchanging patterns. these are sensitive to rotation.
 
-[*recurrent neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/rnn.py) are focused on sequences and time varying systems. it's possible to reduce sensitivity to image rotation.
+[*recurrent neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/rnn.py) are focused on sequential varying patterns. it's possible to reduce sensitivity to rotation.
 
-[*neural machine translation*](https://github.com/noahhsmith/starid/blob/master/identification/nmt.py) writes sentences about star images using a language about geometry, and translates these sentences into a language about star identities. this can be insensitive to image rotation.
+[*neural machine translation*](https://github.com/noahhsmith/starid/blob/master/identification/nmt.py) writes sentences about star patterns using a geometrical language, and translates these sentences into an identifier language. this can be insensitive to rotation.
