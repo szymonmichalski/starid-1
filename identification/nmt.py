@@ -68,8 +68,7 @@ def infer_minimalist():
         loaded_infer_model, global_step = model_helper.create_or_load_model(infer_model.model, hparams.out_dir, infer_sess, 'infer')
     infer_sess.run(infer_model.iterator.initializer, feed_dict={infer_model.src_placeholder: sample_src_data, infer_model.batch_size_placeholder: hparams.infer_batch_size})
     summary_writer = tf.summary.FileWriter(os.path.join(hparams.out_dir, 'infer_log'), infer_model.graph)
-    train.run_sample_decode(infer_model, infer_sess, hparams.out_dir, hparams, summary_writer, sample_src_data,
-                      sample_tgt_data)
+    train.run_sample_decode(infer_model, infer_sess, hparams.out_dir, hparams, summary_writer, sample_src_data, sample_tgt_data)
     train.run_external_eval(infer_model, infer_sess, hparams.out_dir, hparams, summary_writer)
     summary_writer.close()
 
