@@ -10,7 +10,7 @@
 
 [*triangles*](https://github.com/noahhsmith/starid/blob/master/identification/triangles.cpp) recurrently sets sets aside star identities that disagree geometrically, until only one remains.
 
-[*convolutional neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/cnn.py) are about static unchanging patterns. these are sensitive to rotation.
+[*convolutional neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/cnn.py) are about static patterns. these are sensitive to rotation.
 
 [*recurrent neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/rnn.py) are focused on sequential patterns. it's possible to reduce sensitivity to rotation.
 
