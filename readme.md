@@ -14,4 +14,4 @@
 
 [*recurrent neural networks*](https://github.com/noahhsmith/starid/blob/master/identification/rnn.py) are focused on sequential patterns. it's possible to reduce sensitivity to rotation.
 
-[*neural machine translation*](https://github.com/noahhsmith/starid/blob/master/identification/nmt.py) writes sentences about star patterns using a geometrical language, and translates these sentences into an identifier language. this can be insensitive to rotation.
+[*neural machine translation*](https://github.com/noahhsmith/starid/blob/master/identification/nmt.py) writes sentences about star patterns using a geometrical language, then translates into an identifier language. this can be insensitive to rotation.
