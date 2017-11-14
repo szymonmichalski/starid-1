@@ -1,4 +1,4 @@
-### *convolutional network* cnn using libstarid cpp eigen kernel and tensorflow training and inference
+### *convolutional network* cnn using libstarid, and tensorflow training and inference
 ###
 import tensorflow as tf
 import numpy as np

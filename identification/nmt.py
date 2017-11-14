@@ -1,3 +1,5 @@
+### *neural machine translation* nmt using languages based on libstarid, and tensorflow training and inference
+###
 import tensorflow as tf
 import os
 from lib.nmt import model as nmt_model
