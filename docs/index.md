@@ -2,6 +2,10 @@
 
 [references](http://starid.org/references), [about](http://starid.org/about)
 
+*17.11.2017*
+
+very good article about autoencoders [here](https://www.learnopencv.com/understanding-autoencoders-using-tensorflow-python/). highly recommended. their clearly near ancestors of neural machine translation, sequence to sequence learning, and provide more intuition about what is happening - the nature of thought vectors passed from encoders to decoders.
+
 *13.11.2017*
 
 minimalist nmt train, eval, and infer are [now working](https://github.com/noahhsmith/starid/blob/master/identification/nmt.py). 
