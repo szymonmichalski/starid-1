@@ -4,7 +4,7 @@
 
 *17.11.2017*
 
-very good article about autoencoders [here](https://www.learnopencv.com/understanding-autoencoders-using-tensorflow-python/). highly recommended. their clearly near ancestors of neural machine translation, sequence to sequence learning, and provide more intuition about what is happening - the nature of thought vectors passed from encoders to decoders.
+nice [autoencoder example](https://www.learnopencv.com/understanding-autoencoders-using-tensorflow-python/), highly recommended. they're clearly near ancestors of neural machine translation and provide more intuition about what is happening. the nature of thought vectors passed from encoders to decoders.
 
 *13.11.2017*
 
